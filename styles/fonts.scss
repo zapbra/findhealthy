@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@900&family=Alegreya:ital,wght@0,400;0,700;1,400&display=swap");
+$black: "#192430";
+$dark-pink: "#AC3B61";
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Alegreya Sans";
+  color: $black;
+}
+
+p {
+  font-family: "Alegreya";
+  color: $dark-pink;
+}
+
+// Laptop view, base px 21, multiplier of 1.414
+@media only screen and (min-width: 1201px) {
+  html {
+    font-size: 18px;
+  }
+  h1 {
+    font-size: 5.653rem;
+  }
+  h2 {
+    font-size: 3.998rem;
+  }
+  h3 {
+    font-size: 2.827rem;
+  }
+  h4 {
+    font-size: 1.9993rem;
+  }
+  h5 {
+    font-size: 1.414rem;
+  }
+  h6 {
+    font-size: 1rem;
+  }
+  p {
+    font-size: 18px;
+  }
+}
+// Tablet view, base px 18, multiplier of 1.25
+@media only screen and (min-width: 601px) and (max-width: 1200px) {
+  .small {
+    font-size: 12.73px;
+  }
+  html {
+    font-size: 18px;
+  }
+  h1 {
+    font-size: 3.998rem;
+  }
+  h2 {
+    font-size: 2.441rem;
+  }
+  h3 {
+    font-size: 1.953rem;
+  }
+  h4 {
+    font-size: 1.563rem;
+  }
+  h5 {
+    font-size: 1.25rem;
+  }
+  h6 {
+    font-size: 1rem;
+  }
+}
+// Mobile view, base px 18, multiplier of 1.25
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 16px;
+  }
+  h1 {
+    font-size: 3.052rem;
+  }
+  h2 {
+    font-size: 2.441rem;
+  }
+  h3 {
+    font-size: 1.953rem;
+  }
+  h4 {
+    font-size: 1.563rem;
+  }
+  h5 {
+    font-size: 1.25rem;
+  }
+  h6 {
+    font-size: 1rem;
+  }
+  p {
+    font-size: 16px;
+  }
+}

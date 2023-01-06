@@ -1,0 +1,107 @@
+$tan: #edc7b7;
+$light-beige: #eee2dc;
+$grey: #bab2b5;
+$darkBlue: #123c69;
+$darkPink: #ac3b61;
+$redGrey: #81646d;
+$black: #192430;
+$desatLightBlue: #c6cacf;
+$desatDarkBlue: #404a55;
+.blue-btn-one {
+  border: 2px solid $darkBlue;
+  background-color: #fff;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: inline-block;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: $darkBlue;
+  }
+  &:hover {
+    background-color: $light-beige;
+  }
+  &:active {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: #fff;
+    }
+    background-color: $darkBlue;
+    border: 2px solid #fff;
+    .blue {
+      color: #fff;
+    }
+  }
+  &:disabled {
+    background-color: $desatLightBlue;
+    cursor: default;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: $desatDarkBlue;
+    }
+  }
+}
+
+.red-btn-one {
+  border: 2px solid $darkPink;
+  background-color: #fff;
+  padding: 8px 16px;
+  cursor: pointer;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: $darkPink;
+  }
+  &:hover {
+    background-color: $light-beige;
+  }
+}
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.popup {
+  border: 1px solid $darkPink;
+  background-color: $light-beige;
+  padding: 8px;
+  animation-name: opacity;
+  animation-duration: 0.5s;
+}
+
+.more-btn {
+  background-color: $grey;
+  display: inline-flex;
+  padding: 4px;
+  border: 1px solid black;
+  cursor: pointer;
+  align-items: center;
+  p {
+    margin-right: 4px;
+  }
+  &:hover {
+    background-color: $light-beige;
+  }
+}
