@@ -27,14 +27,16 @@ const Cont = styled.div`
   }
 `;
 const RenderImages = ({ images }) => {
-  const imageElems = images.map((image) => {
+  const imageElems = images.map((image, index) => {
     return (
       <Image
+        key={index}
         src={URL.createObjectURL(image)}
         width="100"
         height="100"
-        objectFit="cover"
+        style={{ objectFit: "cover" }}
         className="opacity-anim image"
+        alt={image.name}
       />
     );
   });

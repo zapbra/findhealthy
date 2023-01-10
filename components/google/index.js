@@ -87,9 +87,14 @@ const index = () => {
     setMap(null);
   }, []);
 
-  const markers = locations.map((location) => {
+  const updateLocation = (value) => {
+    setLocation(value);
+  }
+
+  const markers = locations.map((location, index) => {
     return (
       <MarkerComponent
+        key={index}
         latLong={location.coords}
         title={location.title}
         textContent={location.textContent}
@@ -151,6 +156,7 @@ const index = () => {
         startAdding={startAdding}
         stopAdding={stopAdding}
         location={location}
+        setLocation = {updateLocation}
       />
     </Cont>
   ) : (

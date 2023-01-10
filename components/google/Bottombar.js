@@ -23,7 +23,13 @@ const Cont = styled.div`
     margin: 0 auto;
   }
 `;
-const Bottombar = ({ adding, startAdding, stopAdding, location }) => {
+const Bottombar = ({
+  adding,
+  startAdding,
+  stopAdding,
+  location,
+  setLocation,
+}) => {
   const {
     handleSubmit,
     register,
@@ -35,7 +41,7 @@ const Bottombar = ({ adding, startAdding, stopAdding, location }) => {
   const [images, setImages] = useState([]);
   const [tags, setTags] = useState(["milk", "butter", "eggs", "cheese"]);
   const [selectedTags, setSelectedTags] = useState([]);
-
+  const [farm, setFarm] = useState({});
   const pushTag = (tag) => {
     setSelectedTags((prev) => {
       return [...prev, tag];
@@ -68,13 +74,42 @@ const Bottombar = ({ adding, startAdding, stopAdding, location }) => {
     });
   };
 
-  const submitForm = handleSubmit(async (formData) => {});
+  const uploadImages = async () => {
+    console.log("x");
+    console.log(images[0]);
+    console.log("x");
+    const formData = new FormData();
+    formData.append("image", images[0]);
+    const response = await fetch("https://api.imgur.com/3/upload", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+  };
+  const submitForm = handleSubmit(async (formData) => {
+    alert("k");
+    setFarm({
+      address: location,
+      products: tags,
+      name: formData.name,
+      description: formData.description,
+      hours: { from: formData.hoursFrom, to: formData.hoursTo },
+      images: images,
+    });
+    uploadImages();
+  });
+
+  useEffect(() => {}, [farm]);
   return (
     <Cont colors={COLORS}>
       <button
         disabled={adding}
         onClick={startAdding}
-        className="blue-btn-one box-shadow-2"
+        className="blue-btn-one box-shadow-2 mar-bottom-8 mar-right-8"
       >
         <h4>ADD NEW LOCATION</h4>
       </button>
@@ -91,7 +126,7 @@ const Bottombar = ({ adding, startAdding, stopAdding, location }) => {
       <br />
       {adding && (
         <form className="opacity-anim" onSubmit={submitForm}>
-          <PlacesAutocomplete location={location} />
+          <PlacesAutocomplete location={location} setLocation={setLocation} />
           <div className="input-line">
             <div className="input-line">
               <h4>PRODUCT TYPES *</h4>
@@ -116,9 +151,9 @@ const Bottombar = ({ adding, startAdding, stopAdding, location }) => {
           </div>
           <div className="input-line">
             <h4>DESCRIPTION *</h4>
-            <p>What do they sell?</p>
-            <p>How are their prices?</p>
-            <p>What was your experience?</p>
+            <p className="italic">What do they sell?</p>
+            <p className="italic">How are their prices?</p>
+            <p className="italic">What was your experience?</p>
             <textarea
               {...register("description", {
                 required: true,
@@ -129,9 +164,7 @@ const Bottombar = ({ adding, startAdding, stopAdding, location }) => {
             />
           </div>
           <div className="input-line">
-            <h4>
-              HOURS <span>(optional)</span>
-            </h4>
+            <h4>HOURS</h4>
             <h5>From</h5>
             <input
               {...register("hoursFrom", {
@@ -181,7 +214,7 @@ const Bottombar = ({ adding, startAdding, stopAdding, location }) => {
 
 export default Bottombar;
 
-const PlacesAutocomplete = ({ setSelected, location }) => {
+const PlacesAutocomplete = ({ setSelected, location, setLocation }) => {
   const {
     ready,
     value,
@@ -192,24 +225,23 @@ const PlacesAutocomplete = ({ setSelected, location }) => {
   useEffect(() => {
     setValue(location);
   }, [location]);
-  console.log(location);
-  console.log(value);
+
   const handleSelect = async (address) => {
     setValue(address.description);
-
+    setLocation(address.description);
     const results = await getGeocode({ address: address.description });
     const { lat, lng } = await getLatLng(results[0]);
 
     clearSuggestions();
     //const results = await getGeocode({ address: description });
     //const { lat, lng } = await getLatLng(results[0]);
-    //console.log(results);
+
     //setSelected({ lat, lng });
   };
 
   return (
     <div className="mar-bottom-32">
-      <h4>ENTER AN ADDRESS</h4>
+      <h4>ENTER AN ADDRESS *</h4>
       <input
         value={value}
         type="text"

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import COLORS from "../../data/colors";
 import Tag from "./Tag";
 import SelectedTag from "./SelectedTag";
@@ -8,15 +8,20 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div``;
 const ProductTypes = ({ tags, selectedTags, pushTag, deleteTag }) => {
   const [text, setText] = useState("");
-
+  const [copyTags, setCopyTags] = useState(tags);
   const [renderRange, setRenderRange] = useState(10);
 
-  const renderTags = tags.map((tag) => {
-    return <Tag text={tag} pushTag={pushTag} />;
+  const renderTags = copyTags.map((tag, index) => {
+    return <Tag key={index} text={tag} pushTag={pushTag} />;
   });
 
-  const selectedTagElems = selectedTags.map((tag) => {
-    return <SelectedTag text={tag} deleteTag={deleteTag} />;
+  useEffect(() => {
+    setCopyTags((prev) => {
+      return tags.filter((tag) => tag.includes(text));
+    });
+  }, [tags]);
+  const selectedTagElems = selectedTags.map((tag, index) => {
+    return <SelectedTag key={index} text={tag} deleteTag={deleteTag} />;
   });
 
   const increaseRenderRange = () => {
@@ -27,10 +32,12 @@ const ProductTypes = ({ tags, selectedTags, pushTag, deleteTag }) => {
 
   const updateText = (e) => {
     setText(e.target.value);
+
     if (e.target.value === "") {
+      setCopyTags(tags);
     } else {
-      setRenderTags((prev) => {
-        return tags.filter((tag) => tag.includes(text));
+      setCopyTags((prev) => {
+        return tags.filter((tag) => tag.includes(e.target.value));
       });
     }
   };
