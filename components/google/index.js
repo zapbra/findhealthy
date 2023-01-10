@@ -27,7 +27,7 @@ const options = {
 function createKey(location) {
   return location.lat + location.lng;
 }
-const index = () => {
+const Index = () => {
   const [location, setLocation] = useState("");
   const [locations, setLocations] = useState([
     {
@@ -164,4 +164,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
