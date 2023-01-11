@@ -78,26 +78,25 @@ const Bottombar = ({
   const uploadImages = async () => {
     const formData = new FormData();
     
-
+    /*
     images.forEach((image, index) => {
       formData.append(`image`, image);
-    });
+    });*/
     //formData.append("image", images[0]);
-    for (const value of formData) {
-      try{
-        const response = await fetch("https://api.imgur.com/3/upload", {
-          method: "POST",
-          body: value,
-          headers: {
-            Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
-          },
-        });
-        const data = await response.json();
-        console.log(data);
-      } catch(err) {
-        console.log(err.message)
-      } 
-    }
+    formData.append('image', image[0])
+    try{
+      const response = await fetch("https://api.imgur.com/3/upload", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch(err) {
+      console.log(err.message)
+    } 
     
     
   };
