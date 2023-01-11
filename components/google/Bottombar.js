@@ -42,6 +42,7 @@ const Bottombar = ({
   const [tags, setTags] = useState(["milk", "butter", "eggs", "cheese"]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [farm, setFarm] = useState({});
+  const [imageLinks, setImageLinks] = useState([]);
   const pushTag = (tag) => {
     setSelectedTags((prev) => {
       return [...prev, tag];
@@ -75,20 +76,30 @@ const Bottombar = ({
   };
 
   const uploadImages = async () => {
-    console.log("x");
-    console.log(images[0]);
-    console.log("x");
     const formData = new FormData();
-    formData.append("image", images[0]);
-    const response = await fetch("https://api.imgur.com/3/upload", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
-      },
+    
+
+    images.forEach((image, index) => {
+      formData.append(`image`, image);
     });
-    const data = await response.json();
-    console.log(data);
+    //formData.append("image", images[0]);
+    for (const value of formData) {
+      try{
+        const response = await fetch("https://api.imgur.com/3/upload", {
+          method: "POST",
+          body: value,
+          headers: {
+            Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+      } catch(err) {
+        console.log(err.message)
+      } 
+    }
+    
+    
   };
   const submitForm = handleSubmit(async (formData) => {
     alert("k");
