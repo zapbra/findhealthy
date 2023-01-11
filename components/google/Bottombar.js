@@ -77,14 +77,14 @@ const Bottombar = ({
 
   const uploadImages = async () => {
     const formData = new FormData();
-    
+
     /*
     images.forEach((image, index) => {
       formData.append(`image`, image);
     });*/
     //formData.append("image", images[0]);
-    formData.append('image', image[0])
-    try{
+    formData.append("image", images[0]);
+    try {
       const response = await fetch("https://api.imgur.com/3/upload", {
         method: "POST",
         body: formData,
@@ -94,11 +94,9 @@ const Bottombar = ({
       });
       const data = await response.json();
       console.log(data);
-    } catch(err) {
-      console.log(err.message)
-    } 
-    
-    
+    } catch (err) {
+      console.log(err.message);
+    }
   };
   const submitForm = handleSubmit(async (formData) => {
     alert("k");
