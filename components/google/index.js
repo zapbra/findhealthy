@@ -3,7 +3,7 @@ import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import Bottombar from "./Bottombar";
 import MarkerComponent from "./MarkerComponent";
 import Alert from "../popups/alert";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { insertCountries } from "../../utils/supabaseFunctions";
 const Cont = styled.div`
   min-height: 100vh;
@@ -29,27 +29,32 @@ function createKey(location) {
 }
 const Index = ({ locations, tagsFetch, addTag }) => {
   const [location, setLocation] = useState("");
+  const [markers, setMarkers] = useState([]);
+  useEffect(() => {
+    setMarkers((prev) => {
+      return locations.map((location, index) => {
+        return (
+          <MarkerComponent
+            key={index}
+            latLong={{
+              lat: Number(location.address[0].lat),
+              lng: Number(location.address[0].lng),
+            }}
+            name={location.name}
+            description={location.description}
+            email={location.email}
+            number={location.number}
+            website={location.website}
+            pickup={location.pickup}
+            address={location.address[0].text_address}
+            hoursFrom={location.hoursFrom}
+            hoursTo={location.hoursTo}
+          />
+        );
+      });
+    });
+  }, [locations]);
 
-  const markers = locations.map((location, index) => {
-    return (
-      <MarkerComponent
-        key={index}
-        latLong={{
-          lat: Number(location.address[0].lat),
-          lng: Number(location.address[0].lng),
-        }}
-        name={location.name}
-        description={location.description}
-        email={location.email}
-        number={location.number}
-        website={location.website}
-        pickup={location.pickup}
-        address={location.address[0].text_address}
-        hoursFrom={location.hoursFrom}
-        hoursTo={location.hoursTo}
-      />
-    );
-  });
   console.log(markers);
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
@@ -143,7 +148,7 @@ const Index = ({ locations, tagsFetch, addTag }) => {
         location={location}
         setLocation={updateLocation}
         tagsFetch={tagsFetch}
-        addTag = {addTag}
+        addTag={addTag}
       />
     </Cont>
   ) : (
