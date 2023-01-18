@@ -9,7 +9,10 @@ const createLocation = async (
   pickup,
   website = null,
   email = null,
-  number = null
+  number = null,
+  tags,
+  products,
+
 ) => {
   try {
     const { data, error } = await supabase
@@ -24,6 +27,8 @@ const createLocation = async (
         website,
         email,
         number,
+        tags,
+        products,
       })
       .select("id")
       .single();

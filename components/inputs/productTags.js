@@ -10,27 +10,44 @@ const ProductTypes = ({ tags, selectedTags, pushTag, deleteTag }) => {
   const [text, setText] = useState("");
   const [copyTags, setCopyTags] = useState(tags);
   const [renderRange, setRenderRange] = useState(10);
-
+  const [renderTags, setRenderTags] = useState([]);
   const pushTagFunctional = (tag) => {
     pushTag(tag);
     setText("");
   };
-
-  const renderTags = copyTags.map((tag, index) => {
-    return <Tag key={index} text={tag} pushTag={pushTagFunctional} />;
-  });
 
   useEffect(() => {
     setCopyTags((prev) => {
       return tags.filter((tag) => tag.includes(text));
     });
   }, [tags]);
+
+  useEffect(() => {
+    let renderArticleElems = [];
+    if (copyTags.length >= 10) {
+      for (let i = 0; i < renderRange - selectedTags.length; i++) {
+        renderArticleElems.push(
+          <Tag key={i} text={copyTags[i]} pushTag={pushTagFunctional} />
+        );
+      }
+    } else {
+      for (let i = 0; i < copyTags.length; i++) {
+        renderArticleElems.push(
+          <Tag key={i} text={copyTags[i]} pushTag={pushTagFunctional} />
+        );
+      }
+    }
+    setRenderTags(renderArticleElems);
+  }, [copyTags]);
   const selectedTagElems = selectedTags.map((tag, index) => {
     return <SelectedTag key={index} text={tag} deleteTag={deleteTag} />;
   });
 
   const increaseRenderRange = () => {
     setRenderRange((prev) => {
+      if (prev + 10 > tags.length) {
+        return tags.length;
+      }
       return prev + 10;
     });
   };
@@ -71,7 +88,7 @@ const ProductTypes = ({ tags, selectedTags, pushTag, deleteTag }) => {
       <div className="tag-holder">{renderTags}</div>
       <div className="mar-bottom-8"></div>
       {renderRange < tags.length && (
-        <div className="more-btn">
+        <div onClick={increaseRenderRange} className="more-btn">
           <p className="bold">SHOW MORE</p>
           <FontAwesomeIcon icon={faEllipsis} className="icon-ssm" />
         </div>

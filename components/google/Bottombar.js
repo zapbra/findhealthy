@@ -28,6 +28,9 @@ const Cont = styled.div`
     max-width: 600px;
     margin: 0 auto;
   }
+  @media only screen and (max-width: 400px) {
+    padding: 8px;
+  }
 `;
 const Bottombar = ({
   adding,
@@ -52,6 +55,8 @@ const Bottombar = ({
   const [selectedTags, setSelectedTags] = useState([]);
   const [farm, setFarm] = useState({});
   const [imageLinks, setImageLinks] = useState([]);
+  const [product, setProduct] = useState("");
+  const [products, setProducts] = useState([]);
   const [address, setAddress] = useState({
     fullAddress: "",
     street: "",
@@ -159,7 +164,9 @@ const Bottombar = ({
       formData.pickup,
       formData.website,
       formData.email,
-      numberOrganize.join("")
+      numberOrganize.join(""),
+      tags,
+      products
     );
     createAddress(
       locationId,
@@ -173,6 +180,49 @@ const Bottombar = ({
     //uploadImages();
   });
 
+  const addProduct = (e) => {
+    e.preventDefault();
+    if (product === "") {
+      toast.error("product field is empty!");
+      productInput.current.classList.add("red-anim");
+      setTimeout(() => {
+        productInput.current.classList.remove("red-anim");
+      }, 1000);
+      return;
+    } else if (products.some((innerProduct) => innerProduct === product)) {
+      toast.error("product has already been added");
+      productInput.current.classList.add("red-anim");
+      setTimeout(() => {
+        productInput.current.classList.remove("red-anim");
+      }, 1000);
+      return;
+    }
+    setProducts((prev) => {
+      return [...prev, product];
+    });
+    setProduct("");
+  };
+  console.log(products);
+  const productInput = useRef(null);
+  const productElems = products.map((product) => {
+    return (
+      <div className="flex-inline mar-right-8 mar-bottom-8 align-center product-tag">
+        {" "}
+        <p className="mar-right-4">{product}</p>{" "}
+        <FontAwesomeIcon
+          onClick={() => removeProductTag(product)}
+          icon={faClose}
+          className="icon-ssm "
+        />
+      </div>
+    );
+  });
+
+  const removeProductTag = (productTag) => {
+    setProducts((prev) => {
+      return [...prev.filter((product) => product !== productTag)];
+    });
+  };
   return (
     <Cont colors={COLORS}>
       <button
@@ -228,9 +278,9 @@ const Bottombar = ({
           </div>
           <div className="input-line">
             <h4>DESCRIPTION *</h4>
-            <p className="italic">What do they sell?</p>
+
             <p className="italic">How are their prices?</p>
-            <p className="italic">What was your experience?</p>
+            <p className="italic mar-bottom-4">What was your experience?</p>
             <textarea
               {...register("description", {
                 required: true,
@@ -243,6 +293,32 @@ const Bottombar = ({
               <p className="error">*Description is required</p>
             )}
           </div>
+
+          <div className="input-line">
+            <h4>SPECIFIC PRODUCTS</h4>
+            <p className="italic mar-bottom-4">
+              Add more specic products to show exactly what they have
+            </p>
+            <form onSubmit={addProduct}>
+              <input
+                value={product}
+                onChange={(e) => setProduct(e.target.value)}
+                type="text"
+                placeholder="sirloin steak... unsalted raw cheese..."
+                className="mar-bottom-8"
+                ref={productInput}
+              />
+            </form>
+            {productElems}
+            <div className="mar-bottom-16"></div>
+            <div className="blue-btn-one" onClick={addProduct}>
+              <div className="flex align-center">
+                <h5 className="mar-right-4">Add</h5>
+                <FontAwesomeIcon icon={faPlus} className="icon-ssm blue" />
+              </div>
+            </div>
+          </div>
+
           <div className="input-line">
             <h4>HOURS</h4>
             <h5>From</h5>
