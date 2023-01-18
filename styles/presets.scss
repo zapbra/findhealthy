@@ -23,11 +23,14 @@ h6 {
 .red {
   color: $dark-pink;
 }
+.black {
+  color: $black;
+}
 .blue {
   color: $dark-blue;
 }
-.italic{
-  font-style:italic;
+.italic {
+  font-style: italic;
 }
 // styling general
 .inline-block {
@@ -36,6 +39,7 @@ h6 {
 .bold {
   font-weight: 600;
 }
+
 .text-wrap {
   word-wrap: break-word;
 }
@@ -130,7 +134,9 @@ h6 {
 .mar-bottom-32 {
   margin-bottom: 32px;
 }
-
+.pad-right-8 {
+  padding-right: 8px;
+}
 .mar-right-4 {
   margin-right: 4px;
 }
@@ -168,8 +174,11 @@ h6 {
 .flex {
   display: flex;
 }
+.flex-wrap {
+  flex-wrap: wrap;
+}
 .flex-inline {
-  display: inline-flex;
+  display: inline-flex !important;
 }
 .flex-row {
   flex-direction: row !important;
@@ -215,6 +224,9 @@ h6 {
     text-decoration: underline;
   }
 }
+.align-start {
+  align-items: flex-start;
+}
 
 .report-bottom-right {
   position: absolute;
@@ -229,4 +241,42 @@ h6 {
 }
 .center-inline {
   text-align: center;
+}
+
+input[type="radio"] {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid $dark-pink;
+  border-radius: 50%;
+  transform: translateY(-0.075em);
+
+  display: grid;
+  place-content: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em $dark-pink;
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+.underline {
+  text-decoration: underline;
+}
+a {
+  &:hover {
+    text-decoration: underline;
+  }
 }

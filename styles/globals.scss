@@ -11,6 +11,7 @@ $redGrey: #81646d;
 $black: #192430;
 $k: "#fff";
 $none: none;
+
 * {
   margin: 0;
   padding: 0;
@@ -36,7 +37,15 @@ textarea {
     outline: 3px solid $darkPink;
   }
 }
-input[type="text"] {
+.info-box {
+  max-height: 300px;
+  &-description {
+    border: 1px solid $light-beige;
+    padding: 2px;
+  }
+}
+input[type="text"],
+input[type="email"] {
   border: 1px solid $darkPink;
   background-color: $light-beige;
   font-size: 18px;
@@ -121,6 +130,14 @@ li {
     background-color: $grey;
   }
 }
+.tag-two {
+  border: 1px solid black;
+  background: #fff;
+  display: inline-block;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  padding: 2px 4px;
+}
 .tag-holder {
   max-height: 300px;
   overflow: auto;
@@ -141,4 +158,14 @@ li {
   &:hover {
     background-color: #fff;
   }
+}
+
+.error {
+  color: red;
+  margin-top: 4px;
+}
+
+.accordion-content {
+  overflow-y: auto;
+  transition: height 0.5s ease;
 }

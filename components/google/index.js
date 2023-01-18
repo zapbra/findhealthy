@@ -4,7 +4,7 @@ import Bottombar from "./Bottombar";
 import MarkerComponent from "./MarkerComponent";
 import Alert from "../popups/alert";
 import { useState, useCallback } from "react";
-
+import { insertCountries } from "../../utils/supabaseFunctions";
 const Cont = styled.div`
   min-height: 100vh;
 `;
@@ -15,8 +15,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 43.65107,
-  lng: -79.347015,
+  lat: 45.31075999999999,
+  lng: -76.07132,
 };
 
 const options = {
@@ -27,46 +27,30 @@ const options = {
 function createKey(location) {
   return location.lat + location.lng;
 }
-const Index = () => {
+const Index = ({ locations, tagsFetch, addTag }) => {
   const [location, setLocation] = useState("");
-  const [locations, setLocations] = useState([
-    {
-      coords: { lat: 43.65107, lng: -79.347015 },
-      title: "fish",
-      textContent: (
-        <>
-          <h3>Titleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</h3>
-          <p>text content</p>{" "}
-        </>
-      ),
-    },
-    {
-      coords: { lat: 43.67107, lng: -79.347015 },
-      title: "beef",
-      textContent: "This is epic text content bruh",
-    },
-    {
-      coords: { lat: 43.67107, lng: -79.3 },
-      title: "chicken",
-      textContent: "This is epic text content bruh",
-    },
-    {
-      coords: { lat: 46.4, lng: -79.5 },
-      title: "socks",
-      textContent: "This is epic text content bruh",
-    },
-    {
-      coords: { lat: 45.3, lng: -78.3 },
-      title: "finger",
-      textContent: "This is epic text content bruh",
-    },
-    {
-      coords: { lat: 41.12, lng: -79.2 },
-      title: "toenails",
-      textContent: "This is epic text content bruh",
-    },
-  ]);
 
+  const markers = locations.map((location, index) => {
+    return (
+      <MarkerComponent
+        key={index}
+        latLong={{
+          lat: Number(location.address[0].lat),
+          lng: Number(location.address[0].lng),
+        }}
+        name={location.name}
+        description={location.description}
+        email={location.email}
+        number={location.number}
+        website={location.website}
+        pickup={location.pickup}
+        address={location.address[0].text_address}
+        hoursFrom={location.hoursFrom}
+        hoursTo={location.hoursTo}
+      />
+    );
+  });
+  console.log(markers);
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -89,20 +73,11 @@ const Index = () => {
 
   const updateLocation = (value) => {
     setLocation(value);
-  }
+  };
 
-  const markers = locations.map((location, index) => {
-    return (
-      <MarkerComponent
-        key={index}
-        latLong={location.coords}
-        title={location.title}
-        textContent={location.textContent}
-      />
-    );
-  });
   const addMarker = async (e) => {
     //stopAdding();
+    focusSearchBar();
     fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${e.latLng.lat()},${e.latLng.lng()}&key=${
         process.env.NEXT_PUBLIC_GOOGLE_API_KEY
@@ -136,6 +111,15 @@ const Index = () => {
     setAdding(false);
   };
 
+  const focusSearchBar = () => {
+    const searchBarElem = document.getElementById("address-input");
+    searchBarElem.focus();
+    searchBarElem.classList.add("scale-pop-anim");
+    searchBarElem.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => {
+      searchBarElem.classList.remove("scale-pop-anim");
+    }, 1000);
+  };
   return isLoaded ? (
     <Cont>
       {adding && <Alert />}
@@ -143,20 +127,23 @@ const Index = () => {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
+        zoom={8}
         onLoad={onLoad}
         onUnmount={onUnmount}
         onClick={(e) => adding && addMarker(e)}
+        options={{ gestureHandling: "greedy" }}
       >
         {markers}
       </GoogleMap>
-      <button onClick={addMarker}>add marker</button>
+      <button onClick={focusSearchBar}>add marker</button>
       <Bottombar
         adding={adding}
         startAdding={startAdding}
         stopAdding={stopAdding}
         location={location}
-        setLocation = {updateLocation}
+        setLocation={updateLocation}
+        tagsFetch={tagsFetch}
+        addTag = {addTag}
       />
     </Cont>
   ) : (

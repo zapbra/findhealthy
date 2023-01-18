@@ -1,3 +1,4 @@
+$red: rgb(236, 41, 41);
 @keyframes opacity {
   from {
     opacity: 0;
@@ -10,4 +11,40 @@
 .opacity-anim {
   animation-name: opacity;
   animation-duration: 1s;
+}
+
+@keyframes scale-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scale-pop-anim {
+  animation-name: scale-pop;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+}
+
+@keyframes red {
+  0% {
+    background-color: inherit;
+  }
+  50% {
+    background-color: red;
+  }
+  100% {
+    background-color: inherit;
+  }
+}
+
+.red-anim {
+  animation-name: red;
+  animation-duration: 1s;
+  animation-timing-function: ease;
 }
