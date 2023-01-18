@@ -15,8 +15,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 45.31075999999999,
-  lng: -76.07132,
+  lat: 45.4215,
+  lng: -75.695,
 };
 
 const options = {
@@ -67,7 +67,6 @@ const Index = ({ locations, tagsFetch, addTag }) => {
   const onLoad = useCallback(function callback(map) {
     // This is just an example of getting and using the map instance!!! don't just blindly copy!
     const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
 
     setMap(map);
   }, []);
@@ -132,7 +131,7 @@ const Index = ({ locations, tagsFetch, addTag }) => {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={8}
+        zoom={7}
         onLoad={onLoad}
         onUnmount={onUnmount}
         onClick={(e) => adding && addMarker(e)}
