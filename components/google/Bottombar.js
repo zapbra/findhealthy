@@ -204,9 +204,9 @@ const Bottombar = ({
   };
   console.log(products);
   const productInput = useRef(null);
-  const productElems = products.map((product) => {
+  const productElems = products.map((product, index) => {
     return (
-      <div className="flex-inline mar-right-8 mar-bottom-8 align-center product-tag">
+      <div key = {index} className="flex-inline mar-right-8 mar-bottom-8 align-center product-tag">
         {" "}
         <p className="mar-right-4">{product}</p>{" "}
         <FontAwesomeIcon
