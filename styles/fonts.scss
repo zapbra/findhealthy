@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@900&family=Alegreya:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500;900&family=Alegreya:ital,wght@0,400;0,700;1,400&display=swap");
 $black: "#192430";
 $dark-pink: "#AC3B61";
 h1,
@@ -16,8 +16,14 @@ p {
   color: $dark-pink;
 }
 
+.light {
+  font-weight: 500;
+}
 // Laptop view, base px 21, multiplier of 1.414
 @media only screen and (min-width: 1201px) {
+  .small {
+    font-size: 14.4px;
+  }
   html {
     font-size: 18px;
   }
@@ -46,7 +52,7 @@ p {
 // Tablet view, base px 18, multiplier of 1.25
 @media only screen and (min-width: 601px) and (max-width: 1200px) {
   .small {
-    font-size: 12.73px;
+    font-size: 14.4px;
   }
   html {
     font-size: 18px;
@@ -72,6 +78,9 @@ p {
 }
 // Mobile view, base px 18, multiplier of 1.25
 @media only screen and (max-width: 600px) {
+  .small {
+    font-size: 12.73px;
+  }
   html {
     font-size: 16px;
   }

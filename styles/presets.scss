@@ -5,6 +5,7 @@ $dark-blue: #123c69;
 $dark-pink: #ac3b61;
 $red-grey: #81646d;
 $black: #192430;
+$yellow: #9fac3b;
 p {
   line-height: 1.5;
 }
@@ -20,6 +21,7 @@ h5,
 h6 {
   color: $dark-pink;
 }
+
 .red {
   color: $dark-pink;
 }
@@ -28,6 +30,9 @@ h6 {
 }
 .blue {
   color: $dark-blue;
+}
+.yellow {
+  color: $yellow !important;
 }
 .italic {
   font-style: italic;

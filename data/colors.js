@@ -6,4 +6,5 @@ export default {
   darkPink: "#AC3B61",
   darkGrey: "#81646D",
   black: "#192430",
+  yellow: "#9FAC3B",
 };

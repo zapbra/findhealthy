@@ -2,6 +2,7 @@
 @import "fonts.scss";
 @import "buttons.scss";
 @import "animations.scss";
+@import "dropdown.scss";
 $tan: #edc7b7;
 $light-beige: #eee2dc;
 $grey: #bab2b5;
@@ -11,6 +12,7 @@ $redGrey: #81646d;
 $black: #192430;
 $k: "#fff";
 $none: none;
+$yellow: #9fac3b;
 
 * {
   margin: 0;
@@ -174,7 +176,7 @@ li {
   border: 1px solid $darkPink;
   padding: 2px 4px;
   background-color: $light-beige;
-  
+
   &:hover {
     background-color: #fff;
   }
@@ -184,4 +186,14 @@ li {
       color: $darkBlue;
     }
   }
+}
+
+.gradient-bg-1 {
+  background: rgb(238, 226, 220);
+  background: linear-gradient(
+    90deg,
+    rgba(238, 226, 220, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(238, 226, 220, 1) 100%
+  );
 }

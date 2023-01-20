@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,9 +21,15 @@ import createLocation, {
   fetchCountryByName,
 } from "../../utils/supabaseFunctions";
 import CreateTag from "../inputs/CreateTag";
+import StarReview from "../inputs/StarReview";
+import countryCodes, { countryCodesOnly } from "../../data/countryCodes";
+import Dropdown from "./Dropdown";
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
   padding: 16px;
+  form {
+    position: relative;
+  }
   .fake-form {
     max-width: 600px;
     margin: 0 auto;
@@ -31,7 +37,37 @@ const Cont = styled.div`
   @media only screen and (max-width: 400px) {
     padding: 8px;
   }
+  .optional-fields {
+    .title-spec {
+      padding: 32px;
+      margin-bottom: 32px;
+      text-align: center;
+      border-bottom: 1px solid ${(props) => props.colors.darkPink};
+    }
+  }
+
+  .selects {
+    border-bottom: 1px solid ${(props) => props.colors.darkPink};
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .radio-line {
+    border-right: 2px solid ${(props) => props.colors.darkPink};
+    display: inline-block;
+    padding-right: 16px;
+    margin-right: 16px;
+    margin-bottom: 32px;
+  }
+  .stars {
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
 `;
+
+const regex = /^[0-9.$]*$/;
 const Bottombar = ({
   adding,
   startAdding,
@@ -49,13 +85,16 @@ const Bottombar = ({
     formState: { errors },
   } = useForm();
 
-  console.log(tagsFetch);
   const [images, setImages] = useState([]);
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [farm, setFarm] = useState({});
   const [imageLinks, setImageLinks] = useState([]);
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState({
+    name: "",
+    value: 0,
+    dollarType: "USD",
+  });
   const [products, setProducts] = useState([]);
   const [address, setAddress] = useState({
     fullAddress: "",
@@ -66,6 +105,18 @@ const Bottombar = ({
     lng: "",
   });
 
+  const updateProduct = (e) => {
+    setProduct((prev) => {
+      return {
+        ...prev,
+        name: e.target.value.toLowerCase(),
+      };
+    });
+  };
+
+  const updateProductValue = (e) => {
+    const value = e.target.value;
+  };
   useEffect(() => {
     setTags(tagsFetch.map((tag) => tag.name));
   }, [tagsFetch]);
@@ -123,7 +174,6 @@ const Bottombar = ({
         },
       });
       const data = await response.json();
-      console.log(data);
     } catch (err) {
       console.log(err.message);
     }
@@ -182,14 +232,16 @@ const Bottombar = ({
 
   const addProduct = (e) => {
     e.preventDefault();
-    if (product === "") {
+    if (product.name === "") {
       toast.error("product field is empty!");
       productInput.current.classList.add("red-anim");
       setTimeout(() => {
         productInput.current.classList.remove("red-anim");
       }, 1000);
       return;
-    } else if (products.some((innerProduct) => innerProduct === product)) {
+    } else if (
+      products.some((innerProduct) => innerProduct.name === product.name)
+    ) {
       toast.error("product has already been added");
       productInput.current.classList.add("red-anim");
       setTimeout(() => {
@@ -200,13 +252,16 @@ const Bottombar = ({
     setProducts((prev) => {
       return [...prev, product];
     });
-    setProduct("");
+    setProduct({ name: "", value: 0, dollarType: "USD" });
   };
-  console.log(products);
+
   const productInput = useRef(null);
   const productElems = products.map((product, index) => {
     return (
-      <div key = {index} className="flex-inline mar-right-8 mar-bottom-8 align-center product-tag">
+      <div
+        key={index}
+        className="flex-inline mar-right-8 mar-bottom-8 align-center product-tag"
+      >
         {" "}
         <p className="mar-right-4">{product}</p>{" "}
         <FontAwesomeIcon
@@ -223,6 +278,74 @@ const Bottombar = ({
       return [...prev.filter((product) => product !== productTag)];
     });
   };
+
+  const [reviewFields, setReviewFields] = useState({
+    pricing: { name: "pricing", stars: 0 },
+    quality: { name: "quality", stars: 0 },
+    friendly: { name: "friendly", stars: 0 },
+  });
+
+  const updateReviewFields = (field, value) => {
+    setReviewFields((prev) => {
+      return {
+        ...prev,
+        [field]: { ...prev[field], stars: value },
+      };
+    });
+  };
+
+  const dropdownEl = useRef(null);
+  const [dollarValue, setDollarValue] = useState("USD");
+  const [selectedValue, setSelectedValue] = useState(dollarValue);
+  const [selectedIndex, setSelectedIndex] = useState(
+    selectedValue !== "" ? countryCodesOnly.indexOf(selectedValue) : null
+  );
+  const [dollarSearch, setDollarSearch] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [actualDollar, setActualDollar] = useState("");
+  const [options, setOptions] = useState(countryCodesOnly);
+  // Dropdown function
+  const handleClickOutside = useCallback(
+    (e) => {
+      if (
+        showDropdown &&
+        e.target.closest(".dropdown") !== dropdownEl.current
+      ) {
+        setShowDropdown(false);
+        setDollarSearch("");
+      }
+    },
+    [showDropdown, setShowDropdown, dropdownEl]
+  );
+
+  const changeSelectedHandler = (item, name, index) => {
+    setSelectedValue(item);
+    setProduct((prev) => {
+      return {
+        ...prev,
+        dollarType: name,
+      };
+    });
+    setSelectedIndex(index);
+    setShowDropdown(false);
+    setActualDollar(name);
+  };
+  const searchChangeHandler = (e) => {
+    setDollarSearch(e.target.value);
+    const filteredOptions = countryCodesOnly.filter((code) => {
+      return code.includes(e.target.value.trim().toUpperCase());
+    });
+    setOptions(filteredOptions);
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
   return (
     <Cont colors={COLORS}>
       <button
@@ -250,6 +373,7 @@ const Bottombar = ({
             setLocation={setLocation}
             setAddress={setAddress}
           />
+
           <div className="input-line">
             <div className="input-line">
               <h4>PRODUCT TYPES *</h4>
@@ -301,13 +425,40 @@ const Bottombar = ({
             </p>
             <form onSubmit={addProduct}>
               <input
-                value={product}
-                onChange={(e) => setProduct(e.target.value)}
+                value={product.name}
+                onChange={updateProduct}
                 type="text"
                 placeholder="sirloin steak... unsalted raw cheese..."
                 className="mar-bottom-8"
                 ref={productInput}
               />
+              <input
+                type="text"
+                placeholder="14.99..."
+                className="mar-bottom-8"
+                style={{ width: "160px" }}
+              />
+              <div className="dropdown" ref={dropdownEl}>
+                <input type="hidden" />
+                <div
+                  className="dropdown__selected"
+                  onClick={() => setShowDropdown(!showDropdown)}
+                >
+                  {selectedValue ? selectedValue : "Please select one option"}
+                </div>
+              </div>
+              {showDropdown && (
+                <Dropdown
+                  searchPlaceholder="USD"
+                  search={dollarSearch}
+                  searchChangeHandler={searchChangeHandler}
+                  selectedValue={selectedValue}
+                  selectedIndex={selectedIndex}
+                  changeSelectedHandler={changeSelectedHandler}
+                  name="dollar"
+                  regions={options}
+                />
+              )}
             </form>
             {productElems}
             <div className="mar-bottom-16"></div>
@@ -465,6 +616,423 @@ const Bottombar = ({
               onChange={uploadImage}
             />
             <RenderImages images={images} />
+          </div>
+
+          <div className="optional-fields">
+            <div className="title-spec gradient-bg-1">
+              <h3>OPTIONAL FIELDS</h3>
+              <h5 className="black light">If you want to be more thorough</h5>
+              <h5 className="black light underline">
+                NONE of these are required!
+              </h5>
+              <h5 className="black light small">
+                Leave unselected if not sure and feel free to only fill out a
+                few
+              </h5>
+            </div>
+            <div className="selects">
+              <div className="radio-line">
+                <h4 className="mar-bottom-8">GRASS FED?</h4>
+                <div className="flex mar-bottom-8">
+                  <label htmlFor="grassfed-true">
+                    <div className="flex align-center mar-right-8">
+                      <input
+                        {...register("grassfed", {
+                          required: false,
+                        })}
+                        type="radio"
+                        value="true"
+                        id="grassfed-true"
+                        name="grassfed-true"
+                      />
+                      <p className="mar-left-4">Yes</p>
+                    </div>
+                  </label>
+
+                  <label htmlFor="pickupOnly">
+                    <div className="flex align-center">
+                      <input
+                        {...register("grassfed", {
+                          required: false,
+                        })}
+                        type="radio"
+                        id="grassfed-false"
+                        value="false"
+                        name="grassfed-false"
+                      />
+                      <p className="mar-left-4">
+                        {" "}
+                        <p>No</p>
+                      </p>
+                    </div>
+                  </label>
+                </div>
+                <label htmlFor="grassfed-unspecified">
+                  <div className="flex align-center">
+                    <input
+                      {...register("grassfed", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="grassfed-unspecified"
+                      value="unspecified"
+                      defaultChecked
+                    />
+                    <p className="mar-left-4">
+                      {" "}
+                      <p>Unspecified</p>
+                    </p>
+                  </div>
+                </label>
+              </div>
+
+              <div className="radio-line">
+                <h4 className="mar-bottom-8">ORGANIC?</h4>
+                <div className="flex mar-bottom-8">
+                  <label htmlFor="organic-true">
+                    <div className="flex align-center mar-right-8">
+                      <input
+                        {...register("organic", {
+                          required: false,
+                        })}
+                        type="radio"
+                        value="true"
+                        id="organic-true"
+                        name="organic-true"
+                      />
+                      <p className="mar-left-4">Yes</p>
+                    </div>
+                  </label>
+
+                  <label htmlFor="pickupOnly">
+                    <div className="flex align-center">
+                      <input
+                        {...register("organic", {
+                          required: false,
+                        })}
+                        type="radio"
+                        id="organic-false"
+                        value="false"
+                        name="organic-false"
+                      />
+                      <p className="mar-left-4">
+                        {" "}
+                        <p>No</p>
+                      </p>
+                    </div>
+                  </label>
+                </div>
+                <label htmlFor="organic-unspecified">
+                  <div className="flex align-center">
+                    <input
+                      {...register("organic", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="organic-unspecified"
+                      value="unspecified"
+                      defaultChecked
+                    />
+                    <p className="mar-left-4">
+                      {" "}
+                      <p>Unspecified</p>
+                    </p>
+                  </div>
+                </label>
+              </div>
+
+              <div className="radio-line">
+                <h4 className="mar-bottom-8">VACCINES?</h4>
+                <div className="flex mar-bottom-8">
+                  <label htmlFor="vaccines-true">
+                    <div className="flex align-center mar-right-8">
+                      <input
+                        {...register("vaccines", {
+                          required: false,
+                        })}
+                        type="radio"
+                        value="true"
+                        id="vaccines-true"
+                        name="vaccines-true"
+                      />
+                      <p className="mar-left-4">Yes</p>
+                    </div>
+                  </label>
+
+                  <label htmlFor="pickupOnly">
+                    <div className="flex align-center">
+                      <input
+                        {...register("vaccines", {
+                          required: false,
+                        })}
+                        type="radio"
+                        id="vaccines-false"
+                        value="false"
+                        name="vaccines-false"
+                      />
+                      <p className="mar-left-4">
+                        {" "}
+                        <p>No</p>
+                      </p>
+                    </div>
+                  </label>
+                </div>
+                <label htmlFor="vaccines-unspecified">
+                  <div className="flex align-center">
+                    <input
+                      {...register("vaccines", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="vaccines-unspecified"
+                      value="unspecified"
+                      defaultChecked
+                    />
+                    <p className="mar-left-4">
+                      {" "}
+                      <p>Unspecified</p>
+                    </p>
+                  </div>
+                </label>
+              </div>
+
+              <div className="radio-line">
+                <h4 className="mar-bottom-8">PASTURE RAISED?</h4>
+                <div className="flex mar-bottom-8">
+                  <label htmlFor="pasture-raised-true">
+                    <div className="flex align-center mar-right-8">
+                      <input
+                        {...register("pasture-raised", {
+                          required: false,
+                        })}
+                        type="radio"
+                        value="true"
+                        id="pasture-raised-true"
+                        name="pasture-raised-true"
+                      />
+                      <p className="mar-left-4">Yes</p>
+                    </div>
+                  </label>
+
+                  <label htmlFor="pickupOnly">
+                    <div className="flex align-center">
+                      <input
+                        {...register("pasture-raised", {
+                          required: false,
+                        })}
+                        type="radio"
+                        id="pasture-raised-false"
+                        value="false"
+                        name="pasture-raised-false"
+                      />
+                      <p className="mar-left-4">
+                        {" "}
+                        <p>No</p>
+                      </p>
+                    </div>
+                  </label>
+                </div>
+                <label htmlFor="pasture-raised-unspecified">
+                  <div className="flex align-center">
+                    <input
+                      {...register("pasture-raised", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="pasture-raised-unspecified"
+                      value="unspecified"
+                      defaultChecked
+                    />
+                    <p className="mar-left-4">
+                      {" "}
+                      <p>Unspecified</p>
+                    </p>
+                  </div>
+                </label>
+              </div>
+
+              <div className="radio-line">
+                <h4 className="mar-bottom-8">SOY FREE?</h4>
+                <div className="flex mar-bottom-8">
+                  <label htmlFor="soy-free-true">
+                    <div className="flex align-center mar-right-8">
+                      <input
+                        {...register("soy-free", {
+                          required: false,
+                        })}
+                        type="radio"
+                        value="true"
+                        id="soy-free-true"
+                        name="soy-free-true"
+                      />
+                      <p className="mar-left-4">Yes</p>
+                    </div>
+                  </label>
+
+                  <label htmlFor="soy-free-false">
+                    <div className="flex align-center">
+                      <input
+                        {...register("soy-free", {
+                          required: false,
+                        })}
+                        type="radio"
+                        id="soy-free-false"
+                        value="false"
+                        name="soy-free-false"
+                      />
+                      <p className="mar-left-4">
+                        {" "}
+                        <p>No</p>
+                      </p>
+                    </div>
+                  </label>
+                </div>
+                <label htmlFor="soy-free-unspecified">
+                  <div className="flex align-center">
+                    <input
+                      {...register("soy-free", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="soy-free-unspecified"
+                      value="unspecified"
+                      defaultChecked
+                    />
+                    <p className="mar-left-4">
+                      {" "}
+                      <p>Unspecified</p>
+                    </p>
+                  </div>
+                </label>
+              </div>
+
+              <div className="radio-line">
+                <h4 className="mar-bottom-8">DEWORMERS?</h4>
+                <div className="flex mar-bottom-8">
+                  <label htmlFor="dewormers-true">
+                    <div className="flex align-center mar-right-8">
+                      <input
+                        {...register("dewormers", {
+                          required: false,
+                        })}
+                        type="radio"
+                        value="true"
+                        id="dewormers-true"
+                        name="dewormers-true"
+                      />
+                      <p className="mar-left-4">Yes</p>
+                    </div>
+                  </label>
+
+                  <label htmlFor="dewormers">
+                    <div className="flex align-center">
+                      <input
+                        {...register("dewormers", {
+                          required: false,
+                        })}
+                        type="radio"
+                        id="dewormers-false"
+                        value="false"
+                        name="dewormers-false"
+                      />
+                      <p className="mar-left-4">
+                        {" "}
+                        <p>No</p>
+                      </p>
+                    </div>
+                  </label>
+                </div>
+                <label htmlFor="dewormers-unspecified">
+                  <div className="flex align-center">
+                    <input
+                      {...register("dewormers", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="dewormers-unspecified"
+                      value="unspecified"
+                      defaultChecked
+                    />
+                    <p className="mar-left-4">
+                      {" "}
+                      <p>Unspecified</p>
+                    </p>
+                  </div>
+                </label>
+              </div>
+
+              <div className="radio-line">
+                <h4 className="mar-bottom-8">UNFROZEN?</h4>
+                <div className="flex mar-bottom-8">
+                  <label htmlFor="unfrozen-true">
+                    <div className="flex align-center mar-right-8">
+                      <input
+                        {...register("unfrozen", {
+                          required: false,
+                        })}
+                        type="radio"
+                        value="true"
+                        id="unfrozen-true"
+                        name="unfrozen-true"
+                      />
+                      <p className="mar-left-4">Yes</p>
+                    </div>
+                  </label>
+
+                  <label htmlFor="pickupOnly">
+                    <div className="flex align-center">
+                      <input
+                        {...register("unfrozen", {
+                          required: false,
+                        })}
+                        type="radio"
+                        id="unfrozen-false"
+                        value="false"
+                        name="unfrozen-false"
+                      />
+                      <p className="mar-left-4">
+                        {" "}
+                        <p>No</p>
+                      </p>
+                    </div>
+                  </label>
+                </div>
+                <label htmlFor="unfrozen-unspecified">
+                  <div className="flex align-center">
+                    <input
+                      {...register("unfrozen", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="unfrozen-unspecified"
+                      value="unspecified"
+                      defaultChecked
+                    />
+                    <p className="mar-left-4">
+                      {" "}
+                      <p>Unspecified</p>
+                    </p>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div className="stars">
+              <StarReview
+                field={reviewFields.pricing.name}
+                stars={reviewFields.pricing.stars}
+                updateStarsFunc={updateReviewFields}
+              />
+              <StarReview
+                field={reviewFields.quality.name}
+                stars={reviewFields.quality.stars}
+                updateStarsFunc={updateReviewFields}
+              />
+              <StarReview
+                field={reviewFields.friendly.name}
+                stars={reviewFields.friendly.stars}
+                updateStarsFunc={updateReviewFields}
+              />
+            </div>
           </div>
 
           <button type="submit" className="blue-btn-one box-shadow-2">
