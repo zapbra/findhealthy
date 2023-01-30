@@ -197,3 +197,27 @@ li {
     rgba(238, 226, 220, 1) 100%
   );
 }
+
+@keyframes opacity-5 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: .5;
+  }
+}
+
+
+.background-shadow{
+  width:100vw;
+  height:100vh;
+  left:0px;
+  top:0px;
+  display: absolute;
+  position: fixed;
+  z-index:5;
+  background-color: $darkBlue;
+  opacity: 0.5;
+  animation-name: opacity;
+  animation-duration: 1s;
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
+import PhotoDisplay from "../popups/PhotoDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClose,
@@ -346,8 +347,17 @@ const Bottombar = ({
     };
   }, [handleClickOutside]);
 
+
+  const [selectedImage, setSelectedImage] = useState('');
+
+  const updateSelectedImage = (url) => {
+    setSelectedImage(url);
+  }
   return (
     <Cont colors={COLORS}>
+      <PhotoDisplay  
+      selectedImage = {selectedImage} 
+      />
       <button
         disabled={adding}
         onClick={startAdding}
@@ -603,6 +613,7 @@ const Bottombar = ({
 
           <div className="input-line">
             <h4>UPLOAD IMAGE/S</h4>
+            
             <div
               className="inline-block"
               onClick={() => imageRef.current.click()}
@@ -615,7 +626,7 @@ const Bottombar = ({
               hidden={true}
               onChange={uploadImage}
             />
-            <RenderImages images={images} />
+            <RenderImages images={images} updateSelectedImage = {updateSelectedImage}/>
           </div>
 
           <div className="optional-fields">

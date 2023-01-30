@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
 import COLORS from "../../data/colors";
+import PhotoDisplay from "../popups/PhotoDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExpand } from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
@@ -51,11 +52,15 @@ const Cont = styled.div`
     }
   }
 `;
-const RenderImages = ({ images }) => {
+const RenderImages = ({ images, updateSelectedImage }) => {
+  const [showImage, setShowImage] = useState(false);
   const imageElems = images.map((image, index) => {
     return <ImageComponent image={image} />;
   });
-  return <Cont colors={COLORS}>{imageElems}</Cont>;
+  return <Cont colors={COLORS}>
+    
+    
+    {imageElems}</Cont>;
 };
 
 export default RenderImages;
