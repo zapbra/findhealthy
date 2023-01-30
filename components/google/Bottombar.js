@@ -207,10 +207,17 @@ const Bottombar = ({
       const searchBarElem = document.querySelector(".google-dropdown");
       searchBarElem.focus();
       searchBarElem.classList.add("scale-pop-anim");
+      
       searchBarElem.scrollIntoView({ behavior: "smooth", block: "center" });
       setTimeout(() => {
       searchBarElem.classList.remove("scale-pop-anim");
     }, 1000);
+      const lines = document.querySelectorAll('.google-dropdown p');
+      lines.forEach(line => {
+        searchBarElem.classList.add("red-anim");
+
+      })
+   
     }
     
     
