@@ -202,6 +202,7 @@ const Bottombar = ({
   const checkAddressValid = async () => {
     try{
       const results = await getGeocode({ address: location });
+      
     } catch(error) {
       //const searchBarElem = document.getElementById("address-input");
       const searchBarElem = document.querySelector(".google-dropdown");
@@ -214,10 +215,13 @@ const Bottombar = ({
     }, 1000);
       const lines = document.querySelectorAll('.google-dropdown p');
       lines.forEach(line => {
-        searchBarElem.classList.add("red-anim");
-
+        line.classList.add("red-anim");
+        setTimeout(() => {
+          line.classList.remove("red-anim");
+        }, 1000);
       })
-   
+      
+      
     }
     
     
