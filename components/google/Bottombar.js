@@ -206,6 +206,7 @@ const Bottombar = ({
     numberOrganize.splice(5, 0, "-");
     numberOrganize.splice(9, 0, "-");
 
+    
     const locationId = await createLocation(
       formData.name,
       formData.description,
