@@ -198,9 +198,23 @@ const Bottombar = ({
   };
 
 
-  // finish this
+  
   const checkAddressValid = async () => {
-    const results = await getGeocode({ address: address.description });
+    try{
+      const results = await getGeocode({ address: location });
+    } catch(error) {
+      //const searchBarElem = document.getElementById("address-input");
+      const searchBarElem = document.querySelector(".google-dropdown");
+      searchBarElem.focus();
+      searchBarElem.classList.add("scale-pop-anim");
+      searchBarElem.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+      searchBarElem.classList.remove("scale-pop-anim");
+    }, 1000);
+    }
+    
+    
+    return false;
   }
   const submitForm = handleSubmit(async (formData) => {
     alert("k");
@@ -418,6 +432,9 @@ const Bottombar = ({
             setAddress={setAddress}
           />
 
+        <div style = {{border: '1px solid black'}} onClick = {checkAddressValid}>
+          <p>Check Valid</p>
+        </div>
           <div className="input-line">
             <div className="input-line">
               <h4>PRODUCT TYPES *</h4>
@@ -1142,6 +1159,7 @@ const PlacesAutocomplete = ({
   }, [location]);
 
   const handleSelect = async (address) => {
+    
     setValue(address.description);
     setLocation(address.description);
     const results = await getGeocode({ address: address.description });
