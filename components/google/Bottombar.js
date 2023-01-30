@@ -197,6 +197,11 @@ const Bottombar = ({
     clearForm();
   };
 
+
+  // finish this
+  const checkAddressValid = async () => {
+    const results = await getGeocode({ address: address.description });
+  }
   const submitForm = handleSubmit(async (formData) => {
     alert("k");
 
@@ -206,7 +211,7 @@ const Bottombar = ({
     numberOrganize.splice(5, 0, "-");
     numberOrganize.splice(9, 0, "-");
 
-    
+    if(checkAddressValid){
     const locationId = await createLocation(
       formData.name,
       formData.description,
@@ -241,6 +246,7 @@ const Bottombar = ({
       address.state
     ).then((res) => finalizeLocation());
     //uploadImages();
+    }
   });
 
   const addProduct = (e) => {
