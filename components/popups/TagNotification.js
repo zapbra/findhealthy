@@ -7,6 +7,7 @@ const Cont = styled.div`
   border: 1px solid ${(props) => props.colors.darkPink};
   border-bottom: 8px solid ${(props) => props.colors.darkPink};
   padding: 16px;
+  z-index:1;
 
   .tag-text {
     border: 1px solid ${(props) => props.colors.darkPink};

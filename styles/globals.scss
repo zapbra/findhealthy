@@ -6,14 +6,19 @@
 $tan: #edc7b7;
 $light-beige: #eee2dc;
 $grey: #bab2b5;
-$darkBlue: #123c69;
+$darkBlue: rgb(18, 60, 105);
 $darkPink: #ac3b61;
 $redGrey: #81646d;
 $black: #192430;
 $k: "#fff";
 $none: none;
 $yellow: #9fac3b;
-
+$purple: #7028E4;
+$blue: #2521E5;
+$red: #E52323;
+$yellow: #CCE729;
+$orange: #DF5F28;
+$green: #3BAC46;
 * {
   margin: 0;
   padding: 0;
@@ -129,7 +134,7 @@ li {
     font-weight: 600;
   }
   &:hover {
-    background-color: $grey;
+    background-color: $green;
   }
 }
 .tag-two {
@@ -216,8 +221,6 @@ li {
   display: absolute;
   position: fixed;
   z-index:5;
-  background-color: $darkBlue;
-  opacity: 0.5;
-  animation-name: opacity;
-  animation-duration: 1s;
+  background-color: rgba(18, 60,105, .5);
+  
 }

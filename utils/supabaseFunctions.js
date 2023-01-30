@@ -12,6 +12,7 @@ const createLocation = async (
   number = null,
   tags,
   products,
+  howToOrder
 
 ) => {
   try {
@@ -29,6 +30,7 @@ const createLocation = async (
         number,
         tags,
         products,
+        howToOrder
       })
       .select("id")
       .single();

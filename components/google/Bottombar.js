@@ -217,7 +217,8 @@ const Bottombar = ({
       formData.email,
       numberOrganize.join(""),
       tags,
-      products
+      products,
+      formData.howToOrder
     );
     createAddress(
       locationId,
@@ -349,15 +350,31 @@ const Bottombar = ({
 
 
   const [selectedImage, setSelectedImage] = useState('');
-
+  const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
   const updateSelectedImage = (url) => {
     setSelectedImage(url);
   }
+  const setPhotoDisplayVisible = () => {
+    setShowPhotoDisplay(true);
+  }
+
+  const hidePhoto = () => {
+    setShowPhotoDisplay(false);
+    
+  }
+
+  const checkShowHours = () => {
+
+  }
   return (
     <Cont colors={COLORS}>
-      <PhotoDisplay  
+      {showPhotoDisplay && (
+        <PhotoDisplay  
       selectedImage = {selectedImage} 
+      hidePhoto = {hidePhoto}
       />
+      )}
+     
       <button
         disabled={adding}
         onClick={startAdding}
@@ -429,6 +446,26 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
+            <h4>HOW TO ORDER</h4>
+
+           <p className = 'italic'>
+            Do you need to order from their website?
+           </p>
+           <p className = 'italic mar-bottom-4'>
+              Is it pickup only on certain days?
+           </p>
+            <textarea
+              {...register("howToOrder", {
+                required: false,
+              })}
+              type="text"
+              placeholder="Pickup location, delivery, etc"
+              name="howToOrder"
+            />
+           
+          </div>
+
+          <div className="input-line">
             <h4>SPECIFIC PRODUCTS</h4>
             <p className="italic mar-bottom-4">
               Add more specic products to show exactly what they have
@@ -482,6 +519,9 @@ const Bottombar = ({
 
           <div className="input-line">
             <h4>HOURS</h4>
+            <div className ='flex-inline'>
+
+            <div className = 'mar-right-8'>
             <h5>From</h5>
             <input
               {...register("hoursFrom", {
@@ -491,6 +531,8 @@ const Bottombar = ({
               name="hoursFrom"
               className="mar-bottom-8"
             />
+            </div>
+            <div>
             <h5>To</h5>
             <input
               {...register("hoursTo", {
@@ -498,7 +540,12 @@ const Bottombar = ({
               })}
               type="time"
               name="hoursTo"
+              
             />
+            </div>
+            </div>
+
+
           </div>
 
           <div className="input-line">
@@ -626,7 +673,7 @@ const Bottombar = ({
               hidden={true}
               onChange={uploadImage}
             />
-            <RenderImages images={images} updateSelectedImage = {updateSelectedImage}/>
+            <RenderImages setPhotoDisplayVisible = {setPhotoDisplayVisible} images={images} updateSelectedImage = {updateSelectedImage}/>
           </div>
 
           <div className="optional-fields">
@@ -1045,12 +1092,12 @@ const Bottombar = ({
               />
             </div>
           </div>
-
-          <button type="submit" className="blue-btn-one box-shadow-2">
-            <div className="flex align-center">
+                    <div className ='mar-bottom-16'></div>
+          <button style = {{width:'100%'}} type="submit" className=" align-center justify-center blue-btn-one box-shadow-2 flex">
+            
               <h3 className="mar-right-8">Create</h3>
               <FontAwesomeIcon icon={faLocationDot} className="blue icon-med" />
-            </div>
+          
           </button>
         </div>
       )}

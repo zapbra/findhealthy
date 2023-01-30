@@ -127,11 +127,9 @@ const CreateTag = ({ addTag, tags }) => {
       }, 1000);
     }
     // check if word is valid in dictionary
-    const fetchWord = await fetch(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/${text}`
-    ).then((res) => res.json());
-
-    if (fetchWord[0]?.license !== undefined) {
+    
+   
+   
       //create tag
       if (renderTags.length === 0) {
         addTag(text);
@@ -147,14 +145,7 @@ const CreateTag = ({ addTag, tags }) => {
       //addTag(text);
       //setText("");
       //toast.success("Tag created!");
-    } else {
-      // error msg because tag is not a valid word
-      toast.error("Not a valid word :(");
-      inputRef.current.classList.add("red-anim");
-      setTimeout(() => {
-        inputRef.current.classList.remove("red-anim");
-      }, 1000);
-    }
+    
   };
   const tagElems = renderTags.map((tag, index) => (
     <p key={index} id={tag} className="tag-two">

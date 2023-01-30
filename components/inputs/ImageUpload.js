@@ -17,7 +17,7 @@ const Cont = styled.div`
     box-shadow: none;
   }
 `;
-const ImageUpload = () => {
+const ImageUpload = ({selectedImage}) => {
   return (
     <Cont colors={COLORS} className="box-shadow-2">
       <FontAwesomeIcon icon={faImage} className="icon-med blue" />

@@ -52,10 +52,10 @@ const Cont = styled.div`
     }
   }
 `;
-const RenderImages = ({ images, updateSelectedImage }) => {
+const RenderImages = ({ images, updateSelectedImage, setPhotoDisplayVisible }) => {
   const [showImage, setShowImage] = useState(false);
   const imageElems = images.map((image, index) => {
-    return <ImageComponent image={image} />;
+    return <ImageComponent setPhotoDisplayVisible = {setPhotoDisplayVisible} image={image} updateSelectedImage = {updateSelectedImage}/>;
   });
   return <Cont colors={COLORS}>
     
@@ -65,13 +65,19 @@ const RenderImages = ({ images, updateSelectedImage }) => {
 
 export default RenderImages;
 
-const ImageComponent = ({ image }) => {
+const ImageComponent = ({ image, updateSelectedImage, setPhotoDisplayVisible }) => {
   const [visible, setVisible] = useState(false);
+
+  const renderImageFunctional = () => {
+    updateSelectedImage(URL.createObjectURL(image))
+    setPhotoDisplayVisible();
+  }
   return (
     <div
       onMouseOut={() => setVisible(false)}
       onMouseOver={() => setVisible(true)}
       className="img-cont box-shadow-2"
+      onClick = {renderImageFunctional}
     >
       <Image
         src={URL.createObjectURL(image)}

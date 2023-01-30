@@ -7,6 +7,14 @@ $redGrey: #81646d;
 $black: #192430;
 $desatLightBlue: #c6cacf;
 $desatDarkBlue: #404a55;
+$yellow: #9fac3b;
+$purple: #7028E4;
+$blue: #2521E5;
+$red: #E52323;
+$yellow: #CCE729;
+$orange: #DF5F28;
+$green: #3BAC46;
+
 .blue-btn-one {
   border: 2px solid $darkBlue;
   background-color: #fff;
@@ -93,7 +101,7 @@ $desatDarkBlue: #404a55;
 }
 
 .more-btn {
-  background-color: $grey;
+  background-color: $light-beige;
   display: inline-flex;
   padding: 4px;
   border: 1px solid black;
@@ -103,6 +111,9 @@ $desatDarkBlue: #404a55;
     margin-right: 4px;
   }
   &:hover {
-    background-color: $light-beige;
+    background-color: $darkBlue;
+    p{
+      color: $o
+    }
   }
 }

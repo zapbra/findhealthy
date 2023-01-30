@@ -38,7 +38,7 @@ const ProductTypes = ({ tags, selectedTags, pushTag, deleteTag }) => {
       }
     }
     setRenderTags(renderArticleElems);
-  }, [copyTags]);
+  }, [copyTags, renderRange]);
   const selectedTagElems = selectedTags.map((tag, index) => {
     return <SelectedTag key={index} text={tag} deleteTag={deleteTag} />;
   });

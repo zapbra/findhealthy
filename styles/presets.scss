@@ -177,7 +177,7 @@ h6 {
 //flex
 
 .flex {
-  display: flex;
+  display: flex !important;
 }
 .flex-wrap {
   flex-wrap: wrap;
