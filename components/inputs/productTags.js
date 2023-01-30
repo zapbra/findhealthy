@@ -90,7 +90,7 @@ const ProductTypes = ({ tags, selectedTags, pushTag, deleteTag }) => {
       {renderRange < tags.length && (
         <div onClick={increaseRenderRange} className="more-btn">
           <p className="bold">SHOW MORE</p>
-          <FontAwesomeIcon icon={faEllipsis} className="icon-ssm" />
+          <FontAwesomeIcon icon={faEllipsis} className="icon-ssm black" />
         </div>
       )}
     </Cont>

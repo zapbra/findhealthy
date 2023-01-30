@@ -12,6 +12,16 @@ const createLocation = async (
   number = null,
   tags,
   products,
+  grassFed,
+  organic,
+  vaccineFree,
+  pastureRaised,
+  soyFree,
+  dewormerFree,
+  unfrozen,
+  pricing,
+  quality,
+  friendly,
   howToOrder
 
 ) => {
@@ -30,6 +40,16 @@ const createLocation = async (
         number,
         tags,
         products,
+        grassFed,
+  organic,
+  vaccineFree,
+  pastureRaised,
+  soyFree,
+  dewormerFree,
+  unfrozen,
+  pricing,
+  quality,
+  friendly,
         howToOrder
       })
       .select("id")

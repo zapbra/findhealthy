@@ -14,7 +14,7 @@ $red: #E52323;
 $yellow: #CCE729;
 $orange: #DF5F28;
 $green: #3BAC46;
-
+$offWhite: #E7EFF8;
 .blue-btn-one {
   border: 2px solid $darkBlue;
   background-color: #fff;
@@ -112,8 +112,11 @@ $green: #3BAC46;
   }
   &:hover {
     background-color: $darkBlue;
+    .black{
+      color: $offWhite;
+    }
     p{
-      color: $o
+      color: $offWhite;
     }
   }
 }

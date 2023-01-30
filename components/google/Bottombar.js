@@ -218,6 +218,16 @@ const Bottombar = ({
       numberOrganize.join(""),
       tags,
       products,
+      formData.grassfed,
+      formData.organic,
+      formData.vaccines,
+      formData.pastureRaised,
+      formData.soyFree,
+      formData.dewormerFree,
+      formData.unfrozen,
+      reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
+      reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
+      reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
       formData.howToOrder
     );
     createAddress(
@@ -860,7 +870,7 @@ const Bottombar = ({
                   <label htmlFor="pasture-raised-true">
                     <div className="flex align-center mar-right-8">
                       <input
-                        {...register("pasture-raised", {
+                        {...register("pastureRaised", {
                           required: false,
                         })}
                         type="radio"
@@ -875,7 +885,7 @@ const Bottombar = ({
                   <label htmlFor="pickupOnly">
                     <div className="flex align-center">
                       <input
-                        {...register("pasture-raised", {
+                        {...register("pastureRaised", {
                           required: false,
                         })}
                         type="radio"
@@ -893,7 +903,7 @@ const Bottombar = ({
                 <label htmlFor="pasture-raised-unspecified">
                   <div className="flex align-center">
                     <input
-                      {...register("pasture-raised", {
+                      {...register("pastureRaised", {
                         required: false,
                       })}
                       type="radio"
@@ -915,7 +925,7 @@ const Bottombar = ({
                   <label htmlFor="soy-free-true">
                     <div className="flex align-center mar-right-8">
                       <input
-                        {...register("soy-free", {
+                        {...register("soyFree", {
                           required: false,
                         })}
                         type="radio"
@@ -930,7 +940,7 @@ const Bottombar = ({
                   <label htmlFor="soy-free-false">
                     <div className="flex align-center">
                       <input
-                        {...register("soy-free", {
+                        {...register("soyFree", {
                           required: false,
                         })}
                         type="radio"
@@ -948,7 +958,7 @@ const Bottombar = ({
                 <label htmlFor="soy-free-unspecified">
                   <div className="flex align-center">
                     <input
-                      {...register("soy-free", {
+                      {...register("soyFree", {
                         required: false,
                       })}
                       type="radio"
@@ -970,7 +980,7 @@ const Bottombar = ({
                   <label htmlFor="dewormers-true">
                     <div className="flex align-center mar-right-8">
                       <input
-                        {...register("dewormers", {
+                        {...register("dewormerFree", {
                           required: false,
                         })}
                         type="radio"
@@ -985,7 +995,7 @@ const Bottombar = ({
                   <label htmlFor="dewormers">
                     <div className="flex align-center">
                       <input
-                        {...register("dewormers", {
+                        {...register("dewormerFree", {
                           required: false,
                         })}
                         type="radio"
@@ -1003,7 +1013,7 @@ const Bottombar = ({
                 <label htmlFor="dewormers-unspecified">
                   <div className="flex align-center">
                     <input
-                      {...register("dewormers", {
+                      {...register("dewormerFree", {
                         required: false,
                       })}
                       type="radio"
