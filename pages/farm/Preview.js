@@ -81,6 +81,11 @@ const Preview = () => {
         pastureRaised="true"
         dewormerFree="true"
         unfrozen="true"
+        pricing={3}
+        quality={4}
+        friendly={3}
+        howToOrder="Meet them at the Parkdale Farmers Market between 11:00 AM - 1:30 PM every Saturday.
+        Sign up for their newsletter to be notified of product changes or when they will be doing a fresh organs delivery. Also, they only have fresh chicken in the summer, so watch the newsletter to see their delivery or pickup dates."
       />
     </Cont>
   );

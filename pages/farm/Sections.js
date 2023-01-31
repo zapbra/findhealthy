@@ -3,17 +3,33 @@ import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faClose, faStar } from "@fortawesome/free-solid-svg-icons";
+
 const Cont = styled.div`
-  .section-holder {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(300px, 1fr);
+  @media only screen and (max-width: 900px) {
+    grid-template-rows: repeat(4, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
+    & > section:nth-of-type(3) {
+      background: #fff !important;
+    }
+    & > section:nth-of-type(4) {
+      background: ${(props) => props.colors.lightBeige} !important;
+    }
+  }
+  .reverse {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  section {
+    padding: 32px;
   }
   .section {
     width: 100%;
     display: flex;
-    padding: 32px;
+
     background-color: #fff;
     &:nth-of-type(2) {
       background-color: ${(props) => props.colors.lightBeige};
@@ -34,11 +50,12 @@ const Cont = styled.div`
     h5 {
       margin-right: 8px;
     }
-    word-break: break-word;
+
     .product-content {
       border: 1px solid ${(props) => props.colors.grey};
       padding: 4px 8px;
       background-color: ${(props) => props.colors.lightBeige};
+      flex-wrap: wrap;
     }
 
     .price {
@@ -59,25 +76,50 @@ const Cont = styled.div`
   .farm-field-holder {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: center;
   }
 
   .farm-field-line {
     display: flex;
     justify-content: space-between;
     margin-bottom: 16px;
-    width: 240px;
+    max-width: 240px;
   }
 
   .farm-field-icon {
     width: 40px;
     height: 40px;
+    flex-shrink: 0;
     display: inline-flex;
-    margin: 0 auto;
+
     justify-content: center;
     align-items: center;
-    border: 1px solid ${(props) => props.colors.darkRed};
+    border: 1px solid ${(props) => props.colors.darkPink};
     background-color: ${(props) => props.colors.tan};
+  }
+  .star-field-holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+  }
+  .star-field {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    border: 1px solid ${(props) => props.colors.darkPink};
+    background-color: #fff;
+    padding: 8px;
+    margin-bottom: 32px;
+    .star-holder {
+      display: flex;
+      padding: 4px;
+      border: 1px solid ${(props) => props.colors.darkPink};
+      .star {
+        margin-right: 2px;
+        margin-left: 2px;
+      }
+    }
   }
 `;
 
@@ -145,18 +187,44 @@ const Sections = ({
         );
       })
   );
+
+  const [starFields, setStarFields] = useState(
+    [
+      { name: "Pricing", value: pricing },
+      { name: "Quality", value: quality },
+      { name: "Friendly", value: friendly },
+    ].map((field) => {
+      return (
+        <div className="star-field">
+          <h4>{field.name}</h4>
+          <div className="star-holder">
+            {[1, 2, 3, 4, 5].map((index) => {
+              return (
+                <FontAwesomeIcon
+                  icon={faStar}
+                  className={
+                    index <= field.value ? "icon-ssm yellow" : "icon-ssm grey"
+                  }
+                />
+              );
+            })}
+          </div>
+        </div>
+      );
+    })
+  );
   return (
     <Cont colors={COLORS} className="section-holder">
       <section className="section">
         <div>
           <div className="center-inline mar-bottom-16">
-            <h3>PRODUCTS</h3>
+            <h4>PRODUCTS</h4>
           </div>
           <ul>{productElems}</ul>
         </div>
         <div>
           <div className="center-inline mar-bottom-16">
-            <h3>DESCRIPTION</h3>
+            <h4>DESCRIPTION</h4>
           </div>
           <div className="description-text">{description}</div>
         </div>
@@ -164,49 +232,54 @@ const Sections = ({
       <section className="section">
         <div>
           <div className="section-line">
-            <h4 className="blue">ADDRESS</h4>
+            <h5 className="blue">ADDRESS</h5>
             <p className="bold">{address}</p>
           </div>
 
           <div className="section-line">
-            <h4 className="blue">WEBSITE</h4>
+            <h5 className="blue">WEBSITE</h5>
             <Link href={website}>
               <p className="bold">{website}</p>
             </Link>
           </div>
 
           <div className="section-line">
-            <h4 className="blue">EMAIL</h4>
+            <h5 className="blue">EMAIL</h5>
             <a href={`mailto:${email}`}>
               <p className="bold">{email}</p>
             </a>
           </div>
 
           <div className="section-line">
-            <h4 className="blue">PHONE</h4>
+            <h5 className="blue">PHONE</h5>
             <a href={`tel:${phone}`}>
               <p className="bold">{phone}</p>
             </a>
           </div>
 
           <div className="section-line">
-            <h4 className="blue">DELIVERY</h4>
+            <h5 className="blue">DELIVERY</h5>
             <p className="bold">{delivery}</p>
           </div>
         </div>
         <div>
           <div className="center-inline">
-            <h3 className="blue">HOURS</h3>
+            <h4 className="blue">HOURS</h4>
             <p className="bold inline-block">{hoursFrom} - </p>{" "}
             <p className="bold inline-block"> {hoursTo}</p>
           </div>
         </div>
       </section>
-      <section className="section">
+      <section className="section" style={{ backgroundColor: "#EEE2DC" }}>
         <div className="farm-field-holder">{farmFields}</div>
-        <div></div>
+        <div className="star-field-holder">{starFields}</div>
       </section>
-      <section className="section"></section>
+      <section style={{ backgroundColor: "#fff" }}>
+        <div className="center-inline">
+          <h4 className="underline mar-bottom-16">HOW TO ORDER</h4>
+        </div>
+        <p>{howToOrder}</p>
+      </section>
     </Cont>
   );
 };
