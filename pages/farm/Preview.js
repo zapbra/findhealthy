@@ -47,15 +47,15 @@ const Preview = () => {
     },
     {
       name: "dry aged sausages",
-      price: "",
+      price: "15",
       dollarType: "CAD",
-      measurement: "",
+      measurement: "package",
     },
     {
-      name: "",
-      price: "",
+      name: "kombucha",
+      price: "8",
       dollarType: "CAD",
-      measurement: "",
+      measurement: "litre",
     },
   ];
   return (

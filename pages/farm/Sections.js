@@ -17,6 +17,8 @@ const Cont = styled.div`
       background-color: ${(props) => props.colors.lightBeige};
     }
   }
+  .product-item {
+  }
 `;
 
 const Sections = ({
@@ -40,11 +42,27 @@ const Sections = ({
   quality,
   friendly,
 }) => {
+  const [productElems, setProductElems] = useState(
+    products.map((product) => {
+      return (
+        <li>
+          <div className="flex-inline">
+            <h5 className="black">{product.name}</h5>
+            <p className="price">
+              {product.price}/{product.dollarType}
+            </p>
+          </div>
+        </li>
+      );
+    })
+  );
   return (
     <Cont colors={COLORS}>
       <section className="section">
         <div className="center-inline">
           <h3>PRODUCTS</h3>
+          <p>hello???</p>
+          <ul>{productElems}</ul>
         </div>
       </section>
       <section className="section"></section>
