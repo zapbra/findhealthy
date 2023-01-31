@@ -1193,3 +1193,15 @@ export const countryCodesOnly = [
   "ZMK",
   "ZWL",
 ];
+
+export const measurements = [
+  "250ml",
+  "500ml",
+  "litre",
+  "1/2 gallon",
+  "gallon",
+  "1/2 pound",
+  "pound",
+  "1/2 kilo",
+  "kilo",
+];

@@ -147,6 +147,22 @@ li {
   margin-bottom: 4px;
   padding: 2px 4px;
 }
+.tag-three{
+  border: 1px solid $grey;
+  background-color: $tan;
+  display:inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  
+  .values{
+  display:inline-flex;
+  background: #fff;
+  border: 1px solid $grey;
+  padding: 2px 4px;
+  
+  }
+}
+
 .tag-holder {
   max-height: 300px;
   overflow: auto;

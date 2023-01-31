@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Google from "../components/google/index";
 import styled from "styled-components";
+import { Toaster } from "react-hot-toast";
 import {
   fetchLocations,
   fetchTags,
@@ -36,6 +37,7 @@ export default function Home({ locationsFetch, tagsFetch }) {
   };
   return (
     <Cont>
+      
       <Google locations={locations} tagsFetch={tags} addTag={addTag} />
     </Cont>
   );

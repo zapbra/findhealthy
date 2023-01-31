@@ -1,12 +1,17 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
-import PhotoDisplay from "../popups/PhotoDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClose,
   faPlus,
   faLocationDot,
+  faDollarSign,
+  faCoins,
+  faEgg,
+  faFaceSmileBeam,
+  faSmileBeam,
+  faWeightScale
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import usePlacesAutocomplete, {
@@ -19,17 +24,25 @@ import RenderImages from "../inputs/RenderImages";
 import toast from "react-hot-toast";
 import createLocation, {
   createAddress,
+  createProduct,
   fetchCountryByName,
 } from "../../utils/supabaseFunctions";
 import CreateTag from "../inputs/CreateTag";
 import StarReview from "../inputs/StarReview";
-import countryCodes, { countryCodesOnly } from "../../data/countryCodes";
+import countryCodes, { countryCodesOnly, measurements } from "../../data/countryCodes";
 import Dropdown from "./Dropdown";
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
   padding: 16px;
   form {
     position: relative;
+  }
+  .tag-three{
+    background-color: ${(props) => props.colors.darkBlue};
+    margin-right: 8px;
+    p{
+      color: ${(props) => props.colors.offWhite};
+    }
   }
   .fake-form {
     max-width: 600px;
@@ -39,6 +52,7 @@ const Cont = styled.div`
     padding: 8px;
   }
   .optional-fields {
+    border: 2px solid ${(props) => props.colors.darkPink};
     .title-spec {
       padding: 32px;
       margin-bottom: 32px;
@@ -47,12 +61,16 @@ const Cont = styled.div`
     }
   }
 
+  .dollar-input {
+    width: auto;
+  }
   .selects {
     border-bottom: 1px solid ${(props) => props.colors.darkPink};
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .radio-line {
     border-right: 2px solid ${(props) => props.colors.darkPink};
     display: inline-block;
@@ -68,7 +86,6 @@ const Cont = styled.div`
   }
 `;
 
-const regex = /^[0-9.$]*$/;
 const Bottombar = ({
   adding,
   startAdding,
@@ -77,6 +94,7 @@ const Bottombar = ({
   setLocation,
   tagsFetch,
   addTag,
+  fetchNewLocation
 }) => {
   const {
     handleSubmit,
@@ -93,8 +111,9 @@ const Bottombar = ({
   const [imageLinks, setImageLinks] = useState([]);
   const [product, setProduct] = useState({
     name: "",
-    value: 0,
+    value: '',
     dollarType: "USD",
+    measurement: 'lb'
   });
   const [products, setProducts] = useState([]);
   const [address, setAddress] = useState({
@@ -105,18 +124,34 @@ const Bottombar = ({
     lat: "",
     lng: "",
   });
+  
 
-  const updateProduct = (e) => {
+  const updateProduct = (e, field) => {
     setProduct((prev) => {
       return {
         ...prev,
-        name: e.target.value.toLowerCase(),
+        [field]: e.target.value.toLowerCase(),
       };
     });
   };
 
   const updateProductValue = (e) => {
     const value = e.target.value;
+    const regex = /^[0-9.$ ]*$/;
+    if (!regex.test(value)) {
+      toast.error("Must be valid number (Ex. 14.99)");
+      productValueRef.current.classList.add("red-anim");
+      setTimeout(() => {
+        productValueRef.current.classList.remove("red-anim");
+      }, 1000);
+      return;
+    }
+    setProduct((prev) => {
+      return {
+        ...prev,
+        value: value.toLowerCase(),
+      };
+    });
   };
   useEffect(() => {
     setTags(tagsFetch.map((tag) => tag.name));
@@ -180,31 +215,13 @@ const Bottombar = ({
     }
   };
 
-  const clearForm = () => {
-    setValue("name", "");
-    setValue("description", "");
-    setValue("hoursFrom", "");
-    setValue("hoursTo", "");
-    setValue("pickup", "unspecified");
-    setValue("website", "");
-    setValue("email", "");
-    setValue("number", "");
-    setImages([]);
-    setLocation("");
-  };
-
-  const finalizeLocation = () => {
-    clearForm();
-  };
-
-
-  
   const checkAddressValid = async () => {
+    toast.error('h')
     try{
       const results = await getGeocode({ address: location });
       console.log(results);
     } catch(error) {
-      //const searchBarElem = document.getElementById("address-input");
+    
       const searchBarElem = document.querySelector(".google-dropdown");
       searchBarElem.focus();
       searchBarElem.classList.add("scale-pop-anim");
@@ -222,11 +239,45 @@ const Bottombar = ({
       })
       
       
-    }
-    
-    
-    return false;
-  }
+    }}
+
+  const clearForm = () => {
+    setValue("name", "");
+    setValue("description", "");
+    setValue('howToOrder', '');
+    setValue("hoursFrom", "");
+    setValue("hoursTo", "");
+    setValue("pickup", "unspecified");
+    setValue("website", "");
+    setValue("email", "");
+    setValue("number", "");
+    setValue('grassFed','unspecified')
+    setValue('organic','unspecified')
+    setValue('vaccineFree','unspecified')
+    setValue('pastureRaised','unspecified')
+    setValue('soyFree','unspecified')
+    setValue('dewormerFree','unspecified')
+    setValue('unfrozen','unspecified')
+    setImages([]);
+    setLocation("");
+    setProducts([]);
+    setTags(tagsFetch.map((tag) => tag.name));
+    setSelectedTags([]);
+    setReviewFields(prev=> {
+      return {
+        pricing: { name: "pricing", stars: 0 },
+        quality: { name: "quality", stars: 0 },
+        friendly: { name: "friendly", stars: 0 },
+      }
+    })
+  };
+
+  const finalizeLocation = (id) => {
+    clearForm();
+    fetchNewLocation(id);
+    stopAdding();
+  };
+
   const submitForm = handleSubmit(async (formData) => {
     alert("k");
 
@@ -235,8 +286,8 @@ const Bottombar = ({
     numberOrganize.splice(4, 0, ")");
     numberOrganize.splice(5, 0, "-");
     numberOrganize.splice(9, 0, "-");
-
-    if(checkAddressValid){
+  if(checkAddressValid)
+  {
     const locationId = await createLocation(
       formData.name,
       formData.description,
@@ -248,19 +299,26 @@ const Bottombar = ({
       formData.email,
       numberOrganize.join(""),
       tags,
-      products,
       formData.grassfed,
       formData.organic,
-      formData.vaccines,
+      formData.vaccineFree,
       formData.pastureRaised,
       formData.soyFree,
       formData.dewormerFree,
       formData.unfrozen,
       reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
       reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
-      reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
-      formData.howToOrder
+      reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars
     );
+    products.forEach((product) => {
+      createProduct(
+        locationId,
+        product.name,
+        product.value,
+        product.dollarType,
+        product.measurement
+      );
+    });
     createAddress(
       locationId,
       address.fullAddress,
@@ -269,9 +327,10 @@ const Bottombar = ({
       address.lng,
       address.country,
       address.state
-    ).then((res) => finalizeLocation());
+    ).then((res) => finalizeLocation(locationId));
+
     //uploadImages();
-    }
+  }
   });
 
   const addProduct = (e) => {
@@ -293,33 +352,40 @@ const Bottombar = ({
       }, 1000);
       return;
     }
+   
     setProducts((prev) => {
       return [...prev, product];
     });
-    setProduct({ name: "", value: 0, dollarType: "USD" });
+    setProduct({ name: "", value: '', dollarType: selectedValue,mesurement: selectedMeasure });
   };
 
+  const productValueRef = useRef(null);
   const productInput = useRef(null);
   const productElems = products.map((product, index) => {
     return (
       <div
         key={index}
-        className="flex-inline mar-right-8 mar-bottom-8 align-center product-tag"
+        className="tag-three"
       >
         {" "}
-        <p className="mar-right-4">{product}</p>{" "}
+        <p className="mar-right-4 bold">{product.name}</p>{" "}
+        <div className="values mar-right-8">
+          <p className = 'black'>${product.value}(<em className = 'contrast'>{product.dollarType}</em>)/{product.measurement}</p>
+        </div>
+        <div className="delete-sm ">
         <FontAwesomeIcon
-          onClick={() => removeProductTag(product)}
+          onClick={() => removeProductTag(product.name)}
           icon={faClose}
-          className="icon-ssm "
+          className="icon-ssm contrast"
         />
+        </div>
       </div>
     );
   });
 
-  const removeProductTag = (productTag) => {
+  const removeProductTag = (productName) => {
     setProducts((prev) => {
-      return [...prev.filter((product) => product !== productTag)];
+      return [...prev.filter((product) => product.name !== productName)];
     });
   };
 
@@ -357,6 +423,7 @@ const Bottombar = ({
       ) {
         setShowDropdown(false);
         setDollarSearch("");
+        
       }
     },
     [showDropdown, setShowDropdown, dropdownEl]
@@ -367,7 +434,7 @@ const Bottombar = ({
     setProduct((prev) => {
       return {
         ...prev,
-        dollarType: name,
+        dollarType: item,
       };
     });
     setSelectedIndex(index);
@@ -390,33 +457,67 @@ const Bottombar = ({
     };
   }, [handleClickOutside]);
 
+const dropdownEl2 = useRef(null);
+const [measureValue, setMeasureValue] = useState('pound');
+const [selectedMeasure, setSelectedMeasure] = useState(measureValue);
+const [selectedMeasureIndex, setSelectedMeasureIndex] = useState(
+  selectedMeasure !== '' ? measurements.indexOf(selectedMeasure) : null
+);
+const [measurementSearch, setMeasurementSearch] = useState('');
+const [showDropdown2, setShowDropdown2] = useState(false);
+const [actualMeasure, setActualMeasure] = useState('');
+const [measureOptions, setMeasureOptions] = useState(measurements);
 
-  const [selectedImage, setSelectedImage] = useState('');
-  const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
-  const updateSelectedImage = (url) => {
-    setSelectedImage(url);
-  }
-  const setPhotoDisplayVisible = () => {
-    setShowPhotoDisplay(true);
-  }
+const handleClickOutside2 = useCallback(
+    (e) => {
+      if (
+        showDropdown2 &&
+        e.target.closest(".dropdown") !== dropdownEl2.current
+      ) {
+       
+        setShowDropdown2(false);
+        setMeasurementSearch("");
+      }
+    },
+    [showDropdown2, setShowDropdown2, dropdownEl2]
+  );
+  
+   useEffect(() => {
+    document.addEventListener("click", handleClickOutside2);
 
-  const hidePhoto = () => {
-    setShowPhotoDisplay(false);
+    return () => {
+      document.removeEventListener("click", handleClickOutside2);
+    };
+  }, [handleClickOutside2]);
+
+  useEffect(()=> {
+    console.log(actualDollar)
+  },[actualDollar])
+  const changeSelectedMeasureHandler = (item, name, index) => {
+    setSelectedMeasure(item);
     
-  }
-
-  const checkShowHours = () => {
-
-  }
+    setProduct((prev) => {
+      return {
+        ...prev,
+        measurement: item,
+      };
+    });
+    setSelectedMeasureIndex(index);
+    setShowDropdown2(false);
+    setActualMeasure(name);
+  };
+    const measureSearchChangeHandler = (e) => {
+    setMeasurementSearch(e.target.value);
+    const filteredOptions = measurements.filter((code) => {
+      return code.includes(e.target.value.trim().toLowerCase());
+    });
+    setMeasureOptions(filteredOptions);
+  };
+  
+  
   return (
     <Cont colors={COLORS}>
-      {showPhotoDisplay && (
-        <PhotoDisplay  
-      selectedImage = {selectedImage} 
-      hidePhoto = {hidePhoto}
-      />
-      )}
-     
+      <div onClick = {fetchNewLocation} style = {{border: '1px solid black'}}><p>hello</p></div>
       <button
         disabled={adding}
         onClick={startAdding}
@@ -436,16 +537,13 @@ const Bottombar = ({
       <div className="mar-bottom-16"></div>
       <br />
       {adding && (
-        <div className=" fake-form opacity-anim" onSubmit={submitForm}>
+        <form className=" fake-form opacity-anim" onSubmit={submitForm}>
           <PlacesAutocomplete
             location={location}
             setLocation={setLocation}
             setAddress={setAddress}
           />
 
-        <div style = {{border: '1px solid black'}} onClick = {checkAddressValid}>
-          <p>Check Valid</p>
-        </div>
           <div className="input-line">
             <div className="input-line">
               <h4>PRODUCT TYPES *</h4>
@@ -510,33 +608,96 @@ const Bottombar = ({
            
           </div>
 
+
           <div className="input-line">
             <h4>SPECIFIC PRODUCTS</h4>
             <p className="italic mar-bottom-4">
               Add more specic products to show exactly what they have
             </p>
-            <form onSubmit={addProduct}>
-              <input
-                value={product.name}
-                onChange={updateProduct}
-                type="text"
-                placeholder="sirloin steak... unsalted raw cheese..."
-                className="mar-bottom-8"
-                ref={productInput}
-              />
-              <input
-                type="text"
-                placeholder="14.99..."
-                className="mar-bottom-8"
-                style={{ width: "160px" }}
-              />
+            <div className = 'relative'>
+              <div className="tags-input-box mar-bottom-8 align-center flex">
+                <FontAwesomeIcon
+                  icon={faEgg}
+                  className="icon-ssm blue mar-right-8"
+                />
+                <input
+                  value={product.name}
+                  onChange={(e) => updateProduct(e, "name")}
+                  type="text"
+                  placeholder="sirloin steak... unsalted raw cheese..."
+                  ref={productInput}
+                  className="flex-one"
+                />
+              </div>
+              <div className="tags-input-box flex-inline align-center dollar-input inline-block mar-bottom-8">
+                <FontAwesomeIcon
+                  icon={faDollarSign}
+                  className="icon-ssm blue mar-right-8"
+                />
+                <input
+                  type="text"
+                  placeholder="14.99..."
+                  style={{ width: "160px" }}
+                  value={product.value}
+                  ref={productValueRef}
+                  onChange={(e) => updateProductValue(e, "value")}
+                />
+              </div>
+              <br />
+              <div className="relative">
+              <div className="dropdown" ref={dropdownEl2}>
+                <input type="hidden" />
+
+                <div
+                  className="dropdown__selected"
+                  onClick={() => setShowDropdown2(!showDropdown2)}
+                >
+                  {selectedMeasure ? (
+                    <>
+                      <FontAwesomeIcon
+                        icon={faWeightScale}
+                        className="icon-ssm blue mar-right-8"
+                      />
+                      {selectedMeasure}
+                    </>
+                  ) : (
+                    "Please select one option"
+                  )}
+                </div>
+              </div>
+              {showDropdown2 && (
+                <Dropdown
+                  searchPlaceholder="pound"
+                  search={measurementSearch}
+                  searchChangeHandler={measureSearchChangeHandler}
+                  selectedValue={measureValue}
+                  selectedIndex={selectedMeasureIndex}
+                  changeSelectedHandler={changeSelectedMeasureHandler}
+                  name="weight"
+                  regions={measureOptions}
+                />
+              )}
+              </div>
+ <div className="mar-bottom-8"></div>
+ <div className="relative">
               <div className="dropdown" ref={dropdownEl}>
                 <input type="hidden" />
+
                 <div
                   className="dropdown__selected"
                   onClick={() => setShowDropdown(!showDropdown)}
                 >
-                  {selectedValue ? selectedValue : "Please select one option"}
+                  {selectedValue ? (
+                    <>
+                      <FontAwesomeIcon
+                        icon={faCoins}
+                        className="icon-ssm blue mar-right-8"
+                      />
+                      {selectedValue}
+                    </>
+                  ) : (
+                    "Please select one option"
+                  )}
                 </div>
               </div>
               {showDropdown && (
@@ -551,7 +712,9 @@ const Bottombar = ({
                   regions={options}
                 />
               )}
-            </form>
+              </div>
+            </div>
+            <div className="mar-bottom-8"></div>
             {productElems}
             <div className="mar-bottom-16"></div>
             <div className="blue-btn-one" onClick={addProduct}>
@@ -564,9 +727,6 @@ const Bottombar = ({
 
           <div className="input-line">
             <h4>HOURS</h4>
-            <div className ='flex-inline'>
-
-            <div className = 'mar-right-8'>
             <h5>From</h5>
             <input
               {...register("hoursFrom", {
@@ -576,8 +736,6 @@ const Bottombar = ({
               name="hoursFrom"
               className="mar-bottom-8"
             />
-            </div>
-            <div>
             <h5>To</h5>
             <input
               {...register("hoursTo", {
@@ -585,12 +743,7 @@ const Bottombar = ({
               })}
               type="time"
               name="hoursTo"
-              
             />
-            </div>
-            </div>
-
-
           </div>
 
           <div className="input-line">
@@ -705,7 +858,6 @@ const Bottombar = ({
 
           <div className="input-line">
             <h4>UPLOAD IMAGE/S</h4>
-            
             <div
               className="inline-block"
               onClick={() => imageRef.current.click()}
@@ -718,12 +870,15 @@ const Bottombar = ({
               hidden={true}
               onChange={uploadImage}
             />
-            <RenderImages setPhotoDisplayVisible = {setPhotoDisplayVisible} images={images} updateSelectedImage = {updateSelectedImage}/>
+            <RenderImages images={images} />
           </div>
 
           <div className="optional-fields">
             <div className="title-spec gradient-bg-1">
-              <h3>OPTIONAL FIELDS</h3>
+              <div className="flex align-center justify-center mar-bottom-8">
+                <h3 className="mar-right-8">OPTIONAL FIELDS</h3>
+                <FontAwesomeIcon icon={faSmileBeam} className="icon-med red" />
+              </div>
               <h5 className="black light">If you want to be more thorough</h5>
               <h5 className="black light underline">
                 NONE of these are required!
@@ -746,7 +901,6 @@ const Bottombar = ({
                         type="radio"
                         value="true"
                         id="grassfed-true"
-                        name="grassfed-true"
                       />
                       <p className="mar-left-4">Yes</p>
                     </div>
@@ -761,7 +915,6 @@ const Bottombar = ({
                         type="radio"
                         id="grassfed-false"
                         value="false"
-                        name="grassfed-false"
                       />
                       <p className="mar-left-4">
                         {" "}
@@ -801,7 +954,6 @@ const Bottombar = ({
                         type="radio"
                         value="true"
                         id="organic-true"
-                        name="organic-true"
                       />
                       <p className="mar-left-4">Yes</p>
                     </div>
@@ -816,7 +968,6 @@ const Bottombar = ({
                         type="radio"
                         id="organic-false"
                         value="false"
-                        name="organic-false"
                       />
                       <p className="mar-left-4">
                         {" "}
@@ -845,18 +996,17 @@ const Bottombar = ({
               </div>
 
               <div className="radio-line">
-                <h4 className="mar-bottom-8">VACCINES?</h4>
+                <h4 className="mar-bottom-8">VACCINE FREE?</h4>
                 <div className="flex mar-bottom-8">
                   <label htmlFor="vaccines-true">
                     <div className="flex align-center mar-right-8">
                       <input
-                        {...register("vaccines", {
+                        {...register("vaccineFree", {
                           required: false,
                         })}
                         type="radio"
                         value="true"
                         id="vaccines-true"
-                        name="vaccines-true"
                       />
                       <p className="mar-left-4">Yes</p>
                     </div>
@@ -865,13 +1015,12 @@ const Bottombar = ({
                   <label htmlFor="pickupOnly">
                     <div className="flex align-center">
                       <input
-                        {...register("vaccines", {
+                        {...register("vaccineFree", {
                           required: false,
                         })}
                         type="radio"
                         id="vaccines-false"
                         value="false"
-                        name="vaccines-false"
                       />
                       <p className="mar-left-4">
                         {" "}
@@ -883,7 +1032,7 @@ const Bottombar = ({
                 <label htmlFor="vaccines-unspecified">
                   <div className="flex align-center">
                     <input
-                      {...register("vaccines", {
+                      {...register("vaccineFree", {
                         required: false,
                       })}
                       type="radio"
@@ -911,7 +1060,6 @@ const Bottombar = ({
                         type="radio"
                         value="true"
                         id="pasture-raised-true"
-                        name="pasture-raised-true"
                       />
                       <p className="mar-left-4">Yes</p>
                     </div>
@@ -926,7 +1074,6 @@ const Bottombar = ({
                         type="radio"
                         id="pasture-raised-false"
                         value="false"
-                        name="pasture-raised-false"
                       />
                       <p className="mar-left-4">
                         {" "}
@@ -966,7 +1113,6 @@ const Bottombar = ({
                         type="radio"
                         value="true"
                         id="soy-free-true"
-                        name="soy-free-true"
                       />
                       <p className="mar-left-4">Yes</p>
                     </div>
@@ -981,7 +1127,6 @@ const Bottombar = ({
                         type="radio"
                         id="soy-free-false"
                         value="false"
-                        name="soy-free-false"
                       />
                       <p className="mar-left-4">
                         {" "}
@@ -1010,7 +1155,7 @@ const Bottombar = ({
               </div>
 
               <div className="radio-line">
-                <h4 className="mar-bottom-8">DEWORMERS?</h4>
+                <h4 className="mar-bottom-8">DEWORMER FREE?</h4>
                 <div className="flex mar-bottom-8">
                   <label htmlFor="dewormers-true">
                     <div className="flex align-center mar-right-8">
@@ -1021,13 +1166,12 @@ const Bottombar = ({
                         type="radio"
                         value="true"
                         id="dewormers-true"
-                        name="dewormers-true"
                       />
                       <p className="mar-left-4">Yes</p>
                     </div>
                   </label>
 
-                  <label htmlFor="dewormers">
+                  <label htmlFor="dewormers-false">
                     <div className="flex align-center">
                       <input
                         {...register("dewormerFree", {
@@ -1036,7 +1180,6 @@ const Bottombar = ({
                         type="radio"
                         id="dewormers-false"
                         value="false"
-                        name="dewormers-false"
                       />
                       <p className="mar-left-4">
                         {" "}
@@ -1076,7 +1219,6 @@ const Bottombar = ({
                         type="radio"
                         value="true"
                         id="unfrozen-true"
-                        name="unfrozen-true"
                       />
                       <p className="mar-left-4">Yes</p>
                     </div>
@@ -1091,7 +1233,6 @@ const Bottombar = ({
                         type="radio"
                         id="unfrozen-false"
                         value="false"
-                        name="unfrozen-false"
                       />
                       <p className="mar-left-4">
                         {" "}
@@ -1119,7 +1260,7 @@ const Bottombar = ({
                 </label>
               </div>
             </div>
-            <div className="stars">
+            <div className="stars ">
               <StarReview
                 field={reviewFields.pricing.name}
                 stars={reviewFields.pricing.stars}
@@ -1137,14 +1278,14 @@ const Bottombar = ({
               />
             </div>
           </div>
-                    <div className ='mar-bottom-16'></div>
-          <button style = {{width:'100%'}} type="submit" className=" align-center justify-center blue-btn-one box-shadow-2 flex">
+                      <div className="mar-bottom-32"></div>
+          <button style = {{display:'flex', width: '100%'}} type="submit" className="align-center justify-center blue-btn-one box-shadow-2 mar-bottom-32">
             
               <h3 className="mar-right-8">Create</h3>
               <FontAwesomeIcon icon={faLocationDot} className="blue icon-med" />
           
           </button>
-        </div>
+        </form>
       )}
     </Cont>
   );
@@ -1170,7 +1311,6 @@ const PlacesAutocomplete = ({
   }, [location]);
 
   const handleSelect = async (address) => {
-    
     setValue(address.description);
     setLocation(address.description);
     const results = await getGeocode({ address: address.description });
