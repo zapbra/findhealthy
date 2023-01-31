@@ -18,6 +18,7 @@ const Cont = styled.div`
     }
   }
   .product-item {
+    margin-bottom: 16px;
     h5 {
       margin-right: 8px;
     }
@@ -62,7 +63,7 @@ const Sections = ({
           <div className="flex-inline product-content">
             <h5 className="black mar-right-8">{product.name}</h5>
             <p className="price">
-              {product.price}/{product.dollarType}
+              ${product.price} {product.dollarType}/{product.measurement}
             </p>
           </div>
         </li>
