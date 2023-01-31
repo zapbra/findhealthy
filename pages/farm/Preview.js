@@ -58,10 +58,23 @@ const Preview = () => {
       measurement: "litre",
     },
   ];
+
+  const description =
+    "They sell grass fed beef, pasture raised chicken (fresh) and they also sell fresh organs every few months or so. They do deliveries to the Parkdale market every Saturday between 11:00 AM and 1:30 PM";
   return (
     <Cont colors={COLORS}>
       <ImageSection images={images} />
-      <Sections products={products} />
+      <Sections
+        products={products}
+        description={description}
+        address="300 Fake St, Ottawa, Ontario"
+        website="http://www.ferme-reveuse.ca/"
+        email="fermereveuse@gmail.com"
+        phone="613-690-1234"
+        delivery="Pickup & Delivery"
+        hoursFrom = '6:00 AM'
+        hoursTo = '5:OO PM'
+      />
     </Cont>
   );
 };

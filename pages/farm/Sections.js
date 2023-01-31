@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
   .section-holder {
     display: grid;
@@ -10,11 +12,21 @@ const Cont = styled.div`
   }
   .section {
     width: 100%;
-
+    display: flex;
     padding: 32px;
     background-color: #fff;
     &:nth-of-type(2) {
       background-color: ${(props) => props.colors.lightBeige};
+    }
+    & > div {
+      flex: 1;
+    }
+    & > div:nth-of-type(1) {
+      border-right: 1px solid ${(props) => props.colors.black};
+      padding-right: 16px;
+    }
+    & > div:nth-of-type(2) {
+      padding-left: 16px;
     }
   }
   .product-item {
@@ -22,6 +34,7 @@ const Cont = styled.div`
     h5 {
       margin-right: 8px;
     }
+    word-break: break-word;
     .product-content {
       border: 1px solid ${(props) => props.colors.grey};
       padding: 4px 8px;
@@ -33,6 +46,16 @@ const Cont = styled.div`
       border: 1px solid ${(props) => props.colors.grey};
     }
   }
+  .description-text {
+    border-top: 1px solid ${(props) => props.colors.darkRed};
+    border-bottom: 1px solid ${(props) => props.colors.darkRed};
+    padding: 8px;
+  }
+  .section-line {
+    border-bottom: 1px solid ${(props) => props.colors.darkGrey};
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
 `;
 
 const Sections = ({
@@ -43,7 +66,8 @@ const Sections = ({
   email,
   phone,
   delivery,
-  hours,
+  hoursFrom,
+  hoursTo,
   howToOrder,
   grassFed,
   organic,
@@ -70,15 +94,82 @@ const Sections = ({
       );
     })
   );
-  return (
-    <Cont colors={COLORS}>
-      <section className="section">
-        <div className="center-inline">
-          <h3>PRODUCTS</h3>
+
+  const [farmFields, setFarmFields] = useState(
+    [
+      { name: "Grassfed", value: grassFed },
+      { name: "Organic", value: organic },
+      { name: "Vaccine Free", value: vaccineFree },
+      { name: "Soy Free", value: soyFree },
+      { name: "Pasture Raised", value: pastureRaised },
+      { name: "Dewormer Free", value: dewormerFree },
+      { name: "Unfrozen", value: unfrozen },
+    ].map((field) => {
+      return (
+        <div className="farm-field-line">
+          <h5>{field.name}</h5>
+          <div className="farm-field-icon"></div>
         </div>
-        <ul>{productElems}</ul>
+      );
+    })
+  );
+  return (
+    <Cont colors={COLORS} className="section-holder">
+      <section className="section">
+        <div>
+          <div className="center-inline mar-bottom-16">
+            <h3>PRODUCTS</h3>
+          </div>
+          <ul>{productElems}</ul>
+        </div>
+        <div>
+          <div className="center-inline mar-bottom-16">
+            <h3>DESCRIPTION</h3>
+          </div>
+          <div className="description-text">{description}</div>
+        </div>
       </section>
-      <section className="section"></section>
+      <section className="section">
+        <div>
+          <div className="section-line">
+            <h4 className="blue">ADDRESS</h4>
+            <p className="bold">{address}</p>
+          </div>
+
+          <div className="section-line">
+            <h4 className="blue">WEBSITE</h4>
+            <Link href={website}>
+              <p className="bold">{website}</p>
+            </Link>
+          </div>
+
+          <div className="section-line">
+            <h4 className="blue">EMAIL</h4>
+            <a href={`mailto:${email}`}>
+              <p className="bold">{email}</p>
+            </a>
+          </div>
+
+          <div className="section-line">
+            <h4 className="blue">PHONE</h4>
+            <a href={`tel:${phone}`}>
+              <p className="bold">{phone}</p>
+            </a>
+          </div>
+
+          <div className="section-line">
+            <h4 className="blue">DELIVERY</h4>
+            <p className="bold">{delivery}</p>
+          </div>
+        </div>
+        <div>
+          <div className="center-inline">
+            <h3 className="blue">HOURS</h3>
+            <p className="bold inline-block">{hoursFrom} - </p>{" "}
+            <p className="bold inline-block"> {hoursTo}</p>
+          </div>
+        </div>
+      </section>
       <section className="section"></section>
       <section className="section"></section>
     </Cont>
