@@ -21,6 +21,7 @@ $offWhite: #E7EFF8;
   padding: 8px 16px;
   cursor: pointer;
   display: inline-block;
+  
   h1,
   h2,
   h3,
@@ -70,6 +71,7 @@ $offWhite: #E7EFF8;
   padding: 8px 16px;
   cursor: pointer;
   display: inline-block;
+  
   h1,
   h2,
   h3,
@@ -107,6 +109,7 @@ $offWhite: #E7EFF8;
   border: 1px solid black;
   cursor: pointer;
   align-items: center;
+  transition: background-color .25s ease;
   p {
     margin-right: 4px;
   }

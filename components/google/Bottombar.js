@@ -202,7 +202,7 @@ const Bottombar = ({
   const checkAddressValid = async () => {
     try{
       const results = await getGeocode({ address: location });
-      
+      console.log(results);
     } catch(error) {
       //const searchBarElem = document.getElementById("address-input");
       const searchBarElem = document.querySelector(".google-dropdown");
