@@ -33,9 +33,10 @@ const Cont = styled.div`
 
 
 const PhotoDisplay = ({selectedImage, hidePhoto}) => {
-    console.log(selectedImage.width);
+    
     return (
         <Cont className ='background-shadow' colors = {COLORS}>
+            
             <div onClick = {hidePhoto} className = 'close-btn-spec box-shadow-2' >
                 <FontAwesomeIcon icon = {faClose} className = 'icon-lg black' />
             </div>

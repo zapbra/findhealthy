@@ -6,10 +6,15 @@ import ImageSection from "./ImageSection";
 const Cont = styled.div``;
 
 const Preview = () => {
-  const [previewUrl, setPreviewUrl] = useState("/images/steak.jpg");
+  const [images, setImages] = useState([
+    "/images/steak.jpg",
+    "/images/eggs.jpg",
+    "/images/milk.jpg",
+    "/images/farm.jpg",
+  ]);
   return (
     <Cont colors={COLORS}>
-      <ImageSection />
+      <ImageSection images = {images} />
     </Cont>
   );
 };
