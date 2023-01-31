@@ -4,10 +4,11 @@ import styled from "styled-components";
 import { Toaster } from "react-hot-toast";
 import {
   fetchLocations,
+  fetchLocation,
   fetchTags,
   createTag,
 } from "../utils/supabaseFunctions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Cont = styled.div`
   min-height: 100vh;
 `;
@@ -29,16 +30,31 @@ export default function Home({ locationsFetch, tagsFetch }) {
   console.log(locationsFetch);
   console.log("locations");
 
+  const pushLocation = (location) => {
+    setLocations(prev=> {
+      return [...prev, location];
+    })
+  }
+  useEffect(()=> {
+    console.log(locations);
+  },[locations])
+  const fetchNewLocation = async (id) => {
+    const location = fetchLocation(id);
+    location.then(res=>pushLocation(res))
+  }
+
   const addTag = async (name) => {
     const updateTags = async () => {
       setTags(await fetchTags());
     };
     createTag(name).then((res) => res && updateTags());
   };
+
+
   return (
     <Cont>
       
-      <Google locations={locations} tagsFetch={tags} addTag={addTag} />
+      <Google locations={locations} tagsFetch={tags} addTag={addTag}  fetchNewLocation = {fetchNewLocation}/>
     </Cont>
   );
 }

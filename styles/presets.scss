@@ -234,7 +234,9 @@ h6 {
 .align-start {
   align-items: flex-start;
 }
-
+.relative{
+  position: relative;
+}
 .report-bottom-right {
   position: absolute;
   right: 16px;

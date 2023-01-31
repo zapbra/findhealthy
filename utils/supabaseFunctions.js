@@ -38,7 +38,7 @@ const createLocation = async (
         email,
         number,
         tags,
-        products,
+        
         grassFed,
   organic,
   vaccineFree,
@@ -114,6 +114,7 @@ export const fetchCountryByName = async (name) => {
 
     return data[0].id;
   } catch (error) {
+    
     console.log(error.message);
   }
 };
@@ -171,6 +172,34 @@ export const createTag = async (name) => {
     return true;
   } catch (error) {
     console.log(error.message);
+    return false;
+  }
+};
+
+
+export const createProduct = async (location_id, name, price, dollarType, measurement) => {
+  try {
+    const { data, error } = await supabase
+      .from("products")
+      .insert({ location_id, name, price, dollarType, measurement });
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    console.log(error.message);
+    return false;
+  }
+};
+
+export const fetchLocation = async (id) => {
+  try {
+    const { data, error } = await supabase
+      .from("locations")
+      .select("*,address(*), products(*)")
+      .eq('id',id).single();
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
     return false;
   }
 };

@@ -27,7 +27,7 @@ const options = {
 function createKey(location) {
   return location.lat + location.lng;
 }
-const Index = ({ locations, tagsFetch, addTag }) => {
+const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
   const [location, setLocation] = useState("");
   const [markers, setMarkers] = useState([]);
   useEffect(() => {
@@ -148,6 +148,7 @@ const Index = ({ locations, tagsFetch, addTag }) => {
         setLocation={updateLocation}
         tagsFetch={tagsFetch}
         addTag={addTag}
+        fetchNewLocation = {fetchNewLocation}
       />
     </Cont>
   ) : (

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
+import PhotoDisplay from "../popups/PhotoDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClose,
@@ -312,6 +313,7 @@ const Bottombar = ({
     numberOrganize.splice(9, 0, "-");
   if(checkAddressValid)
   {
+   
     const locationId = await createLocation(
       formData.name,
       formData.description,
@@ -323,7 +325,7 @@ const Bottombar = ({
       formData.email,
       numberOrganize.join(""),
       tags,
-      formData.grassfed,
+      formData.grassFed,
       formData.organic,
       formData.vaccineFree,
       formData.pastureRaised,
@@ -538,9 +540,32 @@ const handleClickOutside2 = useCallback(
     setMeasureOptions(filteredOptions);
   };
   
-  
+
+    const [selectedImage, setSelectedImage] = useState('');
+  const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
+  const updateSelectedImage = (url) => {
+    setSelectedImage(url);
+  }
+  const setPhotoDisplayVisible = () => {
+    setShowPhotoDisplay(true);
+  }
+
+  const hidePhoto = () => {
+    setShowPhotoDisplay(false);
+    
+  }
+
+  const checkShowHours = () => {
+
+  }
   return (
     <Cont colors={COLORS}>
+       {showPhotoDisplay && (
+        <PhotoDisplay  
+      selectedImage = {selectedImage} 
+      hidePhoto = {hidePhoto}
+      />
+      )}
       <div onClick = {fetchNewLocation} style = {{border: '1px solid black'}}><p>hello</p></div>
       <button
         disabled={adding}
@@ -894,7 +919,7 @@ const handleClickOutside2 = useCallback(
               hidden={true}
               onChange={uploadImage}
             />
-            <RenderImages images={images} />
+            <RenderImages setPhotoDisplayVisible = {setPhotoDisplayVisible} images={images} updateSelectedImage = {updateSelectedImage} images={images} />
           </div>
 
           <div className="optional-fields">
@@ -919,7 +944,7 @@ const handleClickOutside2 = useCallback(
                   <label htmlFor="grassfed-true">
                     <div className="flex align-center mar-right-8">
                       <input
-                        {...register("grassfed", {
+                        {...register("grassFed", {
                           required: false,
                         })}
                         type="radio"
@@ -933,7 +958,7 @@ const handleClickOutside2 = useCallback(
                   <label htmlFor="pickupOnly">
                     <div className="flex align-center">
                       <input
-                        {...register("grassfed", {
+                        {...register("grassFed", {
                           required: false,
                         })}
                         type="radio"
@@ -950,7 +975,7 @@ const handleClickOutside2 = useCallback(
                 <label htmlFor="grassfed-unspecified">
                   <div className="flex align-center">
                     <input
-                      {...register("grassfed", {
+                      {...register("grassFed", {
                         required: false,
                       })}
                       type="radio"
