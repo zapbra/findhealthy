@@ -216,12 +216,36 @@ const Bottombar = ({
   };
 
   const checkAddressValid = async () => {
-    toast.error('h')
+   
     try{
       const results = await getGeocode({ address: location });
-      console.log(results);
+      return true;
+      
     } catch(error) {
-    
+      
+      toast('Please select an address from the dropdown.', {
+        duration: 4000,
+        position: 'top-center',
+      
+        // Styling
+        style: {border:'1px solid #E52323', backgroundColor: '#eee2dc;'},
+        className: '',
+      
+        // Custom Icon
+        icon: '👇',
+      
+        // Change colors of success/error/loading icon
+        iconTheme: {
+          primary: '#000',
+          secondary: '#fff',
+        },
+      
+        // Aria
+        ariaProps: {
+          role: 'status',
+          'aria-live': 'polite',
+        },
+      });
       const searchBarElem = document.querySelector(".google-dropdown");
       searchBarElem.focus();
       searchBarElem.classList.add("scale-pop-anim");
@@ -238,7 +262,7 @@ const Bottombar = ({
         }, 1000);
       })
       
-      
+      return false;
     }}
 
   const clearForm = () => {
@@ -543,7 +567,7 @@ const handleClickOutside2 = useCallback(
             setLocation={setLocation}
             setAddress={setAddress}
           />
-
+      <div onClick = {checkAddressValid} style = {{border:'1px solid black'}}><p>enter</p></div>
           <div className="input-line">
             <div className="input-line">
               <h4>PRODUCT TYPES *</h4>
@@ -1331,8 +1355,10 @@ const PlacesAutocomplete = ({
         country,
       };
     });
-
-    clearSuggestions();
+    setTimeout(()=> {
+      clearSuggestions();
+    },200)
+    
     //const results = await getGeocode({ address: description });
     //const { lat, lng } = await getLatLng(results[0]);
 
@@ -1341,6 +1367,7 @@ const PlacesAutocomplete = ({
 
   return (
     <div className="mar-bottom-32">
+     
       <h4>ENTER AN ADDRESS *</h4>
       <input
         value={value}

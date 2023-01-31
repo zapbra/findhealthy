@@ -11,7 +11,6 @@ const createLocation = async (
   email = null,
   number = null,
   tags,
-  products,
   grassFed,
   organic,
   vaccineFree,
