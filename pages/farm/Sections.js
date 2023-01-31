@@ -56,10 +56,24 @@ const Cont = styled.div`
     padding-bottom: 8px;
     margin-bottom: 16px;
   }
-  .form-field-icon {
+  .farm-field-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .farm-field-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    width: 240px;
+  }
+
+  .farm-field-icon {
     width: 40px;
     height: 40px;
     display: inline-flex;
+    margin: 0 auto;
     justify-content: center;
     align-items: center;
     border: 1px solid ${(props) => props.colors.darkRed};
@@ -121,8 +135,10 @@ const Sections = ({
             <h5>{field.name}</h5>
             <div className="farm-field-icon">
               <FontAwesomeIcon
-                icon={field.value ? faCheck : faClose}
-                className={field.value ? "icon-sm green" : "icon-sm red"}
+                icon={field.value == "true" ? faCheck : faClose}
+                className={
+                  field.value == "true" ? "icon-sm green" : "icon-sm light-red"
+                }
               />
             </div>
           </div>
@@ -187,7 +203,8 @@ const Sections = ({
         </div>
       </section>
       <section className="section">
-        {farmFields} <p>hello s</p>
+        <div className="farm-field-holder">{farmFields}</div>
+        <div></div>
       </section>
       <section className="section"></section>
     </Cont>
