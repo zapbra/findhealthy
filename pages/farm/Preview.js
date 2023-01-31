@@ -72,8 +72,15 @@ const Preview = () => {
         email="fermereveuse@gmail.com"
         phone="613-690-1234"
         delivery="Pickup & Delivery"
-        hoursFrom = '6:00 AM'
-        hoursTo = '5:OO PM'
+        hoursFrom="6:00 AM"
+        hoursTo="5:OO PM"
+        grassFed="unspecified"
+        organic="true"
+        vaccineFree="unspecified"
+        soyFree="false"
+        pastureRaised="true"
+        dewormerFree="true"
+        unfrozen="true"
       />
     </Cont>
   );

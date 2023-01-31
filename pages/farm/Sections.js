@@ -56,6 +56,15 @@ const Cont = styled.div`
     padding-bottom: 8px;
     margin-bottom: 16px;
   }
+  .form-field-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid ${(props) => props.colors.darkRed};
+    background-color: ${(props) => props.colors.tan};
+  }
 `;
 
 const Sections = ({
@@ -104,14 +113,21 @@ const Sections = ({
       { name: "Pasture Raised", value: pastureRaised },
       { name: "Dewormer Free", value: dewormerFree },
       { name: "Unfrozen", value: unfrozen },
-    ].map((field) => {
-      return (
-        <div className="farm-field-line">
-          <h5>{field.name}</h5>
-          <div className="farm-field-icon"></div>
-        </div>
-      );
-    })
+    ]
+      .filter((field) => field.value != "unspecified")
+      .map((field) => {
+        return (
+          <div className="farm-field-line">
+            <h5>{field.name}</h5>
+            <div className="farm-field-icon">
+              <FontAwesomeIcon
+                icon={field.value ? faCheck : faClose}
+                className={field.value ? "icon-sm green" : "icon-sm red"}
+              />
+            </div>
+          </div>
+        );
+      })
   );
   return (
     <Cont colors={COLORS} className="section-holder">
@@ -170,7 +186,9 @@ const Sections = ({
           </div>
         </div>
       </section>
-      <section className="section"></section>
+      <section className="section">
+        {farmFields} <p>hello s</p>
+      </section>
       <section className="section"></section>
     </Cont>
   );
