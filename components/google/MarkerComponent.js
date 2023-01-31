@@ -180,10 +180,12 @@ const MarkerComponent = ({
               </div>
             </div>
             <div className="mar-bottom-16"></div>
-            <div className="blue-btn-one flex justify-center align-center mar-bottom-16">
-              <h5 className="mar-right-8">VIEW</h5>
-              <FontAwesomeIcon icon={faEye} className="icon-sm blue" />
-            </div>
+            <Link href="/farm/Preview">
+              <div className="blue-btn-one flex justify-center align-center mar-bottom-16">
+                <h5 className="mar-right-8">VIEW</h5>
+                <FontAwesomeIcon icon={faEye} className="icon-sm blue" />
+              </div>
+            </Link>
           </Cont>
         </InfoWindow>
       )}
