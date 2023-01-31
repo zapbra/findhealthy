@@ -31,6 +31,10 @@ const Cont = styled.div`
     overflow: hidden;
     opacity: 0.6;
     cursor: pointer;
+    transition: opacity 0.25s ease;
+    &:hover {
+      opacity: 1;
+    }
     img {
       object-fit: cover;
       height: 100%;
@@ -44,11 +48,12 @@ const Cont = styled.div`
 `;
 
 const Preview = () => {
+  const [previewUrl, setPreviewUrl] = useState("/images/steak.jpg");
   return (
     <Cont colors={COLORS}>
       <div className="hero-image-section">
         <div className="image-holder">
-          <img src="/images/steak.jpg" />
+          <img src={previewUrl} />
         </div>
 
         <div className="image-selectors">
