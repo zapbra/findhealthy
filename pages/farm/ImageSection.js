@@ -87,7 +87,7 @@ const ImageSection = ({ images }) => {
         <PhotoDisplay selectedImage={previewUrl} hidePhoto={hidePhoto} />
       )}
       <div className="hero-image-section">
-        <div className="image-holder">
+        <div onClick={setPhotoDisplayVisible} className="image-holder">
           <img src={previewUrl} />
         </div>
 
