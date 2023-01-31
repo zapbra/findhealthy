@@ -33,6 +33,9 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
   useEffect(() => {
     setMarkers((prev) => {
       return locations.map((location, index) => {
+        console.log('location');
+        console.log(location);
+        console.log('location');
         return (
           <MarkerComponent
             key={index}
@@ -49,6 +52,8 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
             address={location.address[0].text_address}
             hoursFrom={location.hoursFrom}
             hoursTo={location.hoursTo}
+            tags = {location.tags}
+            products = {location.products}
           />
         );
       });

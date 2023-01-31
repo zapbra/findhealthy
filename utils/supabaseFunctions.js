@@ -146,7 +146,7 @@ export const fetchLocations = async () => {
   try {
     const { data, error } = await supabase
       .from("locations")
-      .select("*,address(*)");
+      .select("*,address(*), products(*)");
     if (error) throw error;
     return data;
   } catch (error) {

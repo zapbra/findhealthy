@@ -12,7 +12,7 @@ import {
   faEgg,
   faFaceSmileBeam,
   faSmileBeam,
-  faWeightScale
+  faWeightScale,
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import usePlacesAutocomplete, {
@@ -30,7 +30,10 @@ import createLocation, {
 } from "../../utils/supabaseFunctions";
 import CreateTag from "../inputs/CreateTag";
 import StarReview from "../inputs/StarReview";
-import countryCodes, { countryCodesOnly, measurements } from "../../data/countryCodes";
+import countryCodes, {
+  countryCodesOnly,
+  measurements,
+} from "../../data/countryCodes";
 import Dropdown from "./Dropdown";
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
@@ -38,10 +41,10 @@ const Cont = styled.div`
   form {
     position: relative;
   }
-  .tag-three{
+  .tag-three {
     background-color: ${(props) => props.colors.darkBlue};
     margin-right: 8px;
-    p{
+    p {
       color: ${(props) => props.colors.offWhite};
     }
   }
@@ -95,7 +98,7 @@ const Bottombar = ({
   setLocation,
   tagsFetch,
   addTag,
-  fetchNewLocation
+  fetchNewLocation,
 }) => {
   const {
     handleSubmit,
@@ -112,9 +115,9 @@ const Bottombar = ({
   const [imageLinks, setImageLinks] = useState([]);
   const [product, setProduct] = useState({
     name: "",
-    value: '',
+    value: "",
     dollarType: "USD",
-    measurement: 'lb'
+    measurement: "lb",
   });
   const [products, setProducts] = useState([]);
   const [address, setAddress] = useState({
@@ -125,7 +128,6 @@ const Bottombar = ({
     lat: "",
     lng: "",
   });
-  
 
   const updateProduct = (e, field) => {
     setProduct((prev) => {
@@ -217,84 +219,82 @@ const Bottombar = ({
   };
 
   const checkAddressValid = async () => {
-   
-    try{
+    try {
       const results = await getGeocode({ address: location });
       return true;
-      
-    } catch(error) {
-      
-      toast('Please select an address from the dropdown.', {
+    } catch (error) {
+      toast("Please select an address from the dropdown.", {
         duration: 4000,
-        position: 'top-center',
-      
+        position: "top-center",
+
         // Styling
-        style: {border:'1px solid #E52323', backgroundColor: '#eee2dc;'},
-        className: '',
-      
+        style: { border: "1px solid #E52323", backgroundColor: "#eee2dc;" },
+        className: "",
+
         // Custom Icon
-        icon: '👇',
-      
+        icon: "👇",
+
         // Change colors of success/error/loading icon
         iconTheme: {
-          primary: '#000',
-          secondary: '#fff',
+          primary: "#000",
+          secondary: "#fff",
         },
-      
+
         // Aria
         ariaProps: {
-          role: 'status',
-          'aria-live': 'polite',
+          role: "status",
+          "aria-live": "polite",
         },
       });
       const searchBarElem = document.querySelector(".google-dropdown");
       searchBarElem.focus();
       searchBarElem.classList.add("scale-pop-anim");
-      
+
       searchBarElem.scrollIntoView({ behavior: "smooth", block: "center" });
       setTimeout(() => {
-      searchBarElem.classList.remove("scale-pop-anim");
-    }, 1000);
-      const lines = document.querySelectorAll('.google-dropdown p');
-      lines.forEach(line => {
+        searchBarElem.classList.remove("scale-pop-anim");
+      }, 1000);
+      const lines = document.querySelectorAll(".google-dropdown p");
+      lines.forEach((line) => {
         line.classList.add("red-anim");
         setTimeout(() => {
           line.classList.remove("red-anim");
         }, 1000);
-      })
-      
+      });
+
       return false;
-    }}
+    }
+  };
 
   const clearForm = () => {
     setValue("name", "");
     setValue("description", "");
-    setValue('howToOrder', '');
+    setValue("howToOrder", "");
     setValue("hoursFrom", "");
     setValue("hoursTo", "");
     setValue("pickup", "unspecified");
     setValue("website", "");
     setValue("email", "");
     setValue("number", "");
-    setValue('grassFed','unspecified')
-    setValue('organic','unspecified')
-    setValue('vaccineFree','unspecified')
-    setValue('pastureRaised','unspecified')
-    setValue('soyFree','unspecified')
-    setValue('dewormerFree','unspecified')
-    setValue('unfrozen','unspecified')
+    setValue("grassFed", "unspecified");
+    setValue("organic", "unspecified");
+    setValue("vaccineFree", "unspecified");
+    setValue("pastureRaised", "unspecified");
+    setValue("soyFree", "unspecified");
+    setValue("dewormerFree", "unspecified");
+    setValue("unfrozen", "unspecified");
     setImages([]);
     setLocation("");
     setProducts([]);
     setTags(tagsFetch.map((tag) => tag.name));
     setSelectedTags([]);
-    setReviewFields(prev=> {
+    setReviewFields((prev) => {
       return {
         pricing: { name: "pricing", stars: 0 },
         quality: { name: "quality", stars: 0 },
         friendly: { name: "friendly", stars: 0 },
-      }
-    })
+      };
+    });
   };
 
   const finalizeLocation = (id) => {
@@ -311,52 +311,50 @@ const Bottombar = ({
     numberOrganize.splice(4, 0, ")");
     numberOrganize.splice(5, 0, "-");
     numberOrganize.splice(9, 0, "-");
-  if(checkAddressValid)
-  {
-   
-    const locationId = await createLocation(
-      formData.name,
-      formData.description,
-      images,
-      formData.hoursFrom,
-      formData.hoursTo,
-      formData.pickup,
-      formData.website,
-      formData.email,
-      numberOrganize.join(""),
-      tags,
-      formData.grassFed,
-      formData.organic,
-      formData.vaccineFree,
-      formData.pastureRaised,
-      formData.soyFree,
-      formData.dewormerFree,
-      formData.unfrozen,
-      reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
-      reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
-      reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars
-    );
-    products.forEach((product) => {
-      createProduct(
-        locationId,
-        product.name,
-        product.value,
-        product.dollarType,
-        product.measurement
+    if (checkAddressValid) {
+      const locationId = await createLocation(
+        formData.name,
+        formData.description,
+        images,
+        formData.hoursFrom,
+        formData.hoursTo,
+        formData.pickup,
+        formData.website,
+        formData.email,
+        numberOrganize.join(""),
+        selectedTags,
+        formData.grassFed,
+        formData.organic,
+        formData.vaccineFree,
+        formData.pastureRaised,
+        formData.soyFree,
+        formData.dewormerFree,
+        formData.unfrozen,
+        reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
+        reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
+        reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars
       );
-    });
-    createAddress(
-      locationId,
-      address.fullAddress,
-      address.street,
-      address.lat,
-      address.lng,
-      address.country,
-      address.state
-    ).then((res) => finalizeLocation(locationId));
+      products.forEach((product) => {
+        createProduct(
+          locationId,
+          product.name,
+          product.value,
+          product.dollarType,
+          product.measurement
+        );
+      });
+      createAddress(
+        locationId,
+        address.fullAddress,
+        address.street,
+        address.lat,
+        address.lng,
+        address.country,
+        address.state
+      ).then((res) => finalizeLocation(locationId));
 
-    //uploadImages();
-  }
+      //uploadImages();
+    }
   });
 
   const addProduct = (e) => {
@@ -378,32 +376,37 @@ const Bottombar = ({
       }, 1000);
       return;
     }
-   
+
     setProducts((prev) => {
       return [...prev, product];
     });
-    setProduct({ name: "", value: '', dollarType: selectedValue,mesurement: selectedMeasure });
+    setProduct({
+      name: "",
+      value: "",
+      dollarType: selectedValue,
+      mesurement: selectedMeasure,
+    });
   };
 
   const productValueRef = useRef(null);
   const productInput = useRef(null);
   const productElems = products.map((product, index) => {
     return (
-      <div
-        key={index}
-        className="tag-three"
-      >
+      <div key={index} className="tag-three">
         {" "}
         <p className="mar-right-4 bold">{product.name}</p>{" "}
         <div className="values mar-right-8">
-          <p className = 'black'>${product.value}(<em className = 'contrast'>{product.dollarType}</em>)/{product.measurement}</p>
+          <p className="black">
+            ${product.value}(<em className="contrast">{product.dollarType}</em>
+            )/{product.measurement}
+          </p>
         </div>
         <div className="delete-sm ">
-        <FontAwesomeIcon
-          onClick={() => removeProductTag(product.name)}
-          icon={faClose}
-          className="icon-ssm contrast"
-        />
+          <FontAwesomeIcon
+            onClick={() => removeProductTag(product.name)}
+            icon={faClose}
+            className="icon-ssm contrast"
+          />
         </div>
       </div>
     );
@@ -449,7 +452,6 @@ const Bottombar = ({
       ) {
         setShowDropdown(false);
         setDollarSearch("");
-        
       }
     },
     [showDropdown, setShowDropdown, dropdownEl]
@@ -483,32 +485,31 @@ const Bottombar = ({
     };
   }, [handleClickOutside]);
 
-const dropdownEl2 = useRef(null);
-const [measureValue, setMeasureValue] = useState('pound');
-const [selectedMeasure, setSelectedMeasure] = useState(measureValue);
-const [selectedMeasureIndex, setSelectedMeasureIndex] = useState(
-  selectedMeasure !== '' ? measurements.indexOf(selectedMeasure) : null
-);
-const [measurementSearch, setMeasurementSearch] = useState('');
-const [showDropdown2, setShowDropdown2] = useState(false);
-const [actualMeasure, setActualMeasure] = useState('');
-const [measureOptions, setMeasureOptions] = useState(measurements);
+  const dropdownEl2 = useRef(null);
+  const [measureValue, setMeasureValue] = useState("pound");
+  const [selectedMeasure, setSelectedMeasure] = useState(measureValue);
+  const [selectedMeasureIndex, setSelectedMeasureIndex] = useState(
+    selectedMeasure !== "" ? measurements.indexOf(selectedMeasure) : null
+  );
+  const [measurementSearch, setMeasurementSearch] = useState("");
+  const [showDropdown2, setShowDropdown2] = useState(false);
+  const [actualMeasure, setActualMeasure] = useState("");
+  const [measureOptions, setMeasureOptions] = useState(measurements);
 
-const handleClickOutside2 = useCallback(
+  const handleClickOutside2 = useCallback(
     (e) => {
       if (
         showDropdown2 &&
         e.target.closest(".dropdown") !== dropdownEl2.current
       ) {
-       
         setShowDropdown2(false);
         setMeasurementSearch("");
       }
     },
     [showDropdown2, setShowDropdown2, dropdownEl2]
   );
-  
-   useEffect(() => {
+
+  useEffect(() => {
     document.addEventListener("click", handleClickOutside2);
 
     return () => {
@@ -516,12 +517,12 @@ const handleClickOutside2 = useCallback(
     };
   }, [handleClickOutside2]);
 
-  useEffect(()=> {
-    console.log(actualDollar)
-  },[actualDollar])
+  useEffect(() => {
+    console.log(actualDollar);
+  }, [actualDollar]);
   const changeSelectedMeasureHandler = (item, name, index) => {
     setSelectedMeasure(item);
-    
+
     setProduct((prev) => {
       return {
         ...prev,
@@ -532,41 +533,34 @@ const handleClickOutside2 = useCallback(
     setShowDropdown2(false);
     setActualMeasure(name);
   };
-    const measureSearchChangeHandler = (e) => {
+  const measureSearchChangeHandler = (e) => {
     setMeasurementSearch(e.target.value);
     const filteredOptions = measurements.filter((code) => {
       return code.includes(e.target.value.trim().toLowerCase());
     });
     setMeasureOptions(filteredOptions);
   };
-  
 
-    const [selectedImage, setSelectedImage] = useState('');
+  const [selectedImage, setSelectedImage] = useState("");
   const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
   const updateSelectedImage = (url) => {
     setSelectedImage(url);
-  }
+  };
   const setPhotoDisplayVisible = () => {
     setShowPhotoDisplay(true);
-  }
+  };
 
   const hidePhoto = () => {
     setShowPhotoDisplay(false);
-    
-  }
+  };
 
-  const checkShowHours = () => {
-
-  }
+  const checkShowHours = () => {};
   return (
     <Cont colors={COLORS}>
-       {showPhotoDisplay && (
-        <PhotoDisplay  
-      selectedImage = {selectedImage} 
-      hidePhoto = {hidePhoto}
-      />
+      {showPhotoDisplay && (
+        <PhotoDisplay selectedImage={selectedImage} hidePhoto={hidePhoto} />
       )}
-      <div onClick = {fetchNewLocation} style = {{border: '1px solid black'}}><p>hello</p></div>
+
       <button
         disabled={adding}
         onClick={startAdding}
@@ -592,7 +586,12 @@ const handleClickOutside2 = useCallback(
             setLocation={setLocation}
             setAddress={setAddress}
           />
-      <div onClick = {checkAddressValid} style = {{border:'1px solid black'}}><p>enter</p></div>
+          <div
+            onClick={checkAddressValid}
+            style={{ border: "1px solid black" }}
+          >
+            <p>enter</p>
+          </div>
           <div className="input-line">
             <div className="input-line">
               <h4>PRODUCT TYPES *</h4>
@@ -640,12 +639,10 @@ const handleClickOutside2 = useCallback(
           <div className="input-line">
             <h4>HOW TO ORDER</h4>
 
-           <p className = 'italic'>
-            Do you need to order from their website?
-           </p>
-           <p className = 'italic mar-bottom-4'>
+            <p className="italic">Do you need to order from their website?</p>
+            <p className="italic mar-bottom-4">
               Is it pickup only on certain days?
-           </p>
+            </p>
             <textarea
               {...register("howToOrder", {
                 required: false,
@@ -654,16 +651,14 @@ const handleClickOutside2 = useCallback(
               placeholder="Pickup location, delivery, etc"
               name="howToOrder"
             />
-           
           </div>
-
 
           <div className="input-line">
             <h4>SPECIFIC PRODUCTS</h4>
             <p className="italic mar-bottom-4">
               Add more specic products to show exactly what they have
             </p>
-            <div className = 'relative'>
+            <div className="relative">
               <div className="tags-input-box mar-bottom-8 align-center flex">
                 <FontAwesomeIcon
                   icon={faEgg}
@@ -694,73 +689,73 @@ const handleClickOutside2 = useCallback(
               </div>
               <br />
               <div className="relative">
-              <div className="dropdown" ref={dropdownEl2}>
-                <input type="hidden" />
+                <div className="dropdown" ref={dropdownEl2}>
+                  <input type="hidden" />
 
-                <div
-                  className="dropdown__selected"
-                  onClick={() => setShowDropdown2(!showDropdown2)}
-                >
-                  {selectedMeasure ? (
-                    <>
-                      <FontAwesomeIcon
-                        icon={faWeightScale}
-                        className="icon-ssm blue mar-right-8"
-                      />
-                      {selectedMeasure}
-                    </>
-                  ) : (
-                    "Please select one option"
-                  )}
+                  <div
+                    className="dropdown__selected"
+                    onClick={() => setShowDropdown2(!showDropdown2)}
+                  >
+                    {selectedMeasure ? (
+                      <>
+                        <FontAwesomeIcon
+                          icon={faWeightScale}
+                          className="icon-ssm blue mar-right-8"
+                        />
+                        {selectedMeasure}
+                      </>
+                    ) : (
+                      "Please select one option"
+                    )}
+                  </div>
                 </div>
+                {showDropdown2 && (
+                  <Dropdown
+                    searchPlaceholder="pound"
+                    search={measurementSearch}
+                    searchChangeHandler={measureSearchChangeHandler}
+                    selectedValue={measureValue}
+                    selectedIndex={selectedMeasureIndex}
+                    changeSelectedHandler={changeSelectedMeasureHandler}
+                    name="weight"
+                    regions={measureOptions}
+                  />
+                )}
               </div>
-              {showDropdown2 && (
-                <Dropdown
-                  searchPlaceholder="pound"
-                  search={measurementSearch}
-                  searchChangeHandler={measureSearchChangeHandler}
-                  selectedValue={measureValue}
-                  selectedIndex={selectedMeasureIndex}
-                  changeSelectedHandler={changeSelectedMeasureHandler}
-                  name="weight"
-                  regions={measureOptions}
-                />
-              )}
-              </div>
- <div className="mar-bottom-8"></div>
- <div className="relative">
-              <div className="dropdown" ref={dropdownEl}>
-                <input type="hidden" />
+              <div className="mar-bottom-8"></div>
+              <div className="relative">
+                <div className="dropdown" ref={dropdownEl}>
+                  <input type="hidden" />
 
-                <div
-                  className="dropdown__selected"
-                  onClick={() => setShowDropdown(!showDropdown)}
-                >
-                  {selectedValue ? (
-                    <>
-                      <FontAwesomeIcon
-                        icon={faCoins}
-                        className="icon-ssm blue mar-right-8"
-                      />
-                      {selectedValue}
-                    </>
-                  ) : (
-                    "Please select one option"
-                  )}
+                  <div
+                    className="dropdown__selected"
+                    onClick={() => setShowDropdown(!showDropdown)}
+                  >
+                    {selectedValue ? (
+                      <>
+                        <FontAwesomeIcon
+                          icon={faCoins}
+                          className="icon-ssm blue mar-right-8"
+                        />
+                        {selectedValue}
+                      </>
+                    ) : (
+                      "Please select one option"
+                    )}
+                  </div>
                 </div>
-              </div>
-              {showDropdown && (
-                <Dropdown
-                  searchPlaceholder="USD"
-                  search={dollarSearch}
-                  searchChangeHandler={searchChangeHandler}
-                  selectedValue={selectedValue}
-                  selectedIndex={selectedIndex}
-                  changeSelectedHandler={changeSelectedHandler}
-                  name="dollar"
-                  regions={options}
-                />
-              )}
+                {showDropdown && (
+                  <Dropdown
+                    searchPlaceholder="USD"
+                    search={dollarSearch}
+                    searchChangeHandler={searchChangeHandler}
+                    selectedValue={selectedValue}
+                    selectedIndex={selectedIndex}
+                    changeSelectedHandler={changeSelectedHandler}
+                    name="dollar"
+                    regions={options}
+                  />
+                )}
               </div>
             </div>
             <div className="mar-bottom-8"></div>
@@ -919,7 +914,12 @@ const handleClickOutside2 = useCallback(
               hidden={true}
               onChange={uploadImage}
             />
-            <RenderImages setPhotoDisplayVisible = {setPhotoDisplayVisible} images={images} updateSelectedImage = {updateSelectedImage} images={images} />
+            <RenderImages
+              setPhotoDisplayVisible={setPhotoDisplayVisible}
+              images={images}
+              updateSelectedImage={updateSelectedImage}
+              images={images}
+            />
           </div>
 
           <div className="optional-fields">
@@ -1327,12 +1327,14 @@ const handleClickOutside2 = useCallback(
               />
             </div>
           </div>
-                      <div className="mar-bottom-32"></div>
-          <button style = {{display:'flex', width: '100%'}} type="submit" className="align-center justify-center blue-btn-one box-shadow-2 mar-bottom-32">
-            
-              <h3 className="mar-right-8">Create</h3>
-              <FontAwesomeIcon icon={faLocationDot} className="blue icon-med" />
-          
+          <div className="mar-bottom-32"></div>
+          <button
+            style={{ display: "flex", width: "100%" }}
+            type="submit"
+            className="align-center justify-center blue-btn-one box-shadow-2 mar-bottom-32"
+          >
+            <h3 className="mar-right-8">Create</h3>
+            <FontAwesomeIcon icon={faLocationDot} className="blue icon-med" />
           </button>
         </form>
       )}
@@ -1380,10 +1382,10 @@ const PlacesAutocomplete = ({
         country,
       };
     });
-    setTimeout(()=> {
+    setTimeout(() => {
       clearSuggestions();
-    },200)
-    
+    }, 200);
+
     //const results = await getGeocode({ address: description });
     //const { lat, lng } = await getLatLng(results[0]);
 
@@ -1392,7 +1394,6 @@ const PlacesAutocomplete = ({
 
   return (
     <div className="mar-bottom-32">
-     
       <h4>ENTER AN ADDRESS *</h4>
       <input
         value={value}
