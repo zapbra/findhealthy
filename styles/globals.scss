@@ -107,7 +107,7 @@ li{
   list-style-type: none;
 }
 
-li h5::before{
+li::before{
   content: '•';
   color: $darkPink;
   font-weight:bold;

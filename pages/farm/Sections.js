@@ -10,7 +10,7 @@ const Cont = styled.div`
   }
   .section {
     width: 100%;
-    display: flex;
+
     padding: 32px;
     background-color: #fff;
     &:nth-of-type(2) {
@@ -18,6 +18,19 @@ const Cont = styled.div`
     }
   }
   .product-item {
+    h5 {
+      margin-right: 8px;
+    }
+    .product-content {
+      border: 1px solid ${(props) => props.colors.grey};
+      padding: 4px 8px;
+      background-color: ${(props) => props.colors.lightBeige};
+    }
+
+    .price {
+      background-color: #fff;
+      border: 1px solid ${(props) => props.colors.grey};
+    }
   }
 `;
 
@@ -45,9 +58,9 @@ const Sections = ({
   const [productElems, setProductElems] = useState(
     products.map((product) => {
       return (
-        <li>
-          <div className="flex-inline">
-            <h5 className="black">{product.name}</h5>
+        <li className="product-item">
+          <div className="flex-inline product-content">
+            <h5 className="black mar-right-8">{product.name}</h5>
             <p className="price">
               {product.price}/{product.dollarType}
             </p>
@@ -61,9 +74,8 @@ const Sections = ({
       <section className="section">
         <div className="center-inline">
           <h3>PRODUCTS</h3>
-          <p>hello???</p>
-          <ul>{productElems}</ul>
         </div>
+        <ul>{productElems}</ul>
       </section>
       <section className="section"></section>
       <section className="section"></section>
