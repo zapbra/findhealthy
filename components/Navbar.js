@@ -3,10 +3,16 @@ import React from "react";
 import styled from "styled-components";
 import COLORS from "../data/colors";
 const Cont = styled.div`
+.nav-desktop{
   background-color: ${(props) => props.colors.tan};
   padding: 16px 32px 8px 32px;
   position: relative;
   overflow: hidden;
+  @media only screen and (max-width:600px){
+    display:none;
+  }
+}
+  
   .grid-cont {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -42,6 +48,7 @@ const Cont = styled.div`
 const Navbar = () => {
   return (
     <Cont colors={COLORS}>
+      <div className="nav-desktop">
       <Link href="/">
         <h5 className = 'inline-block mar-right-32'>FINDHEALTHY</h5>
       </Link>
@@ -61,7 +68,7 @@ const Navbar = () => {
           <h5 className="mar-right-16">MAP</h5>
           <h5>FORUM</h5>
         </div>
-
+    
         <div className="nav-section">
           <div className="splitter"></div>
           <div className="splitter-blue"></div>
@@ -71,6 +78,9 @@ const Navbar = () => {
           <h5 className="blue mar-right-16">DATA SEARCH</h5>
         </div>
       </div>
+      </div>
+
+      
     </Cont>
   );
 };
