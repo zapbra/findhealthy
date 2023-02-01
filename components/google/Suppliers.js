@@ -11,22 +11,39 @@ const Cont = styled.div`
         background-color: ${props=>props.colors.tan};
         height:200px;
         width:100%;
-        position: absolte;
-        top: calc(-100px); 
+        position: absolute;
+        top: calc(-100px + 50%); 
         z-index:-1;
-
+      width:120%;
+      left:-10%;
+      
         transform: rotate(5deg);
+        @media only screen and (min-width:1200px){
+          height: 320px;
+          top: calc(-160px + 50%); 
+        }
+    }
+    section{
+      .food-title{
+        text-align: center;
+      }
     }
 `;
 const Suppliers = () => {
   return (
     <Cont colors = {COLORS}>
         <div className="title-spec center-inline">
-        <h2>POPULAR FOOD SUPPLIERS!</h2>
-        <div className="slanted-bg">
+        <h2 className>POPULAR FOOD SUPPLIERS!</h2>
+        <div className="slanted-bg box-shadow">
 
         </div>
         </div>
+
+        <section className="food-section">
+        <div className="food-title">
+          <h2>WORLDWIDE</h2>
+        </div>
+        </section>
     </Cont>
   )
 }

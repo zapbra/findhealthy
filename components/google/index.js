@@ -156,7 +156,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
         addTag={addTag}
         fetchNewLocation = {fetchNewLocation}
       />
-      <div className="sm-spacer-bot-res"></div>
+      <div className="lg-spacer"></div>
       <Suppliers />
     </Cont>
   ) : (
