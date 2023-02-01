@@ -1204,4 +1204,6 @@ export const measurements = [
   "pound",
   "1/2 kilo",
   "kilo",
+  "each",
+  
 ];

@@ -27,6 +27,7 @@ import createLocation, {
   createAddress,
   createProduct,
   fetchCountryByName,
+  createImage
 } from "../../utils/supabaseFunctions";
 import CreateTag from "../inputs/CreateTag";
 import StarReview from "../inputs/StarReview";
@@ -195,18 +196,10 @@ const Bottombar = ({
     });
   };
 
-  const uploadImages = async () => {
-    /*
-    images.forEach((image, index) => {
-      formData.append(`image`, image);
-    });*/
-    //formData.append("image", images[0]);
+  const uploadImages = async (location_id) => {
+  
 
     const imageUploads = [];
-    // FINISH THIS 
-    images.forEach(image => {
-      
-    })
     
     for (let i = 0; i < images.length; i++) {
       let formData = new FormData();
@@ -221,8 +214,11 @@ const Bottombar = ({
         });
         const res = await response.json();
         if(res.status == 200) {
-         imageUploads.push({url: res.link, deleteHash:res.deleteHash});
          
+         const uploadState = await createImage(res.data.url, res.data.deleteHash, location_id);
+          if(uploadState != true) {
+            toast.error(`Error uploading image ${i + 1}`)
+          }
         }
         else{
           toast('Error uploading image', {
@@ -253,7 +249,7 @@ const Bottombar = ({
         console.log(err.message);
       }
     }
-   
+    
     return imageUploads;
   };
 
@@ -351,11 +347,9 @@ const Bottombar = ({
     numberOrganize.splice(5, 0, "-");
     numberOrganize.splice(9, 0, "-");
     if (checkAddressValid) {
-      const imgurImages = await uploadImages();
       const locationId = await createLocation(
         formData.name,
         formData.description,
-        imgurImages,
         formData.hoursFrom,
         formData.hoursTo,
         formData.pickup,
@@ -383,6 +377,7 @@ const Bottombar = ({
           product.measurement
         );
       });
+      uploadImages(locationId);
       createAddress(
         locationId,
         address.fullAddress,

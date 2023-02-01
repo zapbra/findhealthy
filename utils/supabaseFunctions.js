@@ -3,7 +3,6 @@ import supabase from "./supabaseClient";
 const createLocation = async (
   name,
   description,
-  images = null,
   hoursFrom = null,
   hoursTo = null,
   pickup,
@@ -30,7 +29,6 @@ const createLocation = async (
       .insert({
         name,
         description,
-        images,
         hoursFrom,
         hoursTo,
         pickup,
@@ -38,9 +36,8 @@ const createLocation = async (
         email,
         number,
         tags,
-        
         grassFed,
-  organic,
+    organic,
   vaccineFree,
   pastureRaised,
   soyFree,
@@ -203,3 +200,16 @@ export const fetchLocation = async (id) => {
     return false;
   }
 };
+
+export const createImage = async (url, deleteHash, location_id) => {
+  try {
+    const {data, error} = await supabase
+    .from('images')
+    .insert({url, deleteHash, location_id});
+    if(error) throw error;
+    return true;
+  } catch(error) {
+    console.log(error);
+    return false;
+  }
+}
