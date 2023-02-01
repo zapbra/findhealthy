@@ -214,8 +214,10 @@ const Bottombar = ({
         });
         const res = await response.json();
         if(res.status == 200) {
+         console.log('res')
          
-         const uploadState = await createImage(res.data.url, res.data.deleteHash, location_id);
+         
+         const uploadState = await createImage(res.data.link, res.data.deletehash, location_id);
           if(uploadState != true) {
             toast.error(`Error uploading image ${i + 1}`)
           }
@@ -339,14 +341,15 @@ const Bottombar = ({
   };
 
   const submitForm = handleSubmit(async (formData) => {
-    alert("k");
-
+    
+    const validAddress = await checkAddressValid();
+    
     const numberOrganize = formData.number.replaceAll(/[^0-9]/g, "").split("");
     numberOrganize.unshift("(");
     numberOrganize.splice(4, 0, ")");
     numberOrganize.splice(5, 0, "-");
     numberOrganize.splice(9, 0, "-");
-    if (checkAddressValid) {
+    if (validAddress) {
       const locationId = await createLocation(
         formData.name,
         formData.description,
@@ -389,7 +392,7 @@ const Bottombar = ({
       ).then((res) => finalizeLocation(locationId));
 
       
-    }
+    } 
   });
 
   const addProduct = (e) => {
