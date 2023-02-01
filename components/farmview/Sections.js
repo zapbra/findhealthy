@@ -162,9 +162,9 @@ const Sections = ({
   friendly,
 }) => {
   const [productElems, setProductElems] = useState(
-    products.map((product) => {
+    products.map((product, index) => {
       return (
-        <li className="product-item">
+        <li key = {index} className="product-item">
           <div className="flex-inline product-content">
             <h5 className="black mar-right-8">{product.name}</h5>
             <p className="price">
@@ -187,9 +187,9 @@ const Sections = ({
       { name: "Unfrozen", value: unfrozen },
     ]
       .filter((field) => field.value != "unspecified")
-      .map((field) => {
+      .map((field, index) => {
         return (
-          <div className="farm-field-line">
+          <div key = {index} className="farm-field-line">
             <h5>{field.name}</h5>
             <div className="farm-field-icon">
               <FontAwesomeIcon
@@ -209,14 +209,15 @@ const Sections = ({
       { name: "Pricing", value: pricing },
       { name: "Quality", value: quality },
       { name: "Friendly", value: friendly },
-    ].map((field) => {
+    ].map((field, index) => {
       return (
-        <div className="star-field">
+        <div key = {index} className="star-field">
           <h4>{field.name}</h4>
           <div className="star-holder">
-            {[1, 2, 3, 4, 5].map((index) => {
+            {[1, 2, 3, 4, 5].map((index, realIndex) => {
               return (
                 <FontAwesomeIcon
+                key = {realIndex}
                   icon={faStar}
                   className={
                     index <= field.value ? "icon-ssm yellow" : "icon-ssm grey"

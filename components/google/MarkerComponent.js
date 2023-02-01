@@ -72,10 +72,12 @@ const MarkerComponent = ({
                 {tags[3]}
               </p>
             </div>
+            <Link href={`/farm/${name}`}>
             <div className="blue-btn-one flex justify-center align-center mar-bottom-16">
               <h5 className="mar-right-8">VIEW</h5>
               <FontAwesomeIcon icon={faEye} className="icon-sm blue" />
             </div>
+            </Link>
             <div className="field-line">
               <h5>Name</h5>
               <div className="red-line mar-bottom-4"></div>
@@ -186,7 +188,12 @@ const MarkerComponent = ({
               </div>
             </div>
             <div className="mar-bottom-16"></div>
-            <Link href="/farm/Preview">
+            <Link href={{
+              pathname: `/farm/${name}`,
+              query: {
+                title: name
+              }
+            }}>
               <div className="blue-btn-one flex justify-center align-center mar-bottom-16">
                 <h5 className="mar-right-8">VIEW</h5>
                 <FontAwesomeIcon icon={faEye} className="icon-sm blue" />

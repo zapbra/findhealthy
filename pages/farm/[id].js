@@ -4,15 +4,29 @@ import styled from "styled-components";
 import COLORS from "../../data/colors";
 import ImageSection from "../../components/farmview/ImageSection";
 import Sections from "../../components/farmview/Sections";
+import supabase from '../../utils/supabaseClient';
 const Cont = styled.div``;
 
-const Preview = () => {
-  const [images, setImages] = useState([
-    "/images/steak.jpg",
-    "/images/eggs.jpg",
-    "/images/milk.jpg",
-    "/images/farm.jpg",
-  ]);
+export const getServerSideProps = async (pageContext) => {
+  const title = pageContext.query.title;
+  const {data, error} = await supabase.from('locations')
+  .select('*, address(*), products(*), images(*)')
+  .eq('name', title).single();
+  return {
+    props: {
+      location: data,
+      
+    }
+  }
+}
+
+const Preview = ({location}) => {
+  console.log(location);
+  
+  const [images, setImages] = useState(
+    location.images.map(image=> {
+      return image.url
+    }));
 
   const products = [
     {

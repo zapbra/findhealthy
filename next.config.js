@@ -4,4 +4,12 @@ const nextConfig = {
   swcMinify: true,
 };
 
-module.exports = nextConfig;
+module.exports = {
+  images: {
+    domains: [
+      "https:/i.imgur.com",
+    ],
+  },
+  nextConfig,
+
+}

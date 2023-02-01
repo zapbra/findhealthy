@@ -66,9 +66,10 @@ const ImageSection = ({ images }) => {
     if (previewUrl === url) return;
     setPreviewUrl(url);
   };
-  const imageElements = images.map((image) => {
+  const imageElements = images.map((image, index) => {
     return (
       <div
+      key = {index}
         onClick={() => selectImage(image)}
         className={
           image === previewUrl ? "selected-image image-select" : "image-select"
