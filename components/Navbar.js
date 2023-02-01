@@ -13,7 +13,7 @@ const Cont = styled.div`
   }
   .splitter {
     width: 24px;
-    height: 230%;
+    height: 250%;
     background: ${(props) => props.colors.darkPink};
     margin-right: 8px;
     position: relative;
@@ -22,7 +22,7 @@ const Cont = styled.div`
   }
   .splitter-blue {
     width: 24px;
-    height: 230%;
+    height: 250%;
     background: ${(props) => props.colors.darkBlue};
     margin-right: 16px;
     position: relative;
@@ -33,9 +33,7 @@ const Cont = styled.div`
     display: flex;
     align-items: flex-end;
     height: 80px;
-    h4 {
-      align-self: center;
-    }
+    
   }
   .food-section {
     padding-right: 40px;
@@ -45,10 +43,17 @@ const Navbar = () => {
   return (
     <Cont colors={COLORS}>
       <Link href="/">
-        <h5>FINDHEALTHY</h5>
+        <h5 className = 'inline-block mar-right-32'>FINDHEALTHY</h5>
       </Link>
+      <Link href = '/signup'>
+        <div className="inline-block black-btn">
+        <h5 >Sign Up</h5>
+        </div>
+      </Link>
+      
 
       <div className="grid-cont">
+        
         <div className="nav-section food-section">
           <Link href = '/'>
           <h4 className=" mar-right-32">FOOD MAP</h4>

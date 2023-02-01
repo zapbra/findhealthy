@@ -67,6 +67,28 @@ $offWhite: #E7EFF8;
   }
 }
 
+.black-btn{
+  background: $darkBlue;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  padding: 8px 16px;
+  border:4px solid $offWhite;
+  border-style:outset;
+  transition: background-color .25s ease;
+  h5{
+    transition: color .25s ease;
+  }
+  &:hover{
+    background-color: $offWhite;
+    h5{
+      color: $darkBlue;
+    }
+  }
+  h5{
+    color: $offWhite;
+    text-decoration: none !important;
+  }
+}
+
 .red-btn-one {
   border: 2px solid $darkPink;
   background-color: #fff;
