@@ -7,7 +7,7 @@ const nextConfig = {
 module.exports = {
   images: {
     domains: [
-      "https:/i.imgur.com",
+      "i.imgur.com",
     ],
   },
   nextConfig,

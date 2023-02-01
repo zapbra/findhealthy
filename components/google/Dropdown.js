@@ -12,7 +12,9 @@ const Dropdown = ({
 }) => {
   const searchInputEl = useRef();
   const itemsEl = useRef();
-
+  console.log('index')
+  console.log(selectedValue)
+  console.log('index')
   useEffect(() => {
     searchInputEl.current.focus();
 

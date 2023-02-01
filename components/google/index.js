@@ -144,7 +144,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
       >
         {markers}
       </GoogleMap>
-      <button onClick={focusSearchBar}>add marker</button>
+      
       <Bottombar
         adding={adding}
         startAdding={startAdding}

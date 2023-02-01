@@ -79,27 +79,26 @@ const Preview = ({location}) => {
     <Cont colors={COLORS}>
       <ImageSection images={images} />
       <Sections
-        products={products}
-        description={description}
-        address="300 Fake St, Ottawa, Ontario"
-        website="http://www.ferme-reveuse.ca/"
-        email="fermereveuse@gmail.com"
-        phone="613-690-1234"
-        delivery="Pickup & Delivery"
-        hoursFrom="6:00 AM"
-        hoursTo="5:OO PM"
-        grassFed="unspecified"
-        organic="true"
-        vaccineFree="unspecified"
-        soyFree="false"
-        pastureRaised="true"
-        dewormerFree="true"
-        unfrozen="true"
-        pricing={3}
-        quality={4}
-        friendly={3}
-        howToOrder="Meet them at the Parkdale Farmers Market between 11:00 AM - 1:30 PM every Saturday.
-        Sign up for their newsletter to be notified of product changes or when they will be doing a fresh organs delivery. Also, they only have fresh chicken in the summer, so watch the newsletter to see their delivery or pickup dates."
+        products={location.products}
+        description={location.description}
+        address={location.address[0].full_address}
+        website= {location.website}
+        email= {location.email}
+        phone= {location.number}
+        delivery= {location.pickup}
+        hoursFrom= {location.hoursFrom}
+        hoursTo= {location.hoursTo}
+        grassFed= {location.grassFed}
+        organic={location.organic}
+        vaccineFree={location.vaccineFree}
+        soyFree={location.soyFree}
+        pastureRaised={location.pastureRaised}
+        dewormerFree={location.dewormerFree}
+        unfrozen={location.unfrozen}
+        pricing={location.pricing}
+        quality={location.quality}
+        friendly={location.friendly}
+        howToOrder={location.howToOrder}
       />
     </Cont>
   );

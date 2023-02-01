@@ -72,7 +72,12 @@ const MarkerComponent = ({
                 {tags[3]}
               </p>
             </div>
-            <Link href={`/farm/${name}`}>
+            <Link href={{
+              pathname: `/farm/${name}`,
+              query: {
+                title: name
+              }
+            }}>
             <div className="blue-btn-one flex justify-center align-center mar-bottom-16">
               <h5 className="mar-right-8">VIEW</h5>
               <FontAwesomeIcon icon={faEye} className="icon-sm blue" />

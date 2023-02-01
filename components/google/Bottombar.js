@@ -369,7 +369,8 @@ const Bottombar = ({
         formData.unfrozen,
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
-        reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars
+        reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
+        formData.howToOrder
       );
       products.forEach((product) => {
         createProduct(
@@ -394,7 +395,7 @@ const Bottombar = ({
       
     } 
   });
-
+ 
   const addProduct = (e) => {
     e.preventDefault();
     if (product.name === "") {
@@ -414,15 +415,16 @@ const Bottombar = ({
       }, 1000);
       return;
     }
-
+    
     setProducts((prev) => {
       return [...prev, product];
     });
+    
     setProduct({
       name: "",
       value: "",
       dollarType: selectedValue,
-      mesurement: selectedMeasure,
+      measurement: selectedMeasure,
     });
   };
 
@@ -503,6 +505,7 @@ const Bottombar = ({
         dollarType: item,
       };
     });
+    
     setSelectedIndex(index);
     setShowDropdown(false);
     setActualDollar(name);
@@ -567,10 +570,12 @@ const Bottombar = ({
         measurement: item,
       };
     });
+    
     setSelectedMeasureIndex(index);
     setShowDropdown2(false);
     setActualMeasure(name);
   };
+ 
   const measureSearchChangeHandler = (e) => {
     setMeasurementSearch(e.target.value);
     const filteredOptions = measurements.filter((code) => {
@@ -624,12 +629,7 @@ const Bottombar = ({
             setLocation={setLocation}
             setAddress={setAddress}
           />
-          <div
-            onClick={checkAddressValid}
-            style={{ border: "1px solid black" }}
-          >
-            <p>enter</p>
-          </div>
+          
           <div className="input-line">
             <div className="input-line">
               <h4>PRODUCT TYPES *</h4>
@@ -752,7 +752,7 @@ const Bottombar = ({
                     searchPlaceholder="pound"
                     search={measurementSearch}
                     searchChangeHandler={measureSearchChangeHandler}
-                    selectedValue={measureValue}
+                    selectedValue={selectedMeasure}
                     selectedIndex={selectedMeasureIndex}
                     changeSelectedHandler={changeSelectedMeasureHandler}
                     name="weight"
@@ -940,7 +940,7 @@ const Bottombar = ({
 
           <div className="input-line">
             <h4>UPLOAD IMAGE/S</h4>
-            <div onClick = {uploadImages}style = {{border: '1px solid black'}}>Upload</div>
+            
             <div
               className="inline-block"
               onClick={() => imageRef.current.click()}
@@ -1433,7 +1433,7 @@ const PlacesAutocomplete = ({
 
   return (
     <div className="mar-bottom-32">
-      <h4>ENTER AN ADDRESS *</h4>
+      <h4 className = 'mar-bottom-8'>ENTER AN ADDRESS *</h4>
       <input
         value={value}
         type="text"

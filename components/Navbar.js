@@ -50,7 +50,9 @@ const Navbar = () => {
 
       <div className="grid-cont">
         <div className="nav-section food-section">
+          <Link href = '/'>
           <h4 className=" mar-right-32">FOOD MAP</h4>
+          </Link>
           <h5 className="mar-right-16">MAP</h5>
           <h5>FORUM</h5>
         </div>
