@@ -1434,6 +1434,9 @@ const PlacesAutocomplete = ({
   return (
     <div className="mar-bottom-32">
       <h4 className = 'mar-bottom-8'>ENTER AN ADDRESS *</h4>
+      <p className="italic mar-bottom-4">
+        Select from the dropdown
+      </p>
       <input
         value={value}
         type="text"

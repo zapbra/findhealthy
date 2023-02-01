@@ -7,6 +7,7 @@ import { faExpand, faEye } from "@fortawesome/free-solid-svg-icons";
 import COLORS from "../../data/colors";
 
 const Cont = styled.div`
+max-width:320px;
   .tags-holder {
     display: flex;
     justify-content: center;
@@ -116,7 +117,7 @@ const MarkerComponent = ({
               <ul>
                 {products.map((product) => {
                   return (
-                    <li className="product">
+                    <li className="product mar-bottom-4">
                       <h5 className="black">{product.name}</h5>
                       <div className="price">
                         <p>

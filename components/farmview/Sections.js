@@ -88,11 +88,13 @@ const Cont = styled.div`
     border-bottom: 1px solid ${(props) => props.colors.darkGrey};
     padding-bottom: 8px;
     margin-bottom: 16px;
+    word-break: break-word;
   }
   .farm-field-holder {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 
   .farm-field-line {
@@ -191,7 +193,7 @@ const Sections = ({
         return (
           <div key = {index} className="farm-field-line">
             <h5>{field.name}</h5>
-            <div className="farm-field-icon">
+            <div className="farm-field-icon mar-left-16">
               <FontAwesomeIcon
                 icon={field.value == "true" ? faCheck : faClose}
                 className={
@@ -282,13 +284,33 @@ const Sections = ({
         <div>
           <div className="center-inline">
             <h4 className="blue">HOURS</h4>
-            <p className="bold inline-block">{hoursFrom} - </p>{" "}
-            <p className="bold inline-block"> {hoursTo}</p>
+            <p className="bold inline-block">{new Date("1970-01-01T" + hoursFrom + "Z").toLocaleTimeString(
+                    "en-US",
+                    {
+                      timeZone: "UTC",
+                      hour12: true,
+                      hour: "numeric",
+                      minute: "numeric",
+                    }
+                  )} - </p>{" "}
+            <p className="bold inline-block"> {new Date("1970-01-01T" + hoursTo + "Z").toLocaleTimeString(
+                    "en-US",
+                    {
+                      timeZone: "UTC",
+                      hour12: true,
+                      hour: "numeric",
+                      minute: "numeric",
+                    }
+                  )}</p>
           </div>
         </div>
       </section>
       <section className="section" style={{ backgroundColor: "#EEE2DC" }}>
-        <div className="farm-field-holder">{farmFields}</div>
+        <div className="farm-field-holder">
+          <div>
+          {farmFields}
+          </div>
+          </div>
         <div className="star-field-holder">{starFields}</div>
       </section>
       <section style={{ backgroundColor: "#fff" }}>
