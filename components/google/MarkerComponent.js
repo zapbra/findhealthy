@@ -25,7 +25,7 @@ const MarkerComponent = ({
   description,
   email,
   number,
-  website,
+  website = null,
   pickup,
   address,
   hoursFrom,
@@ -37,7 +37,9 @@ const MarkerComponent = ({
   const catche = (e) => {
     console.log(e);
   };
-  console.log(latLong);
+  console.log('website')
+  console.log(website ==null);
+  console.log('website')
   return (
     <Marker
       icon={{
@@ -87,7 +89,7 @@ const MarkerComponent = ({
               <div className="red-line mar-bottom-4"></div>
               <p className="bold">{address}</p>
             </div>
-
+        
             <div className="field-line">
               <h5>Website</h5>
               <div className="red-line mar-bottom-4"></div>

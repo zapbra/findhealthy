@@ -25,6 +25,9 @@ const Cont = styled.div`
   }
   section {
     padding: 32px;
+    @media only screen and (max-width:460px){
+      padding: 16px;
+    }
   }
   .section {
     width: 100%;
@@ -43,6 +46,19 @@ const Cont = styled.div`
     }
     & > div:nth-of-type(2) {
       padding-left: 16px;
+    }
+    @media only screen and (max-width:460px) {
+      flex-direction: column;
+      & > div:nth-of-type(1) {
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid ${(props) => props.colors.black};
+        padding-bottom: 32px;
+    }
+    & > div:nth-of-type(2) {
+      padding-left: 0;
+      padding-top: 32px;
+    }
     }
   }
   .product-item {

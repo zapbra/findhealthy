@@ -34,6 +34,12 @@ a {
   p{
     color: $blue;
   }
+  &:hover{
+    text-decoration:none;
+    h1,h2,h3,h4,h5{
+      text-decoration: underline;
+    }
+  }
 }
 
 textarea {
@@ -196,6 +202,7 @@ li{
   border: 1px solid $black;
   border-radius: 8px;
   padding: 2px 4px;
+  font-weight:600;
 }
 .tag-holder {
   max-height: 300px;

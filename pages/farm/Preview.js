@@ -2,8 +2,8 @@ import { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
-import ImageSection from "./ImageSection";
-import Sections from "./Sections";
+import ImageSection from "../../components/farmview/ImageSection";
+import Sections from "../../components/farmview/Sections";
 const Cont = styled.div``;
 
 const Preview = () => {

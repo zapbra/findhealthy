@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
-import PhotoDisplay from "../../components/popups/PhotoDisplay";
+import PhotoDisplay from "../popups/PhotoDisplay";
 const Cont = styled.div`
   .hero-image-section {
     display: grid;
@@ -12,23 +12,31 @@ const Cont = styled.div`
       width: 100%;
       display: block;
     }
+    @media only screen and (max-width:460px) {
+      grid-template-columns: 1fr;
+    }
   }
   .image-holder {
     position: relative;
     max-height: 600px;
     border-right: 1px solid ${(props) => props.colors.darkPink};
     cursor: pointer;
+    
     &:hover {
       border: 2px solid ${(props) => props.colors.darkPink};
     }
     img {
       height: 100%;
+      
       object-fit: cover;
     }
   }
   .image-selectors {
     display: grid;
     max-height: 600px;
+    @media only screen and (max-width:460px){
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
   .image-select {
     position: relative;
