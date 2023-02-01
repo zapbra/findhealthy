@@ -203,51 +203,57 @@ const Bottombar = ({
     //formData.append("image", images[0]);
 
     const imageUploads = [];
+    // FINISH THIS 
+    images.forEach(image => {
+      
+    })
     
-    const formData = new FormData();
-    formData.append("image", images[0]);
-
-    try {
-      const response = await fetch("https://api.imgur.com/3/upload", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
-        },
-      });
-      const res = await response.json();
-      if(res.status == 200) {
-       imageUploads.push({url: res.link, deleteHash:res.deleteHash});
-       
-      }
-      else{
-        toast('Error uploading image', {
-          duration: 4000,
-          position: 'top-center',
-        
-          // Styling
-          style: {border: '1px solid #E52323'},
-          className: '',
-        
-          // Custom Icon
-          icon: '⚠️',
-        
-          // Change colors of success/error/loading icon
-          iconTheme: {
-            primary: '#000',
-            secondary: '#fff',
-          },
-        
-          // Aria
-          ariaProps: {
-            role: 'status',
-            'aria-live': 'polite',
+    for (let i = 0; i < images.length; i++) {
+      let formData = new FormData();
+      formData.append("image", images[i]);
+      try {
+        const response = await fetch("https://api.imgur.com/3/upload", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
           },
         });
+        const res = await response.json();
+        if(res.status == 200) {
+         imageUploads.push({url: res.link, deleteHash:res.deleteHash});
+         
+        }
+        else{
+          toast('Error uploading image', {
+            duration: 4000,
+            position: 'top-center',
+          
+            // Styling
+            style: {border: '1px solid #E52323'},
+            className: '',
+          
+            // Custom Icon
+            icon: '⚠️',
+          
+            // Change colors of success/error/loading icon
+            iconTheme: {
+              primary: '#000',
+              secondary: '#fff',
+            },
+          
+            // Aria
+            ariaProps: {
+              role: 'status',
+              'aria-live': 'polite',
+            },
+          });
+        }
+      } catch (err) {
+        console.log(err.message);
       }
-    } catch (err) {
-      console.log(err.message);
     }
+   
     return imageUploads;
   };
 
@@ -345,10 +351,11 @@ const Bottombar = ({
     numberOrganize.splice(5, 0, "-");
     numberOrganize.splice(9, 0, "-");
     if (checkAddressValid) {
+      const imgurImages = await uploadImages();
       const locationId = await createLocation(
         formData.name,
         formData.description,
-        images,
+        imgurImages,
         formData.hoursFrom,
         formData.hoursTo,
         formData.pickup,
@@ -386,7 +393,7 @@ const Bottombar = ({
         address.state
       ).then((res) => finalizeLocation(locationId));
 
-      //uploadImages();
+      
     }
   });
 
