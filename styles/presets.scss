@@ -12,6 +12,7 @@ $red: #E52323;
 $yellow: #CCE729;
 $orange: #DF5F28;
 $green: #3BAC46;
+$offWhite: #E7EFF8;
 p {
   line-height: 1.5;
 }
@@ -29,6 +30,9 @@ h6 {
 }
 .grey{
   color:$grey;
+}
+.white{
+  color: $offWhite;
 }
 .red {
   color: $dark-pink;

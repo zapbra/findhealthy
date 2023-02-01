@@ -2,6 +2,9 @@ import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 import COLORS from "../data/colors";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import Dropdown from './navbar/Dropdown.js';
 const Cont = styled.div`
 .nav-desktop{
   background-color: ${(props) => props.colors.tan};
@@ -44,6 +47,34 @@ const Cont = styled.div`
   .food-section {
     padding-right: 40px;
   }
+  .nav-mobile{
+    @media only screen and (min-width:600px){
+      display:none;
+    }
+    .nav-mobile-content{
+      display: flex;
+    background-color: ${(props) => props.colors.tan};
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    }
+   
+
+  }
+  .menu-bars{
+    width:32px;
+    height:32px;
+    border: 1px solid  ${(props) => props.colors.darkPink};
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    &:hover{
+      border-color: ${(props) => props.colors.black};
+      .red{
+        color: ${(props) => props.colors.black};
+      }
+    }
+  }
 `;
 const Navbar = () => {
   return (
@@ -57,7 +88,7 @@ const Navbar = () => {
         <h5 >Sign Up</h5>
         </div>
       </Link>
-      
+     
 
       <div className="grid-cont">
         
@@ -80,6 +111,15 @@ const Navbar = () => {
       </div>
       </div>
 
+    <div className="nav-mobile">
+      <div className="nav-mobile-content">
+    <h4>FIND HEALTHY</h4>
+    <div className="menu-bars cursor">
+    <FontAwesomeIcon icon = {faBars} className = 'icon-sm red' />
+    </div>
+    </div>
+    <Dropdown />
+    </div>
       
     </Cont>
   );
