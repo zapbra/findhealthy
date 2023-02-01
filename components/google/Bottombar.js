@@ -202,8 +202,11 @@ const Bottombar = ({
     });*/
     //formData.append("image", images[0]);
 
+    const imageUploads = [];
+    
     const formData = new FormData();
     formData.append("image", images[0]);
+
     try {
       const response = await fetch("https://api.imgur.com/3/upload", {
         method: "POST",
@@ -212,10 +215,40 @@ const Bottombar = ({
           Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
         },
       });
-      const data = await response.json();
+      const res = await response.json();
+      if(res.status == 200) {
+       imageUploads.push({url: res.link, deleteHash:res.deleteHash});
+       
+      }
+      else{
+        toast('Error uploading image', {
+          duration: 4000,
+          position: 'top-center',
+        
+          // Styling
+          style: {border: '1px solid #E52323'},
+          className: '',
+        
+          // Custom Icon
+          icon: '⚠️',
+        
+          // Change colors of success/error/loading icon
+          iconTheme: {
+            primary: '#000',
+            secondary: '#fff',
+          },
+        
+          // Aria
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        });
+      }
     } catch (err) {
       console.log(err.message);
     }
+    return imageUploads;
   };
 
   const checkAddressValid = async () => {
@@ -902,6 +935,7 @@ const Bottombar = ({
 
           <div className="input-line">
             <h4>UPLOAD IMAGE/S</h4>
+            <div onClick = {uploadImages}style = {{border: '1px solid black'}}>Upload</div>
             <div
               className="inline-block"
               onClick={() => imageRef.current.click()}

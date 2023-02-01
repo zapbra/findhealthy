@@ -37,9 +37,7 @@ const MarkerComponent = ({
   const catche = (e) => {
     console.log(e);
   };
-  console.log('website')
-  console.log(website ==null);
-  console.log('website')
+  
   return (
     <Marker
       icon={{
@@ -89,7 +87,7 @@ const MarkerComponent = ({
               <div className="red-line mar-bottom-4"></div>
               <p className="bold">{address}</p>
             </div>
-        
+          { website != null && (
             <div className="field-line">
               <h5>Website</h5>
               <div className="red-line mar-bottom-4"></div>
@@ -97,6 +95,8 @@ const MarkerComponent = ({
                 <p className="bold ">{website}</p>
               </a>
             </div>
+        )
+          }
 
             <div className="field-line">
               <h5>Description</h5>
@@ -122,9 +122,10 @@ const MarkerComponent = ({
               </ul>
             </div>
             <div className="flex field-line">
+              {email != null && (
               <div
                 style={{ borderRight: "1px solid black" }}
-                className="mar-right-8 pad-right-8"
+                className="mar-right-8 pad-right-8 flex-one"
               >
                 <h5 className="bold">Email:</h5>
                 <div className="red-line mar-bottom-4"></div>
@@ -132,13 +133,16 @@ const MarkerComponent = ({
                   <p className="bold">{email}</p>{" "}
                 </a>
               </div>
-              <div>
+              )}
+              {number != null && (
+              <div className = 'flex-one'>
                 <h5>Phone:</h5>
                 <div className="red-line mar-bottom-4"></div>
                 <a href={`tel:${number}`}>
                   <p className="bold">{number}</p>
                 </a>
               </div>
+              )}
             </div>
             <div className="field-line">
               <h5>Pickup or delivery?</h5>
@@ -151,7 +155,7 @@ const MarkerComponent = ({
             <div className="flex">
               <div
                 style={{ borderRight: "1px solid black" }}
-                className="mar-right-8 pad-right-8"
+                className="mar-right-8 pad-right-8 flex-one"
               >
                 <p className="bold">Opens</p>
                 <p>
@@ -166,7 +170,7 @@ const MarkerComponent = ({
                   )}
                 </p>
               </div>
-              <div>
+              <div className = 'flex-one'>
                 <p className="bold">Closes</p>
                 <p>
                   {new Date("1970-01-01T" + hoursTo + "Z").toLocaleTimeString(
