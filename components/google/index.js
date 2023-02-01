@@ -3,6 +3,7 @@ import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import Bottombar from "./Bottombar";
 import MarkerComponent from "./MarkerComponent";
 import Alert from "../popups/alert";
+import Suppliers from "./Suppliers";
 import { useState, useCallback, useEffect } from "react";
 import { insertCountries } from "../../utils/supabaseFunctions";
 const Cont = styled.div`
@@ -155,6 +156,8 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
         addTag={addTag}
         fetchNewLocation = {fetchNewLocation}
       />
+      <div className="sm-spacer-bot-res"></div>
+      <Suppliers />
     </Cont>
   ) : (
     <> </>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -77,6 +77,11 @@ const Cont = styled.div`
   }
 `;
 const Navbar = () => {
+  const [mobileActive, setMobileActive] = useState(false);
+  
+  const hideMobileActive = () => {
+    setMobileActive(false);
+  }
   return (
     <Cont colors={COLORS}>
       <div className="nav-desktop">
@@ -114,11 +119,11 @@ const Navbar = () => {
     <div className="nav-mobile">
       <div className="nav-mobile-content">
     <h4>FIND HEALTHY</h4>
-    <div className="menu-bars cursor">
-    <FontAwesomeIcon icon = {faBars} className = 'icon-sm red' />
+    <div onClick = {()=>setMobileActive(true)}className="menu-bars cursor">
+      <FontAwesomeIcon icon = {faBars} className = 'icon-sm red' />
     </div>
     </div>
-    <Dropdown />
+    <Dropdown mobileActive = {mobileActive} hideMobileActive = {hideMobileActive} />
     </div>
       
     </Cont>
