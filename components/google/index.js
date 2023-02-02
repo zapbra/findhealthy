@@ -62,7 +62,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
   }, [locations]);
 
   console.log(markers);
-  /*
+  
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -80,7 +80,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
-  }, []); */
+  }, []); 
 
   const updateLocation = (value) => {
     setLocation(value);
@@ -121,7 +121,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
   const stopAdding = () => {
     setAdding(false);
   };
- const isLoaded = true;
+ 
   const focusSearchBar = () => {
     const searchBarElem = document.getElementById("address-input");
     searchBarElem.focus();
@@ -134,7 +134,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
   return isLoaded ? (
     <Cont>
       {adding && <Alert />}
-    {/*
+    
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -146,7 +146,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
       >
         {markers}
       </GoogleMap>
-  */}
+  
       <Bottombar
         adding={adding}
         startAdding={startAdding}
