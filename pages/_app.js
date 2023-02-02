@@ -16,6 +16,8 @@ Router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps }) {
   const [context, setContext] = useState({ name: "k" });
+
+  
   return (
     <AppContext.Provider value={[context, setContext]}>
       <Layout>
