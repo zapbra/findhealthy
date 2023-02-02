@@ -34,6 +34,10 @@ const Cont = styled.div`
     section{
       .food-title{
         text-align: center;
+        border-bottom: 2px solid ${props=>props.colors.darkPink};
+        padding: 16px;
+        margin-bottom: 80px;
+        box-shadow: rgba(38, 57, 77,.5) 0px 30px 30px -10px;
       }
     }
 `;
@@ -46,11 +50,19 @@ const Suppliers = () => {
 
         </div>
         </div>
-    .lg-spacer
+    <div className="lg-spacer"></div>
         <section className="food-section">
         <div className="food-title">
           <h2>WORLDWIDE</h2>
         </div>
+        <SupplierBox 
+        links = {['https://www.healthfully.shop/', 'https://www.instagram.com/healthfully.shop/?hl=en' ]}
+        pros = {['Multiple kinds of raw unsalted cheese shipping worldwide', 'Unsalted raw butter, only ships inside Eurozone', 'Very high quality (never tried it myself)', 'Good reputation in primal community (not a scammer like @primalproductsstore on instagram' ]}
+        cons = {["Rather expensive: shipping costs are somewhat high (depending where you live, and it's not their fault) and long weight (2 months approx)"]}
+        image = {'/images/healthfully.PNG'}
+        country = 'EUROPE'
+        name = 'HEALTHFULLY.SHOP'
+        />
         </section>
     </Cont>
   )
