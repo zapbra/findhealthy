@@ -141,7 +141,10 @@ li{
     }
   }
 }
-
+.beige-box{
+  background-color: $light-beige;
+  border: 1px solid $grey;
+}
 .tags-input-box {
   border: 1px solid $darkPink;
   background-color: $light-beige;

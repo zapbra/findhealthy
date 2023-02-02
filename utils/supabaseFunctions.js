@@ -213,3 +213,37 @@ export const createImage = async (url, deleteHash, location_id) => {
     return false;
   }
 }
+
+export const checkUsernameUnique = async (username) => {
+  try {
+    const { data, error } = await supabase
+      .from("users")
+      .select()
+      .eq("username", username);
+    if (error) throw error;
+    // if username doesn't exist, return true
+    if (!data.length > 0) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const checkEmailUnique = async (email) => {
+  try {
+    const { data, error } = await supabase
+      .from("users")
+      .select()
+      .eq("email", email);
+    if (error) throw error;
+    // if email doesn't exist, return true
+    if (!data.length > 0) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
