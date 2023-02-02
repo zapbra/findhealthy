@@ -11,6 +11,10 @@ const Testing = () => {
  const supabase = createClient('https://gnglnlhagljbujwdribh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduZ2xubGhhZ2xqYnVqd2RyaWJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzUzNzI5NjcsImV4cCI6MTk5MDk0ODk2N30.8CCCM8Nz2cWCh8lEdAE42hJOV_u9hmvXNpEwPyGIbjE');
  const createUser = async () => {
   try{
+    const {data:{user},error} = await supabase.auth.signUp({
+      email:email,
+      password: password,
+    })
     if(error) throw error;
   } catch(error){
     console.log(error)

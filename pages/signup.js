@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import {useRouter} from "next/router";
 import styled from "styled-components";
 import COLORS from "../data/colors";
-import supabase from "../utils/supabaseClient";
+//import supabase from "../utils/supabaseClient";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import supabase from '../utils/supabaseClient'
 import { checkUsernameUnique, checkEmailUnique } from "../utils/supabaseFunctions";
 const Cont = styled.div`
   form {
@@ -67,6 +68,7 @@ const Signup = () => {
       }
     });
   };
+ 
   const submitForm = handleSubmit(async (formData) => {
     setLoading(true);
     const createUser = async () => {
@@ -77,6 +79,12 @@ const Signup = () => {
         } = await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
+          options: {
+            data: {
+              username: formData.username,
+              avatar_url: "anon",
+            },
+          },
           
         });
         if(error) throw error;
@@ -114,7 +122,8 @@ const Signup = () => {
         console.log(error);
       }
     };
-
+    createUser();
+    /*
     checkUsernameUnique(formData.username).then((res) =>
     res // is unique then check email unique
       ? checkEmailUnique(formData.email).then((res) =>
@@ -122,7 +131,7 @@ const Signup = () => {
           res ? createUser() : toast.error('Email taken')
         ) // username isn't unique
       : toast.error("Username taken")
-  );
+  );  */
   });
 
   useEffect(() => {
