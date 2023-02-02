@@ -139,7 +139,7 @@ const Signup = () => {
                     message: 'Minimum of 4 letters'
                 }
               })}
-              type="password"
+              type= {passwordState}
               placeholder="password"
               name="password"
             /> 
