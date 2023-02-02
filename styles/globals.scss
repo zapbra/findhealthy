@@ -75,7 +75,7 @@ textarea {
   }
 }
 input[type="text"],
-input[type="email"] {
+input[type="email"], input[type='password']{
   border: 1px solid $darkPink;
   background-color: $light-beige;
   font-size: 18px;

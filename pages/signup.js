@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../data/colors";
 import supabase from '../utils/supabaseClient';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 const Cont = styled.div`
@@ -22,6 +24,21 @@ form{
             margin-bottom: 8px;
         }
     }
+    .tags-input-box{
+        position: relative;
+        input{
+            width:100%;
+        }
+        .blue{
+            position: absolute;
+            top: calc(50% - 12px);
+            right:8px;
+            cursor:pointer;
+            &:hover{
+                color: ${props=>props.colors.redGrey};
+            }
+        }
+    }
 `;
 
 const Signup = () => {
@@ -33,12 +50,24 @@ const Signup = () => {
         formState: { errors },
       } = useForm();
 
-      const pass
+      const password = watch('password', "");
+      const [passwordState, setPasswordState] = useState('password');
+      const togglePasswordState = () => {
+      setPasswordState(prev=> {
+        if(prev === 'password'){
+            return 'text';
+        }
+         else{
+            return 'password';
+         }
+      })
+    }
     const submitForm = handleSubmit(async(formData) => {
 
     })
 
     
+    console.log('k');
 
   return (
     <Cont colors = {COLORS} className="default-page">
@@ -101,6 +130,7 @@ const Signup = () => {
 
         <div className="input-line">
             <h5>PASSWORD</h5>
+            <div className="tags-input-box">
             <input
               {...register("password", {
                 required: true,
@@ -109,10 +139,13 @@ const Signup = () => {
                     message: 'Minimum of 4 letters'
                 }
               })}
-              type="text"
+              type="password"
               placeholder="password"
               name="password"
             />
+            <FontAwesomeIcon icon = {faEye} className ='blue icon-sm' />
+            </div>
+            
             {errors.password?.type === "required" && (
               <p className="error">*Password is required</p>
             )}
@@ -128,12 +161,17 @@ const Signup = () => {
                 required: true,
                 validate: (value) => value === password || 'The passwords do not match'
               })}
-              type="text"
+              type= {passwordState}
               placeholder="confirm password"
               name="confirmPassword"
+
             />
+            
             {errors.confirmPassword?.type === "required" && (
               <p className="error">*Confirm Password</p>
+            )}
+            {errors.confirmPassword?.type === "validate" && (
+              <p className="error">*Passwords must match</p>
             )}
         </div>
         <button className="blue-btn-one">

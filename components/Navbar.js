@@ -118,7 +118,9 @@ const Navbar = () => {
 
     <div className="nav-mobile">
       <div className="nav-mobile-content">
+        <Link href = '/'>
     <h4>FIND HEALTHY</h4>
+    </Link>
     <div onClick = {()=>setMobileActive(true)}className="menu-bars cursor">
       <FontAwesomeIcon icon = {faBars} className = 'icon-sm red' />
     </div>
