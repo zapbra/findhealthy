@@ -6,9 +6,23 @@ import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import Aos from "aos";
+import "aos/dist/aos.css";
 const Cont = styled.div`
   display:flex;
   text-align: center;
+  align-items: center;
+  word-break: break-word;
+  margin-bottom: 128px;
+  @media only screen and (max-width:900px){
+      flex-direction: column;
+    }
+  & > div{
+    padding: 32px;
+    @media only screen and (max-width:900px){
+      padding: 16px;
+    }
+  }
   li, p{
     display:inline-block;
   }
@@ -29,6 +43,19 @@ const Cont = styled.div`
   li{
     margin-bottom: 8px;
   }
+  .image-holder{
+    position: relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    min-height:400px;
+    img{
+      padding: 32px;
+      @media only screen and (max-width:900px){
+      padding: 16px;
+    }
+    }
+  }
 `;
 
 const SupplierBox = ({links, pros, cons, name, country, image}) => {
@@ -42,7 +69,7 @@ const SupplierBox = ({links, pros, cons, name, country, image}) => {
       </li>
     )
   }));
-
+  
   const [conElems, setConElems] = useState(cons.map(con=> {
     return (
       <li>
@@ -54,8 +81,8 @@ const SupplierBox = ({links, pros, cons, name, country, image}) => {
   }));
 
   return (
-   <Cont colors = {COLORS}>
-    <div className="text-box">
+   <Cont colors = {COLORS} className = 'supplier-box' data-aos="fade-up">
+    <div className="text-box flex-one">
       <div className="center-inline">
       <h3 className="black mar-bottom-16">{name}</h3>
       </div>
@@ -66,12 +93,14 @@ const SupplierBox = ({links, pros, cons, name, country, image}) => {
           <p className = 'bold'> {links[0]} </p> 
           </Link>
         </div>
+        {links[1] !== null && (
         <div  className = 'flex align-center'>
         <FontAwesomeIcon icon = {faInstagram} className = 'mar-right-8 light-blue icon-sm' />
         <Link href = {links[1]}>
           <p className = 'bold'> {links[1]} </p> 
           </Link>
-        </div>
+        </div>)
+}
 
         <ul className = 'flex align-center flex-column'>
           {proElems}
@@ -81,13 +110,16 @@ const SupplierBox = ({links, pros, cons, name, country, image}) => {
         </ul>
         </div>
     </div> 
-    <div className="image-holder">
+    <div className="image-holder flex-one">
+      
     <Image 
       quality= '100'
-      fill = {true}
+      fill
       src = {image}
+      style = {{objectFit:'contain'}}
       />
     </div>
+    
    </Cont>
   )
 }
