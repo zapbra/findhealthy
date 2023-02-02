@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import Router, { useRouter } from "next/router";
+import { useState, useEffect, useRef } from "react";
 import COLORS from "../data/colors";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,7 +36,7 @@ form {
   }
 `;
 const Welcome = () => {
-
+    const router = useRouter();
   useEffect(()=> {
     shootFireworks();
   },[]);
@@ -65,12 +66,13 @@ const Welcome = () => {
           password: formData.password
         });
         if (error) throw error;
+        router.push('/');
       } catch (error) {
-
+        errorText.current.innerText = 'Incorrect email or password or you need to authenticate';
       }
 
       });
-
+ const errorText = useRef(null);
   return (
     <Cont colors = {COLORS} className = 'default-page box-shadow-2'>
 <form onSubmit={submitForm}>
@@ -123,7 +125,7 @@ const Welcome = () => {
             <p className="error">*{errors.password.message}</p>
           )}
         </div>
-
+            <p ref = {errorText} className="error"></p>
         
         <button className="blue-btn-one">
           <h5>LOGIN</h5>
