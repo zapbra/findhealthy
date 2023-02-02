@@ -64,6 +64,7 @@ const Cont = styled.div`
   .menu-bars{
     width:32px;
     height:32px;
+    flex-shrink: 0;
     border: 1px solid  ${(props) => props.colors.darkPink};
     display:flex;
     align-items: center;
@@ -118,9 +119,17 @@ const Navbar = () => {
 
     <div className="nav-mobile">
       <div className="nav-mobile-content">
-        <Link href = '/'>
+        <div className = 'flex align-center flex-wrap'>
+        <Link href = '/' className = 'mar-right-16'>
+
     <h4>FIND HEALTHY</h4>
     </Link>
+    <Link href = '/signup'>
+        
+        <h5 className = 'black text-shadow' >Sign Up</h5>
+        
+    </Link>
+    </div>
     <div onClick = {()=>setMobileActive(true)}className="menu-bars cursor">
       <FontAwesomeIcon icon = {faBars} className = 'icon-sm red' />
     </div>

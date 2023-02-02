@@ -3,6 +3,7 @@
 @import "buttons.scss";
 @import "animations.scss";
 @import "dropdown.scss";
+@import "icons.scss";
 $tan: #edc7b7;
 $light-beige: #eee2dc;
 $grey: #bab2b5;
@@ -21,6 +22,7 @@ $orange: #DF5F28;
 $green: #3BAC46;
 $offWhite: rgb(231, 239, 248);
 $darkGrey: #533F45;
+
 
 .grey-line{
   height:1px;
@@ -47,11 +49,15 @@ a {
     }
   }
 }
+html, body{
+  background: $light-beige;
+}
 
 .default-page{
-  background-color: $tan;
+  background-color: $tan ;
   margin: 5% 10%;
   padding: 32px;
+
 }
 textarea {
   resize: none;

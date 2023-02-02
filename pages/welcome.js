@@ -2,8 +2,35 @@ import styled from "styled-components";
 import { useState } from "react";
 import COLORS from "../data/colors";
 import { useForm } from "react-hook-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
-
+form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .input-line {
+    h5 {
+      margin-bottom: 8px;
+    }
+  }
+  .tags-input-box {
+    position: relative;
+    padding: 0;
+    input {
+      width: 100%;
+      padding: 8px;
+    }
+    .blue {
+      position: absolute;
+      top: calc(50% - 12px);
+      right: 8px;
+      cursor: pointer;
+      &:hover {
+        color: ${(props) => props.colors.redGrey};
+      }
+    }
+  }
 `;
 const Welcome = () => {
     const {
@@ -30,31 +57,13 @@ const Welcome = () => {
       });
 
   return (
-    <Cont colors = {COLORS} className = 'default-page'>
+    <Cont colors = {COLORS} className = 'default-page box-shadow-2'>
 <form onSubmit={submitForm}>
-        <div className="input-line">
-          <h5>USERNAME</h5>
-          <input
-            {...register("username", {
-              required: true,
-              pattern: {
-                value: /^[a-zA-Z0-9_$]{1,20}$/,
-                message:
-                  "*Username must be 1-20 letters and can only contain letters, numbers, and _. Ex. james3.",
-              },
-            })}
-            type="text"
-            placeholder="username"
-            name="username"
-          />
-          {errors.username?.type === "required" && (
-            <p className="error">*Username is required</p>
-          )}
-          {errors.username?.type === "pattern" && (
-            <p className="error">*{errors.username.message}</p>
-          )}
-        </div>
-
+       <div className="center-inline">
+    <h3 className = 'mar-bottom-16 underline'>THANKS FOR SIGNING UP</h3>
+    <p className = 'bold'>Please check your email for the authentication link, then sign in below </p>
+    <p className=" mar-bottom-32">(It might be in your junk folder)</p>
+    </div>
         <div className="input-line">
           <h5>EMAIL</h5>
           <input
@@ -102,7 +111,7 @@ const Welcome = () => {
 
         
         <button className="blue-btn-one">
-          <h5>CREATE ACCOUNT</h5>
+          <h5>LOGIN</h5>
         </button>
       </form>
     </Cont>

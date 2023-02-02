@@ -54,6 +54,7 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const password = watch("password", "");
   const [passwordState, setPasswordState] = useState("password");
@@ -67,7 +68,7 @@ const Signup = () => {
     });
   };
   const submitForm = handleSubmit(async (formData) => {
-
+    setLoading(true);
     const createUser = async () => {
       try {
         const {
@@ -112,6 +113,7 @@ const Signup = () => {
           },
         });
         router.push('/welcome')
+        setLoading(false);
       } catch (error) {
         toast.error(`Error creating your account :( ${error.message}`)
         
@@ -138,7 +140,7 @@ const Signup = () => {
     <Cont colors={COLORS} className="default-page">
       <div className="header">
         <div className="center-inline mar-bottom-32">
-          <h3>THANKS FOR SIGNING UP</h3>
+          <h3 className = 'underline'>THANKS FOR SIGNING UP</h3>
         </div>
         <div className="center-inline white-bg mar-bottom-32">
           <h4>WHY SIGN UP?</h4>
@@ -251,9 +253,15 @@ const Signup = () => {
             <p className="error">*Passwords must match</p>
           )}
         </div>
-        <button className="blue-btn-one">
+        {loading ? (
+          <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        ) : (
+          <button className="blue-btn-one">
           <h5>CREATE ACCOUNT</h5>
         </button>
+        )}
+        
+        
       </form>
     </Cont>
   );
