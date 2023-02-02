@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import COLORS from "../data/colors";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { shootFireworks } from "../utils/functions";
+import supabase from '../utils/supabaseClient';
 const Cont = styled.div`
 form {
     max-width: 400px;
@@ -33,6 +35,10 @@ form {
   }
 `;
 const Welcome = () => {
+
+  useEffect(()=> {
+    shootFireworks();
+  },[]);
     const {
         handleSubmit,
         register,
@@ -53,6 +59,15 @@ const Welcome = () => {
   };
 
       const submitForm = handleSubmit(async (formData) => {
+        try{
+        const {data, error} = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password
+        });
+        if (error) throw error;
+      } catch (error) {
+
+      }
 
       });
 

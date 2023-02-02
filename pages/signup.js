@@ -77,12 +77,7 @@ const Signup = () => {
         } = await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
-          options: {
-            data: {
-              username: formData.username,
-              avatar_url: "anon",
-            },
-          },
+          
         });
         if(error) throw error;
         setValue("username", "");
@@ -116,7 +111,7 @@ const Signup = () => {
         setLoading(false);
       } catch (error) {
         toast.error(`Error creating your account :( ${error.message}`)
-        
+        console.log(error);
       }
     };
 
@@ -131,9 +126,9 @@ const Signup = () => {
   });
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const { data: session } = await supabase.auth.s;
-    };
+    //const fetchUser = async () => {
+      //const { data: session } = await supabase.auth.s;
+    //};
   }, []);
 
   return (
