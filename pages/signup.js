@@ -142,8 +142,8 @@ const Signup = () => {
               type="password"
               placeholder="password"
               name="password"
-            />
-            <FontAwesomeIcon icon = {faEye} className ='blue icon-sm' />
+            /> 
+            <FontAwesomeIcon onClick = {togglePasswordState} icon = {passwordState === 'password' ? faEye : faEyeSlash} className ='blue icon-sm' />
             </div>
             
             {errors.password?.type === "required" && (
