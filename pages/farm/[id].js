@@ -5,7 +5,9 @@ import COLORS from "../../data/colors";
 import ImageSection from "../../components/farmview/ImageSection";
 import Sections from "../../components/farmview/Sections";
 import supabase from "../../utils/supabaseClient";
-const Cont = styled.div``;
+const Cont = styled.div`
+  background-color: #fff !important;
+`;
 
 export const getServerSideProps = async (pageContext) => {
   const title = pageContext.query.title;
@@ -47,7 +49,7 @@ const Preview = ({ location }) => {
   const description =
     "They sell grass fed beef, pasture raised chicken (fresh) and they also sell fresh organs every few months or so. They do deliveries to the Parkdale market every Saturday between 11:00 AM and 1:30 PM";
   return (
-    <Cont colors={COLORS} className="default-page">
+    <Cont colors={COLORS} className="default-page box-shadow-2">
       <ImageSection images={images} />
       <Sections
         products={location.products}
