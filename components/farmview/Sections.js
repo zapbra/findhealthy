@@ -25,7 +25,7 @@ const Cont = styled.div`
   }
   section {
     padding: 32px;
-    @media only screen and (max-width:460px){
+    @media only screen and (max-width: 460px) {
       padding: 16px;
     }
   }
@@ -47,18 +47,18 @@ const Cont = styled.div`
     & > div:nth-of-type(2) {
       padding-left: 16px;
     }
-    @media only screen and (max-width:460px) {
+    @media only screen and (max-width: 460px) {
       flex-direction: column;
       & > div:nth-of-type(1) {
         border-right: none;
         padding-right: 0;
         border-bottom: 1px solid ${(props) => props.colors.black};
         padding-bottom: 32px;
-    }
-    & > div:nth-of-type(2) {
-      padding-left: 0;
-      padding-top: 32px;
-    }
+      }
+      & > div:nth-of-type(2) {
+        padding-left: 0;
+        padding-top: 32px;
+      }
     }
   }
   .product-item {
@@ -166,7 +166,7 @@ const Sections = ({
   const [productElems, setProductElems] = useState(
     products.map((product, index) => {
       return (
-        <li key = {index} className="product-item">
+        <li key={index} className="product-item">
           <div className="flex-inline product-content">
             <h5 className="black mar-right-8">{product.name}</h5>
             <p className="price">
@@ -191,7 +191,7 @@ const Sections = ({
       .filter((field) => field.value != "unspecified")
       .map((field, index) => {
         return (
-          <div key = {index} className="farm-field-line">
+          <div key={index} className="farm-field-line">
             <h5>{field.name}</h5>
             <div className="farm-field-icon mar-left-16">
               <FontAwesomeIcon
@@ -213,13 +213,13 @@ const Sections = ({
       { name: "Friendly", value: friendly },
     ].map((field, index) => {
       return (
-        <div key = {index} className="star-field">
+        <div key={index} className="star-field">
           <h4>{field.name}</h4>
           <div className="star-holder">
             {[1, 2, 3, 4, 5].map((index, realIndex) => {
               return (
                 <FontAwesomeIcon
-                key = {realIndex}
+                  key={realIndex}
                   icon={faStar}
                   className={
                     index <= field.value ? "icon-ssm yellow" : "icon-ssm grey"
@@ -284,33 +284,15 @@ const Sections = ({
         <div>
           <div className="center-inline">
             <h4 className="blue">HOURS</h4>
-            <p className="bold inline-block">{new Date("1970-01-01T" + hoursFrom + "Z").toLocaleTimeString(
-                    "en-US",
-                    {
-                      timeZone: "UTC",
-                      hour12: true,
-                      hour: "numeric",
-                      minute: "numeric",
-                    }
-                  )} - </p>{" "}
-            <p className="bold inline-block"> {new Date("1970-01-01T" + hoursTo + "Z").toLocaleTimeString(
-                    "en-US",
-                    {
-                      timeZone: "UTC",
-                      hour12: true,
-                      hour: "numeric",
-                      minute: "numeric",
-                    }
-                  )}</p>
+            <p className="bold inline-block">{hoursFrom}</p>{" "}
+            <p className="bold inline-block">{hoursTo}</p>
           </div>
         </div>
       </section>
       <section className="section" style={{ backgroundColor: "#EEE2DC" }}>
         <div className="farm-field-holder">
-          <div>
-          {farmFields}
-          </div>
-          </div>
+          <div>{farmFields}</div>
+        </div>
         <div className="star-field-holder">{starFields}</div>
       </section>
       <section style={{ backgroundColor: "#fff" }}>

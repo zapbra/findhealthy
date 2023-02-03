@@ -31,7 +31,7 @@ const Preview = ({ location }) => {
         setUser(session.session.user);
 
         if (session.session.user.id == location.user_id) {
-          alert("cowbunga");
+          setOrigPoster(true);
         }
       }
     };
@@ -44,55 +44,10 @@ const Preview = ({ location }) => {
     })
   );
 
-  const products = [
-    {
-      name: "chicken",
-      price: "6.75",
-      dollarType: "CAD",
-      measurement: "lb",
-    },
-    {
-      name: "ribeye",
-      price: "20",
-      dollarType: "CAD",
-      measurement: "lb",
-    },
-    {
-      name: "eggs",
-      price: "7.50",
-      dollarType: "CAD",
-      measurement: "doz",
-    },
-    {
-      name: "liver",
-      price: "7",
-      dollarType: "CAD",
-      measurement: "lb",
-    },
-    {
-      name: "pancreas",
-      price: "10",
-      dollarType: "CAD",
-      measurement: "lb",
-    },
-    {
-      name: "dry aged sausages",
-      price: "15",
-      dollarType: "CAD",
-      measurement: "package",
-    },
-    {
-      name: "kombucha",
-      price: "8",
-      dollarType: "CAD",
-      measurement: "litre",
-    },
-  ];
-
   const description =
     "They sell grass fed beef, pasture raised chicken (fresh) and they also sell fresh organs every few months or so. They do deliveries to the Parkdale market every Saturday between 11:00 AM and 1:30 PM";
   return (
-    <Cont colors={COLORS}>
+    <Cont colors={COLORS} className="default-page">
       <ImageSection images={images} />
       <Sections
         products={location.products}
