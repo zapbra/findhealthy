@@ -5,13 +5,14 @@ import COLORS from "../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "./navbar/Dropdown.js";
+import supabase from "../utils/supabaseClient";
 const Cont = styled.div`
   .nav-desktop {
     background-color: ${(props) => props.colors.tan};
     padding: 16px 32px 8px 32px;
     position: relative;
     overflow: hidden;
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 780px) {
       display: none;
     }
   }
@@ -22,7 +23,7 @@ const Cont = styled.div`
   }
   .splitter {
     width: 24px;
-    height: 250%;
+    height: 260%;
     background: ${(props) => props.colors.darkPink};
     margin-right: 8px;
     position: relative;
@@ -31,7 +32,7 @@ const Cont = styled.div`
   }
   .splitter-blue {
     width: 24px;
-    height: 250%;
+    height: 260%;
     background: ${(props) => props.colors.darkBlue};
     margin-right: 16px;
     position: relative;
@@ -47,7 +48,7 @@ const Cont = styled.div`
     padding-right: 40px;
   }
   .nav-mobile {
-    @media only screen and (min-width: 600px) {
+    @media only screen and (min-width: 780px) {
       display: none;
     }
     .nav-mobile-content {
@@ -81,13 +82,15 @@ const Navbar = () => {
     setMobileActive(false);
   };
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
+
+  console.log("user");
   console.log(user);
   useEffect(() => {
     const fetchUser = async () => {
       const { data: session } = await supabase.auth.getSession();
       if (session) {
-        setUser(session.session);
+        setUser(session.session.user);
       }
     };
     fetchUser();
@@ -98,11 +101,19 @@ const Navbar = () => {
         <Link href="/">
           <h5 className="inline-block mar-right-32">FINDHEALTHY</h5>
         </Link>
-        <Link href="/login">
-          <div className="inline-block black-btn">
-            <h5>Login</h5>
-          </div>
-        </Link>
+        {user !== null ? (
+          <Link href="/account">
+            <div className="inline-block black-btn">
+              <h5>{user.user_metadata.username}</h5>
+            </div>
+          </Link>
+        ) : (
+          <Link href="/login">
+            <div className="inline-block black-btn">
+              <h5>Login</h5>
+            </div>
+          </Link>
+        )}
 
         <div className="grid-cont">
           <div className="nav-section food-section">
@@ -130,9 +141,17 @@ const Navbar = () => {
             <Link href="/" className="mar-right-16">
               <h4>FIND HEALTHY</h4>
             </Link>
-            <Link href="/login">
-              <h5 className="black text-shadow">Sign Up</h5>
-            </Link>
+            {user !== null ? (
+              <Link href="/account">
+                <h5 className="black text-shadow">
+                  {user.user_metadata.username}
+                </h5>
+              </Link>
+            ) : (
+              <Link href="/login">
+                <h5 className="black text-shadow">Sign Up</h5>
+              </Link>
+            )}
           </div>
           <div
             onClick={() => setMobileActive(true)}
