@@ -55,7 +55,7 @@ const Cont = styled.div`
 const RenderImages = ({ images, updateSelectedImage, setPhotoDisplayVisible }) => {
   const [showImage, setShowImage] = useState(false);
   const imageElems = images.map((image, index) => {
-    return <ImageComponent setPhotoDisplayVisible = {setPhotoDisplayVisible} image={image} updateSelectedImage = {updateSelectedImage}/>;
+    return <ImageComponent key = {index} setPhotoDisplayVisible = {setPhotoDisplayVisible} image={image} updateSelectedImage = {updateSelectedImage}/>;
   });
   return <Cont colors={COLORS}>
     
