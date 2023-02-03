@@ -7,7 +7,7 @@ import { faExpand, faEye } from "@fortawesome/free-solid-svg-icons";
 import COLORS from "../../data/colors";
 
 const Cont = styled.div`
-max-width:320px;
+  max-width: 320px;
   .tags-holder {
     display: flex;
     justify-content: center;
@@ -38,7 +38,7 @@ const MarkerComponent = ({
   const catche = (e) => {
     console.log(e);
   };
-  
+
   return (
     <Marker
       icon={{
@@ -73,16 +73,18 @@ const MarkerComponent = ({
                 {tags[3]}
               </p>
             </div>
-            <Link href={{
-              pathname: `/farm/${name}`,
-              query: {
-                title: name
-              }
-            }}>
-            <div className="blue-btn-one flex justify-center align-center mar-bottom-16">
-              <h5 className="mar-right-8">VIEW</h5>
-              <FontAwesomeIcon icon={faEye} className="icon-sm blue" />
-            </div>
+            <Link
+              href={{
+                pathname: `/farm/${name}`,
+                query: {
+                  title: name,
+                },
+              }}
+            >
+              <div className="blue-btn-one flex justify-center align-center mar-bottom-16">
+                <h5 className="mar-right-8">VIEW</h5>
+                <FontAwesomeIcon icon={faEye} className="icon-sm blue" />
+              </div>
             </Link>
             <div className="field-line">
               <h5>Name</h5>
@@ -95,16 +97,15 @@ const MarkerComponent = ({
               <div className="red-line mar-bottom-4"></div>
               <p className="bold">{address}</p>
             </div>
-          { website != null && (
-            <div className="field-line">
-              <h5>Website</h5>
-              <div className="red-line mar-bottom-4"></div>
-              <a href={website}>
-                <p className="bold ">{website}</p>
-              </a>
-            </div>
-        )
-          }
+            {website != null && (
+              <div className="field-line">
+                <h5>Website</h5>
+                <div className="red-line mar-bottom-4"></div>
+                <a href={website}>
+                  <p className="bold ">{website}</p>
+                </a>
+              </div>
+            )}
 
             <div className="field-line">
               <h5>Description</h5>
@@ -115,9 +116,9 @@ const MarkerComponent = ({
               <h5>Products</h5>
               <div className="red-line mar-bottom-4"></div>
               <ul>
-                {products.map((product) => {
+                {products.map((product, index) => {
                   return (
-                    <li className="product mar-bottom-4">
+                    <li key={index} className="product mar-bottom-4">
                       <h5 className="black">{product.name}</h5>
                       <div className="price">
                         <p>
@@ -131,25 +132,25 @@ const MarkerComponent = ({
             </div>
             <div className="flex field-line">
               {email != null && (
-              <div
-                style={{ borderRight: "1px solid black" }}
-                className="mar-right-8 pad-right-8 flex-one"
-              >
-                <h5 className="bold">Email:</h5>
-                <div className="red-line mar-bottom-4"></div>
-                <a href={`mailto:${email}`}>
-                  <p className="bold">{email}</p>{" "}
-                </a>
-              </div>
+                <div
+                  style={{ borderRight: "1px solid black" }}
+                  className="mar-right-8 pad-right-8 flex-one"
+                >
+                  <h5 className="bold">Email:</h5>
+                  <div className="red-line mar-bottom-4"></div>
+                  <a href={`mailto:${email}`}>
+                    <p className="bold">{email}</p>{" "}
+                  </a>
+                </div>
               )}
               {number != null && (
-              <div className = 'flex-one'>
-                <h5>Phone:</h5>
-                <div className="red-line mar-bottom-4"></div>
-                <a href={`tel:${number}`}>
-                  <p className="bold">{number}</p>
-                </a>
-              </div>
+                <div className="flex-one">
+                  <h5>Phone:</h5>
+                  <div className="red-line mar-bottom-4"></div>
+                  <a href={`tel:${number}`}>
+                    <p className="bold">{number}</p>
+                  </a>
+                </div>
               )}
             </div>
             <div className="field-line">
@@ -178,7 +179,7 @@ const MarkerComponent = ({
                   )}
                 </p>
               </div>
-              <div className = 'flex-one'>
+              <div className="flex-one">
                 <p className="bold">Closes</p>
                 <p>
                   {new Date("1970-01-01T" + hoursTo + "Z").toLocaleTimeString(
@@ -194,12 +195,14 @@ const MarkerComponent = ({
               </div>
             </div>
             <div className="mar-bottom-16"></div>
-            <Link href={{
-              pathname: `/farm/${name}`,
-              query: {
-                title: name
-              }
-            }}>
+            <Link
+              href={{
+                pathname: `/farm/${name}`,
+                query: {
+                  title: name,
+                },
+              }}
+            >
               <div className="blue-btn-one flex justify-center align-center mar-bottom-16">
                 <h5 className="mar-right-8">VIEW</h5>
                 <FontAwesomeIcon icon={faEye} className="icon-sm blue" />

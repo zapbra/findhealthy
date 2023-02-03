@@ -996,7 +996,6 @@ const Bottombar = ({
               setPhotoDisplayVisible={setPhotoDisplayVisible}
               images={images}
               updateSelectedImage={updateSelectedImage}
-              images={images}
             />
           </div>
 
