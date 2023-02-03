@@ -33,9 +33,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   useEffect(() => {
     setMarkers((prev) => {
       return locations.map((location, index) => {
-        console.log("location");
-        console.log(location);
-        console.log("location");
+        
         return (
           <MarkerComponent
             key={index}
