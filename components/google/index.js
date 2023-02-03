@@ -15,11 +15,6 @@ const containerStyle = {
   height: "70vh",
 };
 
-const center = {
-  lat: 45.4215,
-  lng: -75.695,
-};
-
 const options = {
   imagePath:
     "'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
@@ -28,15 +23,19 @@ const options = {
 function createKey(location) {
   return location.lat + location.lng;
 }
-const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
+const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   const [location, setLocation] = useState("");
   const [markers, setMarkers] = useState([]);
+  const [center, setCenter] = useState({
+    lat: 45.4215,
+    lng: -75.695,
+  });
   useEffect(() => {
     setMarkers((prev) => {
       return locations.map((location, index) => {
-        console.log('location');
+        console.log("location");
         console.log(location);
-        console.log('location');
+        console.log("location");
         return (
           <MarkerComponent
             key={index}
@@ -53,8 +52,8 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
             address={location.address[0].text_address}
             hoursFrom={location.hoursFrom}
             hoursTo={location.hoursTo}
-            tags = {location.tags}
-            products = {location.products}
+            tags={location.tags}
+            products={location.products}
           />
         );
       });
@@ -62,7 +61,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
   }, [locations]);
 
   console.log(markers);
-  
+
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -80,7 +79,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
-  }, []); 
+  }, []);
 
   const updateLocation = (value) => {
     setLocation(value);
@@ -121,7 +120,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
   const stopAdding = () => {
     setAdding(false);
   };
- 
+
   const focusSearchBar = () => {
     const searchBarElem = document.getElementById("address-input");
     searchBarElem.focus();
@@ -131,10 +130,23 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
       searchBarElem.classList.remove("scale-pop-anim");
     }, 1000);
   };
+
+  const updateCoords = (position) => {
+    setCenter((prev) => {
+      return {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+    });
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(updateCoords);
+  }, []);
   return isLoaded ? (
     <Cont>
       {adding && <Alert />}
-    
+
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -146,7 +158,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
       >
         {markers}
       </GoogleMap>
-  
+
       <Bottombar
         adding={adding}
         startAdding={startAdding}
@@ -155,7 +167,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation }) => {
         setLocation={updateLocation}
         tagsFetch={tagsFetch}
         addTag={addTag}
-        fetchNewLocation = {fetchNewLocation}
+        fetchNewLocation={fetchNewLocation}
       />
       <div className="lg-spacer"></div>
       <Suppliers />

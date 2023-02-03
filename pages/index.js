@@ -69,7 +69,7 @@ export default function Home({ locationsFetch, tagsFetch }) {
         tagsFetch={tags}
         addTag={addTag}
         fetchNewLocation={fetchNewLocation}
-        
+        user = {user}
       />
     </Cont>
   );
