@@ -10,7 +10,7 @@ import {
   faCircleChevronRight,
   faCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import supabase from "../utils/supabaseClient";
 import {
@@ -147,21 +147,6 @@ const Signup = () => {
       }
     });
   };
-  const signIn = handleSubmit(async (formData) => {
-    alert("k");
-    setLoading(true);
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: formData.signInEmail,
-        password: formData.signInPassword,
-      });
-      if (error) throw error;
-      setLoading(false);
-      router.push("/");
-    } catch (error) {
-      toast.error(`Incorrect email or password or not authenticated`);
-    }
-  });
 
   useEffect(() => {
     //const fetchUser = async () => {
@@ -182,7 +167,8 @@ const Signup = () => {
 
   return (
     <Cont colors={COLORS}>
-      <div className="login">
+      <Toaster />
+      <div className="login box-shadow-2">
         <div className="header">
           <div className="grey-circle mar-bottom-16"></div>
           <h5 className="white">FINDHEALTHY</h5>
@@ -222,31 +208,10 @@ const Signup = () => {
           />
 
           <SigninForm
-            signIn={signIn}
             passwordState={passwordState}
             togglePasswordState={togglePasswordState}
             updateHeight={updateHeight}
           />
-        </div>
-        <div className="signup-footer justify-center flex">
-          {loading ? (
-            <div class="lds-ring">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          ) : toggleState == "sign in" ? (
-            <FontAwesomeIcon
-              icon={faCircleChevronRight}
-              className="white icon-xl cursor"
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={faCircleChevronRight}
-              className="white icon-xl cursor"
-            />
-          )}
         </div>
       </div>
     </Cont>

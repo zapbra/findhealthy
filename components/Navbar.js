@@ -1,21 +1,21 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import COLORS from "../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import Dropdown from './navbar/Dropdown.js';
+import Dropdown from "./navbar/Dropdown.js";
 const Cont = styled.div`
-.nav-desktop{
-  background-color: ${(props) => props.colors.tan};
-  padding: 16px 32px 8px 32px;
-  position: relative;
-  overflow: hidden;
-  @media only screen and (max-width:600px){
-    display:none;
+  .nav-desktop {
+    background-color: ${(props) => props.colors.tan};
+    padding: 16px 32px 8px 32px;
+    position: relative;
+    overflow: hidden;
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
   }
-}
-  
+
   .grid-cont {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -42,36 +42,33 @@ const Cont = styled.div`
     display: flex;
     align-items: flex-end;
     height: 80px;
-    
   }
   .food-section {
     padding-right: 40px;
   }
-  .nav-mobile{
-    @media only screen and (min-width:600px){
-      display:none;
+  .nav-mobile {
+    @media only screen and (min-width: 600px) {
+      display: none;
     }
-    .nav-mobile-content{
+    .nav-mobile-content {
       display: flex;
-    background-color: ${(props) => props.colors.tan};
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 16px;
+      background-color: ${(props) => props.colors.tan};
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
     }
-   
-
   }
-  .menu-bars{
-    width:32px;
-    height:32px;
+  .menu-bars {
+    width: 32px;
+    height: 32px;
     flex-shrink: 0;
-    border: 1px solid  ${(props) => props.colors.darkPink};
-    display:flex;
+    border: 1px solid ${(props) => props.colors.darkPink};
+    display: flex;
     align-items: center;
     justify-content: center;
-    &:hover{
+    &:hover {
       border-color: ${(props) => props.colors.black};
-      .red{
+      .red {
         color: ${(props) => props.colors.black};
       }
     }
@@ -79,64 +76,76 @@ const Cont = styled.div`
 `;
 const Navbar = () => {
   const [mobileActive, setMobileActive] = useState(false);
-  
+
   const hideMobileActive = () => {
     setMobileActive(false);
-  }
+  };
+
+  const [user, setUser] = useState();
+  console.log(user);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: session } = await supabase.auth.getSession();
+      if (session) {
+        setUser(session.session);
+      }
+    };
+    fetchUser();
+  }, []);
   return (
     <Cont colors={COLORS}>
       <div className="nav-desktop">
-      <Link href="/">
-        <h5 className = 'inline-block mar-right-32'>FINDHEALTHY</h5>
-      </Link>
-      <Link href = '/login'>
-        <div className="inline-block black-btn">
-        <h5 >Login</h5>
-        </div>
-      </Link>
-     
+        <Link href="/">
+          <h5 className="inline-block mar-right-32">FINDHEALTHY</h5>
+        </Link>
+        <Link href="/login">
+          <div className="inline-block black-btn">
+            <h5>Login</h5>
+          </div>
+        </Link>
 
-      <div className="grid-cont">
-        
-        <div className="nav-section food-section">
-          <Link href = '/'>
-          <h4 className=" mar-right-32">FOOD MAP</h4>
-          </Link>
-          <h5 className="mar-right-16">MAP</h5>
-          <h5>FORUM</h5>
-        </div>
-    
-        <div className="nav-section">
-          <div className="splitter"></div>
-          <div className="splitter-blue"></div>
-          <h4 className="blue mar-right-32"> FISH FINDER</h4>
-          <h5 className="blue mar-right-16">MAP</h5>
-          <h5 className="blue mar-right-16">ARTICLES</h5>
-          <h5 className="blue mar-right-16">DATA SEARCH</h5>
+        <div className="grid-cont">
+          <div className="nav-section food-section">
+            <Link href="/">
+              <h4 className=" mar-right-32">FOOD MAP</h4>
+            </Link>
+            <h5 className="mar-right-16">MAP</h5>
+            <h5>FORUM</h5>
+          </div>
+
+          <div className="nav-section">
+            <div className="splitter"></div>
+            <div className="splitter-blue"></div>
+            <h4 className="blue mar-right-32"> FISH FINDER</h4>
+            <h5 className="blue mar-right-16">MAP</h5>
+            <h5 className="blue mar-right-16">ARTICLES</h5>
+            <h5 className="blue mar-right-16">DATA SEARCH</h5>
+          </div>
         </div>
       </div>
+
+      <div className="nav-mobile">
+        <div className="nav-mobile-content">
+          <div className="flex align-center flex-wrap">
+            <Link href="/" className="mar-right-16">
+              <h4>FIND HEALTHY</h4>
+            </Link>
+            <Link href="/login">
+              <h5 className="black text-shadow">Sign Up</h5>
+            </Link>
+          </div>
+          <div
+            onClick={() => setMobileActive(true)}
+            className="menu-bars cursor"
+          >
+            <FontAwesomeIcon icon={faBars} className="icon-sm red" />
+          </div>
+        </div>
+        <Dropdown
+          mobileActive={mobileActive}
+          hideMobileActive={hideMobileActive}
+        />
       </div>
-
-    <div className="nav-mobile">
-      <div className="nav-mobile-content">
-        <div className = 'flex align-center flex-wrap'>
-        <Link href = '/' className = 'mar-right-16'>
-
-    <h4>FIND HEALTHY</h4>
-    </Link>
-    <Link href = '/login'>
-        
-        <h5 className = 'black text-shadow' >Sign Up</h5>
-        
-    </Link>
-    </div>
-    <div onClick = {()=>setMobileActive(true)}className="menu-bars cursor">
-      <FontAwesomeIcon icon = {faBars} className = 'icon-sm red' />
-    </div>
-    </div>
-    <Dropdown mobileActive = {mobileActive} hideMobileActive = {hideMobileActive} />
-    </div>
-      
     </Cont>
   );
 };
