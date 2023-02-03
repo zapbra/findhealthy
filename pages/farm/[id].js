@@ -21,19 +21,22 @@ export const getServerSideProps = async (pageContext) => {
   };
 };
 
-const [user, setUser] = useState(null);
-useEffect(() => {
-  const fetchUser = async () => {
-    const { data: session } = await supabase.auth.getSession();
-    if (session.session != null) {
-      setUser(session.session.user);
-    }
-  };
-  fetchUser();
-}, []);
-
 const Preview = ({ location }) => {
-  console.log(location);
+  const [origPoster, setOrigPoster] = useState(false);
+  const [user, setUser] = useState("null");
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: session } = await supabase.auth.getSession();
+      if (session.session != null) {
+        setUser(session.session.user);
+
+        if (session.session.user.id == location.user_id) {
+          alert("cowbunga");
+        }
+      }
+    };
+    fetchUser();
+  }, []);
 
   const [images, setImages] = useState(
     location.images.map((image) => {
