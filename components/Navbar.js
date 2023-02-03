@@ -86,14 +86,14 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const { data: session } = await supabase.auth.getSession();
-      if (session) {
+      if (session.session != null) {
         setUser(session.session.user);
       }
     };
     fetchUser();
   }, []);
   return (
-    <Cont colors={COLORS}>
+    <Cont colors={COLORS} id ='navbar'>
       <div className="nav-desktop">
         <Link href="/">
           <h5 className="inline-block mar-right-32">FINDHEALTHY</h5>

@@ -27,7 +27,8 @@ import createLocation, {
   createAddress,
   createProduct,
   fetchCountryByName,
-  createImage
+  createImage,
+  createUserLocation,
 } from "../../utils/supabaseFunctions";
 import CreateTag from "../inputs/CreateTag";
 import StarReview from "../inputs/StarReview";
@@ -100,6 +101,7 @@ const Bottombar = ({
   tagsFetch,
   addTag,
   fetchNewLocation,
+  user,
 }) => {
   const {
     handleSubmit,
@@ -109,6 +111,7 @@ const Bottombar = ({
     formState: { errors },
   } = useForm();
 
+  const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -197,10 +200,8 @@ const Bottombar = ({
   };
 
   const uploadImages = async (location_id) => {
-  
-
     const imageUploads = [];
-    
+
     for (let i = 0; i < images.length; i++) {
       let formData = new FormData();
       formData.append("image", images[i]);
@@ -213,37 +214,39 @@ const Bottombar = ({
           },
         });
         const res = await response.json();
-        if(res.status == 200) {
-         console.log('res')
-         
-         
-         const uploadState = await createImage(res.data.link, res.data.deletehash, location_id);
-          if(uploadState != true) {
-            toast.error(`Error uploading image ${i + 1}`)
+        if (res.status == 200) {
+          console.log("res");
+
+          const uploadState = await createImage(
+            res.data.link,
+            res.data.deletehash,
+            location_id
+          );
+          if (uploadState != true) {
+            toast.error(`Error uploading image ${i + 1}`);
           }
-        }
-        else{
-          toast('Error uploading image', {
+        } else {
+          toast("Error uploading image", {
             duration: 4000,
-            position: 'top-center',
-          
+            position: "top-center",
+
             // Styling
-            style: {border: '1px solid #E52323'},
-            className: '',
-          
+            style: { border: "1px solid #E52323" },
+            className: "",
+
             // Custom Icon
-            icon: '⚠️',
-          
+            icon: "⚠️",
+
             // Change colors of success/error/loading icon
             iconTheme: {
-              primary: '#000',
-              secondary: '#fff',
+              primary: "#000",
+              secondary: "#fff",
             },
-          
+
             // Aria
             ariaProps: {
-              role: 'status',
-              'aria-live': 'polite',
+              role: "status",
+              "aria-live": "polite",
             },
           });
         }
@@ -251,7 +254,7 @@ const Bottombar = ({
         console.log(err.message);
       }
     }
-    
+
     return imageUploads;
   };
 
@@ -338,19 +341,47 @@ const Bottombar = ({
     clearForm();
     fetchNewLocation(id);
     stopAdding();
+    const navbar = document.getElementById("navbar");
+    navbar.scrollIntoView({ behavior: "smooth", block: "center" });
   };
+  console.log("user");
+  console.log(user);
+  console.log("user");
 
-  const submitForm = handleSubmit(async (formData) => {
-    
-    const validAddress = await checkAddressValid();
-    
+  const createLocation = async (formData) => {
+    setLoading(true);
     const numberOrganize = formData.number.replaceAll(/[^0-9]/g, "").split("");
     numberOrganize.unshift("(");
     numberOrganize.splice(4, 0, ")");
     numberOrganize.splice(5, 0, "-");
     numberOrganize.splice(9, 0, "-");
-    if (validAddress) {
-      const locationId = await createLocation(
+    if (user !== null) {
+      let locationId = await createUserLocation(
+        formData.name,
+        formData.description,
+        formData.hoursFrom,
+        formData.hoursTo,
+        formData.pickup,
+        formData.website,
+        formData.email,
+        numberOrganize.join(""),
+        selectedTags,
+        formData.grassFed,
+        formData.organic,
+        formData.vaccineFree,
+        formData.pastureRaised,
+        formData.soyFree,
+        formData.dewormerFree,
+        formData.unfrozen,
+        reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
+        reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
+        reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
+        formData.howToOrder,
+        user.id
+      );
+      return locationId;
+    } else {
+      let locationId = await createLocation(
         formData.name,
         formData.description,
         formData.hoursFrom,
@@ -372,6 +403,16 @@ const Bottombar = ({
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
         formData.howToOrder
       );
+      return locationId;
+    }
+  };
+
+  const submitForm = handleSubmit(async (formData) => {
+    const validAddress = await checkAddressValid();
+
+    if (validAddress) {
+      const locationId = await createLocation(formData);
+
       products.forEach((product) => {
         createProduct(
           locationId,
@@ -391,11 +432,9 @@ const Bottombar = ({
         address.country,
         address.state
       ).then((res) => finalizeLocation(locationId));
-
-      
-    } 
+    }
   });
- 
+
   const addProduct = (e) => {
     e.preventDefault();
     if (product.name === "") {
@@ -415,11 +454,11 @@ const Bottombar = ({
       }, 1000);
       return;
     }
-    
+
     setProducts((prev) => {
       return [...prev, product];
     });
-    
+
     setProduct({
       name: "",
       value: "",
@@ -505,7 +544,7 @@ const Bottombar = ({
         dollarType: item,
       };
     });
-    
+
     setSelectedIndex(index);
     setShowDropdown(false);
     setActualDollar(name);
@@ -570,12 +609,12 @@ const Bottombar = ({
         measurement: item,
       };
     });
-    
+
     setSelectedMeasureIndex(index);
     setShowDropdown2(false);
     setActualMeasure(name);
   };
- 
+
   const measureSearchChangeHandler = (e) => {
     setMeasurementSearch(e.target.value);
     const filteredOptions = measurements.filter((code) => {
@@ -629,7 +668,7 @@ const Bottombar = ({
             setLocation={setLocation}
             setAddress={setAddress}
           />
-          
+
           <div className="input-line">
             <div className="input-line">
               <h4>PRODUCT TYPES *</h4>
@@ -940,7 +979,7 @@ const Bottombar = ({
 
           <div className="input-line">
             <h4>UPLOAD IMAGE/S</h4>
-            
+
             <div
               className="inline-block"
               onClick={() => imageRef.current.click()}
@@ -1004,10 +1043,7 @@ const Bottombar = ({
                         id="grassfed-false"
                         value="false"
                       />
-                      <p className="mar-left-4">
-                        {" "}
-                        <p>No</p>
-                      </p>
+                      <p className="mar-left-4">No</p>
                     </div>
                   </label>
                 </div>
@@ -1022,10 +1058,7 @@ const Bottombar = ({
                       value="unspecified"
                       defaultChecked
                     />
-                    <p className="mar-left-4">
-                      {" "}
-                      <p>Unspecified</p>
-                    </p>
+                    <p className="mar-left-4">Unspecified</p>
                   </div>
                 </label>
               </div>
@@ -1057,10 +1090,7 @@ const Bottombar = ({
                         id="organic-false"
                         value="false"
                       />
-                      <p className="mar-left-4">
-                        {" "}
-                        <p>No</p>
-                      </p>
+                      <p className="mar-left-4">No</p>
                     </div>
                   </label>
                 </div>
@@ -1128,10 +1158,7 @@ const Bottombar = ({
                       value="unspecified"
                       defaultChecked
                     />
-                    <p className="mar-left-4">
-                      {" "}
-                      <p>Unspecified</p>
-                    </p>
+                    <p className="mar-left-4">Unspecified</p>
                   </div>
                 </label>
               </div>
@@ -1163,10 +1190,7 @@ const Bottombar = ({
                         id="pasture-raised-false"
                         value="false"
                       />
-                      <p className="mar-left-4">
-                        {" "}
-                        <p>No</p>
-                      </p>
+                      <p className="mar-left-4">No</p>
                     </div>
                   </label>
                 </div>
@@ -1181,10 +1205,7 @@ const Bottombar = ({
                       value="unspecified"
                       defaultChecked
                     />
-                    <p className="mar-left-4">
-                      {" "}
-                      <p>Unspecified</p>
-                    </p>
+                    <p className="mar-left-4">Unspecified</p>
                   </div>
                 </label>
               </div>
@@ -1216,10 +1237,7 @@ const Bottombar = ({
                         id="soy-free-false"
                         value="false"
                       />
-                      <p className="mar-left-4">
-                        {" "}
-                        <p>No</p>
-                      </p>
+                      <p className="mar-left-4">No</p>
                     </div>
                   </label>
                 </div>
@@ -1234,10 +1252,7 @@ const Bottombar = ({
                       value="unspecified"
                       defaultChecked
                     />
-                    <p className="mar-left-4">
-                      {" "}
-                      <p>Unspecified</p>
-                    </p>
+                    <p className="mar-left-4">Unspecified</p>
                   </div>
                 </label>
               </div>
@@ -1269,10 +1284,7 @@ const Bottombar = ({
                         id="dewormers-false"
                         value="false"
                       />
-                      <p className="mar-left-4">
-                        {" "}
-                        <p>No</p>
-                      </p>
+                      <p className="mar-left-4">No</p>
                     </div>
                   </label>
                 </div>
@@ -1287,10 +1299,7 @@ const Bottombar = ({
                       value="unspecified"
                       defaultChecked
                     />
-                    <p className="mar-left-4">
-                      {" "}
-                      <p>Unspecified</p>
-                    </p>
+                    <p className="mar-left-4">Unspecified</p>
                   </div>
                 </label>
               </div>
@@ -1322,10 +1331,7 @@ const Bottombar = ({
                         id="unfrozen-false"
                         value="false"
                       />
-                      <p className="mar-left-4">
-                        {" "}
-                        <p>No</p>
-                      </p>
+                      <p className="mar-left-4">No</p>
                     </div>
                   </label>
                 </div>
@@ -1340,10 +1346,7 @@ const Bottombar = ({
                       value="unspecified"
                       defaultChecked
                     />
-                    <p className="mar-left-4">
-                      {" "}
-                      <p>Unspecified</p>
-                    </p>
+                    <p className="mar-left-4">Unspecified</p>
                   </div>
                 </label>
               </div>
@@ -1433,10 +1436,8 @@ const PlacesAutocomplete = ({
 
   return (
     <div className="mar-bottom-32">
-      <h4 className = 'mar-bottom-8'>ENTER AN ADDRESS *</h4>
-      <p className="italic mar-bottom-4">
-        Select from the dropdown
-      </p>
+      <h4 className="mar-bottom-8">ENTER AN ADDRESS *</h4>
+      <p className="italic mar-bottom-4">Select from the dropdown</p>
       <input
         value={value}
         type="text"

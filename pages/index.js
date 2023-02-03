@@ -35,7 +35,7 @@ export default function Home({ locationsFetch, tagsFetch }) {
   useEffect(() => {
     const fetchUser = async () => {
       const { data: session } = await supabase.auth.getSession();
-      if (session) {
+      if (session.session != null) {
         setUser(session.session.user);
       }
     };
@@ -69,7 +69,7 @@ export default function Home({ locationsFetch, tagsFetch }) {
         tagsFetch={tags}
         addTag={addTag}
         fetchNewLocation={fetchNewLocation}
-        user = {user}
+        user={user}
       />
     </Cont>
   );

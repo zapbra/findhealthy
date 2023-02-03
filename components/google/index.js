@@ -166,6 +166,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         tagsFetch={tagsFetch}
         addTag={addTag}
         fetchNewLocation={fetchNewLocation}
+        user = {user}
       />
       <div className="lg-spacer"></div>
       <Suppliers />

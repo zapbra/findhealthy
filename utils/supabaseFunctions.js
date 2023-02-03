@@ -21,7 +21,6 @@ const createLocation = async (
   quality,
   friendly,
   howToOrder
-
 ) => {
   try {
     const { data, error } = await supabase
@@ -37,16 +36,16 @@ const createLocation = async (
         number,
         tags,
         grassFed,
-    organic,
-  vaccineFree,
-  pastureRaised,
-  soyFree,
-  dewormerFree,
-  unfrozen,
-  pricing,
-  quality,
-  friendly,
-        howToOrder
+        organic,
+        vaccineFree,
+        pastureRaised,
+        soyFree,
+        dewormerFree,
+        unfrozen,
+        pricing,
+        quality,
+        friendly,
+        howToOrder,
       })
       .select("id")
       .single();
@@ -60,6 +59,66 @@ const createLocation = async (
 };
 
 export default createLocation;
+
+export const createUserLocation = async (
+  name,
+  description,
+  hoursFrom = null,
+  hoursTo = null,
+  pickup,
+  website = null,
+  email = null,
+  number = null,
+  tags,
+  grassFed,
+  organic,
+  vaccineFree,
+  pastureRaised,
+  soyFree,
+  dewormerFree,
+  unfrozen,
+  pricing,
+  quality,
+  friendly,
+  howToOrder,
+  user_id
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("locations")
+      .insert({
+        name,
+        description,
+        hoursFrom,
+        hoursTo,
+        pickup,
+        website,
+        email,
+        number,
+        tags,
+        grassFed,
+        organic,
+        vaccineFree,
+        pastureRaised,
+        soyFree,
+        dewormerFree,
+        unfrozen,
+        pricing,
+        quality,
+        friendly,
+        howToOrder,
+        user_id,
+      })
+      .select("id")
+      .single();
+    if (error) throw error;
+
+    return data.id;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
 
 export const createAddress = async (
   location_id,
@@ -111,7 +170,6 @@ export const fetchCountryByName = async (name) => {
 
     return data[0].id;
   } catch (error) {
-    
     console.log(error.message);
   }
 };
@@ -173,8 +231,13 @@ export const createTag = async (name) => {
   }
 };
 
-
-export const createProduct = async (location_id, name, price, dollarType, measurement) => {
+export const createProduct = async (
+  location_id,
+  name,
+  price,
+  dollarType,
+  measurement
+) => {
   try {
     const { data, error } = await supabase
       .from("products")
@@ -192,7 +255,8 @@ export const fetchLocation = async (id) => {
     const { data, error } = await supabase
       .from("locations")
       .select("*,address(*), products(*)")
-      .eq('id',id).single();
+      .eq("id", id)
+      .single();
     if (error) throw error;
     return data;
   } catch (error) {
@@ -203,16 +267,16 @@ export const fetchLocation = async (id) => {
 
 export const createImage = async (url, deleteHash, location_id) => {
   try {
-    const {data, error} = await supabase
-    .from('images')
-    .insert({url, deleteHash, location_id});
-    if(error) throw error;
+    const { data, error } = await supabase
+      .from("images")
+      .insert({ url, deleteHash, location_id });
+    if (error) throw error;
     return true;
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     return false;
   }
-}
+};
 
 export const checkUsernameUnique = async (username) => {
   try {

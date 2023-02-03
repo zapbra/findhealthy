@@ -1,32 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import ImageSection from "../../components/farmview/ImageSection";
 import Sections from "../../components/farmview/Sections";
-import supabase from '../../utils/supabaseClient';
+import supabase from "../../utils/supabaseClient";
 const Cont = styled.div``;
 
 export const getServerSideProps = async (pageContext) => {
   const title = pageContext.query.title;
-  const {data, error} = await supabase.from('locations')
-  .select('*, address(*), products(*), images(*)')
-  .eq('name', title).single();
+  const { data, error } = await supabase
+    .from("locations")
+    .select("*, address(*), products(*), images(*)")
+    .eq("name", title)
+    .single();
   return {
     props: {
       location: data,
-      
-    }
-  }
-}
+    },
+  };
+};
 
-const Preview = ({location}) => {
+const [user, setUser] = useState(null);
+useEffect(() => {
+  const fetchUser = async () => {
+    const { data: session } = await supabase.auth.getSession();
+    if (session.session != null) {
+      setUser(session.session.user);
+    }
+  };
+  fetchUser();
+}, []);
+
+const Preview = ({ location }) => {
   console.log(location);
-  
+
   const [images, setImages] = useState(
-    location.images.map(image=> {
-      return image.url
-    }));
+    location.images.map((image) => {
+      return image.url;
+    })
+  );
 
   const products = [
     {
@@ -82,13 +95,13 @@ const Preview = ({location}) => {
         products={location.products}
         description={location.description}
         address={location.address[0].full_address}
-        website= {location.website}
-        email= {location.email}
-        phone= {location.number}
-        delivery= {location.pickup}
-        hoursFrom= {location.hoursFrom}
-        hoursTo= {location.hoursTo}
-        grassFed= {location.grassFed}
+        website={location.website}
+        email={location.email}
+        phone={location.number}
+        delivery={location.pickup}
+        hoursFrom={location.hoursFrom}
+        hoursTo={location.hoursTo}
+        grassFed={location.grassFed}
         organic={location.organic}
         vaccineFree={location.vaccineFree}
         soyFree={location.soyFree}

@@ -12,15 +12,16 @@ const Dropdown = ({
 }) => {
   const searchInputEl = useRef();
   const itemsEl = useRef();
-  console.log('index')
-  console.log(selectedValue)
-  console.log('index')
+  console.log("index");
+  console.log(selectedValue);
+  console.log("index");
   useEffect(() => {
     searchInputEl.current.focus();
 
     if (selectedValue) {
       itemsEl.current.scrollTop =
-        itemsEl.current.querySelector(`.item-${selectedIndex}`).offsetTop - 42;
+        itemsEl?.current?.querySelector(`.item-${selectedIndex}`).offsetTop -
+        42;
     }
   }, []);
 
