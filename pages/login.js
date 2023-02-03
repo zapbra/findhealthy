@@ -4,22 +4,33 @@ import styled from "styled-components";
 import COLORS from "../data/colors";
 //import supabase from "../utils/supabaseClient";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faCircleChevronRight, faCircle } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import supabase from '../utils/supabaseClient'
 import { checkUsernameUnique, checkEmailUnique } from "../utils/supabaseFunctions";
 const Cont = styled.div`
 
+position:relative;
 .login{
+  overflow:hidden;
   max-width:400px;
   background-color: ${props=>props.colors.tan};
   border-radius: 8px;
   margin: 80px auto;
+  input{
+    
+  }
 }
   form {
     max-width: 400px;
     margin: 0 auto;
+    width:100%;
+    padding: 32px 32px 16px 32px;
+    display:inline-flex;
+    flex-direction: column;
+    
+    height:100%;
   }
  .header{
   display:flex;
@@ -61,8 +72,9 @@ const Cont = styled.div`
   background-color: ${props=>props.colors.offWhite};
  }
   .input-line {
+    margin-bottom: 16px;
     h5 {
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
   }
   .tags-input-box {
@@ -81,6 +93,18 @@ const Cont = styled.div`
         color: ${(props) => props.colors.redGrey};
       }
     }
+  }
+  .forms-holder{
+    width:200%;
+    display:flex;
+    position: relative;
+    transition: left .5s ease, height .5s ease;
+    height:100%;
+   
+  }
+  .signup-footer{
+    background-color: ${(props) => props.colors.darkBlue};
+    padding: 32px;
   }
 `;
 
@@ -178,8 +202,14 @@ const Signup = () => {
     //};
   }, []);
 
-  const signUp = useRef(null);
-  const signIn = useRef(null);
+
+  const [toggleState, setToggleState] = useState('sign in');
+  const toggleRef = (state) => {
+    setToggleState(state);
+  }
+ 
+  const signInRef = useRef(null);
+  
   return (
     <Cont colors={COLORS}>
       <div className=  'login'>
@@ -190,13 +220,14 @@ const Signup = () => {
       </h5>
     </div>
     <div className="sign-up-toggle">
-      <div className="toggle selected flex align-center justify-center">
+      <div onClick = {()=>toggleRef('sign up')} className={toggleState == 'sign up' ? "toggle selected flex align-center justify-center" : "toggle flex align-center justify-center"}>
         <h5 className="light">SIGN UP</h5>
       </div>
-      <div className="toggle flex align-center justify-center">
+      <div onClick = {()=>toggleRef('sign in')} className={toggleState == 'sign in' ? "toggle selected flex align-center justify-center" : "toggle flex align-center justify-center"}>
         <h5 className="light">SIGN IN</h5>
       </div>
     </div>
+    <div className="forms-holder" style = {{left: toggleState == 'sign in' ? '-100%' : '0', height: toggleState == 'sign in' ? signInRef.current.clientHeight  :'100%'}}>
       <form onSubmit={submitForm}>
         <div className="input-line">
           <h5>USERNAME</h5>
@@ -286,16 +317,70 @@ const Signup = () => {
             <p className="error">*Passwords must match</p>
           )}
         </div>
-        {loading ? (
+      </form>
+
+      <form onSubmit={submitForm} ref = {signInRef}>
+
+        <div className="input-line">
+          <h5>EMAIL</h5>
+          <input
+            {...register("email", {
+              required: true,
+            })}
+            type="email"
+            placeholder="example@gmail.com"
+            name="email"
+          />
+          {errors.email?.type === "required" && (
+            <p className="error">*Email is required</p>
+          )}
+        </div>
+
+        <div className="input-line">
+          <h5>PASSWORD</h5>
+          <div className="tags-input-box">
+            <input
+              {...register("password", {
+                required: true,
+                pattern: {
+                  value: /.{4,50}/,
+                  message: "Minimum of 4 letters",
+                },
+              })}
+              type={passwordState}
+              placeholder="password"
+              name="password"
+            />
+            <FontAwesomeIcon
+              onClick={togglePasswordState}
+              icon={passwordState === "password" ? faEye : faEyeSlash}
+              className="blue icon-sm"
+            />
+          </div>
+
+          {errors.password?.type === "required" && (
+            <p className="error">*Password is required</p>
+          )}
+          {errors.password?.type === "pattern" && (
+            <p className="error">*{errors.password.message}</p>
+          )}
+        </div>
+      </form>
+      
+      </div>
+      <div className="signup-footer justify-center flex">
+          
+          {loading ? (
           <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
         ) : (
-          <button className="blue-btn-one">
-          <h5>CREATE ACCOUNT</h5>
-        </button>
+          { toggleState == 'sign in'? (
+          <FontAwesomeIcon icon = {faCircleChevronRight} className = 'white icon-xl cursor' />
+          ) : (
+            <FontAwesomeIcon icon = {faCircleChevronRight} className = 'white icon-xl cursor' />
+          )
+          }
         )}
-        
-        
-      </form>
+      </div>
       </div>
     </Cont>
   );
