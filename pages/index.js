@@ -8,6 +8,7 @@ import {
   fetchTags,
   createTag,
 } from "../utils/supabaseFunctions";
+import supabase from "../utils/supabaseClient";
 import { useEffect, useState } from "react";
 const Cont = styled.div`
   min-height: 100vh;
@@ -30,18 +31,29 @@ export default function Home({ locationsFetch, tagsFetch }) {
   console.log(locationsFetch);
   console.log("locations");
 
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: session } = await supabase.auth.getSession();
+      if (session) {
+        setUser(session.session.user);
+      }
+    };
+    fetchUser();
+  }, []);
+
   const pushLocation = (location) => {
-    setLocations(prev=> {
+    setLocations((prev) => {
       return [...prev, location];
-    })
-  }
-  useEffect(()=> {
+    });
+  };
+  useEffect(() => {
     console.log(locations);
-  },[locations])
+  }, [locations]);
   const fetchNewLocation = async (id) => {
     const location = fetchLocation(id);
-    location.then(res=>pushLocation(res))
-  }
+    location.then((res) => pushLocation(res));
+  };
 
   const addTag = async (name) => {
     const updateTags = async () => {
@@ -50,11 +62,14 @@ export default function Home({ locationsFetch, tagsFetch }) {
     createTag(name).then((res) => res && updateTags());
   };
 
-
   return (
     <Cont>
-      
-      <Google locations={locations} tagsFetch={tags} addTag={addTag}  fetchNewLocation = {fetchNewLocation}/>
+      <Google
+        locations={locations}
+        tagsFetch={tags}
+        addTag={addTag}
+        fetchNewLocation={fetchNewLocation}
+      />
     </Cont>
   );
 }

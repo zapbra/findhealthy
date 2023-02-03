@@ -83,9 +83,6 @@ const Navbar = () => {
   };
 
   const [user, setUser] = useState(null);
-
-  console.log("user");
-  console.log(user);
   useEffect(() => {
     const fetchUser = async () => {
       const { data: session } = await supabase.auth.getSession();
