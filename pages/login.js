@@ -17,6 +17,9 @@ import {
   checkUsernameUnique,
   checkEmailUnique,
 } from "../utils/supabaseFunctions";
+import { SupabaseClient } from "@supabase/supabase-js";
+import SignupForm from "../components/signin/signupForm";
+import SigninForm from "../components/signin/signinForm";
 const Cont = styled.div`
   position: relative;
   .login {
@@ -133,7 +136,7 @@ const Signup = () => {
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const password = watch("password", "");
+
   const [passwordState, setPasswordState] = useState("password");
   const togglePasswordState = () => {
     setPasswordState((prev) => {
@@ -145,73 +148,19 @@ const Signup = () => {
     });
   };
   const signIn = handleSubmit(async (formData) => {
+    alert("k");
     setLoading(true);
-  });
-  const signUp = handleSubmit(async (formData) => {
-    setLoading(true);
-    const createUser = async () => {
-      try {
-        const {
-          data: { user },
-          error,
-        } = await supabase.auth.signUp({
-          email: formData.email,
-          password: formData.password,
-          options: {
-            data: {
-              username: formData.username,
-              avatar_url: "anon",
-            },
-          },
-        });
-        if (error) throw error;
-        setValue("username", "");
-        setValue("email", "");
-        setValue("password", "");
-        setValue("confirmPassword", "");
-        toast(
-          "Please check your email for an authentication link. Thanks for signing up!",
-          {
-            duration: 4000,
-            position: "top-center",
-
-            // Styling
-            style: {},
-            className: "",
-
-            // Custom Icon
-            icon: "✉️",
-
-            // Change colors of success/error/loading icon
-            iconTheme: {
-              primary: "#000",
-              secondary: "#fff",
-            },
-
-            // Aria
-            ariaProps: {
-              role: "status",
-              "aria-live": "polite",
-            },
-          }
-        );
-        router.push("/welcome");
-        setLoading(false);
-      } catch (error) {
-        toast.error(`Error creating your account :( ${error.message}`);
-        console.log(error);
-      }
-    };
-    createUser();
-    /*
-    checkUsernameUnique(formData.username).then((res) =>
-    res // is unique then check email unique
-      ? checkEmailUnique(formData.email).then((res) =>
-          // is unique then create user, not send error message
-          res ? createUser() : toast.error('Email taken')
-        ) // username isn't unique
-      : toast.error("Username taken")
-  );  */
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.signInEmail,
+        password: formData.signInPassword,
+      });
+      if (error) throw error;
+      setLoading(false);
+      router.push("/");
+    } catch (error) {
+      toast.error(`Incorrect email or password or not authenticated`);
+    }
   });
 
   useEffect(() => {
@@ -225,7 +174,11 @@ const Signup = () => {
     setToggleState(state);
   };
 
-  const signInRef = useRef(null);
+  const [height, setHeight] = useState(0);
+
+  const updateHeight = (val) => {
+    setHeight(val);
+  };
 
   return (
     <Cont colors={COLORS}>
@@ -260,149 +213,20 @@ const Signup = () => {
           className="forms-holder"
           style={{
             left: toggleState == "sign in" ? "-100%" : "0",
-            height:
-              toggleState == "sign in"
-                ? signInRef?.current?.clientHeight
-                : "100%",
+            height: toggleState == "sign in" ? height : "100%",
           }}
         >
-          <form onSubmit={signUp}>
-            <div className="input-line">
-              <h5>USERNAME</h5>
-              <input
-                {...register("username", {
-                  required: true,
-                  pattern: {
-                    value: /^[a-zA-Z0-9_$]{1,20}$/,
-                    message:
-                      "*Username must be 1-20 letters and can only contain letters, numbers, and _. Ex. james3.",
-                  },
-                })}
-                type="text"
-                placeholder="username"
-                name="username"
-              />
-              {errors.username?.type === "required" && (
-                <p className="error">*Username is required</p>
-              )}
-              {errors.username?.type === "pattern" && (
-                <p className="error">*{errors.username.message}</p>
-              )}
-            </div>
+          <SignupForm
+            passwordState={passwordState}
+            togglePasswordState={togglePasswordState}
+          />
 
-            <div className="input-line">
-              <h5>EMAIL</h5>
-              <input
-                {...register("email", {
-                  required: true,
-                })}
-                type="email"
-                placeholder="example@gmail.com"
-                name="email"
-              />
-              {errors.email?.type === "required" && (
-                <p className="error">*Email is required</p>
-              )}
-            </div>
-
-            <div className="input-line">
-              <h5>PASSWORD</h5>
-              <div className="tags-input-box">
-                <input
-                  {...register("password", {
-                    required: true,
-                    pattern: {
-                      value: /.{4,50}/,
-                      message: "Minimum of 4 letters",
-                    },
-                  })}
-                  type={passwordState}
-                  placeholder="password"
-                  name="password"
-                />
-                <FontAwesomeIcon
-                  onClick={togglePasswordState}
-                  icon={passwordState === "password" ? faEye : faEyeSlash}
-                  className="blue icon-sm"
-                />
-              </div>
-
-              {errors.password?.type === "required" && (
-                <p className="error">*Password is required</p>
-              )}
-              {errors.password?.type === "pattern" && (
-                <p className="error">*{errors.password.message}</p>
-              )}
-            </div>
-
-            <div className="input-line">
-              <h5>CONFIRM PASSWORD </h5>
-              <input
-                {...register("confirmPassword", {
-                  required: true,
-                  validate: (value) =>
-                    value === password || "The passwords do not match",
-                })}
-                type={passwordState}
-                placeholder="confirm password"
-                name="confirmPassword"
-              />
-
-              {errors.confirmPassword?.type === "required" && (
-                <p className="error">*Confirm Password</p>
-              )}
-              {errors.confirmPassword?.type === "validate" && (
-                <p className="error">*Passwords must match</p>
-              )}
-            </div>
-          </form>
-
-          <form onSubmit={signIn} ref={signInRef}>
-            <div className="input-line">
-              <h5>EMAIL</h5>
-              <input
-                {...register("emailSignIn", {
-                  required: true,
-                })}
-                type="email"
-                placeholder="example@gmail.com"
-                name="email"
-              />
-              {errors.emailSignIn?.type === "required" && (
-                <p className="error">*Email is required</p>
-              )}
-            </div>
-
-            <div className="input-line">
-              <h5>PASSWORD</h5>
-              <div className="tags-input-box">
-                <input
-                  {...register("passwordSignIn", {
-                    required: true,
-                    pattern: {
-                      value: /.{4,50}/,
-                      message: "Minimum of 4 letters",
-                    },
-                  })}
-                  type={passwordState}
-                  placeholder="password"
-                  name="password"
-                />
-                <FontAwesomeIcon
-                  onClick={togglePasswordState}
-                  icon={passwordState === "password" ? faEye : faEyeSlash}
-                  className="blue icon-sm"
-                />
-              </div>
-
-              {errors.passwordSignIn?.type === "required" && (
-                <p className="error">*Password is required</p>
-              )}
-              {errors.passwordSignIn?.type === "pattern" && (
-                <p className="error">*{errors.password.message}</p>
-              )}
-            </div>
-          </form>
+          <SigninForm
+            signIn={signIn}
+            passwordState={passwordState}
+            togglePasswordState={togglePasswordState}
+            updateHeight={updateHeight}
+          />
         </div>
         <div className="signup-footer justify-center flex">
           {loading ? (
@@ -414,13 +238,11 @@ const Signup = () => {
             </div>
           ) : toggleState == "sign in" ? (
             <FontAwesomeIcon
-              onClick={signIn}
               icon={faCircleChevronRight}
               className="white icon-xl cursor"
             />
           ) : (
             <FontAwesomeIcon
-              onClick={signUp}
               icon={faCircleChevronRight}
               className="white icon-xl cursor"
             />
