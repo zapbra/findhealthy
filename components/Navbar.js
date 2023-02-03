@@ -89,9 +89,9 @@ const Navbar = () => {
       <Link href="/">
         <h5 className = 'inline-block mar-right-32'>FINDHEALTHY</h5>
       </Link>
-      <Link href = '/signup'>
+      <Link href = '/login'>
         <div className="inline-block black-btn">
-        <h5 >Sign Up</h5>
+        <h5 >Login</h5>
         </div>
       </Link>
      
@@ -124,7 +124,7 @@ const Navbar = () => {
 
     <h4>FIND HEALTHY</h4>
     </Link>
-    <Link href = '/signup'>
+    <Link href = '/login'>
         
         <h5 className = 'black text-shadow' >Sign Up</h5>
         

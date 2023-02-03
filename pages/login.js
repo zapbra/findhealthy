@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {useRouter} from "next/router";
 import styled from "styled-components";
 import COLORS from "../data/colors";
@@ -10,18 +10,56 @@ import { useForm } from "react-hook-form";
 import supabase from '../utils/supabaseClient'
 import { checkUsernameUnique, checkEmailUnique } from "../utils/supabaseFunctions";
 const Cont = styled.div`
+
+.login{
+  max-width:400px;
+  background-color: ${props=>props.colors.tan};
+  border-radius: 8px;
+  margin: 80px auto;
+}
   form {
     max-width: 400px;
     margin: 0 auto;
   }
-  .header {
-    text-align: center;
+ .header{
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  padding: 32px;
+  background-color: ${props=>props.colors.darkBlue};
+  border-radius: 8px 8px 0 0;
+ }
+ .sign-up-toggle{
+  background-color: ${props=>props.colors.offWhite};
+  display:flex;
+  height:48px;
+  .toggle{
+    flex:1;
+    border-bottom: 2px  solid ${props=>props.colors.redGrey};
+    cursor:pointer;
+    h5{
+      color: ${props=>props.colors.redGrey};
+    }
+    &:hover{
+      h5{
+        color:  ${props=>props.colors.darkBlue};
+      }
+    }
   }
-  .white-bg {
-    background: #fff;
-    padding: 8px;
-    border: 1px solid ${(props) => props.colors.grey};
+  .selected{
+    border-bottom: 2px solid ${props=>props.colors.darkBlue};
+    cursor:default;
+    h5{
+      color: ${props=>props.colors.darkBlue};
+    }
   }
+ }
+ .grey-circle{
+  width:56px;
+  height:56px;
+  border-radius: 50px;
+  background-color: ${props=>props.colors.offWhite};
+ }
   .input-line {
     h5 {
       margin-bottom: 8px;
@@ -140,34 +178,25 @@ const Signup = () => {
     //};
   }, []);
 
+  const signUp = useRef(null);
+  const signIn = useRef(null);
   return (
-    <Cont colors={COLORS} className="default-page">
-      <div className="header">
-        <div className="center-inline mar-bottom-32">
-          <h3 className = 'underline'>THANKS FOR SIGNING UP</h3>
-        </div>
-        <div className="center-inline white-bg mar-bottom-32">
-          <h4>WHY SIGN UP?</h4>
-        </div>
-        <h5 className="light black mar-bottom-16">
-          This allows you to create posts attached to your account.
-        </h5>
-
-        <h5 className="light black mar-bottom-16 You can share your account, view your posts, edit your posts">
-          You can share your account, view your posts, edit your posts
-        </h5>
-        <div className="beige-box mar-bottom-32">
-          <p>
-            If you don’t sign up, you won’t be able to edit your posts in the
-            future, or see your collection of posts!{" "}
-          </p>
-          <p>
-            Also, you won’t be able to save locations, or recieve notifications
-          </p>
-        </div>
-        <div className="red-line mar-bottom-32"></div>
+    <Cont colors={COLORS}>
+      <div className=  'login'>
+    <div className="header">
+      <div className="grey-circle mar-bottom-16"></div>
+      <h5 className="white">
+       FINDHEALTHY
+      </h5>
+    </div>
+    <div className="sign-up-toggle">
+      <div className="toggle selected flex align-center justify-center">
+        <h5 className="light">SIGN UP</h5>
       </div>
-
+      <div className="toggle flex align-center justify-center">
+        <h5 className="light">SIGN IN</h5>
+      </div>
+    </div>
       <form onSubmit={submitForm}>
         <div className="input-line">
           <h5>USERNAME</h5>
@@ -267,6 +296,7 @@ const Signup = () => {
         
         
       </form>
+      </div>
     </Cont>
   );
 };
