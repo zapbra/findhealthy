@@ -93,20 +93,20 @@ const Navbar = () => {
     fetchUser();
   }, []);
   return (
-    <Cont colors={COLORS} id ='navbar'>
+    <Cont colors={COLORS} id="navbar">
       <div className="nav-desktop">
         <Link href="/">
           <h5 className="inline-block mar-right-32">FINDHEALTHY</h5>
         </Link>
         {user !== null ? (
           <Link href="/account">
-            <div className="inline-block black-btn">
+            <div className="inline-block blue-btn-two">
               <h5>{user.user_metadata.username}</h5>
             </div>
           </Link>
         ) : (
           <Link href="/login">
-            <div className="inline-block black-btn">
+            <div className="inline-block blue-btn-two">
               <h5>Login</h5>
             </div>
           </Link>

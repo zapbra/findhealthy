@@ -118,6 +118,7 @@ const SigninForm = ({ passwordState, togglePasswordState, updateHeight }) => {
             <p className="error">*{errors.password.message}</p>
           )}
         </div>
+        <button type="submit" hidden></button>
       </form>
       <div className="signup-footer justify-center flex">
         {loading ? (

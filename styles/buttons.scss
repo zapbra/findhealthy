@@ -67,7 +67,7 @@ $offWhite: #E7EFF8;
   }
 }
 
-.black-btn{
+.blue-btn-two{
   background: $darkBlue;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
   padding: 8px 16px;
@@ -86,6 +86,24 @@ $offWhite: #E7EFF8;
   h5{
     color: $offWhite;
     text-decoration: none !important;
+  }
+}
+
+.black-btn{
+  background: rgb(51,78,104);
+  background: linear-gradient(90deg, rgba(51,78,104,1) 0%, rgba(25,36,48,1) 51%, rgba(51,78,104,1) 100%);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  padding: 8px 16px;
+  transition: box-shadow .25s ease;
+  h3,h4,h5{
+    color: $offWhite;
+  }
+  &:hover{
+    box-shadow: none;
+   
+  }
+  &:active{
+    background: rgba(25,36,48,1);
   }
 }
 

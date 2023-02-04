@@ -2,7 +2,7 @@ $tan: #edc7b7;
 $light-beige: #eee2dc;
 $grey: #bab2b5;
 $dark-blue: #123c69;
-$dark-pink: #ac3b61;
+$dark-pink: rgb(172, 59, 97);
 $red-grey: #81646d;
 $black: #192430;
 $yellow: #9fac3b;
@@ -77,6 +77,9 @@ h6 {
 }
 .text-shadow-white{
   text-shadow: 3px 3px 6px  rgba(231,239,248, .4);
+}
+.text-shadow-red{
+  text-shadow: 3px 3px 6px  rgba(172,59,97, .61);
 }
 .box-shadow {
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
