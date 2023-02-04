@@ -11,7 +11,7 @@ import {
   faCircleXmark,
   faPencil,
 } from "@fortawesome/free-solid-svg-icons";
-
+import StarReview from "../inputs/StarReview";
 const Cont = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -786,7 +786,10 @@ const Sections = ({
             </div>
           </div>
         </div>
-        <div className="star-field-holder">{starFields}</div>
+        <div className="star-field-holder">
+          //THIS NEXT
+          <StarReview field = 'Pricing' stars = />
+        </div>
       </section>
       <section style={{ backgroundColor: "#fff" }}>
         <div className="center-inline">
