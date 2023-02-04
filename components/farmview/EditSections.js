@@ -1,11 +1,18 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faClose, faStar } from "@fortawesome/free-solid-svg-icons";
+import { useForm } from "react-hook-form";
+import {
+  faCheck,
+  faClose,
+  faStar,
+  faCircleXmark,
+  faPencil,
+} from "@fortawesome/free-solid-svg-icons";
 
-const Cont = styled.div`
+const Cont = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: minmax(300px, 1fr);
@@ -32,6 +39,7 @@ const Cont = styled.div`
   .section {
     width: 100%;
     display: flex;
+    height: 100%;
 
     background-color: #fff;
     &:nth-of-type(2) {
@@ -139,6 +147,16 @@ const Cont = styled.div`
       }
     }
   }
+  .product-item {
+    .icon-sm {
+      &:hover {
+        color: ${(props) => props.colors.darkGrey} !important;
+      }
+    }
+  }
+  textarea {
+    height: 300px;
+  }
 `;
 
 const Sections = ({
@@ -163,15 +181,34 @@ const Sections = ({
   quality,
   friendly,
 }) => {
+  const {
+    handleSubmit,
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
+  useEffect(() => {
+    setValue("description", description);
+    setValue("address", address);
+    setValue("website", website);
+    setValue("email", email);
+    setValue("phone", phone);
+  }, []);
   const [productElems, setProductElems] = useState(
     products.map((product, index) => {
       return (
         <li key={index} className="product-item">
-          <div className="flex-inline product-content">
+          <div className="flex-inline product-content align-center">
             <h5 className="black mar-right-8">{product.name}</h5>
-            <p className="price">
+            <p className="price mar-right-8">
               ${product.price} {product.dollarType}/{product.measurement}
             </p>
+            <FontAwesomeIcon
+              icon={faCircleXmark}
+              className="icon-sm black cursor"
+            />
           </div>
         </li>
       );
@@ -232,6 +269,12 @@ const Sections = ({
       );
     })
   );
+
+  const descriptionRef = useRef(null);
+  console.log(descriptionRef);
+  useEffect(() => {
+    console.log(descriptionRef);
+  }, [descriptionRef]);
   return (
     <Cont colors={COLORS} className="section-holder">
       <section className="section">
@@ -245,35 +288,64 @@ const Sections = ({
           <div className="center-inline mar-bottom-16">
             <h4>DESCRIPTION</h4>
           </div>
-          <div className="description-text">{description}</div>
+          <textarea
+            type="text"
+            className="description-text"
+            name="description"
+            {...register("description", {
+              required: false,
+            })}
+          ></textarea>
+          <div className="black-btn flex-inline align-center">
+            <h5 className="mar-right-8">EDIT</h5>
+            <FontAwesomeIcon icon={faPencil} className="icon-ssm white" />
+          </div>
         </div>
       </section>
       <section className="section">
         <div>
           <div className="section-line">
             <h5 className="blue">ADDRESS</h5>
-            <p className="bold">{address}</p>
+            <input
+              name="address"
+              type="text"
+              {...register("address", {
+                required: false,
+              })}
+            />
           </div>
 
           <div className="section-line">
             <h5 className="blue">WEBSITE</h5>
-            <Link href={website}>
-              <p className="bold">{website}</p>
-            </Link>
+            <input
+              name="website"
+              type="text"
+              {...register("website", {
+                required: false,
+              })}
+            />
           </div>
 
           <div className="section-line">
             <h5 className="blue">EMAIL</h5>
-            <a href={`mailto:${email}`}>
-              <p className="bold">{email}</p>
-            </a>
+            <input
+              name="email"
+              type="text"
+              {...register("email", {
+                required: false,
+              })}
+            />
           </div>
 
           <div className="section-line">
             <h5 className="blue">PHONE</h5>
-            <a href={`tel:${phone}`}>
-              <p className="bold">{phone}</p>
-            </a>
+            <input
+              name="phone"
+              type="text"
+              {...register("phone", {
+                required: false,
+              })}
+            />
           </div>
 
           <div className="section-line">
