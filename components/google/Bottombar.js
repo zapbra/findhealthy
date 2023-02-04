@@ -1032,7 +1032,7 @@ const Bottombar = ({
                     </div>
                   </label>
 
-                  <label htmlFor="pickupOnly">
+                  <label htmlFor="grassfed-false">
                     <div className="flex align-center">
                       <input
                         {...register("grassFed", {

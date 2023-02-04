@@ -26,6 +26,11 @@ const Cont = styled.form`
       background: ${(props) => props.colors.lightBeige} !important;
     }
   }
+  .radio-line {
+    border-bottom: 1px solid ${(props) => props.colors.darkPink};
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+  }
   .reverse {
     grid-column: 1;
     grid-row: 2;
@@ -195,6 +200,15 @@ const Sections = ({
     setValue("website", website);
     setValue("email", email);
     setValue("phone", phone);
+    setValue("pickup", delivery);
+    setValue("grassFed", grassFed);
+    setValue("organic", organic);
+    setValue("vaccineFree", vaccineFree);
+    setValue("pastureRaised", pastureRaised);
+    setValue("soyFree", soyFree);
+    setValue("dewormerFree", dewormerFree);
+    setValue("unfrozen", unfrozen);
+    setValue("howToOrder", howToOrder);
   }, []);
   const [productElems, setProductElems] = useState(
     products.map((product, index) => {
@@ -275,6 +289,13 @@ const Sections = ({
   useEffect(() => {
     console.log(descriptionRef);
   }, [descriptionRef]);
+
+  const howToOrderRef = useRef(null);
+
+  const focusField = (id) => {
+    const elem = document.getElementById(id);
+    elem.focus();
+  };
   return (
     <Cont colors={COLORS} className="section-holder">
       <section className="section">
@@ -292,11 +313,15 @@ const Sections = ({
             type="text"
             className="description-text"
             name="description"
+            id="description"
             {...register("description", {
               required: false,
             })}
           ></textarea>
-          <div className="black-btn flex-inline align-center">
+          <div
+            onClick={() => focusField("description")}
+            className="black-btn flex-inline align-center"
+          >
             <h5 className="mar-right-8">EDIT</h5>
             <FontAwesomeIcon icon={faPencil} className="icon-ssm white" />
           </div>
@@ -350,7 +375,68 @@ const Sections = ({
 
           <div className="section-line">
             <h5 className="blue">DELIVERY</h5>
-            <p className="bold">{delivery}</p>
+            <label htmlFor="pickupAndDelivery">
+              <div className="flex align-center">
+                <input
+                  {...register("pickup", {
+                    required: true,
+                  })}
+                  type="radio"
+                  value="pickup & delivery"
+                  id="pickupAndDelivery"
+                />
+                <p className="mar-left-4">Pickup & Delivery</p>
+              </div>
+            </label>
+
+            <label htmlFor="pickupOnly">
+              <div className="flex align-center">
+                <input
+                  {...register("pickup", {
+                    required: true,
+                  })}
+                  type="radio"
+                  id="pickupOnly"
+                  value="pickup"
+                />
+                <p className="mar-left-4">
+                  {" "}
+                  <strong>Pickup</strong> Only
+                </p>
+              </div>
+            </label>
+
+            <label htmlFor="deliveryOnly">
+              <div className="flex align-center">
+                <input
+                  {...register("pickup", {
+                    required: true,
+                  })}
+                  type="radio"
+                  id="deliveryOnly"
+                  value="delivery"
+                />
+                <p className="mar-left-4">
+                  {" "}
+                  <strong>Delivery</strong> Only
+                </p>
+              </div>
+            </label>
+
+            <label htmlFor="unspecified">
+              <div className="flex align-center">
+                <input
+                  {...register("pickup", {
+                    required: true,
+                  })}
+                  type="radio"
+                  id="unspecified"
+                  value="unspecified"
+                  defaultChecked
+                />
+                <p className="mar-left-4">Unspecified</p>
+              </div>
+            </label>
           </div>
         </div>
         <div>
@@ -363,7 +449,342 @@ const Sections = ({
       </section>
       <section className="section" style={{ backgroundColor: "#EEE2DC" }}>
         <div className="farm-field-holder">
-          <div>{farmFields}</div>
+          <div className="selects">
+            <div className="radio-line">
+              <h4 className="mar-bottom-8">GRASS FED?</h4>
+              <div className="flex mar-bottom-8">
+                <label htmlFor="grassfed-true">
+                  <div className="flex align-center mar-right-8">
+                    <input
+                      {...register("grassFed", {
+                        required: false,
+                      })}
+                      type="radio"
+                      value="true"
+                      id="grassfed-true"
+                    />
+                    <p className="mar-left-4">Yes</p>
+                  </div>
+                </label>
+
+                <label htmlFor="grassfed-false">
+                  <div className="flex align-center">
+                    <input
+                      {...register("grassFed", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="grassfed-false"
+                      value="false"
+                    />
+                    <p className="mar-left-4">No</p>
+                  </div>
+                </label>
+              </div>
+              <label htmlFor="grassfed-unspecified">
+                <div className="flex align-center">
+                  <input
+                    {...register("grassFed", {
+                      required: false,
+                    })}
+                    type="radio"
+                    id="grassfed-unspecified"
+                    value="unspecified"
+                    defaultChecked
+                  />
+                  <p className="mar-left-4">Unspecified</p>
+                </div>
+              </label>
+            </div>
+
+            <div className="radio-line">
+              <h4 className="mar-bottom-8">ORGANIC?</h4>
+              <div className="flex mar-bottom-8">
+                <label htmlFor="organic-true">
+                  <div className="flex align-center mar-right-8">
+                    <input
+                      {...register("organic", {
+                        required: false,
+                      })}
+                      type="radio"
+                      value="true"
+                      id="organic-true"
+                    />
+                    <p className="mar-left-4">Yes</p>
+                  </div>
+                </label>
+
+                <label htmlFor="pickupOnly">
+                  <div className="flex align-center">
+                    <input
+                      {...register("organic", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="organic-false"
+                      value="false"
+                    />
+                    <p className="mar-left-4">No</p>
+                  </div>
+                </label>
+              </div>
+              <label htmlFor="organic-unspecified">
+                <div className="flex align-center">
+                  <input
+                    {...register("organic", {
+                      required: false,
+                    })}
+                    type="radio"
+                    id="organic-unspecified"
+                    value="unspecified"
+                    defaultChecked
+                  />
+                  <p className="mar-left-4">
+                    {" "}
+                    <p>Unspecified</p>
+                  </p>
+                </div>
+              </label>
+            </div>
+
+            <div className="radio-line">
+              <h4 className="mar-bottom-8">VACCINE FREE?</h4>
+              <div className="flex mar-bottom-8">
+                <label htmlFor="vaccines-true">
+                  <div className="flex align-center mar-right-8">
+                    <input
+                      {...register("vaccineFree", {
+                        required: false,
+                      })}
+                      type="radio"
+                      value="true"
+                      id="vaccines-true"
+                    />
+                    <p className="mar-left-4">Yes</p>
+                  </div>
+                </label>
+
+                <label htmlFor="pickupOnly">
+                  <div className="flex align-center">
+                    <input
+                      {...register("vaccineFree", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="vaccines-false"
+                      value="false"
+                    />
+                    <p className="mar-left-4">
+                      {" "}
+                      <p>No</p>
+                    </p>
+                  </div>
+                </label>
+              </div>
+              <label htmlFor="vaccines-unspecified">
+                <div className="flex align-center">
+                  <input
+                    {...register("vaccineFree", {
+                      required: false,
+                    })}
+                    type="radio"
+                    id="vaccines-unspecified"
+                    value="unspecified"
+                    defaultChecked
+                  />
+                  <p className="mar-left-4">Unspecified</p>
+                </div>
+              </label>
+            </div>
+
+            <div className="radio-line">
+              <h4 className="mar-bottom-8">PASTURE RAISED?</h4>
+              <div className="flex mar-bottom-8">
+                <label htmlFor="pasture-raised-true">
+                  <div className="flex align-center mar-right-8">
+                    <input
+                      {...register("pastureRaised", {
+                        required: false,
+                      })}
+                      type="radio"
+                      value="true"
+                      id="pasture-raised-true"
+                    />
+                    <p className="mar-left-4">Yes</p>
+                  </div>
+                </label>
+
+                <label htmlFor="pickupOnly">
+                  <div className="flex align-center">
+                    <input
+                      {...register("pastureRaised", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="pasture-raised-false"
+                      value="false"
+                    />
+                    <p className="mar-left-4">No</p>
+                  </div>
+                </label>
+              </div>
+              <label htmlFor="pasture-raised-unspecified">
+                <div className="flex align-center">
+                  <input
+                    {...register("pastureRaised", {
+                      required: false,
+                    })}
+                    type="radio"
+                    id="pasture-raised-unspecified"
+                    value="unspecified"
+                    defaultChecked
+                  />
+                  <p className="mar-left-4">Unspecified</p>
+                </div>
+              </label>
+            </div>
+
+            <div className="radio-line">
+              <h4 className="mar-bottom-8">SOY FREE?</h4>
+              <div className="flex mar-bottom-8">
+                <label htmlFor="soy-free-true">
+                  <div className="flex align-center mar-right-8">
+                    <input
+                      {...register("soyFree", {
+                        required: false,
+                      })}
+                      type="radio"
+                      value="true"
+                      id="soy-free-true"
+                    />
+                    <p className="mar-left-4">Yes</p>
+                  </div>
+                </label>
+
+                <label htmlFor="soy-free-false">
+                  <div className="flex align-center">
+                    <input
+                      {...register("soyFree", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="soy-free-false"
+                      value="false"
+                    />
+                    <p className="mar-left-4">No</p>
+                  </div>
+                </label>
+              </div>
+              <label htmlFor="soy-free-unspecified">
+                <div className="flex align-center">
+                  <input
+                    {...register("soyFree", {
+                      required: false,
+                    })}
+                    type="radio"
+                    id="soy-free-unspecified"
+                    value="unspecified"
+                    defaultChecked
+                  />
+                  <p className="mar-left-4">Unspecified</p>
+                </div>
+              </label>
+            </div>
+
+            <div className="radio-line">
+              <h4 className="mar-bottom-8">DEWORMER FREE?</h4>
+              <div className="flex mar-bottom-8">
+                <label htmlFor="dewormers-true">
+                  <div className="flex align-center mar-right-8">
+                    <input
+                      {...register("dewormerFree", {
+                        required: false,
+                      })}
+                      type="radio"
+                      value="true"
+                      id="dewormers-true"
+                    />
+                    <p className="mar-left-4">Yes</p>
+                  </div>
+                </label>
+
+                <label htmlFor="dewormers-false">
+                  <div className="flex align-center">
+                    <input
+                      {...register("dewormerFree", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="dewormers-false"
+                      value="false"
+                    />
+                    <p className="mar-left-4">No</p>
+                  </div>
+                </label>
+              </div>
+              <label htmlFor="dewormers-unspecified">
+                <div className="flex align-center">
+                  <input
+                    {...register("dewormerFree", {
+                      required: false,
+                    })}
+                    type="radio"
+                    id="dewormers-unspecified"
+                    value="unspecified"
+                    defaultChecked
+                  />
+                  <p className="mar-left-4">Unspecified</p>
+                </div>
+              </label>
+            </div>
+
+            <div className="radio-line">
+              <h4 className="mar-bottom-8">UNFROZEN?</h4>
+              <div className="flex mar-bottom-8">
+                <label htmlFor="unfrozen-true">
+                  <div className="flex align-center mar-right-8">
+                    <input
+                      {...register("unfrozen", {
+                        required: false,
+                      })}
+                      type="radio"
+                      value="true"
+                      id="unfrozen-true"
+                    />
+                    <p className="mar-left-4">Yes</p>
+                  </div>
+                </label>
+
+                <label htmlFor="pickupOnly">
+                  <div className="flex align-center">
+                    <input
+                      {...register("unfrozen", {
+                        required: false,
+                      })}
+                      type="radio"
+                      id="unfrozen-false"
+                      value="false"
+                    />
+                    <p className="mar-left-4">No</p>
+                  </div>
+                </label>
+              </div>
+              <label htmlFor="unfrozen-unspecified">
+                <div className="flex align-center">
+                  <input
+                    {...register("unfrozen", {
+                      required: false,
+                    })}
+                    type="radio"
+                    id="unfrozen-unspecified"
+                    value="unspecified"
+                    defaultChecked
+                  />
+                  <p className="mar-left-4">Unspecified</p>
+                </div>
+              </label>
+            </div>
+          </div>
         </div>
         <div className="star-field-holder">{starFields}</div>
       </section>
@@ -371,7 +792,22 @@ const Sections = ({
         <div className="center-inline">
           <h4 className="underline mar-bottom-16">HOW TO ORDER</h4>
         </div>
-        <p>{howToOrder}</p>
+        <textarea
+          type="text"
+          className="description-text"
+          id="howToOrder"
+          name="howToOrder"
+          {...register("howToOrder", {
+            required: false,
+          })}
+        ></textarea>
+        <div
+          onClick={() => focusField("howToOrder")}
+          className="black-btn flex-inline align-center"
+        >
+          <h5 className="mar-right-8">EDIT</h5>
+          <FontAwesomeIcon icon={faPencil} className="icon-ssm white" />
+        </div>
       </section>
     </Cont>
   );
