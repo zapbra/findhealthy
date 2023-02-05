@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
@@ -21,14 +21,15 @@ const Cont = styled.div`
     max-height: 600px;
     border-right: 1px solid ${(props) => props.colors.darkPink};
     cursor: pointer;
+  
     
     &:hover {
       border: 2px solid ${(props) => props.colors.darkPink};
     }
     img {
       height: 100%;
-      
-      object-fit: cover;
+      object-fit: contain;
+
     }
   }
   .image-selectors {
@@ -65,6 +66,10 @@ const ImageSection = ({ images }) => {
   const selectImage = (url) => {
     if (previewUrl === url) return;
     setPreviewUrl(url);
+    imageRef.current.classList.add('opacity-anim-fast');
+    setTimeout(()=> {
+      imageRef.current.classList.remove('opacity-anim-fast');
+    },250)
   };
   const imageElements = images.map((image, index) => {
     return (
@@ -90,14 +95,15 @@ const ImageSection = ({ images }) => {
     setShowPhotoDisplay(false);
   };
 
+  const imageRef = useRef(null);
   return (
     <Cont colors={COLORS}>
       {showPhotoDisplay && (
         <PhotoDisplay selectedImage={previewUrl} hidePhoto={hidePhoto} />
       )}
-      <div className="hero-image-section">
-        <div onClick={setPhotoDisplayVisible} className="image-holder">
-          <img src={previewUrl} />
+      <div className="hero-image-section dark-blue-bg">
+        <div onClick={setPhotoDisplayVisible} className="image-holder ">
+          <img ref = {imageRef} src={previewUrl} />
         </div>
 
         <div className="image-selectors">{imageElements}</div>

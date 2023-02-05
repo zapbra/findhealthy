@@ -305,7 +305,10 @@ li{
     }
   }
 }
-
+.dark-blue-bg{
+  background: rgb(18,60,105);
+  background: linear-gradient(90deg, rgba(18,60,105,1) 0%, rgba(25,36,48,1) 51%, rgba(18,60,105,1) 100%);
+}
 .gradient-bg-1 {
   background: rgb(238, 226, 220);
   background: linear-gradient(

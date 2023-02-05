@@ -7,7 +7,10 @@ $red: rgb(236, 41, 41);
     opacity: 1;
   }
 }
-
+.opacity-anim-fast{
+  animation-name: opacity;
+  animation-duration: .25s;
+}
 .opacity-anim {
   animation-name: opacity;
   animation-duration: 1s;

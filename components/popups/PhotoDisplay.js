@@ -6,8 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 const Cont = styled.div`
-  .image-holder {
-    height: 100%;
+position: fixed;
+height: 100vh;
+
+  .image-holder-2 {
+    
+
+    img{
+      height:100vh !important; 
+    }
   }
   .close-btn-spec {
     top: 16px;
@@ -34,11 +41,11 @@ const Cont = styled.div`
 
 const PhotoDisplay = ({ selectedImage, hidePhoto }) => {
   return (
-    <Cont className="background-shadow" colors={COLORS}>
+    <Cont className="background-shadow opacity-anim" colors={COLORS}>
       <div onClick={hidePhoto} className="close-btn-spec box-shadow-2">
         <FontAwesomeIcon icon={faClose} className="icon-lg black" />
       </div>
-      <div className=" image-holder flex justify-center align-center">
+      <div className=" image-holder-2 flex justify-center align-center">
         <Image
           src={selectedImage}
           fill={true}
