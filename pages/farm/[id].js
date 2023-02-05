@@ -88,8 +88,10 @@ const Preview = ({ location }) => {
           >
             Tags
           </p>
-          {location.tags.map((tag) => (
-            <p className="mar-right-4">{tag},</p>
+          {location.tags.map((tag, index) => (
+            <p key={index} className="mar-right-4">
+              {tag},
+            </p>
           ))}
         </div>
         {origPoster && (
