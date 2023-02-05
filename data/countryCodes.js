@@ -1205,5 +1205,5 @@ export const measurements = [
   "1/2 kilo",
   "kilo",
   "each",
-  
+  "package",
 ];
