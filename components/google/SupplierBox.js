@@ -14,11 +14,17 @@ const Cont = styled.div`
   align-items: center;
   word-break: break-word;
   margin-bottom: 128px;
+
+  max-width: 2000px;
+  margin: 0 auto 128px;
+  border-bottom: 1px solid ${(props) => props.colors.darkGrey};
+  padding-bottom: 48px;
   @media only screen and (max-width: 900px) {
     flex-direction: column;
   }
   & > div {
     padding: 32px;
+
     @media only screen and (max-width: 900px) {
       padding: 16px;
     }
@@ -118,7 +124,7 @@ const SupplierBox = ({ links, pros, cons, name, country, image }) => {
           fill
           src={image}
           style={{ objectFit: "contain" }}
-          alt = {name}
+          alt={name}
         />
       </div>
     </Cont>
