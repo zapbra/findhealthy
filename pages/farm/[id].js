@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import EditSections from "../../components/farmview/EditSections";
 const Cont = styled.div`
+  border: 1px solid ${(props) => props.colors.grey};
   background-color: #fff !important;
   .header {
     padding: 16px;
@@ -119,6 +120,7 @@ const Preview = ({ location }) => {
           quality={location.quality}
           friendly={location.friendly}
           howToOrder={location.howToOrder}
+          location_id={location.id}
         />
       ) : (
         <Sections

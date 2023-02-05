@@ -1,19 +1,30 @@
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
+import { countryCodesOnly, measurements } from "../../data/countryCodes";
+import Dropdown from "../google/Dropdown";
 import {
   faCheck,
   faClose,
   faStar,
   faCircleXmark,
   faPencil,
+  faPlusCircle,
+  faEgg,
+  faDollarSign,
+  faWeightScale,
+  faCoins,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import StarReview from "../inputs/StarReview";
+import toast, { Toaster } from "react-hot-toast";
+import supabase from '../../utils/supabaseClient';
 const Cont = styled.form`
   display: grid;
+
   grid-template-columns: 1fr 1fr;
   grid-template-rows: minmax(300px, 1fr);
   @media only screen and (max-width: 900px) {
@@ -162,6 +173,11 @@ const Cont = styled.form`
   textarea {
     height: 300px;
   }
+  .stars {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
 `;
 
 const Sections = ({
@@ -185,6 +201,7 @@ const Sections = ({
   pricing,
   quality,
   friendly,
+  location_id,
 }) => {
   const {
     handleSubmit,
@@ -210,25 +227,112 @@ const Sections = ({
     setValue("unfrozen", unfrozen);
     setValue("howToOrder", howToOrder);
   }, []);
-  const [productElems, setProductElems] = useState(
-    products.map((product, index) => {
-      return (
-        <li key={index} className="product-item">
-          <div className="flex-inline product-content align-center">
-            <h5 className="black mar-right-8">{product.name}</h5>
-            <p className="price mar-right-8">
-              ${product.price} {product.dollarType}/{product.measurement}
-            </p>
-            <FontAwesomeIcon
-              icon={faCircleXmark}
-              className="icon-sm black cursor"
-            />
-          </div>
-        </li>
-      );
-    })
-  );
 
+  const [product, setProduct] = useState({
+    name: "",
+    price: "",
+    dollarType: "USD",
+    measurement: "lb",
+  });
+
+  const publishProducts = () => {
+    
+  };
+  const updateProduct = (e, field) => {
+    setProduct((prev) => {
+      return {
+        ...prev,
+        [field]: e.target.value.toLowerCase(),
+      };
+    });
+  };
+
+  const updateProductValue = (e) => {
+    const value = e.target.value;
+    const regex = /^[0-9.$ ]*$/;
+    if (!regex.test(value)) {
+      toast.error("Must be valid number (Ex. 14.99)");
+      productValueRef.current.classList.add("red-anim");
+      setTimeout(() => {
+        productValueRef.current.classList.remove("red-anim");
+      }, 1000);
+      return;
+    }
+    setProduct((prev) => {
+      return {
+        ...prev,
+        price: value.toLowerCase(),
+      };
+    });
+  };
+
+  const productValueRef = useRef(null);
+  const productInput = useRef(null);
+  const [productsCopy, setProductsCopy] = useState(products);
+  const [deletedProducts, setDeletedProducts] = useState([]);
+
+  const addProduct = (e) => {
+    e.preventDefault();
+    if (product.name === "") {
+      toast.error("product field is empty!");
+      productInput.current.classList.add("red-anim");
+      setTimeout(() => {
+        productInput.current.classList.remove("red-anim");
+      }, 1000);
+      return;
+    } else if (
+      products.some((innerProduct) => innerProduct.name === product.name)
+    ) {
+      toast.error("product has already been added");
+      productInput.current.classList.add("red-anim");
+      setTimeout(() => {
+        productInput.current.classList.remove("red-anim");
+      }, 1000);
+      return;
+    }
+
+    setProductsCopy((prev) => {
+      return [...prev, product];
+    });
+
+    setProduct({
+      name: "",
+      price: "",
+      dollarType: selectedValue,
+      measurement: selectedMeasure,
+    });
+  };
+
+
+  const removeProduct = (id) => {
+    console.log(id);
+    if (id != undefined) {
+      setDeletedProducts((prev) => {
+        return [...prev, productsCopy.find((product) => product.id == id)];
+      });
+    }
+    setProductsCopy((prev) => {
+      return prev.filter((product) => product.id != id);
+    });
+  };
+
+  const productElems = productsCopy.map((product, index) => {
+    return (
+      <li key={index} className="product-item">
+        <div className="flex-inline product-content align-center">
+          <h5 className="black mar-right-8">{product.name}</h5>
+          <p className="price mar-right-8">
+            ${product.price} {product.dollarType}/{product.measurement}
+          </p>
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            className="icon-sm black cursor"
+            onClick={() => removeProduct(product.id)}
+          />
+        </div>
+      </li>
+    );
+  });
   const [farmFields, setFarmFields] = useState(
     [
       { name: "Grassfed", value: grassFed },
@@ -257,32 +361,128 @@ const Sections = ({
       })
   );
 
-  const [starFields, setStarFields] = useState(
-    [
-      { name: "Pricing", value: pricing },
-      { name: "Quality", value: quality },
-      { name: "Friendly", value: friendly },
-    ].map((field, index) => {
-      return (
-        <div key={index} className="star-field">
-          <h4>{field.name}</h4>
-          <div className="star-holder">
-            {[1, 2, 3, 4, 5].map((index, realIndex) => {
-              return (
-                <FontAwesomeIcon
-                  key={realIndex}
-                  icon={faStar}
-                  className={
-                    index <= field.value ? "icon-ssm yellow" : "icon-ssm grey"
-                  }
-                />
-              );
-            })}
-          </div>
-        </div>
-      );
-    })
+  const [reviewFields, setReviewFields] = useState({
+    pricing: { name: "pricing", stars: pricing },
+    quality: { name: "quality", stars: quality },
+    friendly: { name: "friendly", stars: friendly },
+  });
+
+  const updateReviewFields = (field, value) => {
+    setReviewFields((prev) => {
+      return {
+        ...prev,
+        [field]: { ...prev[field], stars: value },
+      };
+    });
+  };
+
+  const dropdownEl = useRef(null);
+  const [dollarValue, setDollarValue] = useState("USD");
+  const [selectedValue, setSelectedValue] = useState(dollarValue);
+  const [selectedIndex, setSelectedIndex] = useState(
+    selectedValue !== "" ? countryCodesOnly.indexOf(selectedValue) : null
   );
+  const [dollarSearch, setDollarSearch] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [actualDollar, setActualDollar] = useState("");
+  const [options, setOptions] = useState(countryCodesOnly);
+  // Dropdown function
+  const handleClickOutside = useCallback(
+    (e) => {
+      if (
+        showDropdown &&
+        e.target.closest(".dropdown") !== dropdownEl.current
+      ) {
+        setShowDropdown(false);
+        setDollarSearch("");
+      }
+    },
+    [showDropdown, setShowDropdown, dropdownEl]
+  );
+
+  const changeSelectedHandler = (item, name, index) => {
+    setSelectedValue(item);
+    setProduct((prev) => {
+      return {
+        ...prev,
+        dollarType: item,
+      };
+    });
+
+    setSelectedIndex(index);
+    setShowDropdown(false);
+    setActualDollar(name);
+  };
+  const searchChangeHandler = (e) => {
+    setDollarSearch(e.target.value);
+    const filteredOptions = countryCodesOnly.filter((code) => {
+      return code.includes(e.target.value.trim().toUpperCase());
+    });
+    setOptions(filteredOptions);
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
+  const dropdownEl2 = useRef(null);
+  const [measureValue, setMeasureValue] = useState("pound");
+  const [selectedMeasure, setSelectedMeasure] = useState(measureValue);
+  const [selectedMeasureIndex, setSelectedMeasureIndex] = useState(
+    selectedMeasure !== "" ? measurements.indexOf(selectedMeasure) : null
+  );
+  const [measurementSearch, setMeasurementSearch] = useState("");
+  const [showDropdown2, setShowDropdown2] = useState(false);
+  const [actualMeasure, setActualMeasure] = useState("");
+  const [measureOptions, setMeasureOptions] = useState(measurements);
+
+  const handleClickOutside2 = useCallback(
+    (e) => {
+      if (
+        showDropdown2 &&
+        e.target.closest(".dropdown") !== dropdownEl2.current
+      ) {
+        setShowDropdown2(false);
+        setMeasurementSearch("");
+      }
+    },
+    [showDropdown2, setShowDropdown2, dropdownEl2]
+  );
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside2);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside2);
+    };
+  }, [handleClickOutside2]);
+
+  const changeSelectedMeasureHandler = (item, name, index) => {
+    setSelectedMeasure(item);
+
+    setProduct((prev) => {
+      return {
+        ...prev,
+        measurement: item,
+      };
+    });
+
+    setSelectedMeasureIndex(index);
+    setShowDropdown2(false);
+    setActualMeasure(name);
+  };
+
+  const measureSearchChangeHandler = (e) => {
+    setMeasurementSearch(e.target.value);
+    const filteredOptions = measurements.filter((code) => {
+      return code.includes(e.target.value.trim().toLowerCase());
+    });
+    setMeasureOptions(filteredOptions);
+  };
 
   const descriptionRef = useRef(null);
   console.log(descriptionRef);
@@ -304,6 +504,118 @@ const Sections = ({
             <h4>PRODUCTS</h4>
           </div>
           <ul>{productElems}</ul>
+          <div className="input-line">
+            <h4>ADD PRODUCT +</h4>
+
+            <div className="relative">
+              <div className="tags-input-box mar-bottom-8 align-center flex">
+                <FontAwesomeIcon
+                  icon={faEgg}
+                  className="icon-ssm blue mar-right-8"
+                />
+                <input
+                  value={product.name}
+                  onChange={(e) => updateProduct(e, "name")}
+                  type="text"
+                  placeholder="sirloin steak... unsalted raw cheese..."
+                  ref={productInput}
+                  className="flex-one"
+                />
+              </div>
+              <div className="tags-input-box flex-inline align-center dollar-input inline-block mar-bottom-8">
+                <FontAwesomeIcon
+                  icon={faDollarSign}
+                  className="icon-ssm blue mar-right-8"
+                />
+                <input
+                  type="text"
+                  placeholder="14.99..."
+                  style={{ width: "160px" }}
+                  value={product.price}
+                  ref={productValueRef}
+                  onChange={(e) => updateProductValue(e, "value")}
+                />
+              </div>
+              <br />
+              <div className="relative">
+                <div className="dropdown" ref={dropdownEl2}>
+                  <input type="hidden" />
+
+                  <div
+                    className="dropdown__selected"
+                    onClick={() => setShowDropdown2(!showDropdown2)}
+                  >
+                    {selectedMeasure ? (
+                      <>
+                        <FontAwesomeIcon
+                          icon={faWeightScale}
+                          className="icon-ssm blue mar-right-8"
+                        />
+                        {selectedMeasure}
+                      </>
+                    ) : (
+                      "Please select one option"
+                    )}
+                  </div>
+                </div>
+                {showDropdown2 && (
+                  <Dropdown
+                    searchPlaceholder="pound"
+                    search={measurementSearch}
+                    searchChangeHandler={measureSearchChangeHandler}
+                    selectedValue={selectedMeasure}
+                    selectedIndex={selectedMeasureIndex}
+                    changeSelectedHandler={changeSelectedMeasureHandler}
+                    name="weight"
+                    regions={measureOptions}
+                  />
+                )}
+              </div>
+              <div className="mar-bottom-8"></div>
+              <div className="relative">
+                <div className="dropdown" ref={dropdownEl}>
+                  <input type="hidden" />
+
+                  <div
+                    className="dropdown__selected"
+                    onClick={() => setShowDropdown(!showDropdown)}
+                  >
+                    {selectedValue ? (
+                      <>
+                        <FontAwesomeIcon
+                          icon={faCoins}
+                          className="icon-ssm blue mar-right-8"
+                        />
+                        {selectedValue}
+                      </>
+                    ) : (
+                      "Please select one option"
+                    )}
+                  </div>
+                </div>
+                {showDropdown && (
+                  <Dropdown
+                    searchPlaceholder="USD"
+                    search={dollarSearch}
+                    searchChangeHandler={searchChangeHandler}
+                    selectedValue={selectedValue}
+                    selectedIndex={selectedIndex}
+                    changeSelectedHandler={changeSelectedHandler}
+                    name="dollar"
+                    regions={options}
+                  />
+                )}
+              </div>
+            </div>
+
+            <div className="mar-bottom-16"></div>
+            <div className="blue-btn-one" onClick={addProduct}>
+              <div className="flex align-center">
+                <h5 className="mar-right-4">Add</h5>
+                <FontAwesomeIcon icon={faPlus} className="icon-ssm blue" />
+              </div>
+            </div>
+          </div>
         </div>
         <div>
           <div className="center-inline mar-bottom-16">
@@ -787,8 +1099,23 @@ const Sections = ({
           </div>
         </div>
         <div className="star-field-holder">
-          //THIS NEXT
-          <StarReview field = 'Pricing' stars = />
+          <div className="stars ">
+            <StarReview
+              field={reviewFields.pricing.name}
+              stars={reviewFields.pricing.stars}
+              updateStarsFunc={updateReviewFields}
+            />
+            <StarReview
+              field={reviewFields.quality.name}
+              stars={reviewFields.quality.stars}
+              updateStarsFunc={updateReviewFields}
+            />
+            <StarReview
+              field={reviewFields.friendly.name}
+              stars={reviewFields.friendly.stars}
+              updateStarsFunc={updateReviewFields}
+            />
+          </div>
         </div>
       </section>
       <section style={{ backgroundColor: "#fff" }}>
@@ -812,6 +1139,9 @@ const Sections = ({
           <FontAwesomeIcon icon={faPencil} className="icon-ssm white" />
         </div>
       </section>
+      <div className="blue-btn-one">
+        <h3>SUBMIT CHANGES</h3>
+      </div>
     </Cont>
   );
 };
