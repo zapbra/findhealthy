@@ -11,7 +11,8 @@ const Cont = styled.div`
   .tags-holder {
     display: flex;
     justify-content: center;
-    background-color: ${(props) => props.colors.grey};
+    //background-color: ${(props) => props.colors.grey};
+
     padding: 4px;
     border-radius: 8px 8px 0 0;
     margin-bottom: 8px;
@@ -56,7 +57,7 @@ const MarkerComponent = ({
       {open && (
         <InfoWindow onCloseClick={() => setOpen(false)}>
           <Cont colors={COLORS} className="info-box">
-            <div className="tags-holder">
+            <div className="tags-holder grey-gradient-bg">
               <p style={{ backgroundColor: "#CCE729" }} className="tag-four">
                 {tags[0]}
               </p>
