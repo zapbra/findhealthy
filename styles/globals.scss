@@ -7,7 +7,7 @@
 $tan: #edc7b7;
 $light-beige: #eee2dc;
 $grey: #bab2b5;
-$darkBlue: #123c69;
+$darkBlue: rgb(18, 60, 105);
 $darkPink: #ac3b61;
 $redGrey: #81646d;
 $black: #192430;
@@ -56,9 +56,32 @@ html, body{
 .default-page{
   background-color: $tan;
   margin: 5% 10%;
-  
+  @media only screen and  (max-width:600px){
+    margin: 5% 0;
+  }  
 
 }
+.loading-screen{
+  position:fixed;
+  background-color: rgba(18,60,105, .5);
+  display:flex;
+  align-items: center;
+  padding-top: 30vh;
+  width:100%;
+  height:100%;
+  left:0;
+  top:0;
+  z-index:1;
+  flex-direction: column;
+  .loading-items{
+    background:white;
+    padding: 16px;
+    align-items:center;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 textarea {
   resize: none;
   width: 100%;
@@ -88,6 +111,7 @@ input[type="email"], input[type='password']{
   outline: none;
   padding: 8px;
   height: 40px;
+  min-width:50px;
   width: 100%;
   &:focus {
     background: #fff;
@@ -164,7 +188,7 @@ li{
     padding: 0;
     height: 36px;
     border: none;
-    width: auto;
+    
     max-width: 100%;
     padding: 4px;
     margin-right: 8px;
@@ -304,3 +328,4 @@ li{
   background-color: rgba(18, 60,105, .5);
   
 }
+

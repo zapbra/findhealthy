@@ -20,7 +20,7 @@ const Dropdown = ({
 
     if (selectedValue) {
       itemsEl.current.scrollTop =
-        itemsEl?.current?.querySelector(`.item-${selectedIndex}`).offsetTop -
+        itemsEl?.current?.querySelector(`.item-${selectedIndex}`)?.offsetTop -
         42;
     }
   }, []);

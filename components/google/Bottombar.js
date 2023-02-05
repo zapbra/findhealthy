@@ -111,7 +111,7 @@ const Bottombar = ({
     formState: { errors },
   } = useForm();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({ state: false, msg: "" });
   const [images, setImages] = useState([]);
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -200,6 +200,7 @@ const Bottombar = ({
   };
 
   const uploadImages = async (location_id) => {
+    setLoading({ state: true, msg: "uploading images..." });
     const imageUploads = [];
 
     for (let i = 0; i < images.length; i++) {
@@ -338,18 +339,20 @@ const Bottombar = ({
   };
 
   const finalizeLocation = (id) => {
+    setLoading({ state: true, msg: "location created..." });
     clearForm();
     fetchNewLocation(id);
     stopAdding();
     const navbar = document.getElementById("navbar");
     navbar.scrollIntoView({ behavior: "smooth", block: "center" });
+    setLoading({ state: false, msg: "" });
   };
   console.log("user");
   console.log(user);
   console.log("user");
 
   const createLocation = async (formData) => {
-    setLoading(true);
+    setLoading({ state: true, msg: "creating location..." });
     const numberOrganize = formData.number.replaceAll(/[^0-9]/g, "").split("");
     numberOrganize.unshift("(");
     numberOrganize.splice(4, 0, ")");
@@ -409,10 +412,10 @@ const Bottombar = ({
 
   const submitForm = handleSubmit(async (formData) => {
     const validAddress = await checkAddressValid();
-
+    setLoading({ state: true, msg: "checking address valid..." });
     if (validAddress) {
       const locationId = await createLocation(formData);
-
+      setLoading({ state: true, msg: "creating products..." });
       products.forEach((product) => {
         createProduct(
           locationId,
@@ -423,6 +426,7 @@ const Bottombar = ({
         );
       });
       uploadImages(locationId);
+      setLoading({ state: true, msg: "creating address..." });
       createAddress(
         locationId,
         address.fullAddress,
@@ -432,6 +436,9 @@ const Bottombar = ({
         address.country,
         address.state
       ).then((res) => finalizeLocation(locationId));
+    } else {
+      // if address isn't valid, remove loading screen
+      setLoading({ state: false, msg: "" });
     }
   });
 
@@ -637,8 +644,22 @@ const Bottombar = ({
   };
 
   const checkShowHours = () => {};
+
   return (
     <Cont colors={COLORS}>
+      {loading.state && (
+        <div className="loading-screen">
+          <div className="loading-items">
+            <div class="lds-ring-green">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <p className="bold green">{loading.msg}</p>
+          </div>
+        </div>
+      )}
       {showPhotoDisplay && (
         <PhotoDisplay selectedImage={selectedImage} hidePhoto={hidePhoto} />
       )}
@@ -663,6 +684,7 @@ const Bottombar = ({
       <br />
       {adding && (
         <form className=" fake-form opacity-anim" onSubmit={submitForm}>
+          <h4 className="mar-bottom-8">ENTER AN ADDRESS *</h4>
           <PlacesAutocomplete
             location={location}
             setLocation={setLocation}
@@ -1385,7 +1407,7 @@ const Bottombar = ({
 
 export default Bottombar;
 
-const PlacesAutocomplete = ({
+export const PlacesAutocomplete = ({
   setSelected,
   location,
   setLocation,
@@ -1435,7 +1457,6 @@ const PlacesAutocomplete = ({
 
   return (
     <div className="mar-bottom-32">
-      <h4 className="mar-bottom-8">ENTER AN ADDRESS *</h4>
       <p className="italic mar-bottom-4">Select from the dropdown</p>
       <input
         value={value}

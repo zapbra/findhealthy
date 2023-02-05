@@ -6,6 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import { countryCodesOnly, measurements } from "../../data/countryCodes";
 import Dropdown from "../google/Dropdown";
+import { useJsApiLoader } from "@react-google-maps/api";
+import { PlacesAutocomplete } from "../google/Bottombar";
+import { getGeocode } from "use-places-autocomplete";
+
 import {
   faCheck,
   faClose,
@@ -21,7 +25,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import StarReview from "../inputs/StarReview";
 import toast, { Toaster } from "react-hot-toast";
-import supabase from '../../utils/supabaseClient';
+import supabase from "../../utils/supabaseClient";
+import {
+  createProduct,
+  deleteProduct,
+  updateLocation,
+  updateAddress,
+} from "../../utils/supabaseFunctions";
 const Cont = styled.form`
   display: grid;
 
@@ -37,6 +47,7 @@ const Cont = styled.form`
       background: ${(props) => props.colors.lightBeige} !important;
     }
   }
+
   .radio-line {
     border-bottom: 1px solid ${(props) => props.colors.darkPink};
     margin-bottom: 16px;
@@ -173,6 +184,9 @@ const Cont = styled.form`
   textarea {
     height: 300px;
   }
+  .tags-input-box {
+    width: 100% !important;
+  }
   .stars {
     display: flex;
     justify-content: space-around;
@@ -211,6 +225,73 @@ const Sections = ({
     formState: { errors },
   } = useForm();
 
+  const [loading, setLoading] = useState({ state: false, msg: "" });
+  const [libraries] = useState(["places"]);
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
+    libraries,
+  });
+
+  const [location, setLocation] = useState(address);
+  const updateLocation = (value) => {
+    setLocation(value);
+  };
+  const [addressData, setAddressData] = useState({
+    fullAddress: "",
+    street: "",
+    state: "",
+    country: "",
+    lat: "",
+    lng: "",
+  });
+  const checkAddressValid = async () => {
+    try {
+      const results = await getGeocode({ address: location });
+      return true;
+    } catch (error) {
+      toast("Please select an address from the dropdown.", {
+        duration: 4000,
+        position: "top-center",
+
+        // Styling
+        style: { border: "1px solid #E52323", backgroundColor: "#eee2dc;" },
+        className: "",
+
+        // Custom Icon
+        icon: "👇",
+
+        // Change colors of success/error/loading icon
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+
+        // Aria
+        ariaProps: {
+          role: "status",
+          "aria-live": "polite",
+        },
+      });
+      const searchBarElem = document.querySelector(".google-dropdown");
+      searchBarElem.focus();
+      searchBarElem.classList.add("scale-pop-anim");
+
+      searchBarElem.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        searchBarElem.classList.remove("scale-pop-anim");
+      }, 1000);
+      const lines = document.querySelectorAll(".google-dropdown p");
+      lines.forEach((line) => {
+        line.classList.add("red-anim");
+        setTimeout(() => {
+          line.classList.remove("red-anim");
+        }, 1000);
+      });
+
+      return false;
+    }
+  };
   useEffect(() => {
     setValue("description", description);
     setValue("address", address);
@@ -226,6 +307,8 @@ const Sections = ({
     setValue("dewormerFree", dewormerFree);
     setValue("unfrozen", unfrozen);
     setValue("howToOrder", howToOrder);
+    setValue("hoursFrom", hoursFrom);
+    setValue("hoursTo", hoursTo);
   }, []);
 
   const [product, setProduct] = useState({
@@ -235,9 +318,69 @@ const Sections = ({
     measurement: "lb",
   });
 
-  const publishProducts = () => {
-    
-  };
+  const submitEdit = handleSubmit(async (formData) => {
+    const validAddress = await checkAddressValid();
+    if (validAddress) {
+      const deletedState = await Promise.all(
+        deletedProducts.map((product) => {
+          return deleteProduct(product.id);
+        })
+      );
+      const publishState = await Promise.all(
+        productsCopy
+          .filter((product) => product.id === undefined)
+          .map((product) => {
+            return createProduct(
+              location_id,
+              product.name,
+              product.price,
+              product.dollarType,
+              product.measurement
+            );
+          })
+      );
+
+      const numberOrganize = formData.number
+        .replaceAll(/[^0-9]/g, "")
+        .split("");
+      numberOrganize.unshift("(");
+      numberOrganize.splice(4, 0, ")");
+      numberOrganize.splice(5, 0, "-");
+      numberOrganize.splice(9, 0, "-");
+      const locationId = updateLocation(
+        formData.name,
+        formData.description,
+        formData.hoursFrom,
+        formData.hoursTo,
+        formData.pickup,
+        formData.website,
+        formData.email,
+        numberOrganize.join(""),
+        selectedTags,
+        formData.grassFed,
+        formData.organic,
+        formData.vaccineFree,
+        formData.pastureRaised,
+        formData.soyFree,
+        formData.dewormerFree,
+        formData.unfrozen,
+        reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
+        reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
+        reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
+        formData.howToOrder
+      );
+      const addressState = updateAddress(
+        location_id,
+        addressData.fullAddress,
+        addressData.street,
+        addressData.lat,
+        addressData.lng,
+        addressData.country,
+        addressData.state
+      );
+    }
+  });
+
   const updateProduct = (e, field) => {
     setProduct((prev) => {
       return {
@@ -303,9 +446,7 @@ const Sections = ({
     });
   };
 
-
   const removeProduct = (id) => {
-    console.log(id);
     if (id != undefined) {
       setDeletedProducts((prev) => {
         return [...prev, productsCopy.find((product) => product.id == id)];
@@ -485,10 +626,6 @@ const Sections = ({
   };
 
   const descriptionRef = useRef(null);
-  console.log(descriptionRef);
-  useEffect(() => {
-    console.log(descriptionRef);
-  }, [descriptionRef]);
 
   const howToOrderRef = useRef(null);
 
@@ -497,7 +634,7 @@ const Sections = ({
     elem.focus();
   };
   return (
-    <Cont colors={COLORS} className="section-holder">
+    <Cont colors={COLORS} className="section-holder" onSubmit={submitEdit}>
       <section className="section">
         <div>
           <div className="center-inline mar-bottom-16">
@@ -520,6 +657,7 @@ const Sections = ({
                   placeholder="sirloin steak... unsalted raw cheese..."
                   ref={productInput}
                   className="flex-one"
+                  size="1"
                 />
               </div>
               <div className="tags-input-box flex-inline align-center dollar-input inline-block mar-bottom-8">
@@ -530,10 +668,11 @@ const Sections = ({
                 <input
                   type="text"
                   placeholder="14.99..."
-                  style={{ width: "160px" }}
                   value={product.price}
                   ref={productValueRef}
                   onChange={(e) => updateProductValue(e, "value")}
+                  size="1"
+                  siz
                 />
               </div>
               <br />
@@ -641,16 +780,16 @@ const Sections = ({
       </section>
       <section className="section">
         <div>
-          <div className="section-line">
-            <h5 className="blue">ADDRESS</h5>
-            <input
-              name="address"
-              type="text"
-              {...register("address", {
-                required: false,
-              })}
-            />
-          </div>
+          {isLoaded && (
+            <div className="section-line">
+              <h5 className="blue">ADDRESS</h5>
+              <PlacesAutocomplete
+                location={location}
+                setLocation={updateLocation}
+                setAddress={setAddressData}
+              />
+            </div>
+          )}
 
           <div className="section-line">
             <h5 className="blue">WEBSITE</h5>
@@ -754,8 +893,25 @@ const Sections = ({
         <div>
           <div className="center-inline">
             <h4 className="blue">HOURS</h4>
-            <p className="bold inline-block">{hoursFrom}</p>{" "}
-            <p className="bold inline-block">{hoursTo}</p>
+            <div className="input-line">
+              <h5>From</h5>
+              <input
+                {...register("hoursFrom", {
+                  required: false,
+                })}
+                type="time"
+                name="hoursFrom"
+                className="mar-bottom-8"
+              />
+              <h5>To</h5>
+              <input
+                {...register("hoursTo", {
+                  required: false,
+                })}
+                type="time"
+                name="hoursTo"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -1139,7 +1295,7 @@ const Sections = ({
           <FontAwesomeIcon icon={faPencil} className="icon-ssm white" />
         </div>
       </section>
-      <div className="blue-btn-one">
+      <div onClick={submitEdit} className="blue-btn-one">
         <h3>SUBMIT CHANGES</h3>
       </div>
     </Cont>

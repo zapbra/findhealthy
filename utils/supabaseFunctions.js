@@ -120,6 +120,66 @@ export const createUserLocation = async (
   }
 };
 
+export const updateLocation = async (
+  name,
+  description,
+  hoursFrom = null,
+  hoursTo = null,
+  pickup,
+  website = null,
+  email = null,
+  number = null,
+  tags,
+  grassFed,
+  organic,
+  vaccineFree,
+  pastureRaised,
+  soyFree,
+  dewormerFree,
+  unfrozen,
+  pricing,
+  quality,
+  friendly,
+  howToOrder,
+  user_id
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("locations")
+      .update({
+        name,
+        description,
+        hoursFrom,
+        hoursTo,
+        pickup,
+        website,
+        email,
+        number,
+        tags,
+        grassFed,
+        organic,
+        vaccineFree,
+        pastureRaised,
+        soyFree,
+        dewormerFree,
+        unfrozen,
+        pricing,
+        quality,
+        friendly,
+        howToOrder,
+      })
+      .eq("user_id", user_id)
+      .select(id);
+
+    if (error) throw error;
+
+    return data.id;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export const createAddress = async (
   location_id,
   full_address,
@@ -144,6 +204,39 @@ export const createAddress = async (
         state_id,
         location_id,
       })
+      .select();
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const updateAddress = async (
+  location_id,
+  full_address,
+  text_address,
+  lat,
+  lng,
+  country,
+  state
+) => {
+  try {
+    const country_id = await fetchCountryByName(country);
+    const state_id = await fetchStateByName(state);
+
+    const { data, error } = await supabase
+      .from("address")
+      .update({
+        full_address,
+        text_address,
+        lat,
+        lng,
+        country_id,
+        state_id,
+        location_id,
+      })
+      .eq("location_id", location_id)
       .select();
     if (error) throw error;
     return true;
@@ -242,6 +335,20 @@ export const createProduct = async (
     const { data, error } = await supabase
       .from("products")
       .insert({ location_id, name, price, dollarType, measurement });
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    console.log(error.message);
+    return false;
+  }
+};
+
+export const deleteProduct = async (id) => {
+  try {
+    const { data, error } = await supabase
+      .from("products")
+      .delete()
+      .eq("id", id);
     if (error) throw error;
     return true;
   } catch (error) {

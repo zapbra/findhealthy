@@ -2,7 +2,7 @@ import styled from "styled-components";
 import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 const Cont = styled.div`
   display: inline-block;
 
@@ -37,6 +37,7 @@ const StarReview = ({ field, stars, updateStarsFunc }) => {
       refs[i].current.classList.add("yellow");
     }
   };
+
   const selectStars = (index) => {
     for (let i = 0; i < index; i++) {
       refs[i].current.classList.add("red-anim");
@@ -45,6 +46,10 @@ const StarReview = ({ field, stars, updateStarsFunc }) => {
       }, 1000);
     }
   };
+
+  useEffect(() => {
+    updateStars(stars);
+  }, []);
   return (
     <Cont colors={COLORS}>
       <h4 className="mar-bottom-4">{field.toUpperCase()}</h4>
