@@ -655,6 +655,7 @@ const Bottombar = ({
   });
 
   const updateFields = (name, value) => {
+    
     setOptionalFields(prev=> {
       const prevCopy = prev;
       prevCopy[name].value = value;
@@ -662,6 +663,9 @@ const Bottombar = ({
     })
   }
 
+  useEffect(()=> {
+    console.log(optionalFields);
+  },[optionalFields])
   
   
   const [optionalfieldElems, setOptionalFieldElems] = useState(Object.entries(optionalFields).map(([key, val]) => {
@@ -680,6 +684,28 @@ const Bottombar = ({
     )
   }));
 
+  useEffect(()=> {
+    
+    setOptionalFieldElems(prev=> {
+      alert('k')
+      return Object.entries(optionalFields).map(([key, val]) => {
+        return (
+          <div key= {nanoid} className="select-box-holder">
+               <h5 className="black">{key}?</h5>
+               <div className="select-box">
+                {['yes','no','unspecified'].map((fieldValue, index) => {
+                  return (<div onClick = {()=> updateFields(key, fieldValue)} key = {nanoid} className={ fieldValue == val.value ? "select-item selected-box": "select-item"}>
+                   <p>{fieldValue}</p>
+                </div>)
+                })}
+                
+                
+               </div></div>
+        )
+      })
+    })
+  },[optionalFields]);
+  console.log(optionalFields)
   return (
     <Cont colors={COLORS}>
       {loading.state && (

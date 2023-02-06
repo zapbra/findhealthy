@@ -48,7 +48,7 @@ $light-blue: #278ffd;
   }
 }
 .selected-box{
-  background-color: $light-blue;
+  background-color: $light-blue !important;
   p{
     font-weight: 600;
   }
