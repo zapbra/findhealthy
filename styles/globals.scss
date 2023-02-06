@@ -156,7 +156,9 @@ textarea {
   height: 140px;
   outline: none;
   &:focus {
-    outline: 3px solid $darkPink;
+    //outline: 3px solid $darkPink;
+    border-bottom: 4px solid $darkPink;
+    background-color: #fff;
   }
 }
 .info-box {
@@ -185,7 +187,7 @@ input[type="email"], input[type='password']{
 input[type="time"] {
   background: #EAEFF1;
   border: none;
-  border-bottom: 4px solid #C9D6DA;
+  border-bottom: 4px solid $grey;
   display: block;
   margin-bottom: .625em;
   margin-top: .3em;

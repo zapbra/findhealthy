@@ -938,7 +938,7 @@ const Bottombar = ({
           <div className="input-line">
             <h4 className = 'text-shadow-red'>HOURS</h4>
             <div className="red-line mar-bottom-8"></div>
-            <h5>From</h5>
+            <h5 className = 'black'>From</h5>
             <input
               {...register("hoursFrom", {
                 required: false,
@@ -947,7 +947,7 @@ const Bottombar = ({
               name="hoursFrom"
               className="mar-bottom-8"
             />
-            <h5>To</h5>
+            <h5 className = 'black'>To</h5>
             <input
               {...register("hoursTo", {
                 required: false,
