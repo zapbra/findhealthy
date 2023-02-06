@@ -24,10 +24,33 @@ const Cont = styled.div`
     display: flex;
     align-items: center ;
     justify-content: center ;
+   
+  }
+
+  .image-upload-btn{
+    border-radius: 32px;
+    border: 1px solid ${props=>props.colors.grey};
+    padding: 16px;
+    display:flex;
+    flex-direction: column  ;
+    align-items: center ;
+   cursor:pointer;
+   transition: background-color .25s ease ;
+   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+   &:hover{
+background-color: white ;
+   }
+   &:active{
+    background-color: white ;
+    border: 1px solid ${props=>props.colors.blue};
+   }
   }
   .small-template{
     display:flex;
     height:100%;
+    border-bottom: 1px solid ${props=>props.colors.darkGrey};
+    align-items: center ;
+    justify-content: center ;
   }
   .image-holder {
     position: relative;
@@ -75,14 +98,7 @@ const Cont = styled.div`
     cursor: default;
     border: 2px solid ${(props) => props.colors.darkPink};
   }
-  .image-upload-btn{
-    border: 1px solid ${(props) => props.colors.darkBlue};
-    padding: 16px;
-    display:flex;
-    flex-direction: column  ;
-    align-items: center ;
   
-  }
 `;
 
 const ImageSection = ({ images }) => {
@@ -100,7 +116,7 @@ const ImageSection = ({ images }) => {
     return (
       <div
       key = {index}
-        onClick={() => selectImage(image)}
+        
         className={
           image === previewUrl ? "selected-image image-select" : "image-select"
         }
@@ -131,16 +147,18 @@ const ImageSection = ({ images }) => {
          "empty-image gradient-bg-2 small-template"
         
       >
-        <div ><p>hello</p></div>
+        <div>
+          <div className="image-upload-btn">
+                <h5 className="blue">UPLOAD</h5>
+            <FontAwesomeIcon icon = {faUpload} className = 'icon-med blue' />
+              </div>
+        </div>
       </div>)
     }
   }
   },[])
 
-  console.log('--')
   
-  console.log('--')
-
   const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
 
   const setPhotoDisplayVisible = () => {
@@ -152,11 +170,24 @@ const ImageSection = ({ images }) => {
   };
 
   const imageRef = useRef(null);
+
+  const imageInputRef= useRef(null);
+  useEffect(()=> {
+
+  },[])
+  
+  const uploadImage = async (event) => {
+    if (!event.target.files || event.target.files.length === 0) {
+      alert("You must select an image to upload.");
+      return;
+    }
+  }
   return (
     <Cont colors={COLORS}>
       {showPhotoDisplay && (
         <PhotoDisplay selectedImage={previewUrl} hidePhoto={hidePhoto} />
       )}
+      <input ref = {imageInputRef} type = 'file' onChange = {uploadImage} hidden />
       <div className="hero-image-section dark-blue-bg">
         { previewUrl !== null ? (
         <div onClick={setPhotoDisplayVisible} className="image-holder ">
@@ -164,7 +195,7 @@ const ImageSection = ({ images }) => {
           </div>
           ) : (
             <div className="template gradient-bg-2">
-              <div className="image-upload-btn">
+              <div className="image-upload-btn" onClick = {()=>imageInputRef?.current?.click()}>
                 <h4 className="blue">UPLOAD</h4>
             <FontAwesomeIcon icon = {faUpload} className = 'icon-lg blue' />
               </div>
