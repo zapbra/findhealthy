@@ -94,7 +94,7 @@ $light-green: #27fd55;
 a {
   text-decoration: none;
   color: $blue;
-  p{
+  p, h1,h2,h3,h4,h5{
     color: $blue;
   }
   &:hover{
@@ -164,8 +164,8 @@ textarea {
 .info-box {
   max-height: 300px;
   &-description {
-    border: 1px solid $darkPink;
-    background-color: $light-beige;
+    border-top: 1px solid $grey;
+    
     padding: 4px;
   }
 }
@@ -229,16 +229,33 @@ li {
 li{
   list-style-type: none;
 }
+.spacer-line{
+  background-color: $black;
+  height:100%;
+  width:1px;
 
+}
+.products-holder{
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
 .product{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
   h5{
     margin-right:4px;
     display:inline-block;
+    &::before{
+      content:'•';
+      margin-right: 4px;
+    }
   }
   .price{
-    border: 1px solid $grey;
-    background-color: $light-beige;
+    
+    
     padding: 2px 4px;
     display:inline-block;
     p{
