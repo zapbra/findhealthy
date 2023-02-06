@@ -758,7 +758,7 @@ const Bottombar = ({
           <div className="input-line">
             <div className="input-line">
               <h4 className = 'text-shadow-red'>PRODUCT TYPES *</h4>
-              <div className="red-line"></div>
+              <div className="red-line mar-bottom-8"></div>
               <ProductTags
                 tags={tags}
                 selectedTags={selectedTags}
@@ -1025,7 +1025,8 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4>WEBSITE LINK</h4>
+            <h4 className ='text-shadow-red'>WEBSITE LINK</h4>
+            <div className="red-line mar-bottom-8"></div>
             <input
               {...register("website", {
                 required: false,
@@ -1045,7 +1046,8 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4>CONTACT INFO *</h4>
+            <h4 className ='text-shadow-red'>CONTACT INFO *</h4>
+            <div className="red-line mar-bottom-8"></div>
             <p className="bold">Email</p>
             <input
               {...register("email", {
@@ -1069,7 +1071,7 @@ const Bottombar = ({
 
           <div className="input-line">
             <h4 className = 'text-shadow-red'>UPLOAD IMAGE/S</h4>
-
+              <div className="red-line mar-bottom-8"></div>
             
             <div onClick={() => imageRef.current.click()} className="image-upload-btn">
                   <h5 className="blue">UPLOAD</h5>

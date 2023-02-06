@@ -182,18 +182,29 @@ input[type="email"], input[type='password']{
     outline: 3px solid $darkPink;
   }
 }
+input[type="time"] {
+  background: #EAEFF1;
+  border: none;
+  border-bottom: 4px solid #C9D6DA;
+  display: block;
+  margin-bottom: .625em;
+  margin-top: .3em;
+  width: auto;
+  padding: .45em .45em .45em .65em;
+  
+  outline:none;
+  &:focus{
+    border:none;
+    outline:none;
+    border-bottom:4px solid $darkPink;
+  }
+}
+
 .input-line {
   margin-bottom: 32px;
  
 }
-input[type="time"] {
-  width: auto;
-  outline: none;
-  border: 1px solid $darkPink;
-  &:focus {
-    outline: 3px solid $darkPink;
-  }
-}
+
 li {
   list-style-type: none;
 }
@@ -282,12 +293,13 @@ li{
   }
 }
 .tag-two {
-  border: 1px solid black;
+  
   background: #fff;
   display: inline-block;
   margin-right: 4px;
   margin-bottom: 4px;
   padding: 2px 4px;
+  border-radius: 8px;
 }
 .tag-three{
   border: 1px solid $grey;
