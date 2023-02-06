@@ -318,7 +318,10 @@ li{
     rgba(238, 226, 220, 1) 100%
   );
 }
-
+.gradient-bg-2{
+ background: rgb(198,202,207);
+background: linear-gradient(90deg, rgba(198,202,207,1) 0%, rgba(255,255,255,1) 100%);
+}
 @keyframes opacity-5 {
   from {
     opacity: 0;

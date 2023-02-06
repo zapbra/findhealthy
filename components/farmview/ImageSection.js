@@ -3,6 +3,8 @@ import Image from "next/image";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import PhotoDisplay from "../popups/PhotoDisplay";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
   .hero-image-section {
     display: grid;
@@ -19,9 +21,13 @@ const Cont = styled.div`
   .template{
     width:100%;
     height:600px;
+    display: flex;
+    align-items: center ;
+    justify-content: center ;
   }
   .small-template{
     display:flex;
+    height:100%;
   }
   .image-holder {
     position: relative;
@@ -60,10 +66,22 @@ const Cont = styled.div`
       height: 100%;
     }
   }
+  .empty-image{
+    position: relative;
+    cursor: pointer;
+  }
   .selected-image {
     opacity: 1;
     cursor: default;
     border: 2px solid ${(props) => props.colors.darkPink};
+  }
+  .image-upload-btn{
+    border: 1px solid ${(props) => props.colors.darkBlue};
+    padding: 16px;
+    display:flex;
+    flex-direction: column  ;
+    align-items: center ;
+  
   }
 `;
 
@@ -106,14 +124,14 @@ const ImageSection = ({ images }) => {
         <img src={images[i]} />
       </div>)
     } else {
-      imageElems.push(<div
+      imageElems.push(<div 
       key = {i}
         onClick={() => selectImage(images[i])}
         className=
-         "image-select"
+         "empty-image gradient-bg-2 small-template"
         
       >
-        <div className="gradient-bg-1 small-template"><p>hello</p></div>
+        <div ><p>hello</p></div>
       </div>)
     }
   }
@@ -140,14 +158,20 @@ const ImageSection = ({ images }) => {
         <PhotoDisplay selectedImage={previewUrl} hidePhoto={hidePhoto} />
       )}
       <div className="hero-image-section dark-blue-bg">
+        { previewUrl !== null ? (
         <div onClick={setPhotoDisplayVisible} className="image-holder ">
-          { previewUrl !== null ? (
           <img ref = {imageRef} src={previewUrl} />
+          </div>
           ) : (
-            <div className="template dark-blue-bg"></div>
+            <div className="template gradient-bg-2">
+              <div className="image-upload-btn">
+                <h4 className="blue">UPLOAD</h4>
+            <FontAwesomeIcon icon = {faUpload} className = 'icon-lg blue' />
+              </div>
+            </div>
           )
 }
-        </div>
+      
 
         <div className="image-selectors">{imageElems}</div>
       </div>
