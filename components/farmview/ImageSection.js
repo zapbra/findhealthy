@@ -106,7 +106,7 @@ const Cont = styled.div`
 
 const ImageSection = ({ images, location_id }) => {
   const [previewUrl, setPreviewUrl] = useState(images[0] || null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({ state: false, msg: "" });
   const selectImage = (url) => {
     if (previewUrl === url) return;
     setPreviewUrl(url);
@@ -186,16 +186,12 @@ const ImageSection = ({ images, location_id }) => {
       alert("You must select an image to upload.");
       return;
     }
-    setLoading(true);
+    setLoading({ state: true, msg: "Uploading image..." });
     const file = event.target.files[0];
-    console.log("fil");
-    console.log(file);
-
     let formData = new FormData();
     formData.append("image", file);
-    console.log("kappa1");
+
     try {
-      console.log("kappa2");
       const response = await fetch("https://api.imgur.com/3/upload", {
         method: "POST",
         body: formData,
@@ -203,7 +199,7 @@ const ImageSection = ({ images, location_id }) => {
           Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
         },
       });
-      console.log("cancer2");
+
       const res = await response.json();
       if (res.status == 200) {
         const uploadedImage = await createImageFetch(
@@ -211,10 +207,10 @@ const ImageSection = ({ images, location_id }) => {
           res.data.deletehash,
           location_id
         );
-        console.log(uploadedImage);
-        console.log("kappa4");
+        images.push(uploadedImage);
+        setLoading({ state: false, msg: "" });
       } else {
-        console.log("kappa5");
+        setLoading({ state: false, msg: "" });
         toast("Error uploading image", {
           duration: 4000,
           position: "top-center",
@@ -240,13 +236,50 @@ const ImageSection = ({ images, location_id }) => {
         });
       }
     } catch (err) {
-      console.log("kappa6");
+      setLoading({ state: false, msg: "" });
       console.log(err.message);
+      setLoading({ state: false, msg: "" });
+      toast("Error uploading image", {
+        duration: 4000,
+        position: "top-center",
+
+        // Styling
+        style: { border: "1px solid #E52323" },
+        className: "",
+
+        // Custom Icon
+        icon: "⚠️",
+
+        // Change colors of success/error/loading icon
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+
+        // Aria
+        ariaProps: {
+          role: "status",
+          "aria-live": "polite",
+        },
+      });
     }
-    console.log("kappa7");
   };
+
   return (
     <Cont colors={COLORS}>
+      {loading.state && (
+        <div className="loading-screen">
+          <div className="loading-items">
+            <div class="lds-ring-green">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <p className="bold green">{loading.msg}</p>
+          </div>
+        </div>
+      )}
       {showPhotoDisplay && (
         <PhotoDisplay selectedImage={previewUrl} hidePhoto={hidePhoto} />
       )}
