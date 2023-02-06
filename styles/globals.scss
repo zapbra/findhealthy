@@ -22,8 +22,34 @@ $orange: #DF5F28;
 $green: #3BAC46;
 $offWhite: rgb(231, 239, 248);
 $darkGrey: #533F45;
-
 $light-blue: #278ffd;
+$light-blue-2: #88c1ff;
+$light-green: #27fd55;
+
+.image-upload-btn {
+  border-radius: 32px;
+  border: 1px solid $grey;
+  padding: 16px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  background-color: $light-blue-2;
+  transition: background-color 0.25s ease;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+    rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  &:hover {
+    background-color: white;
+  }
+  &:active {
+    background-color: white;
+    border: 1px solid $blue;
+  }
+}
 .select-box-holder{
   margin-bottom: 16px;
   h5{
@@ -238,7 +264,7 @@ li{
   height:2px;
 }
 .tag {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   background: #fff;
   margin-bottom: 4px;
   border: 1px solid $darkPink;
@@ -246,6 +272,7 @@ li{
   align-items: center;
   padding: 4px;
   margin-right: 8px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color .25s ease;
   p {
@@ -253,7 +280,7 @@ li{
     font-weight: 600;
   }
   &:hover {
-    background-color: $green;
+    background-color: $light-green;
   }
 }
 .tag-two {

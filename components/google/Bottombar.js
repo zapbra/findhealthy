@@ -11,6 +11,7 @@ import {
   faDollarSign,
   faCoins,
   faEgg,
+  faUpload,
   faFaceSmileBeam,
   faSmileBeam,
   faWeightScale,
@@ -729,17 +730,17 @@ const Bottombar = ({
       <button
         disabled={adding}
         onClick={startAdding}
-        className="blue-btn-one box-shadow-2 mar-bottom-8 mar-right-8"
+        className="blue-btn-one  mar-bottom-8 mar-right-8"
       >
         <h4>ADD NEW LOCATION</h4>
       </button>
       {adding && (
         <button
           onClick={stopAdding}
-          className="red-btn-one box-shadow-2 flex-inline  align-center"
+          className="red-btn-one  flex-inline  align-center"
         >
           <h4 className="mar-right-8">CANCEL</h4>
-          <FontAwesomeIcon icon={faClose} className="icon-sm red" />
+          <FontAwesomeIcon icon={faClose} className="icon-sm white" />
         </button>
       )}
       <div className="mar-bottom-16"></div>
@@ -924,8 +925,8 @@ const Bottombar = ({
             <div className="mar-bottom-16"></div>
             <div className="blue-btn-one" onClick={addProduct}>
               <div className="flex align-center">
-                <h5 className="mar-right-4">Add</h5>
-                <FontAwesomeIcon icon={faPlus} className="icon-ssm blue" />
+                <h5 className="mar-right-8">Add</h5>
+                <FontAwesomeIcon icon={faPlus} className="icon-ssm white" />
               </div>
             </div>
           </div>
@@ -1062,14 +1063,13 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4>UPLOAD IMAGE/S</h4>
+            <h4 className = 'text-shadow-red'>UPLOAD IMAGE/S</h4>
 
-            <div
-              className="inline-block"
-              onClick={() => imageRef.current.click()}
-            >
-              <ImageUpload />
-            </div>
+            
+            <div onClick={() => imageRef.current.click()} className="image-upload-btn">
+                  <h5 className="blue">UPLOAD</h5>
+                  <FontAwesomeIcon icon={faUpload} className="icon-med blue" />
+                </div>
             <input
               ref={imageRef}
               type="file"

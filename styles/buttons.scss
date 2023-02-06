@@ -15,14 +15,17 @@ $yellow: #CCE729;
 $orange: #DF5F28;
 $green: #3BAC46;
 $offWhite: #E7EFF8;
+$light-blue: #278ffd;
+$light-red:rgb(253, 39, 39);
 .blue-btn-one {
-  border: 2px solid $darkBlue;
-  background-color: #fff;
+  background-color: $light-blue;
   padding: 8px 16px;
   cursor: pointer;
   display: inline-block;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border:none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transition: box-shadow .25s ease;
+  border-radius: 8px;
   h1,
   h2,
   h3,
@@ -30,10 +33,10 @@ $offWhite: #E7EFF8;
   h5,
   h6,
   p {
-    color: $darkBlue;
+    color: #fff; 
   }
   &:hover {
-    background-color: $light-beige;
+    
     box-shadow:none;
   }
   &:active {
@@ -46,8 +49,8 @@ $offWhite: #E7EFF8;
     p {
       color: #fff;
     }
-    background-color: $darkBlue;
-    border: 2px solid #fff;
+    background-color: $blue;
+   
     .blue {
       color: #fff;
     }
@@ -109,12 +112,13 @@ $offWhite: #E7EFF8;
 }
 
 .red-btn-one {
-  border: 2px solid $darkPink;
-  background-color: #fff;
+  border-radius: 8px;
+  background-color: $light-red;
+  border:none;
   padding: 8px 16px;
   cursor: pointer;
   display: inline-block;
-  
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   h1,
   h2,
   h3,
@@ -122,10 +126,13 @@ $offWhite: #E7EFF8;
   h5,
   h6,
   p {
-    color: $darkPink;
+    color: #fff;
+  }
+  &:active{
+    background-color: $red;
   }
   &:hover {
-    background-color: $light-beige;
+    box-shadow:none;
   }
 }
 
