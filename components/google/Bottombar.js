@@ -657,9 +657,10 @@ const Bottombar = ({
   const updateFields = (name, value) => {
     
     setOptionalFields(prev=> {
-      const prevCopy = prev;
-      prevCopy[name].value = value;
-      return prevCopy;
+      return {
+        ...prev,
+        [name]:{name:[name], value:value}
+      }
     })
   }
 
@@ -687,7 +688,7 @@ const Bottombar = ({
   useEffect(()=> {
     
     setOptionalFieldElems(prev=> {
-      alert('k')
+    
       return Object.entries(optionalFields).map(([key, val]) => {
         return (
           <div key= {nanoid} className="select-box-holder">
