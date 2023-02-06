@@ -59,7 +59,7 @@ const Cont = styled.div`
   }
   .optional-fields {
     background: #fff;
-    border: 2px solid ${(props) => props.colors.black};
+    border: 1px solid ${(props) => props.colors.grey};
     padding: 16px;
   }
 
@@ -645,6 +645,7 @@ const Bottombar = ({
 
   const checkShowHours = () => {};
 
+  
   return (
     <Cont colors={COLORS}>
       {loading.state && (
@@ -1024,9 +1025,25 @@ const Bottombar = ({
           <div className="optional-fields">
 
            <p>Optional</p> 
-           <div className="flex">
+           <div className="flex mar-bottom-8 space-between flex-wrap">
            <h5 className="black">Product Specifications</h5>
+           <p className="underline ">Skip Section</p>
            </div>
+           <div className="grey-line mar-bottom-16"></div>
+           <div className="select-box-holder">
+           <h5 className="black">Grass Fed?</h5>
+           <div className="select-box">
+            <div className="select-item">
+              Yes
+            </div>
+            <div className="select-item">
+              No
+            </div>
+            <div className="select-item">
+              Unknown
+            </div>
+            
+           </div></div>
             <div className="selects">
               <div className="radio-line">
                 <h4 className="mar-bottom-8">GRASS FED?</h4>

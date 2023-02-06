@@ -23,7 +23,30 @@ $green: #3BAC46;
 $offWhite: rgb(231, 239, 248);
 $darkGrey: #533F45;
 
-
+$light-blue: #278ffd;
+.select-box-holder{
+  margin-bottom: 16px;
+  h5{
+    margin-bottom: 8px;
+  }
+}
+.select-box{
+  border: 1px solid $grey;
+  display:inline-flex;
+  cursor: pointer;
+  .select-item{
+    padding: 16px;
+    background-color: #fff;
+    transition: background-color .25s ease;
+    &:nth-of-type(2){
+      border-right: 1px solid $grey;
+      border-left: 1px solid $grey;
+    }
+    &:hover{
+      background-color: $light-blue;
+    }
+  }
+}
 .grey-line{
   height:1px;
   width:100%;
