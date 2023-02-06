@@ -3,22 +3,15 @@ import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
+import { capitalize } from "../../utils/functions";
 const Cont = styled.div`
-  display: inline-block;
+  
 
   margin-bottom: 16px;
-  border: 1px solid ${(props) => props.colors.darkPink};
-  background-color: ${(props) => props.colors.lightBeige};
-  padding: 8px;
-  text-align: center;
-  .star-holder {
-    border: 1px solid ${(props) => props.colors.grey};
-    padding: 4px;
-  }
-  .star-icon {
-    color: ${(props) => props.colors.grey};
-    cursor: pointer;
-  }
+  
+
+  
+
 `;
 
 const StarReview = ({ field, stars, updateStarsFunc }) => {
@@ -52,12 +45,12 @@ const StarReview = ({ field, stars, updateStarsFunc }) => {
   }, []);
   return (
     <Cont colors={COLORS}>
-      <h4 className="mar-bottom-4">{field.toUpperCase()}</h4>
-      <div className="star-holder">
+      <p className="bold black mar-bottom-4">{capitalize(field)}</p>
+      <div className="star-holder mar-bottom-4">
         <FontAwesomeIcon
           data-index={star1}
           icon={faStar}
-          className="icon-ssm star-icon"
+          className="icon-med star-icon"
           onMouseOver={() => updateStars(1)}
           onClick={() => selectStars(1)}
           ref={star1}
@@ -65,7 +58,7 @@ const StarReview = ({ field, stars, updateStarsFunc }) => {
         <FontAwesomeIcon
           data-index={2}
           icon={faStar}
-          className="icon-ssm star-icon"
+          className="icon-med star-icon"
           onMouseOver={() => updateStars(2)}
           onClick={() => selectStars(2)}
           ref={star2}
@@ -73,7 +66,7 @@ const StarReview = ({ field, stars, updateStarsFunc }) => {
         <FontAwesomeIcon
           data-index={3}
           icon={faStar}
-          className="icon-ssm star-icon"
+          className="icon-med star-icon"
           onMouseOver={() => updateStars(3)}
           onClick={() => selectStars(3)}
           ref={star3}
@@ -81,7 +74,7 @@ const StarReview = ({ field, stars, updateStarsFunc }) => {
         <FontAwesomeIcon
           data-index={4}
           icon={faStar}
-          className="icon-ssm star-icon"
+          className="icon-med star-icon"
           onMouseOver={() => updateStars(4)}
           onClick={() => selectStars(4)}
           ref={star4}
@@ -89,13 +82,13 @@ const StarReview = ({ field, stars, updateStarsFunc }) => {
         <FontAwesomeIcon
           data-index={5}
           icon={faStar}
-          className="icon-ssm star-icon"
+          className="icon-med star-icon"
           onMouseOver={() => updateStars(5)}
           onClick={() => selectStars(5)}
           ref={star5}
         />
       </div>
-      {stars > 0 && <p className="bold">{stars} stars</p>}
+      
     </Cont>
   );
 };

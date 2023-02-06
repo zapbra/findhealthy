@@ -32,3 +32,9 @@ export const shootFireworks = () => {
       );
     }, 250);
   };
+
+  export const capitalize = (string) => {
+      let stringRes = string.split('');
+      stringRes[0] = stringRes[0].toUpperCase();
+      return stringRes.join('');
+  }

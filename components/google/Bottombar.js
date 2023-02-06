@@ -82,10 +82,8 @@ const Cont = styled.div`
     margin-bottom: 32px;
   }
   .stars {
-    padding-top: 32px;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    
+    
   }
 `;
 
@@ -645,13 +643,13 @@ const Bottombar = ({
   };
 
   const [optionalFields, setOptionalFields] = useState({
-    grassFed:{name:'grassFed', value:'unspecified'},
-    organic:{name:'organic', value:'unspecified'},
-    vaccineFree:{name:'vaccineFree', value:'unspecified'},
-    pastureRaised:{name:'pastureRaised', value:'unspecified'},
-    soyFree:{name:'soyFree', value:'unspecified'},
-    dewormerFree:{name:'dewormerFree', value:'unspecified'},
-    unfrozen:{name:'unfrozen', value:'unspecified'},
+    grassFed:{name:'Grass Fed', value:'unspecified'},
+    organic:{name:'Organic', value:'unspecified'},
+    vaccineFree:{name:'Vaccine Free', value:'unspecified'},
+    pastureRaised:{name:'Pasture Raised', value:'unspecified'},
+    soyFree:{name:'Soy Free', value:'unspecified'},
+    dewormerFree:{name:'Dewormer Free', value:'unspecified'},
+    unfrozen:{name:'Unfrozen', value:'unspecified'},
   });
 
   const updateFields = (name, value) => {
@@ -659,7 +657,7 @@ const Bottombar = ({
     setOptionalFields(prev=> {
       return {
         ...prev,
-        [name]:{name:[name], value:value}
+        [name]:{...prev[name], value:value}
       }
     })
   }
@@ -670,9 +668,11 @@ const Bottombar = ({
   
   
   const [optionalfieldElems, setOptionalFieldElems] = useState(Object.entries(optionalFields).map(([key, val]) => {
+    console.log('1235');
+    console.log(val.name);
     return (
       <div key= {nanoid} className="select-box-holder">
-           <h5 className="black">{key}?</h5>
+           <h5 className="black">{val.name}?</h5>
            <div className="select-box">
             {['yes','no','unspecified'].map((fieldValue, index) => {
               return (<div key = {index} className={ fieldValue == val.value ? "select-item selected-box": "select-item"}>
@@ -692,7 +692,7 @@ const Bottombar = ({
       return Object.entries(optionalFields).map(([key, val]) => {
         return (
           <div key= {nanoid} className="select-box-holder">
-               <h5 className="black">{key}?</h5>
+               <p className="black bold mar-bottom-4">{val.name}?</p>
                <div className="select-box">
                 {['yes','no','unspecified'].map((fieldValue, index) => {
                   return (<div onClick = {()=> updateFields(key, fieldValue)} key = {nanoid} className={ fieldValue == val.value ? "select-item selected-box": "select-item"}>
@@ -1083,7 +1083,7 @@ const Bottombar = ({
             />
           </div>
 
-          <div className="optional-fields">
+          <div className="optional-fields mar-bottom-16">
 
            <p>Optional</p> 
            <div className="flex mar-bottom-8 space-between flex-wrap">
@@ -1092,6 +1092,35 @@ const Bottombar = ({
            </div>
            <div className="grey-line mar-bottom-16"></div>
            {optionalfieldElems}
+           </div>
+
+           <div className="optional-fields">
+
+           <p>Optional</p> 
+           <div className="flex mar-bottom-8 space-between flex-wrap">
+           <h5 className="black">Service Rating</h5>
+           <p className="underline ">Skip Section</p>
+           </div>
+           <div className="grey-line mar-bottom-16"></div>
+           <div className="stars ">
+              <StarReview
+                field={reviewFields.pricing.name}
+                stars={reviewFields.pricing.stars}
+                updateStarsFunc={updateReviewFields}
+              />
+              <StarReview
+                field={reviewFields.quality.name}
+                stars={reviewFields.quality.stars}
+                updateStarsFunc={updateReviewFields}
+              />
+              <StarReview
+                field={reviewFields.friendly.name}
+                stars={reviewFields.friendly.stars}
+                updateStarsFunc={updateReviewFields}
+              />
+            </div>
+           </div>
+           {/*
             <div className="selects">
               <div className="radio-line">
                 <h4 className="mar-bottom-8">GRASS FED?</h4>
@@ -1428,24 +1457,9 @@ const Bottombar = ({
                 </label>
               </div>
             </div>
-            <div className="stars ">
-              <StarReview
-                field={reviewFields.pricing.name}
-                stars={reviewFields.pricing.stars}
-                updateStarsFunc={updateReviewFields}
-              />
-              <StarReview
-                field={reviewFields.quality.name}
-                stars={reviewFields.quality.stars}
-                updateStarsFunc={updateReviewFields}
-              />
-              <StarReview
-                field={reviewFields.friendly.name}
-                stars={reviewFields.friendly.stars}
-                updateStarsFunc={updateReviewFields}
-              />
-            </div>
-          </div>
+                    */}
+           
+          
           <div className="mar-bottom-32"></div>
           <button
             style={{ display: "flex", width: "100%" }}
