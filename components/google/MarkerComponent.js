@@ -9,6 +9,9 @@ import COLORS from "../../data/colors";
 const Cont = styled.div`
   max-width: 320px;
   .tags-holder {
+    border-bottom: 1px solid ${(props) => props.colors.grey};
+  
+    
     display: flex;
     justify-content: center;
     //background-color: ${(props) => props.colors.grey};
@@ -58,7 +61,7 @@ const MarkerComponent = ({
       {open && (
         <InfoWindow onCloseClick={() => setOpen(false)}>
           <Cont colors={COLORS} className="info-box">
-            <div className="tags-holder grey-gradient-bg">
+            <div className="tags-holder ">
               <p style={{ backgroundColor: "#CCE729" }} className="tag-four">
                 {tags[0]}
               </p>
@@ -91,20 +94,20 @@ const MarkerComponent = ({
             <div className="field-line">
               <p className = 'black bold'>Name</p>
               <div className="grey-line mar-bottom-4"></div>
-              <h5 className="bold text-shadow-red">{name}</h5>
+              <h5 className="bold black">{name}</h5>
             </div>
 
             <div className="field-line">
               <p className = 'black bold'>Address</p>
               <div className="grey-line mar-bottom-4"></div>
-              <h5 className="bold text-shadow-red">{address}</h5>
+              <h5 className="bold black">{address}</h5>
             </div>
             {website != null && (
               <div className="field-line">
                 <p className = 'black bold'>Website</p>
                 <div className="grey-line mar-bottom-4"></div>
                 <a href={website}>
-                  <p className="bold text-shadow-red ">{website}</p>
+                  <p className="bold">{website}</p>
                 </a>
               </div>
             )}
@@ -139,8 +142,8 @@ const MarkerComponent = ({
                   style={{ borderRight: "1px solid black" }}
                   className="mar-right-8 pad-right-8 flex-one"
                 >
-                  <h5 className="bold">Email:</h5>
-                  <div className="red-line mar-bottom-4"></div>
+                  <p className="bold">Email:</p>
+                  <div className="grey-line mar-bottom-4"></div>
                   <a href={`mailto:${email}`}>
                     <p className="bold">{email}</p>{" "}
                   </a>
@@ -148,8 +151,8 @@ const MarkerComponent = ({
               )}
               {number != null && (
                 <div className="flex-one">
-                  <h5>Phone:</h5>
-                  <div className="red-line mar-bottom-4"></div>
+                  <p className = 'bold'>Phone:</p>
+                  <div className="grey-line mar-bottom-4"></div>
                   <a href={`tel:${number}`}>
                     <p className="bold">{number}</p>
                   </a>
@@ -157,13 +160,13 @@ const MarkerComponent = ({
               )}
             </div>
             <div className="field-line">
-              <h5>Pickup or delivery?</h5>
-              <div className="red-line mar-bottom-04"></div>
-              <p className="bold">{pickup}</p>
+              <p className = 'bold'>Pickup or delivery?</p>
+              <div className="grey-line mar-bottom-4"></div>
+              <h5 className="bold black">{pickup}</h5>
             </div>
 
-            <h5>Hours</h5>
-            <div className="red-line mar-bottom-4"></div>
+            <p className = 'bold' >Hours</p>
+            <div className="grey-line mar-bottom-4"></div>
             <div className="flex">
               <div
                 style={{ borderRight: "1px solid black" }}

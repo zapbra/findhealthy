@@ -245,6 +245,8 @@ li{
   display:flex;
   align-items: center;
   justify-content: space-between;
+  width:200px;
+  min-width:100px;
   h5{
     margin-right:4px;
     display:inline-block;
