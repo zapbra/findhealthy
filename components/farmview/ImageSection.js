@@ -127,12 +127,12 @@ const ImageSection = ({ images, location_id }) => {
       </div>
     );
   });
-
+  const [imagesCopy, setImagesCopy] = useState(images);
   const [imageElems, setImageElems] = useState([]);
   useEffect(() => {
     const imageArr = [];
     for (let i = 0; i < 4; i++) {
-      if (images[i] !== undefined) {
+      if (imagesCopy[i] !== undefined) {
         imageArr.push(
           <div
             key={i}
@@ -143,7 +143,7 @@ const ImageSection = ({ images, location_id }) => {
                 : "image-select"
             }
           >
-            <img src={images[i]} />
+            <img src={imagesCopy[i]} />
           </div>
         );
       } else {
@@ -164,8 +164,13 @@ const ImageSection = ({ images, location_id }) => {
       }
     }
     setImageElems(imageArr);
-  }, [images]);
-
+  }, [imagesCopy, previewUrl]);
+  useEffect(() => {
+    console.log("iamges...");
+    console.log(imageElems);
+  }, [imageElems]);
+  console.log("kkk");
+  console.log(images);
   const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
 
   const setPhotoDisplayVisible = () => {
@@ -207,9 +212,14 @@ const ImageSection = ({ images, location_id }) => {
           res.data.deletehash,
           location_id
         );
-        images.push(uploadedImage);
+        console.log("xxx");
+        console.log(uploadedImage);
+        setImagesCopy((prev) => {
+          return [...prev, uploadedImage[0].url];
+        });
         setLoading({ state: false, msg: "" });
       } else {
+        console.log(res);
         setLoading({ state: false, msg: "" });
         toast("Error uploading image", {
           duration: 4000,
@@ -237,6 +247,7 @@ const ImageSection = ({ images, location_id }) => {
       }
     } catch (err) {
       setLoading({ state: false, msg: "" });
+      console.log("cancer2");
       console.log(err.message);
       setLoading({ state: false, msg: "" });
       toast("Error uploading image", {

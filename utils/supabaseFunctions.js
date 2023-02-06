@@ -392,7 +392,7 @@ export const createImageFetch = async (url, deleteHash, location_id) => {
       .insert({ url, deleteHash, location_id })
       .select();
     if (error) throw error;
-    return true;
+    return data;
   } catch (error) {
     console.log(error);
     return false;
