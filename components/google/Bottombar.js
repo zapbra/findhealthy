@@ -3,6 +3,7 @@ import styled from "styled-components";
 import COLORS from "../../data/colors";
 import PhotoDisplay from "../popups/PhotoDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { nanoid } from "nanoid";
 import {
   faClose,
   faPlus,
@@ -660,8 +661,24 @@ const Bottombar = ({
       return prevCopy;
     })
   }
+
   
   
+  const [optionalfieldElems, setOptionalFieldElems] = useState(Object.entries(optionalFields).map(([key, val]) => {
+    return (
+      <div key= {nanoid} className="select-box-holder">
+           <h5 className="black">{key}?</h5>
+           <div className="select-box">
+            {['yes','no','unspecified'].map((fieldValue, index) => {
+              return (<div key = {index} className={ fieldValue == val.value ? "select-item selected-box": "select-item"}>
+               <p>{fieldValue}</p>
+            </div>)
+            })}
+            
+            
+           </div></div>
+    )
+  }));
 
   return (
     <Cont colors={COLORS}>
@@ -1047,20 +1064,7 @@ const Bottombar = ({
            <p className="underline ">Skip Section</p>
            </div>
            <div className="grey-line mar-bottom-16"></div>
-           <div className="select-box-holder">
-           <h5 className="black">Grass Fed?</h5>
-           <div className="select-box">
-            <div className="select-item">
-              Yes
-            </div>
-            <div className="select-item">
-              No
-            </div>
-            <div className="select-item">
-              Unknown
-            </div>
-            
-           </div></div>
+           {optionalfieldElems}
             <div className="selects">
               <div className="radio-line">
                 <h4 className="mar-bottom-8">GRASS FED?</h4>

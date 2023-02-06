@@ -47,6 +47,12 @@ $light-blue: #278ffd;
     }
   }
 }
+.selected-box{
+  background-color: $light-blue;
+  p{
+    font-weight: 600;
+  }
+}
 .grey-line{
   height:1px;
   width:100%;
