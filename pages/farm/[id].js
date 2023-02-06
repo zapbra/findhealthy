@@ -8,6 +8,7 @@ import supabase from "../../utils/supabaseClient";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import EditSections from "../../components/farmview/EditSections";
+import { Toaster } from "react-hot-toast";
 const Cont = styled.div`
   border: 1px solid ${(props) => props.colors.grey};
   background-color: #fff !important;
@@ -78,7 +79,7 @@ const Preview = ({ location }) => {
             <p className="mar-right-4 contrast">
               Posted- {new Date(location.created_at).toDateString()}
             </p>
-            <p className="bold">u/{location.user_id.username} </p>
+            <p className="bold">u/{location?.user_id?.username || "anon"} </p>
           </div>
         </div>
         <div className="flex align-center flex-wrap mar-bottom-16">
@@ -107,7 +108,7 @@ const Preview = ({ location }) => {
         )}
       </div>
 
-      <ImageSection images={images} />
+      <ImageSection images={images} location_id={location.id} />
       {editMode ? (
         <EditSections
           products={location.products}

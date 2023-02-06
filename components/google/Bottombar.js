@@ -351,13 +351,17 @@ const Bottombar = ({
   console.log(user);
   console.log("user");
 
-  const createLocation = async (formData) => {
+  const createLocationFunc = async (formData) => {
     setLoading({ state: true, msg: "creating location..." });
+
     const numberOrganize = formData.number.replaceAll(/[^0-9]/g, "").split("");
-    numberOrganize.unshift("(");
-    numberOrganize.splice(4, 0, ")");
-    numberOrganize.splice(5, 0, "-");
-    numberOrganize.splice(9, 0, "-");
+    if (numberOrganize != "") {
+      numberOrganize.unshift("(");
+      numberOrganize.splice(4, 0, ")");
+      numberOrganize.splice(5, 0, "-");
+      numberOrganize.splice(9, 0, "-");
+    }
+
     if (user !== null) {
       let locationId = await createUserLocation(
         formData.name,
@@ -414,7 +418,7 @@ const Bottombar = ({
     const validAddress = await checkAddressValid();
     setLoading({ state: true, msg: "checking address valid..." });
     if (validAddress) {
-      const locationId = await createLocation(formData);
+      const locationId = await createLocationFunc(formData);
       setLoading({ state: true, msg: "creating products..." });
       products.forEach((product) => {
         createProduct(

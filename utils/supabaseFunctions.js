@@ -385,6 +385,20 @@ export const createImage = async (url, deleteHash, location_id) => {
   }
 };
 
+export const createImageFetch = async (url, deleteHash, location_id) => {
+  try {
+    const { data, error } = await supabase
+      .from("images")
+      .insert({ url, deleteHash, location_id })
+      .select();
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export const checkUsernameUnique = async (username) => {
   try {
     const { data, error } = await supabase
