@@ -643,9 +643,26 @@ const Bottombar = ({
     setShowPhotoDisplay(false);
   };
 
-  const checkShowHours = () => {};
+  const [optionalFields, setOptionalFields] = useState({
+    grassFed:{name:'grassFed', value:'unspecified'},
+    organic:{name:'organic', value:'unspecified'},
+    vaccineFree:{name:'vaccineFree', value:'unspecified'},
+    pastureRaised:{name:'pastureRaised', value:'unspecified'},
+    soyFree:{name:'soyFree', value:'unspecified'},
+    dewormerFree:{name:'dewormerFree', value:'unspecified'},
+    unfrozen:{name:'unfrozen', value:'unspecified'},
+  });
 
+  const updateFields = (name, value) => {
+    setOptionalFields(prev=> {
+      const prevCopy = prev;
+      prevCopy[name].value = value;
+      return prevCopy;
+    })
+  }
   
+  
+
   return (
     <Cont colors={COLORS}>
       {loading.state && (
