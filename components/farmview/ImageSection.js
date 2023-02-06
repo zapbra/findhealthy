@@ -104,7 +104,7 @@ const Cont = styled.div`
   }
 `;
 
-const ImageSection = ({ images, location_id }) => {
+const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
   const [previewUrl, setPreviewUrl] = useState(images[0] || null);
   const [loading, setLoading] = useState({ state: false, msg: "" });
   const selectImage = (url) => {
@@ -136,7 +136,7 @@ const ImageSection = ({ images, location_id }) => {
         imageArr.push(
           <div
             key={i}
-            onClick={() => selectImage(images[i])}
+            onClick={() => selectImage(imagesCopy[i])}
             className={
               images[i] === previewUrl
                 ? "selected-image image-select"
@@ -147,20 +147,22 @@ const ImageSection = ({ images, location_id }) => {
           </div>
         );
       } else {
-        imageArr.push(
-          <div
-            key={i}
-            onClick={() => imageInputRef?.current?.click()}
-            className="empty-image gradient-bg-2 small-template"
-          >
-            <div>
-              <div className="image-upload-btn">
-                <h5 className="blue">UPLOAD</h5>
-                <FontAwesomeIcon icon={faUpload} className="icon-med blue" />
+        if (user_id === post_user_id) {
+          imageArr.push(
+            <div
+              key={i}
+              onClick={() => imageInputRef?.current?.click()}
+              className="empty-image gradient-bg-2 small-template"
+            >
+              <div>
+                <div className="image-upload-btn">
+                  <h5 className="blue">UPLOAD</h5>
+                  <FontAwesomeIcon icon={faUpload} className="icon-med blue" />
+                </div>
               </div>
             </div>
-          </div>
-        );
+          );
+        }
       }
     }
     setImageElems(imageArr);

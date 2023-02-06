@@ -108,7 +108,12 @@ const Preview = ({ location }) => {
         )}
       </div>
 
-      <ImageSection images={images} location_id={location.id} />
+      <ImageSection
+        images={images}
+        location_id={location.id}
+        user_id={user.id}
+        post_user_id={location.user?.id || null}
+      />
       {editMode ? (
         <EditSections
           products={location.products}
