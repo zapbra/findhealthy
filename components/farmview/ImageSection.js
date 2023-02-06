@@ -150,7 +150,7 @@ const ImageSection = ({ images, location_id }) => {
         imageArr.push(
           <div
             key={i}
-            onClick={() => selectImage(images[i])}
+            onClick={() => imageInputRef?.current?.click()}
             className="empty-image gradient-bg-2 small-template"
           >
             <div>
