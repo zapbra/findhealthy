@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
@@ -15,6 +15,13 @@ const Cont = styled.div`
     @media only screen and (max-width:460px) {
       grid-template-columns: 1fr;
     }
+  }
+  .template{
+    width:100%;
+    height:600px;
+  }
+  .small-template{
+    display:flex;
   }
   .image-holder {
     position: relative;
@@ -61,8 +68,8 @@ const Cont = styled.div`
 `;
 
 const ImageSection = ({ images }) => {
-  const [previewUrl, setPreviewUrl] = useState(images[0]);
-
+  const [previewUrl, setPreviewUrl] = useState(images[0] || null);
+  
   const selectImage = (url) => {
     if (previewUrl === url) return;
     setPreviewUrl(url);
@@ -85,6 +92,37 @@ const ImageSection = ({ images }) => {
     );
   });
 
+  const [imageElems, setImageElems] = useState([]);
+  useEffect(()=> {
+    for (let i = 0; i < 4; i++) {
+      if(images[i] !== undefined){
+      imageElems.push(<div
+      key = {i}
+        onClick={() => selectImage(images[i])}
+        className={
+          images[i] === previewUrl ? "selected-image image-select" : "image-select"
+        }
+      >
+        <img src={images[i]} />
+      </div>)
+    } else {
+      imageElems.push(<div
+      key = {i}
+        onClick={() => selectImage(images[i])}
+        className=
+         "image-select"
+        
+      >
+        <div className="gradient-bg-1 small-template"><p>hello</p></div>
+      </div>)
+    }
+  }
+  },[])
+
+  console.log('--')
+  
+  console.log('--')
+
   const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
 
   const setPhotoDisplayVisible = () => {
@@ -103,10 +141,15 @@ const ImageSection = ({ images }) => {
       )}
       <div className="hero-image-section dark-blue-bg">
         <div onClick={setPhotoDisplayVisible} className="image-holder ">
+          { previewUrl !== null ? (
           <img ref = {imageRef} src={previewUrl} />
+          ) : (
+            <div className="template dark-blue-bg"></div>
+          )
+}
         </div>
 
-        <div className="image-selectors">{imageElements}</div>
+        <div className="image-selectors">{imageElems}</div>
       </div>
     </Cont>
   );
