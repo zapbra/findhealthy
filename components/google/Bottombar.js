@@ -747,7 +747,8 @@ const Bottombar = ({
       <br />
       {adding && (
         <form className=" fake-form opacity-anim" onSubmit={submitForm}>
-          <h4 className="mar-bottom-8">ENTER AN ADDRESS *</h4>
+          <h4 className="mar-bottom-8 text-shadow-red">ENTER AN ADDRESS *</h4>
+          <div className="red-line mar-bottom-8"></div>
           <PlacesAutocomplete
             location={location}
             setLocation={setLocation}
@@ -756,7 +757,8 @@ const Bottombar = ({
 
           <div className="input-line">
             <div className="input-line">
-              <h4>PRODUCT TYPES *</h4>
+              <h4 className = 'text-shadow-red'>PRODUCT TYPES *</h4>
+              <div className="red-line"></div>
               <ProductTags
                 tags={tags}
                 selectedTags={selectedTags}
@@ -767,7 +769,8 @@ const Bottombar = ({
           </div>
           <CreateTag addTag={addTag} tags={tags} />
           <div className="input-line">
-            <h4>BUSINESS NAME *</h4>
+            <h4 className = 'text-shadow-red'>BUSINESS NAME *</h4>
+            <div className="red-line mar-bottom-8"></div>
             <input
               {...register("name", {
                 required: true,
@@ -781,8 +784,8 @@ const Bottombar = ({
             )}
           </div>
           <div className="input-line">
-            <h4>DESCRIPTION *</h4>
-
+            <h4 className = 'text-shadow-red'>DESCRIPTION *</h4>
+            <div className="red-line mar-bottom-8"></div>
             <p className="italic">How are their prices?</p>
             <p className="italic mar-bottom-4">What was your experience?</p>
             <textarea
@@ -799,8 +802,8 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4>HOW TO ORDER</h4>
-
+            <h4 className = 'text-shadow-red'>HOW TO ORDER</h4>
+              <div className="red-line"></div>
             <p className="italic">Do you need to order from their website?</p>
             <p className="italic mar-bottom-4">
               Is it pickup only on certain days?
@@ -816,7 +819,8 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4>SPECIFIC PRODUCTS</h4>
+            <h4 className = 'text-shadow-red'>SPECIFIC PRODUCTS</h4>
+            <div className="red-line mar-bottom-8"></div>
             <p className="italic mar-bottom-4">
               Add more specic products to show exactly what they have
             </p>
@@ -932,7 +936,8 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4>HOURS</h4>
+            <h4 className = 'text-shadow-red'>HOURS</h4>
+            <div className="red-line mar-bottom-8"></div>
             <h5>From</h5>
             <input
               {...register("hoursFrom", {
@@ -953,8 +958,8 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4>PICKUP OR DELIVERY?</h4>
-
+            <h4 className = 'text-shadow-red'>PICKUP OR DELIVERY?</h4>
+            <div className="red-line mar-bottom-8"></div>
             <label htmlFor="pickupAndDelivery">
               <div className="flex align-center">
                 <input
