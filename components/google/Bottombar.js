@@ -58,13 +58,9 @@ const Cont = styled.div`
     padding: 8px;
   }
   .optional-fields {
-    border: 2px solid ${(props) => props.colors.darkPink};
-    .title-spec {
-      padding: 32px;
-      margin-bottom: 32px;
-      text-align: center;
-      border-bottom: 1px solid ${(props) => props.colors.darkPink};
-    }
+    background: #fff;
+    border: 2px solid ${(props) => props.colors.black};
+    padding: 16px;
   }
 
   .dollar-input {
@@ -1026,20 +1022,11 @@ const Bottombar = ({
           </div>
 
           <div className="optional-fields">
-            <div className="title-spec gradient-bg-1">
-              <div className="flex align-center justify-center mar-bottom-8">
-                <h3 className="mar-right-8">OPTIONAL FIELDS</h3>
-                <FontAwesomeIcon icon={faSmileBeam} className="icon-med red" />
-              </div>
-              <h5 className="black light">If you want to be more thorough</h5>
-              <h5 className="black light underline">
-                NONE of these are required!
-              </h5>
-              <h5 className="black light small">
-                Leave unselected if not sure and feel free to only fill out a
-                few
-              </h5>
-            </div>
+
+           <p>Optional</p> 
+           <div className="flex">
+           <h5 className="black">Product Specifications</h5>
+           </div>
             <div className="selects">
               <div className="radio-line">
                 <h4 className="mar-bottom-8">GRASS FED?</h4>
