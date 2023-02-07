@@ -30,7 +30,9 @@ const Cont = styled.div`
     justify-content: space-between;
   }
 `;
-const Sidebar = ({tagsFetch, updateCoords}) => {
+// one lng/lat is 111km
+const lngUnit = 111;
+const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
   const {
     handleSubmit,
     register,
@@ -62,8 +64,7 @@ const Sidebar = ({tagsFetch, updateCoords}) => {
     })
   },[])
 
-  console.log('xxx')
-  console.log(filterTags);
+ 
   function findClosestTag() {
     setFilterTags((prevTags) => {
       return tags.filter((tag) => {
@@ -110,10 +111,21 @@ const Sidebar = ({tagsFetch, updateCoords}) => {
     }, 500);
     return () => clearTimeout(delayType);
   },[text])
+  console.log('search tags')
+  console.log(searchTags);
 
-  console.log('xx');
-  console.log(filterTags[0]);
-
+  const latiudeCalc = (e, lat = 45, lng = 75) => {
+    const [locLat, locLng] = [locations[0].address[0].lat,locations[0].address[0].lng];
+    const distance = {lat:Math.abs(Math.abs(lat) - Math.abs(Number(locLat))), lng: Math.abs(Math.abs(lng) - Math.abs(Number(locLng)))};
+    const rise = distance.lat / distance.lng;
+    console.log(lngUnit * rise);
+  }
+  const applyFilter = () => {
+    /*
+    setLocationsFilter(prev=> {
+      return prev.filter(location=>searchTags.every(searchTag=>location.tags.some(tag=>tag == searchTag.name)));
+    })*/
+  }
   function submitSearch(e) {
     e.preventDefault();
     if(filterTags.length <= 0){
@@ -158,6 +170,8 @@ const Sidebar = ({tagsFetch, updateCoords}) => {
       <div className="center-inline mar-bottom-16">
         <h4>FILTERS</h4>
       </div>
+      <div style=  {{border:'1px solid black'}} onClick = {applyFilter}><p>Apply</p></div>
+      <div style=  {{border:'1px solid black'}} onClick = {latiudeCalc}><p>Calc</p></div>
       <div className="input-line">
         <div className="flex align-center">
           <h4 className="text-shadow-red mar-right-8">Products</h4>
@@ -176,7 +190,7 @@ const Sidebar = ({tagsFetch, updateCoords}) => {
           colors = {COLORS}
           />
         </div>
-      <div className="form" onSubmit={submitForm}>
+      <form className="form" onSubmit={submitForm}>
       
       <div className="input-line">
         <div className="flex align-center mar-bottom-8 ">
@@ -302,7 +316,10 @@ const Sidebar = ({tagsFetch, updateCoords}) => {
 
         
         </div>
-      </div>
+        <div className="blue-btn-one">
+          <h5>Search</h5>
+        </div>
+      </form>
       
     </Cont>
   );

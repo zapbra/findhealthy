@@ -213,7 +213,7 @@ const Bottombar = ({
         });
         const res = await response.json();
         if (res.status == 200) {
-          console.log("res");
+         
 
           const uploadState = await createImage(
             res.data.link,
@@ -345,9 +345,7 @@ const Bottombar = ({
     navbar.scrollIntoView({ behavior: "smooth", block: "center" });
     setLoading({ state: false, msg: "" });
   };
-  console.log("user");
-  console.log(user);
-  console.log("user");
+  
 
   const createLocationFunc = async (formData) => {
     setLoading({ state: true, msg: "creating location..." });
@@ -606,9 +604,7 @@ const Bottombar = ({
     };
   }, [handleClickOutside2]);
 
-  useEffect(() => {
-    console.log(actualDollar);
-  }, [actualDollar]);
+  
   const changeSelectedMeasureHandler = (item, name, index) => {
     setSelectedMeasure(item);
 
@@ -665,14 +661,11 @@ const Bottombar = ({
     })
   }
 
-  useEffect(()=> {
-    console.log(optionalFields);
-  },[optionalFields])
+ 
   
   
   const [optionalfieldElems, setOptionalFieldElems] = useState(Object.entries(optionalFields).map(([key, val]) => {
-    console.log('1235');
-    console.log(val.name);
+   
     return (
       <div key= {nanoid} className="select-box-holder">
            <h5 className="black">{val.name}?</h5>
@@ -709,7 +702,7 @@ const Bottombar = ({
       })
     })
   },[optionalFields]);
-  console.log(optionalFields)
+  
   return (
     <Cont colors={COLORS}>
       {loading.state && (
@@ -1555,7 +1548,7 @@ export const PlacesAutocomplete = ({
         
       }
     },
-    [showDropdown, setShowDropdown, dropdownEl]
+    [showDropdown, setShowDropdown]
   );
 
   const dropdownEl = useRef(null);

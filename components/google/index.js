@@ -28,6 +28,9 @@ function createKey(location) {
 }
 const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   const [location, setLocation] = useState("");
+  const [locationsFilter, setLocationsFilter] = useState(locations);
+  console.log('locations');
+  console.log(locationsFilter);
   const [markers, setMarkers] = useState([]);
   const [center, setCenter] = useState({
     lat: 45.4215,
@@ -62,7 +65,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   }, [locations]);
 
   console.log(markers);
-
+/*
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -81,7 +84,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
-
+  */
   const updateLocation = (value) => {
     setLocation(value);
   };
@@ -133,6 +136,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   };
 
   const updateCoords = (position) => {
+    console.log(position);
     setCenter((prev) => {
       return {
         lat: position.coords.latitude,
@@ -144,12 +148,13 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(updateCoords);
   }, []);
+  const isLoaded = true;
   return isLoaded ? (
     <Cont>
       {adding && <Alert />}
     <div className="google-holder">
-      <Sidebar tagsFetch = {tagsFetch} updateCoords = {updateCoords} />
-       
+      <Sidebar tagsFetch = {tagsFetch} updateCoords = {updateCoords} locations = {locations} setLocationsFilter = {setLocationsFilter} />
+       {/*
     <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -162,6 +167,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         {markers}
       </GoogleMap>
   
+  */}
 
     </div>
       
