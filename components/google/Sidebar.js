@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import { useForm } from "react-hook-form";
@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import Searchbar from "../search/Searchbar";
 
-const Cont = styled.form`
+const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
   width: 300px;
   height: 100%;
@@ -24,7 +24,7 @@ const Cont = styled.form`
     justify-content: space-between;
   }
 `;
-const Sidebar = () => {
+const Sidebar = ({tagsFetch}) => {
   const {
     handleSubmit,
     register,
@@ -33,14 +33,106 @@ const Sidebar = () => {
     formState: { errors },
   } = useForm();
 
-  const [text, setText] = useState('');
+  
+  
+  const [tags, setTags] = useState([]);
+  const [searchTags, setSearchTags] = useState([]);
+  const [text, setText] = useState("");
+  const [filterTags, setFilterTags] = useState([]);
+  useEffect(()=> {
+    setTags(prev=> {
+      return tagsFetch.sort(function (a, b) {
+        var textA = a.name.toUpperCase();
+        var textB = b.name.toUpperCase();
+        return textA < textB ? -1 : textA > textB ? 1 : 0;
+      })
+    })
+  },[])
+  console.log('xxx')
+  console.log(tags)
+  function findClosestTag() {
+    setFilterTags((prevTags) => {
+      return tags.filter((tag) => {
+        return tag.name.includes(text);
+      });
+    });
+  }
+
+  function removeSearchTag(id) {
+    const item = searchTags.find((tag) => {
+      return tag.id === id;
+    });
+    setFilterTags((prevTags) => {
+      return [...prevTags, item];
+    });
+    setTags((prevTags) => {
+      return [...prevTags, item];
+    });
+    setSearchTags((prevTags) => {
+      const tags = prevTags.filter((tag) => {
+        return tag.id !== id;
+      });
+      return [...tags];
+    });
+    /*
+    setContext((prev) => {
+      return {
+        ...prev,
+        tags: searchTags,
+      };
+    });*/
+  }
+
+  function pushSearchTag(tag) {
+    setSearchTags((prevTags) => {
+      return [...prevTags, tag];
+    });
+  }
+
+  useEffect(()=> {
+    const delayType = setTimeout(() => {
+      findClosestTag();
+    }, 500);
+    return () => clearTimeout(delayType);
+  },[text])
+
+  function submitSearch(e) {
+    e.preventDefault();
+    let id = filterTags[0].id;
+    removeTag(id);
+    setText("");
+  }
+
+  function removeTag(id) {
+    const item = tags.find((tag) => {
+      return tag.id === id;
+    });
+    pushSearchTag(item);
+    setTags((prevTags) => {
+      const tags = prevTags.filter((tag) => {
+        return tag.id !== id;
+      });
+      return [...tags];
+    });
+    setFilterTags((prevTags) => {
+      const tags = prevTags.filter((tag) => {
+        return tag.id !== id;
+      });
+      return [...tags];
+    });
+  }
+
   const updateText = (e) => {
-    set
+    let val = e.currentTarget.value;
+    setText((prevText) => {
+      return val.toLowerCase();
+    });
   }
 
   const submitForm = handleSubmit(async (formData) => {});
   return (
-    <Cont colors={COLORS} onSubmit={submitForm}>
+    <Cont colors={COLORS} >
+      <div className="form" onSubmit={submitForm}>
       <div className="center-inline">
         <h4>FILTERS</h4>
       </div>
@@ -169,12 +261,25 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <div className="input-line">
-          <h4 className="text-shadow-red">Products</h4>
-
-          <Searchbar />
+        
         </div>
       </div>
+      <div className="input-line">
+          <h4 className="text-shadow-red">Products</h4>
+
+          <Searchbar 
+          text = {text}
+          updateText = {updateText}
+          removeSearchTag = {removeSearchTag}
+          pushTag = {pushSearchTag}
+          pushSearchTag = {pushSearchTag}
+          tags = {searchTags}
+          submitSearch = {submitSearch}
+          removeTag = {removeTag}
+          filterTags = {filterTags}
+          colors = {COLORS}
+          />
+        </div>
     </Cont>
   );
 };

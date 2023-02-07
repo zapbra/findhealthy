@@ -104,14 +104,14 @@ const DropdownIcon = styled.div`
 const Searchbar = (props) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [extendDropdown, setExtendDropdown] = useState(false);
-  const dropdownEl = useRef();
+  const dropdownEl = useRef(null);
 
   const tagsText = props.tags.map((tag) => {
-    return tag.title;
+    return tag.name;
   });
 
   const lines = props.filterTags.map((tag) => {
-    if (tagsText.includes(tag.title)) {
+    if (tagsText.includes(tag.name)) {
     } else {
       return (
         <div
@@ -120,7 +120,7 @@ const Searchbar = (props) => {
           id={tag.id}
           className="item"
         >
-          <p>{tag.title}</p>
+          <p>{tag.name}</p>
         </div>
       );
     }
@@ -131,8 +131,8 @@ const Searchbar = (props) => {
         removeSearchTag={props.removeSearchTag}
         key={nanoid()}
         id={tag.id}
-        title={tag.title}
-        color={tag.color}
+        title={tag.name}
+        
       />
     );
   });
