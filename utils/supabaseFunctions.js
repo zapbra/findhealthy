@@ -305,7 +305,7 @@ export const fetchLocations = async () => {
 
 export const fetchTags = async () => {
   try {
-    const { data, error } = await supabase.from("tags").select("name");
+    const { data, error } = await supabase.from("tags").select("name, id");
     return data;
   } catch (error) {
     console.log(error.message);

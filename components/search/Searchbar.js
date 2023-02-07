@@ -13,7 +13,7 @@ const TagBoxElem = styled.div`
   overflow: hidden;
   overflow-y: auto;
   position: relative;
-  width: 360px;
+  
   @media only screen and (max-width: 426px) {
     width: 100%;
   }
@@ -25,9 +25,11 @@ const Content = styled.div`
   }
 `;
 const TagsCont = styled.div`
-  margin: 10px;
-  overflow: auto;
+  margin-top: 8px;
+  
   position: relative;
+  display:flex;
+  flex-wrap: wrap;
 `;
 
 const FormDropdown = styled.form`
