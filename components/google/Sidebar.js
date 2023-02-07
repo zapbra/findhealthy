@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faLocationDot, faEgg} from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import Searchbar from "../search/Searchbar";
+import { PlacesAutocomplete } from "./Bottombar";
 
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
@@ -147,7 +148,8 @@ const Sidebar = ({tagsFetch}) => {
       return val.toLowerCase();
     });
   }
-
+  const [address, setAddress] = useState('');
+  const [location, setLocation] = useState('');
   const submitForm = handleSubmit(async (formData) => {});
   return (
     <Cont colors={COLORS} >
@@ -178,14 +180,7 @@ const Sidebar = ({tagsFetch}) => {
         <div className="flex align-center mar-bottom-8 ">
         <h4 className="text-shadow-red mar-right-8">Your Location</h4>
     <FontAwesomeIcon icon = {faLocationDot} className = 'red icon-ssm' /></div>
-        <input
-          {...register("name", {
-            required: true,
-          })}
-          type="text"
-          placeholder="900 Bank St..."
-          name="name"
-        />
+        <PlacesAutocomplete setAddress={setAddress} location = {location} setLocation = {setLocation} />
         {errors.name?.type === "required" && (
           <p className="error">*Name is required</p>
         )}
