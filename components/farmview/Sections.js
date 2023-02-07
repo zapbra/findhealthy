@@ -3,14 +3,15 @@ import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faClose, faStar } from "@fortawesome/free-solid-svg-icons";
-
+import { faCheck, faClose, faStar, faClock } from "@fortawesome/free-solid-svg-icons";
+import { getHours } from "../../utils/functions";
 const Cont = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: minmax(300px, 1fr);
   @media only screen and (max-width: 900px) {
-    grid-template-rows: repeat(4, minmax(300px, 1fr));
+    grid-template-rows: repeat(4, auto);
+    align-items: start;
     grid-template-columns: 1fr;
     & > section:nth-of-type(3) {
       background: #fff !important;
@@ -61,31 +62,44 @@ const Cont = styled.div`
       }
     }
   }
+  .products-holder-2{
+    max-height:800px;
+    overflow-y: auto;
+  }
   .product-item {
+    border-bottom: 1px solid ${props=>props.colors.grey};
+  padding-bottom: 16px;
     margin-bottom: 16px;
     h5 {
       margin-right: 8px;
     }
 
     .product-content {
-      border: 1px solid ${(props) => props.colors.grey};
-      padding: 4px 8px;
-      background-color: ${(props) => props.colors.lightBeige};
+      display:flex;
+    justify-content: space-between;
+      h5::before{
+      content:'•';
+      margin-right: 4px;
+    }
+      
+      
       flex-wrap: wrap;
     }
 
     .price {
       background-color: #fff;
-      border: 1px solid ${(props) => props.colors.grey};
+      
     }
   }
   .description-text {
-    border-top: 1px solid ${(props) => props.colors.darkRed};
-    border-bottom: 1px solid ${(props) => props.colors.darkRed};
+    border: 1px solid ${(props) => props.colors.grey};
     padding: 8px;
+    max-height:800px;
+    overflow-y: auto;
+    background-color: ${(props) => props.colors.offWhite};
   }
   .section-line {
-    border-bottom: 1px solid ${(props) => props.colors.darkGrey};
+    border-bottom: 1px solid ${(props) => props.colors.grey};
     padding-bottom: 8px;
     margin-bottom: 16px;
     word-break: break-word;
@@ -100,6 +114,7 @@ const Cont = styled.div`
   .farm-field-line {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 16px;
     max-width: 240px;
   }
@@ -115,10 +130,11 @@ const Cont = styled.div`
     border: 1px solid ${(props) => props.colors.darkPink};
     background-color: ${(props) => props.colors.tan};
   }
+ 
   .star-field-holder {
     display: flex;
     flex-direction: column;
-    justify-content: center !important;
+    justify-content: center;
   }
   .star-field {
     display: flex;
@@ -163,12 +179,15 @@ const Sections = ({
   quality,
   friendly,
 }) => {
+  console.log('HOURS');
+  console.log(hoursFrom);
   const [productElems, setProductElems] = useState(
     products.map((product, index) => {
       return (
         <li key={index} className="product-item">
-          <div className="flex-inline product-content">
+          <div className=" product-content">
             <h5 className="black mar-right-8">{product.name}</h5>
+            
             <p className="price">
               ${product.price} {product.dollarType}/{product.measurement}
             </p>
@@ -192,7 +211,7 @@ const Sections = ({
       .map((field, index) => {
         return (
           <div key={index} className="farm-field-line">
-            <h5>{field.name}</h5>
+            <h5 className = 'black'>{field.name}</h5>
             <div className="farm-field-icon mar-left-16">
               <FontAwesomeIcon
                 icon={field.value == "true" ? faCheck : faClose}
@@ -213,16 +232,17 @@ const Sections = ({
       { name: "Friendly", value: friendly },
     ].map((field, index) => {
       return (
-        <div key={index} className="star-field">
-          <h4>{field.name}</h4>
+        <div key={index} className="star-holder mar-bottom-16">
+          <h4 className = 'black mar-bottom-4'>{field.name}</h4>
           <div className="star-holder">
             {[1, 2, 3, 4, 5].map((index, realIndex) => {
               return (
                 <FontAwesomeIcon
                   key={realIndex}
                   icon={faStar}
+                  
                   className={
-                    index <= field.value ? "icon-ssm yellow" : "icon-ssm grey"
+                    index <= field.value ? "icon-med yellow" : "icon-med black"
                   }
                 />
               );
@@ -239,53 +259,63 @@ const Sections = ({
           <div className="center-inline mar-bottom-16">
             <h4>PRODUCTS</h4>
           </div>
-          <ul>{productElems}</ul>
+          <ul className = 'products-holder-2'>{productElems}</ul>
         </div>
         <div>
           <div className="center-inline mar-bottom-16">
             <h4>DESCRIPTION</h4>
           </div>
-          <div className="description-text">{description}</div>
+          <div className="description-text box-shadow-2">{description}</div>
         </div>
       </section>
       <section className="section">
         <div>
           <div className="section-line">
-            <h5 className="blue">ADDRESS</h5>
+            <h5 className="black mar-bottom-8">ADDRESS</h5>
+            <div className="grey-line mar-bottom-4"></div>
             <p className="bold">{address}</p>
           </div>
 
           <div className="section-line">
-            <h5 className="blue">WEBSITE</h5>
+            <h5 className="black mar-bottom-8">WEBSITE</h5>
+            <div className="grey-line mar-bottom-4"></div>
             <Link href={website}>
               <p className="bold">{website}</p>
             </Link>
           </div>
-
-          <div className="section-line">
-            <h5 className="blue">EMAIL</h5>
+      {email !== '' && (
+        <div className="section-line">
+            <h5 className="black mar-bottom-8">EMAIL</h5>
+            <div className="black-line mar-bottom-4"></div>
             <a href={`mailto:${email}`}>
               <p className="bold">{email}</p>
             </a>
           </div>
+      )}
+          
 
           <div className="section-line">
-            <h5 className="blue">PHONE</h5>
+            <h5 className=" black mar-bottom-8">PHONE</h5>
+            <div className="grey-line mar-bottom-4"></div>
             <a href={`tel:${phone}`}>
               <p className="bold">{phone}</p>
             </a>
           </div>
 
           <div className="section-line">
-            <h5 className="blue">DELIVERY</h5>
+            <h5 className=" mar-bottom-8 black">DELIVERY</h5>
+            <div className="grey-line mar-bottom-4"></div>
             <p className="bold">{delivery}</p>
           </div>
         </div>
         <div>
           <div className="center-inline">
-            <h4 className="blue">HOURS</h4>
-            <p className="bold inline-block">{hoursFrom}</p>{" "}
-            <p className="bold inline-block">{hoursTo}</p>
+            <div className="flex align-center justify-center">
+            <h4 className="blue mar-right-8">HOURS</h4>
+            <FontAwesomeIcon icon = {faClock} className = 'blue icon-sm' />
+            </div>
+            <p className="bold inline-block">{getHours(hoursFrom)} -</p>{" "}
+            <p className="bold inline-block">{getHours(hoursTo)}</p>
           </div>
         </div>
       </section>
