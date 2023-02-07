@@ -63,11 +63,9 @@ const DropdownHolder = styled.div`
   width: 100%;
   top: 45px;
   @media only screen and (min-width: 600px) {
-    width: calc(100% - 18px);
+    width: 100%;
   }
-  @media only screen and (min-width: 1201px) {
-    top: 57.5px;
-  }
+  
 `;
 
 const Dropdown = styled.div`
