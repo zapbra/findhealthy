@@ -12,6 +12,8 @@ const Cont = styled.div`
   width: 300px;
   height: 100%;
   padding: 8px;
+  border-top: 2px solid ${(props) => props.colors.darkPink};
+  border-bottom: 2px solid ${(props) => props.colors.darkPink};
   .radius-content {
     & > div {
       background-color: ${(props) => props.colors.tan};
@@ -149,10 +151,29 @@ const Sidebar = ({tagsFetch}) => {
   const submitForm = handleSubmit(async (formData) => {});
   return (
     <Cont colors={COLORS} >
-      <div className="form" onSubmit={submitForm}>
-      <div className="center-inline">
+      <div className="center-inline mar-bottom-16">
         <h4>FILTERS</h4>
       </div>
+      <div className="input-line">
+        <div className="flex align-center">
+          <h4 className="text-shadow-red mar-right-8">Products</h4>
+          <FontAwesomeIcon icon = {faEgg} className = 'icon-ssm red' />
+          </div>
+          <Searchbar 
+          text = {text}
+          updateText = {updateText}
+          removeSearchTag = {removeSearchTag}
+          pushTag = {pushSearchTag}
+          pushSearchTag = {pushSearchTag}
+          tags = {searchTags}
+          submitSearch = {submitSearch}
+          removeTag = {removeTag}
+          filterTags = {filterTags}
+          colors = {COLORS}
+          />
+        </div>
+      <div className="form" onSubmit={submitForm}>
+      
       <div className="input-line">
         <div className="flex align-center mar-bottom-8 ">
         <h4 className="text-shadow-red mar-right-8">Your Location</h4>
@@ -274,9 +295,9 @@ const Sidebar = ({tagsFetch}) => {
                   placeholder="40..."
                   name="radiusText"
                   id="radiusText"
-                  className="mar-right-4"
+                  className="mar-right-4 flex-one"
                 />
-                <p className="bold red inline-block">km</p>
+                <p className="flex-one bold red inline-block">km</p>
               </div>
             </label>
           </div>
@@ -285,24 +306,7 @@ const Sidebar = ({tagsFetch}) => {
         
         </div>
       </div>
-      <div className="input-line">
-        <div className="flex align-center">
-          <h4 className="text-shadow-red mar-right-8">Products</h4>
-          <FontAwesomeIcon icon = {faEgg} className = 'icon-ssm red' />
-          </div>
-          <Searchbar 
-          text = {text}
-          updateText = {updateText}
-          removeSearchTag = {removeSearchTag}
-          pushTag = {pushSearchTag}
-          pushSearchTag = {pushSearchTag}
-          tags = {searchTags}
-          submitSearch = {submitSearch}
-          removeTag = {removeTag}
-          filterTags = {filterTags}
-          colors = {COLORS}
-          />
-        </div>
+      
     </Cont>
   );
 };
