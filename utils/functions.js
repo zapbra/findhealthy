@@ -38,3 +38,23 @@ export const shootFireworks = () => {
       stringRes[0] = stringRes[0].toUpperCase();
       return stringRes.join('');
   }
+  
+  export const getHours = (hours) => {
+    let timezone;
+    let [hoursSplit, minutes] = hours.split(':');
+    hoursSplit = Number(hoursSplit);
+    if (Number(hoursSplit) < 12) {
+      timezone = 'AM';
+    } else {
+      timezone = 'PM';
+      if (hoursSplit == 12) {
+      } else if (hoursSplit == 24) {
+        hoursSplit = 12;
+        timezone = 'AM';
+      } else {
+        hoursSplit = hoursSplit - 12;
+      }
+    }
+  
+    return `${hoursSplit}:${minutes} ${timezone}`;
+  }
