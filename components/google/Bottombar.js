@@ -302,7 +302,8 @@ const Bottombar = ({
       return false;
     }
   };
-
+  const serviceRatingRef = useRef(null);
+  const createButtonRef = useRef(null);
   const clearForm = () => {
     setValue("name", "");
     setValue("description", "");
@@ -369,13 +370,13 @@ const Bottombar = ({
         formData.email,
         numberOrganize.join(""),
         selectedTags,
-        formData.grassFed,
-        formData.organic,
-        formData.vaccineFree,
-        formData.pastureRaised,
-        formData.soyFree,
-        formData.dewormerFree,
-        formData.unfrozen,
+        optionalFields.grassFed.value,
+        optionalFields.organic.value,
+        optionalFields.vaccineFree.value,
+        optionalFields.pastureRaised.value,
+        optionalFields.soyFree.value,
+        optionalFields.dewormerFree.value,
+        optionalFields.unfrozens.value,
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
@@ -394,13 +395,13 @@ const Bottombar = ({
         formData.email,
         numberOrganize.join(""),
         selectedTags,
-        formData.grassFed,
-        formData.organic,
-        formData.vaccineFree,
-        formData.pastureRaised,
-        formData.soyFree,
-        formData.dewormerFree,
-        formData.unfrozen,
+        optionalFields.grassFed.value,
+        optionalFields.organic.value,
+        optionalFields.vaccineFree.value,
+        optionalFields.pastureRaised.value,
+        optionalFields.soyFree.value,
+        optionalFields.dewormerFree.value,
+        optionalFields.unfrozens.value,
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
@@ -1095,18 +1096,19 @@ const Bottombar = ({
            <p>Optional</p> 
            <div className="flex mar-bottom-8 space-between flex-wrap">
            <h5 className="black">Product Specifications</h5>
-           <p className="underline ">Skip Section</p>
+           <p onClick = {()=>serviceRatingRef.current.scrollIntoView({ behavior: "smooth", block: "center" })} className="underline bold-hover ">Skip Section</p>
+           
            </div>
            <div className="grey-line mar-bottom-16"></div>
            {optionalfieldElems}
            </div>
 
-           <div className="optional-fields">
+           <div className="optional-fields" ref = {serviceRatingRef}>
 
            <p>Optional</p> 
            <div className="flex mar-bottom-8 space-between flex-wrap">
-           <h5 className="black">Service Rating</h5>
-           <p className="underline ">Skip Section</p>
+           <h5 className="black" >Service Rating</h5>
+           <p className="underline bold-hover" onClick = {()=>createButtonRef.current.scrollIntoView({ behavior: "smooth", block: "center" })}>Skip Section</p>
            </div>
            <div className="grey-line mar-bottom-16"></div>
            <div className="stars ">
@@ -1473,8 +1475,8 @@ const Bottombar = ({
             type="submit"
             className="align-center justify-center blue-btn-one box-shadow-2 mar-bottom-32"
           >
-            <h3 className="mar-right-8">Create</h3>
-            <FontAwesomeIcon icon={faLocationDot} className="blue icon-med" />
+            <h3 className="mar-right-8" ref = {createButtonRef}>Create</h3>
+            <FontAwesomeIcon icon={faLocationDot} className="white icon-med" />
           </button>
         </form>
       )}

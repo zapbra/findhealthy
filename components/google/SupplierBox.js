@@ -49,6 +49,7 @@ const Cont = styled.div`
   }
   li {
     margin-bottom: 8px;
+    display:block;
   }
   .image-holder {
     position: relative;
