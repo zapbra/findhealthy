@@ -96,6 +96,7 @@ const Sidebar = ({tagsFetch}) => {
     setSearchTags((prevTags) => {
       return [...prevTags, tag];
     });
+    setText('')
   }
 
   useEffect(()=> {
