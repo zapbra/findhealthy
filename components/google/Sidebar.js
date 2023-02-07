@@ -4,6 +4,7 @@ import COLORS from "../../data/colors";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import Searchbar from "../search/Searchbar";
 
 const Cont = styled.form`
   background-color: ${(props) => props.colors.tan};
@@ -31,6 +32,11 @@ const Sidebar = () => {
     setValue,
     formState: { errors },
   } = useForm();
+
+  const [text, setText] = useState('');
+  const updateText = (e) => {
+    set
+  }
 
   const submitForm = handleSubmit(async (formData) => {});
   return (
@@ -164,19 +170,9 @@ const Sidebar = () => {
         </div>
 
         <div className="input-line">
-          <h4 className="text-shadow-red">Location</h4>
+          <h4 className="text-shadow-red">Products</h4>
 
-          <input
-            {...register("name", {
-              required: true,
-            })}
-            type="text"
-            placeholder="900 Bank St..."
-            name="name"
-          />
-          {errors.name?.type === "required" && (
-            <p className="error">*Name is required</p>
-          )}
+          <Searchbar />
         </div>
       </div>
     </Cont>
