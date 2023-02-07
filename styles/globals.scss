@@ -25,7 +25,12 @@ $darkGrey: #533F45;
 $light-blue: #278ffd;
 $light-blue-2: #88c1ff;
 $light-green: #27fd55;
-
+.no-color-link{
+  h1,h2,h3,h4,h5{
+    color:$darkPink;
+  text-decoration-color: inherit !important;
+  }
+}
 .image-upload-btn {
   border-radius: 32px;
   border: 1px solid $grey;
@@ -169,9 +174,16 @@ textarea {
     padding: 4px;
   }
 }
+.bold-hover{
+  cursor:pointer;
+  &:hover{
+    font-weight:600;
+  }
+}
 input[type="text"],
 input[type="email"], input[type='password']{
   border: 1px solid $darkPink;
+  
   background-color: $light-beige;
   font-size: 18px;
   outline: none;
@@ -254,9 +266,10 @@ li{
       content:'•';
       margin-right: 4px;
     }
+
   }
   .price{
-    
+    flex-shrink: 0;
     
     padding: 2px 4px;
     display:inline-block;
@@ -345,6 +358,12 @@ li{
   font-weight:600;
 
 }
+.black-line{
+  height:1px;
+  width:100%;
+  background-color: $redGrey;
+  
+}
 .tag-holder {
   max-height: 300px;
   overflow: auto;
@@ -378,9 +397,7 @@ li{
 }
 
 .product-tag {
-  border: 1px solid $darkPink;
-  padding: 2px 4px;
-  background-color: $light-beige;
+  
 
   &:hover {
     background-color: #fff;

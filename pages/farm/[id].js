@@ -84,7 +84,7 @@ const Preview = ({ location }) => {
         </div>
         <div className="flex align-center flex-wrap mar-bottom-16">
           <p
-            className="inline-block mar-right-8"
+            className="inline-block mar-right-8 bold box-shadow-2 white-bg"
             style={{ border: "1px solid #192430", padding: "4px 8px" }}
           >
             Tags

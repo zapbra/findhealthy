@@ -94,3 +94,4 @@ const StarReview = ({ field, stars, updateStarsFunc }) => {
 };
 
 export default StarReview;
+

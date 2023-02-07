@@ -95,10 +95,11 @@ $light-red:rgb(253, 39, 39);
 .black-btn{
   background: rgb(51,78,104);
   background: linear-gradient(90deg, rgba(51,78,104,1) 0%, rgba(25,36,48,1) 51%, rgba(51,78,104,1) 100%);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: 8px 16px;
   transition: box-shadow .25s ease;
   cursor:pointer;
+  border-radius: 8px;
   h3,h4,h5{
     color: $offWhite;
   }
