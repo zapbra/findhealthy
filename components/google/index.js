@@ -5,9 +5,12 @@ import MarkerComponent from "./MarkerComponent";
 import Alert from "../popups/alert";
 import Suppliers from "./Suppliers";
 import { useState, useCallback, useEffect } from "react";
-import { insertCountries } from "../../utils/supabaseFunctions";
+import Sidebar from "./Sidebar";
 const Cont = styled.div`
   min-height: 100vh;
+  .google-holder{
+    display:flex;
+  }
 `;
 
 const containerStyle = {
@@ -144,8 +147,9 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   return isLoaded ? (
     <Cont>
       {adding && <Alert />}
-
-      <GoogleMap
+    <div className="google-holder">
+      <Sidebar />
+    <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={7}
@@ -156,6 +160,9 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
       >
         {markers}
       </GoogleMap>
+
+    </div>
+      
 
       <Bottombar
         adding={adding}
