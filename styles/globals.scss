@@ -226,6 +226,9 @@ li {
 
 .google-dropdown {
   border: 1px solid $darkPink;
+  position: absolute;
+  width:100%;
+  z-index:1;
   li {
     background: #fff;
     border-bottom: 1px solid $darkPink;

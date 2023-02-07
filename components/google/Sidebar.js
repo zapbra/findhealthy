@@ -10,6 +10,8 @@ import { PlacesAutocomplete } from "./Bottombar";
 
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
+  flex-shrink: 0;
+  
   width: 300px;
   height: 100%;
   padding: 8px;
@@ -28,7 +30,7 @@ const Cont = styled.div`
     justify-content: space-between;
   }
 `;
-const Sidebar = ({tagsFetch}) => {
+const Sidebar = ({tagsFetch, updateCoords}) => {
   const {
     handleSubmit,
     register,
@@ -180,7 +182,7 @@ const Sidebar = ({tagsFetch}) => {
         <div className="flex align-center mar-bottom-8 ">
         <h4 className="text-shadow-red mar-right-8">Your Location</h4>
     <FontAwesomeIcon icon = {faLocationDot} className = 'red icon-ssm' /></div>
-        <PlacesAutocomplete setAddress={setAddress} location = {location} setLocation = {setLocation} />
+        <PlacesAutocomplete setAddress={setAddress} location = {location} setLocation = {setLocation} updateCoords = {updateCoords} />
         {errors.name?.type === "required" && (
           <p className="error">*Name is required</p>
         )}

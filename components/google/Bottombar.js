@@ -42,6 +42,7 @@ import Dropdown from "./Dropdown";
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
   padding: 16px;
+  
   form {
     position: relative;
   }
@@ -1491,6 +1492,7 @@ export const PlacesAutocomplete = ({
   location,
   setLocation,
   setAddress,
+  updateCoords = null
 }) => {
   const {
     ready,
@@ -1528,23 +1530,59 @@ export const PlacesAutocomplete = ({
       clearSuggestions();
     }, 200);
 
+    if(updateCoords !== null) {
+      updateCoords({coords:{latitude:lat, longitude:lng}});
+    }
+
     //const results = await getGeocode({ address: description });
     //const { lat, lng } = await getLatLng(results[0]);
 
     //setSelected({ lat, lng });
   };
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  useEffect(()=> {
+
+  },[])
+  const handleClickOutside = useCallback(
+    (e) => {
+      
+      if (
+        showDropdown &&
+        e.target.closest(".dropdown") !== dropdownEl.current
+      ) {
+        setShowDropdown(false);
+        
+      }
+    },
+    [showDropdown, setShowDropdown, dropdownEl]
+  );
+
+  const dropdownEl = useRef(null);
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [handleClickOutside]);
 
   return (
-    <div className="mar-bottom-32">
+    <div className="mar-bottom-32 relative">
       <p className="italic mar-bottom-4">Select from the dropdown</p>
+      <div className="dropdown" ref= {dropdownEl}>
       <input
         value={value}
         type="text"
         placeholder="Search an address"
         onChange={(e) => setValue(e.target.value)}
         id="address-input"
+        onFocus={()=>setShowDropdown(true)}
+        
       />
-      <ul className="google-dropdown">
+      </div>
+      {showDropdown && (
+        <ul className="google-dropdown">
         {data.map((address, index) => {
           return (
             <li key={index} onClick={() => handleSelect(address)}>
@@ -1553,6 +1591,8 @@ export const PlacesAutocomplete = ({
           );
         })}
       </ul>
+      )}
+      
     </div>
   );
 };

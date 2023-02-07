@@ -148,8 +148,8 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
     <Cont>
       {adding && <Alert />}
     <div className="google-holder">
-      <Sidebar tagsFetch = {tagsFetch} />
-      
+      <Sidebar tagsFetch = {tagsFetch} updateCoords = {updateCoords} />
+       
     <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
