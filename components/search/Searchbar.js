@@ -36,7 +36,7 @@ const FormDropdown = styled.form`
   display: flex;
   justify-content: flex-end;
   position: relative;
-  padding: 0.5rem;
+  
 `;
 
 const InputLine = styled.input`
@@ -47,8 +47,11 @@ const InputLine = styled.input`
   border-radius: 0.5rem !important;
   font-size: 1.25rem;
   margin-left: auto;
+  outline:none;
   &:focus {
     border-radius: 0.5rem 0.5rem 0 0 !important;
+    outline:none !important;
+    border: 2px solid #AC3B61;
   }
   @media only screen and (max-width: 440px) {
     width: 100%;
@@ -57,8 +60,8 @@ const InputLine = styled.input`
 
 const DropdownHolder = styled.div`
   position: absolute;
-  width: calc(100% - 16px);
-  top: 51.5px;
+  width: 100%;
+  top: 45px;
   @media only screen and (min-width: 600px) {
     width: calc(100% - 18px);
   }
@@ -68,6 +71,7 @@ const DropdownHolder = styled.div`
 `;
 
 const Dropdown = styled.div`
+z-index:5;
   position: relative;
   width: 100%;
   border: 1px solid black;
@@ -122,7 +126,7 @@ const Searchbar = (props) => {
           id={tag.id}
           className="item"
         >
-          <p>{tag.name}</p>
+          <p className = 'bold'>{tag.name}</p>
         </div>
       );
     }
