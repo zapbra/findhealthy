@@ -141,8 +141,8 @@ const Navbar = () => {
       <div className="nav-mobile">
         <div className="nav-mobile-content">
           <div className="flex align-center flex-wrap">
-            <Link href="/" className="mar-right-16">
-              <h4>FIND HEALTHY</h4>
+            <Link href="/" className="mar-right-16 no-color-link text-shadow-red ">
+              <h4>FINDHEALTHY</h4>
             </Link>
             {user !== null ? (
               <Link href="/account">
