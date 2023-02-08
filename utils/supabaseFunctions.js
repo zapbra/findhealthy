@@ -385,6 +385,18 @@ export const createImage = async (url, deleteHash, location_id) => {
   }
 };
 
+export const deleteImage = async (id) => {
+  try {
+    const { data, error } = await supabase.from('images')
+    .eq('id', id)
+    ;
+    if(error) throw error;
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const createImageFetch = async (url, deleteHash, location_id) => {
   try {
     const { data, error } = await supabase

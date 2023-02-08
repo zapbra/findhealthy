@@ -153,7 +153,9 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
         imageArr.push(
           <div
             key={i}
-            onClick={() => selectImage(imagesCopy[i].url)}
+            onClick={() => 
+                   selectImage(imagesCopy[i].url)
+            }
             className={
               imagesCopy[i].url === previewUrl
                 ? "selected-image image-select"
@@ -161,7 +163,11 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
             }
           >
             <div className="absolute-center">
-            <div onClick={() => imageInputRef?.current?.click()} className="image-upload-btn padding-8">
+            <div onClick={() => {
+                imageInputRef.current.id = i;
+                imageInputRef?.current?.click()
+            
+            }} className="image-upload-btn padding-8">
                   
                   <FontAwesomeIcon icon={faUpload} className="icon-ssm blue" />
                 </div>
@@ -209,16 +215,19 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
   const imageInputRef = useRef(null);
   useEffect(() => {}, []);
 
-  const uploadImage = async (event) => {
+  const uploadImage = async (event, id) => {
     if (!event.target.files || event.target.files.length === 0) {
       alert("You must select an image to upload.");
       return;
     }
+    const image = imagesCopy[id];
+    console.log(image);
+    /*
     setLoading({ state: true, msg: "Uploading image..." });
     const file = event.target.files[0];
     let formData = new FormData();
     formData.append("image", file);
-
+    
     try {
       const response = await fetch("https://api.imgur.com/3/upload", {
         method: "POST",
@@ -297,6 +306,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
         },
       });
     }
+    */
   };
 
   return (
@@ -317,7 +327,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       {showPhotoDisplay && (
         <PhotoDisplay selectedImage={previewUrl} hidePhoto={hidePhoto} />
       )}
-      <input ref={imageInputRef} type="file" onChange={uploadImage} hidden />
+      <input id='0' ref={imageInputRef} type="file" onChange={(e) =>uploadImage(e, e.target.id)} hidden />
       <div className="hero-image-section dark-blue-bg">
         {previewUrl !== null ? (
           <div onClick={setPhotoDisplayVisible} className="image-holder ">
