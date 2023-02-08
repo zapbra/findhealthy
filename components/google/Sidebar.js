@@ -51,6 +51,17 @@ const Sidebar = ({
   } = useForm();
 
   const [radius, setRadius] = useState("5km");
+  const [radiusText, setRadiusText] = useState('');
+
+  const updateRadiusText = (e) => {
+    const val = e.target.value;
+    
+    if(/^[0-9]*$/.test(val)){
+      setRadiusText(val);
+    }
+    
+  }
+  
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState("");
   const [tags, setTags] = useState([]);
@@ -140,11 +151,13 @@ const Sidebar = ({
           Math.sin(φ1) * Math.sin(φ2) +
             Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)
         ) * R;
-        
-      if(d/1000 <= Number(radius.match(/[0-9]*/))) return true;
+        const curRadius = radiusText != '' ? Number(radiusText) : Number(radius.match(/[0-9]*/));
+      if(d/1000 <= curRadius) return true;
     });
     return returnLocations;
   };
+
+
 
   const filterLocationsByTags = () => {
     return locations.filter((location) =>
@@ -156,8 +169,7 @@ const Sidebar = ({
   const applyFilter = () => {
     let locationsFilter = filterLocationsByTags();
     locationsFilter = latitudeCalc(locationsFilter);
-    console.log('xxxxxxxx')
-    console.log(locationsFilter);
+    setLocationsFilter(locationsFilter);
   };
   function submitSearch(e) {
     e.preventDefault();
@@ -196,6 +208,10 @@ const Sidebar = ({
     });
   };
   console.log(radius);
+
+  const check = () => {
+
+  }
 
   const submitForm = handleSubmit(async (formData) => {});
   return (
@@ -243,9 +259,9 @@ const Sidebar = ({
             <div className="radius-header flex">
               <div className="flex-inline align-center">
                 <h4 className="text-shadow-red mar-right-8">Radius</h4>
-                <FontAwesomeIcon icon={faCircle} className="red icon-ssm" />
+                
               </div>
-              <FontAwesomeIcon icon={faChevronDown} className="red icon-ssm" />
+              <FontAwesomeIcon icon={faCircle} className="red icon-ssm" />
             </div>
             <div className="input-line flex flex-wrap">
               <label htmlFor="5km">
@@ -350,6 +366,7 @@ const Sidebar = ({
             </div>
           </div>
         </div>
+        <div onClick = {check}><p>check</p></div>
         <div onClick={applyFilter} className="blue-btn-one">
           <h5>Search</h5>
         </div>
