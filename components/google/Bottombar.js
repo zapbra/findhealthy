@@ -705,16 +705,18 @@ const Bottombar = ({
   
   const startAddingFunctional = () => {
     startAdding();
-    const input = document.getElementById('address-input');
+    setTimeout(()=> {
+      const input = document.querySelectorAll('#address-input');
+      input[1].focus();
+    input[1].classList.add("scale-pop-anim");
 
-    console.log(input);
-    /*input.focus();
-    input.classList.add("scale-pop-anim");
-
-      input.scrollIntoView({ behavior: "smooth", block: "center" });
+      input[1].scrollIntoView({ behavior: "smooth", block: "center" });
       setTimeout(() => {
-        input.classList.remove("scale-pop-anim");
-      }, 1000); */
+        input[1].classList.remove("scale-pop-anim");
+      }, 1000); 
+    },[20])
+    
+    
   }
   return (
     <Cont colors={COLORS}>

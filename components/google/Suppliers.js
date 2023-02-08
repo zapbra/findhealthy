@@ -58,7 +58,7 @@ const Suppliers = () => {
   return (
     <Cont colors = {COLORS}>
         <div className="title-spec center-inline">
-        <h2 className>POPULAR FOOD SUPPLIERS!</h2>
+        <h2 >POPULAR FOOD SUPPLIERS!</h2>
         <div className="slanted-bg box-shadow">
 
         </div>

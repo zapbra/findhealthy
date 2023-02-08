@@ -132,8 +132,7 @@ const Sidebar = ({
     }, 500);
     return () => clearTimeout(delayType);
   }, [text]);
-  console.log("location");
-  console.log(locations);
+ 
   
   const latitudeCalc = (locationsFilter) => {
    
@@ -208,7 +207,7 @@ const Sidebar = ({
       return val.toLowerCase();
     });
   };
-  console.log(radius);
+ 
 
  
 
@@ -272,7 +271,7 @@ const Sidebar = ({
                     value="5"
                     id="5km"
                     checked={radius == "5km"}
-                    defaultChecked
+                    
                   />
                   <p className="mar-left-4">5km</p>
                 </div>
