@@ -388,6 +388,7 @@ export const createImage = async (url, deleteHash, location_id) => {
 export const deleteImage = async (id) => {
   try {
     const { data, error } = await supabase.from('images')
+    .delete()
     .eq('id', id)
     ;
     if(error) throw error;

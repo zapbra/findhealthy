@@ -71,6 +71,7 @@ const Preview = ({ location }) => {
     "They sell grass fed beef, pasture raised chicken (fresh) and they also sell fresh organs every few months or so. They do deliveries to the Parkdale market every Saturday between 11:00 AM and 1:30 PM";
   return (
     <Cont colors={COLORS} className="default-page box-shadow-2">
+      <Toaster />
       <div className="header flex flex-wrap space-between align-center">
         <div className="flex align-center mar-bottom-16">
           <h3 className="text-shadow-red mar-right-16">{location.name}</h3>

@@ -222,7 +222,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
         const res = await response.json();
         if (res.status == 200) {
             console.log('imgur deleted')
-            const deleteRes = await deleteImage(image.ig);
+            const deleteRes = await deleteImage(image.id);
             if(deleteRes){
                 console.log('supabase deleted')
                 toast.success('image deleted');
@@ -273,7 +273,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       return;
     }
     const image = imagesCopy[id];
-    deleteImgurImage(image);
+    const deleteStatus = await deleteImgurImage(image);
 
     /*
     setLoading({ state: true, msg: "Uploading image..." });
