@@ -41,7 +41,7 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
     formState: { errors },
   } = useForm();
 
-  
+  const [radius, setRadius] = useState('5km');
   
   const [tags, setTags] = useState([]);
   const [searchTags, setSearchTags] = useState([]);
@@ -114,17 +114,21 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
   console.log('search tags')
   console.log(searchTags);
 
-  const latiudeCalc = (e, lat = 45, lng = 75) => {
-    const [locLat, locLng] = [locations[0].address[0].lat,locations[0].address[0].lng];
-    const distance = {lat:Math.abs(Math.abs(lat) - Math.abs(Number(locLat))), lng: Math.abs(Math.abs(lng) - Math.abs(Number(locLng)))};
-    const rise = distance.lat / distance.lng;
-    console.log(lngUnit * rise);
+  const latiudeCalc = (e, lat1 = 45.310768, lon1 = -76.071320) => {
+    const [lat2, lon2] = [locations[0].address[0].lat,locations[0].address[0].lng];
+    const φ1 = lat1 * Math.PI/180, φ2 = lat2 * Math.PI/180, Δλ = (lon2-lon1) * Math.PI/180, R = 6371e3;
+    const d = Math.acos( Math.sin(φ1)*Math.sin(φ2) + Math.cos(φ1)*Math.cos(φ2) * Math.cos(Δλ) ) * R;
+    console.log(d/1000);
   }
-  const applyFilter = () => {
-    /*
+
+  const filterLocationsByTags = () => {
+    
     setLocationsFilter(prev=> {
       return prev.filter(location=>searchTags.every(searchTag=>location.tags.some(tag=>tag == searchTag.name)));
-    })*/
+    })
+  }
+  const applyFilter = () => {
+    let locationsFilter = filterLocationsByTags();
   }
   function submitSearch(e) {
     e.preventDefault();
@@ -162,6 +166,7 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
       return val.toLowerCase();
     });
   }
+  console.log(radius);
   const [address, setAddress] = useState('');
   const [location, setLocation] = useState('');
   const submitForm = handleSubmit(async (formData) => {});
@@ -214,12 +219,12 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
             <label htmlFor="5km">
               <div className="flex align-center mar-right-8">
                 <input
-                  {...register("radius", {
-                    required: true,
-                  })}
+                  name = 'radius'
+                  onChange={()=>setRadius('5km')}
                   type="radio"
                   value="5"
                   id="5km"
+                  checked = {radius == '5km'}
                   defaultChecked
                 />
                 <p className="mar-left-4">5km</p>
@@ -229,11 +234,11 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
             <label htmlFor="10km">
               <div className="flex align-center mar-right-8">
                 <input
-                  {...register("radius", {
-                    required: true,
-                  })}
+                  name = 'radius'
+                  onChange={()=>setRadius('10km')}
                   type="radio"
                   id="10km"
+                  checked = {radius == '10km'}
                   value="10"
                 />
                 <p className="mar-left-4">10km</p>
@@ -243,11 +248,11 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
             <label htmlFor="25km">
               <div className="flex align-center mar-right-8">
                 <input
-                  {...register("radius", {
-                    required: true,
-                  })}
+                  name = 'radius'
+                  onChange={()=>setRadius('25km')}
                   type="radio"
                   id="25km"
+                  checked = {radius == '25km'}
                   value="25"
                 />
                 <p className="mar-left-4">25km</p>
@@ -257,11 +262,11 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
             <label htmlFor="50km">
               <div className="flex align-center mar-right-8">
                 <input
-                  {...register("radius", {
-                    required: true,
-                  })}
+                  name = 'radius'
+                  onChange={()=>setRadius('50km')}
                   type="radio"
                   id="50km"
+                  checked = {radius == '50km'}
                   value="50"
                 />
                 <p className="mar-left-4">50km</p>
@@ -271,11 +276,11 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
             <label htmlFor="100km">
               <div className="flex align-center mar-right-8">
                 <input
-                  {...register("radius", {
-                    required: true,
-                  })}
+                  name = 'radius'
+                  onChange={()=>setRadius('100km')}
                   type="radio"
                   id="100km"
+                  checked = {radius == '100km'}
                   value="100"
                 />
                 <p className="mar-left-4">100km</p>
@@ -285,11 +290,11 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
             <label htmlFor="200km">
               <div className="flex align-center mar-right-8">
                 <input
-                  {...register("radius", {
-                    required: true,
-                  })}
+                  name = 'radius'
+                  onChange={()=>setRadius('200km')}
                   type="radio"
                   id="200km"
+                  checked = {radius == '200km'}
                   value="200"
                 />
                 <p className="mar-left-4">200km</p>
@@ -316,7 +321,7 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
 
         
         </div>
-        <div className="blue-btn-one">
+        <div onClick = {applyFilter} className="blue-btn-one">
           <h5>Search</h5>
         </div>
       </form>
