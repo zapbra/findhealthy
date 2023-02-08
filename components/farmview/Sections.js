@@ -68,7 +68,7 @@ const Cont = styled.div`
   }
   .product-item {
     border-bottom: 1px solid ${props=>props.colors.grey};
-  padding-bottom: 16px;
+    padding-bottom: 16px;
     margin-bottom: 16px;
     h5 {
       margin-right: 8px;

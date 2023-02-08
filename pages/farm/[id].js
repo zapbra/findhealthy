@@ -3,6 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import ImageSection from "../../components/farmview/ImageSection";
+import EditImageSection from '../../components/farmview/EditImageSection';
 import Sections from "../../components/farmview/Sections";
 import supabase from "../../utils/supabaseClient";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -108,13 +109,15 @@ const Preview = ({ location }) => {
         )}
       </div>
 
-      <ImageSection
+      
+      {editMode ? (
+        <>
+        <EditImageSection
         images={images}
         location_id={location.id}
         user_id={user.id}
         post_user_id={location.user?.id || null}
       />
-      {editMode ? (
         <EditSections
           products={location.products}
           description={location.description}
@@ -138,7 +141,15 @@ const Preview = ({ location }) => {
           howToOrder={location.howToOrder}
           location_id={location.id}
         />
+        </>
       ) : (
+        <>
+        <ImageSection
+        images={images}
+        location_id={location.id}
+        user_id={user.id}
+        post_user_id={location.user?.id || null}
+      />
         <Sections
           products={location.products}
           description={location.description}
@@ -161,6 +172,7 @@ const Preview = ({ location }) => {
           friendly={location.friendly}
           howToOrder={location.howToOrder}
         />
+        </>
       )}
     </Cont>
   );

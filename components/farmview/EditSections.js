@@ -97,21 +97,28 @@ const Cont = styled.form`
     }
   }
   .product-item {
+    border-bottom: 1px solid ${props=>props.colors.grey};
+    padding-bottom: 16px;
     margin-bottom: 16px;
     h5 {
       margin-right: 8px;
     }
 
-    .product-content {
-      border: 1px solid ${(props) => props.colors.grey};
-      padding: 4px 8px;
-      background-color: ${(props) => props.colors.lightBeige};
+     .product-content {
+      display:flex;
+      justify-content: space-between;
+      h5::before{
+      content:'•';
+      margin-right: 4px;
+    }
+      
+      
       flex-wrap: wrap;
     }
 
     .price {
       background-color: #fff;
-      border: 1px solid ${(props) => props.colors.grey};
+      
     }
   }
   .description-text {
@@ -460,7 +467,7 @@ const Sections = ({
   const productElems = productsCopy.map((product, index) => {
     return (
       <li key={index} className="product-item">
-        <div className="flex-inline product-content align-center">
+        <div className="flex product-content align-center">
           <h5 className="black mar-right-8">{product.name}</h5>
           <p className="price mar-right-8">
             ${product.price} {product.dollarType}/{product.measurement}

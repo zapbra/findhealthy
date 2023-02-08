@@ -96,7 +96,7 @@ const Navbar = () => {
     <Cont colors={COLORS} id="navbar">
       <div className="nav-desktop">
         <Link href="/" className = 'no-color-link text-shadow-red'>
-          <h5 className="inline-block mar-right-32 ">FINDHEALTHY</h5>
+          <h5 className="inline-block mar-right-32">FINDHEALTHY</h5>
         </Link>
         {user !== null ? (
           <Link href="/account">
