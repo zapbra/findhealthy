@@ -105,7 +105,7 @@ const Cont = styled.div`
 `;
 
 const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
-  const [previewUrl, setPreviewUrl] = useState(images[0] || null);
+  const [previewUrl, setPreviewUrl] = useState(images[0].url || null);
   const [loading, setLoading] = useState({ state: false, msg: "" });
   const selectImage = (url) => {
     if (previewUrl === url) return;
@@ -120,10 +120,10 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       <div
         key={index}
         className={
-          image === previewUrl ? "selected-image image-select" : "image-select"
+          image.url === previewUrl ? "selected-image image-select" : "image-select"
         }
       >
-        <img src={image} />
+        <img src={image.url} />
       </div>
     );
   });
@@ -136,14 +136,14 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
         imageArr.push(
           <div
             key={i}
-            onClick={() => selectImage(imagesCopy[i])}
+            onClick={() => selectImage(imagesCopy[i].url)}
             className={
-              images[i] === previewUrl
+              imagesCopy[i].url == previewUrl
                 ? "selected-image image-select"
                 : "image-select"
             }
           >
-            <img src={imagesCopy[i]} />
+            <img src={imagesCopy[i].url} />
           </div>
         );
       } else {
@@ -217,7 +217,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
         console.log("xxx");
         console.log(uploadedImage);
         setImagesCopy((prev) => {
-          return [...prev, uploadedImage[0].url];
+          return [...prev, uploadedImage[0]];
         });
         setLoading({ state: false, msg: "" });
       } else {
@@ -249,7 +249,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       }
     } catch (err) {
       setLoading({ state: false, msg: "" });
-      console.log("cancer2");
+      
       console.log(err.message);
       setLoading({ state: false, msg: "" });
       toast("Error uploading image", {

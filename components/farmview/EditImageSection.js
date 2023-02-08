@@ -153,7 +153,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
         imageArr.push(
           <div
             key={i}
-            onClick={() => imageInputRef?.current?.click()}
+            onClick={() => selectImage(imagesCopy[i].url)}
             className={
               imagesCopy[i].url === previewUrl
                 ? "selected-image image-select"
@@ -161,7 +161,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
             }
           >
             <div className="absolute-center">
-            <div className="image-upload-btn padding-8">
+            <div onClick={() => imageInputRef?.current?.click()} className="image-upload-btn padding-8">
                   
                   <FontAwesomeIcon icon={faUpload} className="icon-ssm blue" />
                 </div>
@@ -191,10 +191,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
     }
     setImageElems(imageArr);
   }, [imagesCopy, previewUrl]);
-  useEffect(() => {
-    console.log("iamges...");
-    console.log(imageElems);
-  }, [imageElems]);
+  
   console.log("kkk");
   console.log(images);
   const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
@@ -323,7 +320,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       <input ref={imageInputRef} type="file" onChange={uploadImage} hidden />
       <div className="hero-image-section dark-blue-bg">
         {previewUrl !== null ? (
-          <div onClick={() => imageInputRef?.current?.click()} className="image-holder ">
+          <div onClick={setPhotoDisplayVisible} className="image-holder ">
             <div className="absolute-center">
             <div
               className="image-upload-btn"
