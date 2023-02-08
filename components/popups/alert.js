@@ -5,7 +5,7 @@ import COLORS from "../../data/colors";
 const Cont = styled.div`
   position: absolute;
   top: 25%;
-  left: 16px;
+  right: 16px;
   z-index: 5;
   max-width: 200px;
 `;

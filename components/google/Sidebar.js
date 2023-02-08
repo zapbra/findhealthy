@@ -210,9 +210,7 @@ const Sidebar = ({
   };
   console.log(radius);
 
-  const check = () => {
-
-  }
+ 
 
   const submitForm = handleSubmit(async (formData) => {});
   return (
@@ -367,7 +365,7 @@ const Sidebar = ({
             </div>
           </div>
         </div>
-        <div onClick = {check}><p>check</p></div>
+        
         <div onClick={applyFilter} className="blue-btn-one">
           <h5>Search</h5>
         </div>

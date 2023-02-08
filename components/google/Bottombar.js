@@ -670,8 +670,8 @@ const Bottombar = ({
       <div key= {nanoid} className="select-box-holder">
            <h5 className="black">{val.name}?</h5>
            <div className="select-box">
-            {['yes','no','unspecified'].map((fieldValue, index) => {
-              return (<div key = {index} className={ fieldValue == val.value ? "select-item selected-box": "select-item"}>
+            {['yes','no','unspecified'].map((fieldValue,) => {
+              return (<div key = {nanoid} className={ fieldValue == val.value ? "select-item selected-box": "select-item"}>
                <p>{fieldValue}</p>
             </div>)
             })}
@@ -690,7 +690,7 @@ const Bottombar = ({
           <div key= {nanoid} className="select-box-holder">
                <p className="black bold mar-bottom-4">{val.name}?</p>
                <div className="select-box">
-                {['yes','no','unspecified'].map((fieldValue, index) => {
+                {['yes','no','unspecified'].map((fieldValue) => {
                   return (<div onClick = {()=> updateFields(key, fieldValue)} key = {nanoid} className={ fieldValue == val.value ? "select-item selected-box": "select-item"}>
                    <p>{fieldValue}</p>
                 </div>)
@@ -703,6 +703,19 @@ const Bottombar = ({
     })
   },[optionalFields]);
   
+  const startAddingFunctional = () => {
+    startAdding();
+    const input = document.getElementById('address-input');
+
+    console.log(input);
+    /*input.focus();
+    input.classList.add("scale-pop-anim");
+
+      input.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        input.classList.remove("scale-pop-anim");
+      }, 1000); */
+  }
   return (
     <Cont colors={COLORS}>
       {loading.state && (
@@ -724,7 +737,7 @@ const Bottombar = ({
 
       <button
         disabled={adding}
-        onClick={startAdding}
+        onClick={startAddingFunctional}
         className="blue-btn-one  mar-bottom-8 mar-right-8"
       >
         <h4>ADD NEW LOCATION</h4>
