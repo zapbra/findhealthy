@@ -54,9 +54,7 @@ const Preview = ({ location }) => {
   console.log(location);
   console.log("location");
   const [images, setImages] = useState(
-    location.images.map((image) => {
-      return image.url;
-    })
+    location.images
   );
 
   const [editMode, setEditMode] = useState(false);
