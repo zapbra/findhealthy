@@ -304,7 +304,10 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
                 prevCopy.splice(id, 1);
               return [...prevCopy, uploadedImage[0]];
             });
-            setPreviewUrl({url:uploadedImage[0].url,id:uploadImage[0].id})
+            console.log('xx')
+            console.log(uploadedImage[0])
+            console.log('xx')
+            setPreviewUrl({url:uploadedImage[0].url,id:uploadedImage[0].id})
             setLoading({ state: false, msg: "" });
           } else {
             console.log(res);
@@ -336,30 +339,10 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
         } catch (err) {
           setLoading({ state: false, msg: "" });
           
-          setLoading({ state: false, msg: "" });
-          toast("Error uploading image", {
-            duration: 4000,
-            position: "top-center",
-    
-            // Styling
-            style: { border: "1px solid #E52323" },
-            className: "",
-    
-            // Custom Icon
-            icon: "⚠️",
-    
-            // Change colors of success/error/loading icon
-            iconTheme: {
-              primary: "#000",
-              secondary: "#fff",
-            },
-    
-            // Aria
-            ariaProps: {
-              role: "status",
-              "aria-live": "polite",
-            },
-          });
+          
+            
+            
+          
         }
     }
     
