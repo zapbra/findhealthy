@@ -38,7 +38,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   });
   useEffect(() => {
     setMarkers((prev) => {
-      return locations.map((location, index) => {
+      return locationsFilter.map((location, index) => {
         
         return (
           <MarkerComponent
@@ -62,7 +62,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         );
       });
     });
-  }, [locations]);
+  }, [locations, locationsFilter]);
 
   console.log(markers);
 
@@ -154,7 +154,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
       {adding && <Alert />}
     <div className="google-holder">
       <Sidebar tagsFetch = {tagsFetch} updateCoords = {updateCoords} locations = {locations} setLocationsFilter = {setLocationsFilter} />
-       {/*
+       
     <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -167,7 +167,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         {markers}
       </GoogleMap>
   
-  */}
+  
 
     </div>
       

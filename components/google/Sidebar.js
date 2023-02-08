@@ -15,12 +15,13 @@ import { PlacesAutocomplete } from "./Bottombar";
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
   flex-shrink: 0;
-
   width: 300px;
-  height: 100%;
   padding: 8px;
   border-top: 2px solid ${(props) => props.colors.darkPink};
   border-bottom: 2px solid ${(props) => props.colors.darkPink};
+  @media only screen and (max-width:900px){
+    width:200px;
+  }
   .radius-content {
     & > div {
       background-color: ${(props) => props.colors.tan};
@@ -263,7 +264,7 @@ const Sidebar = ({
               </div>
               <FontAwesomeIcon icon={faCircle} className="red icon-ssm" />
             </div>
-            <div className="input-line flex flex-wrap">
+            <div className="input-line flex flex-wrap space-between">
               <label htmlFor="5km">
                 <div className="flex align-center mar-right-8">
                   <input
