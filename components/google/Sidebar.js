@@ -42,7 +42,8 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
   } = useForm();
 
   const [radius, setRadius] = useState('5km');
-  
+  const [address, setAddress] = useState('');
+  const [location, setLocation] = useState('');
   const [tags, setTags] = useState([]);
   const [searchTags, setSearchTags] = useState([]);
   const [text, setText] = useState("");
@@ -111,10 +112,11 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
     }, 500);
     return () => clearTimeout(delayType);
   },[text])
-  console.log('search tags')
-  console.log(searchTags);
+  console.log('location')
+  console.log(address);
 
-  const latiudeCalc = (e, lat1 = 45.310768, lon1 = -76.071320) => {
+  const latitudeCalc = () => {
+    const [lat1, lon1] = [address.lat, address.lng];
     const [lat2, lon2] = [locations[0].address[0].lat,locations[0].address[0].lng];
     const φ1 = lat1 * Math.PI/180, φ2 = lat2 * Math.PI/180, Δλ = (lon2-lon1) * Math.PI/180, R = 6371e3;
     const d = Math.acos( Math.sin(φ1)*Math.sin(φ2) + Math.cos(φ1)*Math.cos(φ2) * Math.cos(Δλ) ) * R;
@@ -122,13 +124,12 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
   }
 
   const filterLocationsByTags = () => {
+    return locations.filter(location=>searchTags.every(searchTag=>location.tags.some(tag=>tag == searchTag.name)));
     
-    setLocationsFilter(prev=> {
-      return prev.filter(location=>searchTags.every(searchTag=>location.tags.some(tag=>tag == searchTag.name)));
-    })
   }
   const applyFilter = () => {
     let locationsFilter = filterLocationsByTags();
+    locationsFilter = latitudeCalc()
   }
   function submitSearch(e) {
     e.preventDefault();
@@ -167,16 +168,15 @@ const Sidebar = ({tagsFetch, updateCoords, locations, setLocationsFilter}) => {
     });
   }
   console.log(radius);
-  const [address, setAddress] = useState('');
-  const [location, setLocation] = useState('');
+  
   const submitForm = handleSubmit(async (formData) => {});
   return (
     <Cont colors={COLORS} >
       <div className="center-inline mar-bottom-16">
         <h4>FILTERS</h4>
       </div>
-      <div style=  {{border:'1px solid black'}} onClick = {applyFilter}><p>Apply</p></div>
-      <div style=  {{border:'1px solid black'}} onClick = {latiudeCalc}><p>Calc</p></div>
+      
+      
       <div className="input-line">
         <div className="flex align-center">
           <h4 className="text-shadow-red mar-right-8">Products</h4>

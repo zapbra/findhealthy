@@ -65,7 +65,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   }, [locations]);
 
   console.log(markers);
-/*
+
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -84,7 +84,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
-  */
+  
   const updateLocation = (value) => {
     setLocation(value);
   };
@@ -148,7 +148,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(updateCoords);
   }, []);
-  const isLoaded = true;
+  
   return isLoaded ? (
     <Cont>
       {adding && <Alert />}
