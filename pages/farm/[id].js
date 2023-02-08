@@ -50,9 +50,7 @@ const Preview = ({ location }) => {
     fetchUser();
   }, []);
 
-  console.log("location");
-  console.log(location);
-  console.log("location");
+  
   const [images, setImages] = useState(
     location.images
   );
@@ -64,9 +62,7 @@ const Preview = ({ location }) => {
       return !prev;
     });
   };
-  console.log("origPoster");
-  console.log(origPoster);
-  console.log("origPoster");
+
   const description =
     "They sell grass fed beef, pasture raised chicken (fresh) and they also sell fresh organs every few months or so. They do deliveries to the Parkdale market every Saturday between 11:00 AM and 1:30 PM";
   return (

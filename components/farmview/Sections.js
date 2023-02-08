@@ -179,8 +179,7 @@ const Sections = ({
   quality,
   friendly,
 }) => {
-  console.log('HOURS');
-  console.log(hoursFrom);
+
   const [productElems, setProductElems] = useState(
     products.map((product, index) => {
       return (

@@ -120,11 +120,11 @@ const Cont = styled.div`
 `;
 
 const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
-  const [previewUrl, setPreviewUrl] = useState(images[0].url || null);
+  const [previewUrl, setPreviewUrl] = useState({url:images[0].url, id:images[0].id} || null);
   const [loading, setLoading] = useState({ state: false, msg: "" });
-  const selectImage = (url) => {
-    if (previewUrl === url) return;
-    setPreviewUrl(url);
+  const selectImage = (url, id) => {
+    if (previewUrl.url === url) return;
+    setPreviewUrl({url, id});
     imageRef.current.classList.add("opacity-anim-fast");
     setTimeout(() => {
       imageRef.current.classList.remove("opacity-anim-fast");
@@ -136,7 +136,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       <div
         key={index}
         className={
-          image.url === previewUrl ? "selected-image image-select" : "image-select"
+          image.url === previewUrl.url ? "selected-image image-select" : "image-select"
         }
       >
         <img src={image.url} />
@@ -155,10 +155,10 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
           <div
             key={i}
             onClick={() => 
-                   selectImage(imagesCopy[i].url)
+                   selectImage(imagesCopy[i].url, imagesCopy[i].id)
             }
             className={
-              imagesCopy[i].url === previewUrl
+              imagesCopy[i].url === previewUrl.url
                 ? "selected-image image-select"
                 : "image-select"
             }
@@ -199,8 +199,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
     setImageElems(imageArr);
   }, [imagesCopy, previewUrl]);
   
-  console.log("kkk");
-  console.log(images);
+  
   const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
 
   const setPhotoDisplayVisible = () => {
@@ -222,14 +221,14 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
         });
         const res = await response.json();
         if (res.status == 200) {
-            console.log('imgur deleted')
+            
             const deleteRes = await deleteImage(image.id);
             if(deleteRes){
-                console.log('supabase deleted')
+                
                 toast.success('image deleted');
                 return true;
             } else{
-                console.log('supabase error')
+                
                 toast.error('Error deleting image')
             }
         } else {
@@ -299,13 +298,13 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
               res.data.deletehash,
               location_id
             );
-            console.log("xxx");
-            console.log(uploadedImage);
+            
             setImagesCopy((prev) => {
                 let prevCopy = prev;
-                
-              return [...prev, uploadedImage[0]];
+                prevCopy.splice(id, 1);
+              return [...prevCopy, uploadedImage[0]];
             });
+            setPreviewUrl({url:uploadedImage[0].url,id:uploadImage[0].id})
             setLoading({ state: false, msg: "" });
           } else {
             console.log(res);
@@ -336,8 +335,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
           }
         } catch (err) {
           setLoading({ state: false, msg: "" });
-          console.log("cancer2");
-          console.log(err.message);
+          
           setLoading({ state: false, msg: "" });
           toast("Error uploading image", {
             duration: 4000,
@@ -384,11 +382,11 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
         </div>
       )}
       {showPhotoDisplay && (
-        <PhotoDisplay selectedImage={previewUrl} hidePhoto={hidePhoto} />
+        <PhotoDisplay selectedImage={previewUrl?.url} hidePhoto={hidePhoto} />
       )}
       <input id='0' ref={imageInputRef} type="file" onChange={(e) =>uploadImage(e, e.target.id)} hidden />
       <div className="hero-image-section dark-blue-bg">
-        {previewUrl !== null ? (
+        {previewUrl?.url !== null ? (
           <div onClick={setPhotoDisplayVisible} className="image-holder ">
             <div className="absolute-center">
             <div
@@ -399,7 +397,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
               <FontAwesomeIcon icon={faUpload} className="icon-lg blue" />
             </div>
             </div>
-            <img className = 'header-image' ref={imageRef} src={previewUrl} />
+            <img className = 'header-image' ref={imageRef} src={previewUrl?.url} />
           </div>
         ) : (
           <div className="template gradient-bg-2">
