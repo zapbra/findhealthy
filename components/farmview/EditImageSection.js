@@ -6,7 +6,7 @@ import PhotoDisplay from "../popups/PhotoDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
-import { createImageFetch } from "../../utils/supabaseFunctions";
+import { createImageFetch, deleteImage } from "../../utils/supabaseFunctions";
 const Cont = styled.div`
   .hero-image-section {
     display: grid;
@@ -210,6 +210,58 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
     setShowPhotoDisplay(false);
   };
 
+  const deleteImgurImage = async (image) => {
+    
+    try {
+        const response = await fetch(`https://api.imgur.com/3/image/${image.deleteHash}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
+          },
+        });
+        const res = await response.json();
+        if (res.status == 200) {
+            console.log('imgur deleted')
+            const deleteRes = await deleteImage(image.ig);
+            if(deleteRes){
+                console.log('supabase deleted')
+                toast.success('image deleted');
+                return true;
+            } else{
+                console.log('supabase error')
+                toast.error('Error deleting image')
+            }
+        } else {
+          toast("Error deleting image", {
+            duration: 4000,
+            position: "top-center",
+
+            // Styling
+            style: { border: "1px solid #E52323" },
+            className: "",
+
+            // Custom Icon
+            icon: "⚠️",
+
+            // Change colors of success/error/loading icon
+            iconTheme: {
+              primary: "#000",
+              secondary: "#fff",
+            },
+
+            // Aria
+            ariaProps: {
+              role: "status",
+              "aria-live": "polite",
+            },
+          });
+        }
+      } catch (err) {
+        console.log(err.message);
+        return false;
+      } 
+      return false;
+  }
   const imageRef = useRef(null);
 
   const imageInputRef = useRef(null);
@@ -221,7 +273,8 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       return;
     }
     const image = imagesCopy[id];
-    console.log(image);
+    deleteImgurImage(image);
+
     /*
     setLoading({ state: true, msg: "Uploading image..." });
     const file = event.target.files[0];
