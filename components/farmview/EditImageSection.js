@@ -120,7 +120,7 @@ const Cont = styled.div`
 `;
 
 const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
-  const [previewUrl, setPreviewUrl] = useState({url:images[0].url, id:images[0].id} || null);
+  const [previewUrl, setPreviewUrl] = useState({url:images[0].url, id:0} || null);
   const [loading, setLoading] = useState({ state: false, msg: "" });
   const selectImage = (url, id) => {
     if (previewUrl.url === url) return;
@@ -155,7 +155,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
           <div
             key={i}
             onClick={() => 
-                   selectImage(imagesCopy[i].url, imagesCopy[i].id)
+                   selectImage(imagesCopy[i].url, i)
             }
             className={
               imagesCopy[i].url === previewUrl.url
@@ -268,12 +268,13 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
   useEffect(() => {}, []);
 
   const uploadImage = async (event, id) => {
-
+    
     if (!event.target.files || event.target.files.length === 0) {
       alert("You must select an image to upload.");
       return;
     }
     const image = imagesCopy[id];
+    
     const deleteStatus = await deleteImgurImage(image);
 
     if(deleteStatus){
@@ -307,7 +308,12 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
             console.log('xx')
             console.log(uploadedImage[0])
             console.log('xx')
-            setPreviewUrl({url:uploadedImage[0].url,id:uploadedImage[0].id})
+            setPreviewUrl(prev => {
+                return {
+                ...prev, 
+                url:uploadedImage[0].url
+                }
+            })
             setLoading({ state: false, msg: "" });
           } else {
             console.log(res);
@@ -349,6 +355,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
     
   };
 
+  
   return (
     <Cont colors={COLORS}>
       {loading.state && (
@@ -370,11 +377,14 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       <input id='0' ref={imageInputRef} type="file" onChange={(e) =>uploadImage(e, e.target.id)} hidden />
       <div className="hero-image-section dark-blue-bg">
         {previewUrl?.url !== null ? (
-          <div onClick={setPhotoDisplayVisible} className="image-holder ">
+          <div className="image-holder ">
             <div className="absolute-center">
             <div
               className="image-upload-btn"
-              
+              onClick = {()=> {
+                imageInputRef.current.id = previewUrl.id;
+                imageInputRef.current.click()
+            }}
             >
               <h4 className="blue">UPLOAD</h4>
               <FontAwesomeIcon icon={faUpload} className="icon-lg blue" />
