@@ -21,6 +21,7 @@ p {
 }
 // Laptop view, base px 21, multiplier of 1.414
 @media only screen and (min-width: 1201px) {
+  
   .small {
     font-size: 14.4px;
   }

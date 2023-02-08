@@ -50,6 +50,15 @@ const Cont = styled.div`
       background-color: white;
       border: 1px solid ${(props) => props.colors.blue};
     }
+    @media only screen and (max-width:400px){
+        padding: 8px;
+        h4{
+            font-size:1.25rem;
+        }
+    }
+  }
+  .padding-8{
+    padding: 8px;
   }
   .small-template {
     display: flex;
@@ -102,6 +111,9 @@ const Cont = styled.div`
     cursor: default;
     border: 2px solid ${(props) => props.colors.darkPink};
   }
+  .header-image{
+    opacity:.5;
+  }
 `;
 
 const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
@@ -131,22 +143,31 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
   const [imageElems, setImageElems] = useState([]);
   useEffect(() => {
     const imageArr = [];
+    //loop of four because only 4 images limit
     for (let i = 0; i < 4; i++) {
+        // if image exists
       if (imagesCopy[i] !== undefined) {
         imageArr.push(
           <div
             key={i}
-            onClick={() => selectImage(imagesCopy[i])}
+            onClick={() => imageInputRef?.current?.click()}
             className={
               images[i] === previewUrl
                 ? "selected-image image-select"
                 : "image-select"
             }
           >
-            <img src={imagesCopy[i]} />
+            <div className="absolute-center">
+            <div className="image-upload-btn padding-8">
+                  
+                  <FontAwesomeIcon icon={faUpload} className="icon-ssm blue" />
+                </div>
+                </div>
+            <img src={imagesCopy[i]} className = 'header-image'/>
           </div>
         );
       } else {
+        //if image doesn't exist
         if (user_id === post_user_id) {
           imageArr.push(
             <div
@@ -299,8 +320,17 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       <input ref={imageInputRef} type="file" onChange={uploadImage} hidden />
       <div className="hero-image-section dark-blue-bg">
         {previewUrl !== null ? (
-          <div onClick={setPhotoDisplayVisible} className="image-holder ">
-            <img ref={imageRef} src={previewUrl} />
+          <div onClick={() => imageInputRef?.current?.click()} className="image-holder ">
+            <div className="absolute-center">
+            <div
+              className="image-upload-btn"
+              
+            >
+              <h4 className="blue">UPLOAD</h4>
+              <FontAwesomeIcon icon={faUpload} className="icon-lg blue" />
+            </div>
+            </div>
+            <img className = 'header-image' ref={imageRef} src={previewUrl} />
           </div>
         ) : (
           <div className="template gradient-bg-2">
