@@ -100,7 +100,7 @@ const Navbar = () => {
         </Link>
         {user !== null ? (
           <Link href="/account">
-            <div className="inline-block blue-btn-two">
+            <div className="inline-block black-btn">
               <h5>{user.user_metadata.username}</h5>
             </div>
           </Link>
