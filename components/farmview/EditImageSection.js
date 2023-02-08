@@ -130,6 +130,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       imageRef.current.classList.remove("opacity-anim-fast");
     }, 250);
   };
+  
   const imageElements = images.map((image, index) => {
     return (
       <div
@@ -268,6 +269,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
   useEffect(() => {}, []);
 
   const uploadImage = async (event, id) => {
+
     if (!event.target.files || event.target.files.length === 0) {
       alert("You must select an image to upload.");
       return;
@@ -275,91 +277,95 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
     const image = imagesCopy[id];
     const deleteStatus = await deleteImgurImage(image);
 
-    /*
-    setLoading({ state: true, msg: "Uploading image..." });
-    const file = event.target.files[0];
-    let formData = new FormData();
-    formData.append("image", file);
+    if(deleteStatus){
+        setLoading({ state: true, msg: "Uploading image..." });
+        const file = event.target.files[0];
+        let formData = new FormData();
+        formData.append("image", file);
+        
+        try {
+          const response = await fetch("https://api.imgur.com/3/upload", {
+            method: "POST",
+            body: formData,
+            headers: {
+              Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
+            },
+          });
     
-    try {
-      const response = await fetch("https://api.imgur.com/3/upload", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_IMGUR_ID}`,
-        },
-      });
-
-      const res = await response.json();
-      if (res.status == 200) {
-        const uploadedImage = await createImageFetch(
-          res.data.link,
-          res.data.deletehash,
-          location_id
-        );
-        console.log("xxx");
-        console.log(uploadedImage);
-        setImagesCopy((prev) => {
-          return [...prev, uploadedImage[0]];
-        });
-        setLoading({ state: false, msg: "" });
-      } else {
-        console.log(res);
-        setLoading({ state: false, msg: "" });
-        toast("Error uploading image", {
-          duration: 4000,
-          position: "top-center",
-
-          // Styling
-          style: { border: "1px solid #E52323" },
-          className: "",
-
-          // Custom Icon
-          icon: "⚠️",
-
-          // Change colors of success/error/loading icon
-          iconTheme: {
-            primary: "#000",
-            secondary: "#fff",
-          },
-
-          // Aria
-          ariaProps: {
-            role: "status",
-            "aria-live": "polite",
-          },
-        });
-      }
-    } catch (err) {
-      setLoading({ state: false, msg: "" });
-      console.log("cancer2");
-      console.log(err.message);
-      setLoading({ state: false, msg: "" });
-      toast("Error uploading image", {
-        duration: 4000,
-        position: "top-center",
-
-        // Styling
-        style: { border: "1px solid #E52323" },
-        className: "",
-
-        // Custom Icon
-        icon: "⚠️",
-
-        // Change colors of success/error/loading icon
-        iconTheme: {
-          primary: "#000",
-          secondary: "#fff",
-        },
-
-        // Aria
-        ariaProps: {
-          role: "status",
-          "aria-live": "polite",
-        },
-      });
+          const res = await response.json();
+          if (res.status == 200) {
+            const uploadedImage = await createImageFetch(
+              res.data.link,
+              res.data.deletehash,
+              location_id
+            );
+            console.log("xxx");
+            console.log(uploadedImage);
+            setImagesCopy((prev) => {
+                let prevCopy = prev;
+                
+              return [...prev, uploadedImage[0]];
+            });
+            setLoading({ state: false, msg: "" });
+          } else {
+            console.log(res);
+            setLoading({ state: false, msg: "" });
+            toast("Error uploading image", {
+              duration: 4000,
+              position: "top-center",
+    
+              // Styling
+              style: { border: "1px solid #E52323" },
+              className: "",
+    
+              // Custom Icon
+              icon: "⚠️",
+    
+              // Change colors of success/error/loading icon
+              iconTheme: {
+                primary: "#000",
+                secondary: "#fff",
+              },
+    
+              // Aria
+              ariaProps: {
+                role: "status",
+                "aria-live": "polite",
+              },
+            });
+          }
+        } catch (err) {
+          setLoading({ state: false, msg: "" });
+          console.log("cancer2");
+          console.log(err.message);
+          setLoading({ state: false, msg: "" });
+          toast("Error uploading image", {
+            duration: 4000,
+            position: "top-center",
+    
+            // Styling
+            style: { border: "1px solid #E52323" },
+            className: "",
+    
+            // Custom Icon
+            icon: "⚠️",
+    
+            // Change colors of success/error/loading icon
+            iconTheme: {
+              primary: "#000",
+              secondary: "#fff",
+            },
+    
+            // Aria
+            ariaProps: {
+              role: "status",
+              "aria-live": "polite",
+            },
+          });
+        }
     }
-    */
+    
+    
   };
 
   return (
