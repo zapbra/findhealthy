@@ -63,9 +63,9 @@ const Sidebar = ({
   };
 
   const [checkboxes, setCheckBoxes] = useState({
-    grassFed: { checked: false, name: "grassFed" },
-    organic: { checked: false, name: "organic" },
-    soyFree: { checked: false, name: "soyFree" },
+    grassFed: { checked: true, name: "grassFed" },
+    organic: { checked: true, name: "organic" },
+    soyFree: { checked: true, name: "soyFree" },
     unfrozen: { checked: false, name: "unfrozen" },
     dewormerFree: { checked: false, name: "dewormerFree" },
     pastureRaised: { checked: false, name: "pastureRaised" },
@@ -168,7 +168,14 @@ const Sidebar = ({
       )
     );
   };
-  const checkedBoxes = Object
+  console.log("lclclc");
+  console.log(locations);
+  const checkedBoxes = Object.entries(checkboxes)
+    .filter(([key, val]) => {
+      return val.checked;
+    })
+    .map((box) => box[0]);
+  const filterLocationsByCheckboxes = (locations) => {};
   const applyFilter = () => {
     let locationsFilter = filterLocationsByTags();
     locationsFilter = latitudeCalc(locationsFilter);
