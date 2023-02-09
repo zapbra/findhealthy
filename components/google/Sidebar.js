@@ -364,7 +364,12 @@ const Sidebar = ({
             </div>
           </div>
         </div>
-        
+        <div className="input-checkbox">
+        <label>
+          <p className = 'inline-block'>Grass Fed</p>
+        <input type = 'checkbox' />
+        </label>
+        </div>
         <div onClick={applyFilter} className="blue-btn-one">
           <h5>Search</h5>
         </div>
