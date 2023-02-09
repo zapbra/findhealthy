@@ -41,8 +41,14 @@ $yellow: #9fac3b;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     }
   }
-
+  
   &__menu {
+    input[type="text"]{
+      border-radius:0; 
+      &:focus{
+        outline:none;
+      }
+    }
     position: absolute;
     top: 100%;
     left: 0;
@@ -52,7 +58,7 @@ $yellow: #9fac3b;
     border-top: 0;
     background-color: #fff;
     z-index: 5;
-
+    
     &_items {
       max-height: 210px;
 

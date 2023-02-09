@@ -46,13 +46,7 @@ const Cont = styled.div`
   form {
     position: relative;
   }
-  .tag-three {
-    background-color: ${(props) => props.colors.darkBlue};
-    margin-right: 8px;
-    p {
-      color: ${(props) => props.colors.offWhite};
-    }
-  }
+
   .fake-form {
     max-width: 600px;
     margin: 0 auto;
@@ -364,7 +358,7 @@ const Bottombar = ({
         optionalFields.pastureRaised.value,
         optionalFields.soyFree.value,
         optionalFields.dewormerFree.value,
-        optionalFields.unfrozens.value,
+        optionalFields.unfrozen.value,
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
@@ -707,13 +701,13 @@ const Bottombar = ({
   const startAddingFunctional = () => {
     startAdding();
     setTimeout(() => {
-      const input = document.querySelectorAll("#address-input-1");
-      input[1].focus();
-      input[1].classList.add("scale-pop-anim");
+      const input = document.querySelectorAll("#address-input")[1];
+      input.focus();
+      input.classList.add("scale-pop-anim");
 
-      input[1].scrollIntoView({ behavior: "smooth", block: "center" });
+      input.scrollIntoView({ behavior: "smooth", block: "center" });
       setTimeout(() => {
-        input[1].classList.remove("scale-pop-anim");
+        input.classList.remove("scale-pop-anim");
       }, 1000);
     }, [20]);
   };
