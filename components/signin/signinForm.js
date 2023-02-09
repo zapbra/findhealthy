@@ -115,7 +115,7 @@ const SigninForm = ({ passwordState, togglePasswordState, updateHeight }) => {
             <p className="error">*Password is required</p>
           )}
           {errors.passwordSignIn?.type === "pattern" && (
-            <p className="error">*{errors.password.message}</p>
+            <p className="error">*{errors?.passwordSignIn?.message}</p>
           )}
         </div>
         <button type="submit" hidden></button>

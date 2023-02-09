@@ -6,17 +6,30 @@ import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { shootFireworks } from "../utils/functions";
-import supabase from '../utils/supabaseClient';
+import supabase from "../utils/supabaseClient";
 const Cont = styled.div`
-form {
+  padding: 32px;
+  form {
     max-width: 400px;
     margin: 0 auto;
+  }
+  .title {
+    background-color: ${(props) => props.colors.darkPink};
+    padding: 16px;
+    border-radius: 32px;
+    h3,
+    h4,
+    h5,
+    p {
+      color: ${(props) => props.colors.offWhite};
+    }
   }
   .input-line {
     h5 {
       margin-bottom: 8px;
     }
   }
+
   .tags-input-box {
     position: relative;
     padding: 0;
@@ -36,20 +49,20 @@ form {
   }
 `;
 const Welcome = () => {
-    const router = useRouter();
-  useEffect(()=> {
+  const router = useRouter();
+  useEffect(() => {
     shootFireworks();
-  },[]);
-    const {
-        handleSubmit,
-        register,
-        watch,
-        setValue,
-        formState: { errors },
-      } = useForm();
+  }, []);
+  const {
+    handleSubmit,
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
-      const [passwordState, setPasswordState] = useState("password");
-    const togglePasswordState = () => {
+  const [passwordState, setPasswordState] = useState("password");
+  const togglePasswordState = () => {
     setPasswordState((prev) => {
       if (prev === "password") {
         return "text";
@@ -59,28 +72,34 @@ const Welcome = () => {
     });
   };
 
-      const submitForm = handleSubmit(async (formData) => {
-        try{
-        const {data, error} = await supabase.auth.signInWithPassword({
-          email: formData.email,
-          password: formData.password
-        });
-        if (error) throw error;
-        router.push('/');
-      } catch (error) {
-        errorText.current.innerText = 'Incorrect email or password or you need to authenticate';
-      }
-
+  const submitForm = handleSubmit(async (formData) => {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
       });
- const errorText = useRef(null);
+      if (error) throw error;
+      router.push("/");
+    } catch (error) {
+      errorText.current.innerText =
+        "Incorrect email or password or you need to authenticate";
+    }
+  });
+  const errorText = useRef(null);
   return (
-    <Cont colors = {COLORS} className = 'default-page box-shadow-2'>
-<form onSubmit={submitForm}>
-       <div className="center-inline">
-    <h3 className = 'mar-bottom-16 underline'>THANKS FOR SIGNING UP</h3>
-    <p className = 'bold'>Please check your email for the authentication link, then sign in below </p>
-    <p className=" mar-bottom-32">(It might be in your junk folder)</p>
-    </div>
+    <Cont colors={COLORS} className="default-page box-shadow-2">
+      <form onSubmit={submitForm}>
+        <div className=" box-shadow-2 center-inline title mar-bottom-32">
+          <h3 className="mar-bottom-16 underline text-shadow-white">
+            THANKS FOR SIGNING UP
+          </h3>
+          <p className="bold">
+            Please check your email for the authentication link, then sign in
+            below{" "}
+          </p>
+          <p className=" mar-bottom-32">(It might be in your junk folder)</p>
+        </div>
+
         <div className="input-line">
           <h5>EMAIL</h5>
           <input
@@ -125,14 +144,14 @@ const Welcome = () => {
             <p className="error">*{errors.password.message}</p>
           )}
         </div>
-            <p ref = {errorText} className="error"></p>
-        
+        <p ref={errorText} className="error"></p>
+
         <button className="blue-btn-one">
           <h5>LOGIN</h5>
         </button>
       </form>
     </Cont>
-  )
-}
+  );
+};
 
 export default Welcome;

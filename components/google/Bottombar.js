@@ -31,7 +31,6 @@ import createLocation, {
   fetchCountryByName,
   createImage,
   createUserLocation,
-  
 } from "../../utils/supabaseFunctions";
 import CreateTag from "../inputs/CreateTag";
 import StarReview from "../inputs/StarReview";
@@ -43,7 +42,7 @@ import Dropdown from "./Dropdown";
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
   padding: 16px;
-  
+
   form {
     position: relative;
   }
@@ -85,8 +84,6 @@ const Cont = styled.div`
     margin-bottom: 32px;
   }
   .stars {
-    
-    
   }
 `;
 
@@ -214,8 +211,6 @@ const Bottombar = ({
         });
         const res = await response.json();
         if (res.status == 200) {
-         
-
           const uploadState = await createImage(
             res.data.link,
             res.data.deletehash,
@@ -285,21 +280,15 @@ const Bottombar = ({
           "aria-live": "polite",
         },
       });
-      const searchBarElem = document.querySelector(".google-dropdown");
-      searchBarElem.focus();
+      const searchBarElem = document.querySelectorAll("#address-input")[1];
+
       searchBarElem.classList.add("scale-pop-anim");
 
       searchBarElem.scrollIntoView({ behavior: "smooth", block: "center" });
+      searchBarElem.focus();
       setTimeout(() => {
         searchBarElem.classList.remove("scale-pop-anim");
       }, 1000);
-      const lines = document.querySelectorAll(".google-dropdown p");
-      lines.forEach((line) => {
-        line.classList.add("red-anim");
-        setTimeout(() => {
-          line.classList.remove("red-anim");
-        }, 1000);
-      });
 
       return false;
     }
@@ -346,7 +335,6 @@ const Bottombar = ({
     navbar.scrollIntoView({ behavior: "smooth", block: "center" });
     setLoading({ state: false, msg: "" });
   };
-  
 
   const createLocationFunc = async (formData) => {
     setLoading({ state: true, msg: "creating location..." });
@@ -605,7 +593,6 @@ const Bottombar = ({
     };
   }, [handleClickOutside2]);
 
-  
   const changeSelectedMeasureHandler = (item, name, index) => {
     setSelectedMeasure(item);
 
@@ -643,82 +630,93 @@ const Bottombar = ({
   };
 
   const [optionalFields, setOptionalFields] = useState({
-    grassFed:{name:'Grass Fed', value:'unspecified'},
-    organic:{name:'Organic', value:'unspecified'},
-    vaccineFree:{name:'Vaccine Free', value:'unspecified'},
-    pastureRaised:{name:'Pasture Raised', value:'unspecified'},
-    soyFree:{name:'Soy Free', value:'unspecified'},
-    dewormerFree:{name:'Dewormer Free', value:'unspecified'},
-    unfrozen:{name:'Unfrozen', value:'unspecified'},
+    grassFed: { name: "Grass Fed", value: "unspecified" },
+    organic: { name: "Organic", value: "unspecified" },
+    vaccineFree: { name: "Vaccine Free", value: "unspecified" },
+    pastureRaised: { name: "Pasture Raised", value: "unspecified" },
+    soyFree: { name: "Soy Free", value: "unspecified" },
+    dewormerFree: { name: "Dewormer Free", value: "unspecified" },
+    unfrozen: { name: "Unfrozen", value: "unspecified" },
   });
 
   const updateFields = (name, value) => {
-    
-    setOptionalFields(prev=> {
+    setOptionalFields((prev) => {
       return {
         ...prev,
-        [name]:{...prev[name], value:value}
-      }
-    })
-  }
+        [name]: { ...prev[name], value: value },
+      };
+    });
+  };
 
- 
-  
   // THESE TWO LINES ARE BREAKING THE CODE
-  const [optionalfieldElems, setOptionalFieldElems] = useState(Object.entries(optionalFields).map(([key, val],index) => {
-   
-    return (
-      <div  key = {index} className="select-box-holder">
-           <h5 className="black">{val.name}?</h5>
-           <div className="select-box">
-            {['yes','no','unspecified'].map((fieldValue, index) => {
-              return (<div key = {index} className={ fieldValue == val.value ? "select-item selected-box": "select-item"}>
-               <p>{fieldValue}</p>
-            </div>)
+  const [optionalfieldElems, setOptionalFieldElems] = useState(
+    Object.entries(optionalFields).map(([key, val], index) => {
+      return (
+        <div key={index} className="select-box-holder">
+          <h5 className="black">{val.name}?</h5>
+          <div className="select-box">
+            {["yes", "no", "unspecified"].map((fieldValue, index) => {
+              return (
+                <div
+                  key={index}
+                  className={
+                    fieldValue == val.value
+                      ? "select-item selected-box"
+                      : "select-item"
+                  }
+                >
+                  <p>{fieldValue}</p>
+                </div>
+              );
             })}
-            
-            
-           </div></div>
-    )
-  }));
-
-  useEffect(()=> {
-    
-    setOptionalFieldElems(prev=> {
-    
-      return Object.entries(optionalFields).map(([key, val],index) => {
-        return (
-          <div  key = {index} className="select-box-holder">
-               <p className="black bold mar-bottom-4">{val.name}?</p>
-               <div className="select-box">
-                {['yes','no','unspecified'].map((fieldValue, index) => {
-                  return (<div key = {index} onClick = {()=> updateFields(key, fieldValue)}  className={ fieldValue == val.value ? "select-item selected-box": "select-item"}>
-                   <p>{fieldValue}</p>
-                </div>)
-                })}
-                
-                
-               </div></div>
-        )
-      })
+          </div>
+        </div>
+      );
     })
-  },[optionalFields]);
-  
+  );
+
+  useEffect(() => {
+    setOptionalFieldElems((prev) => {
+      return Object.entries(optionalFields).map(([key, val], index) => {
+        return (
+          <div key={index} className="select-box-holder">
+            <p className="black bold mar-bottom-4">{val.name}?</p>
+            <div className="select-box">
+              {["yes", "no", "unspecified"].map((fieldValue, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => updateFields(key, fieldValue)}
+                    className={
+                      fieldValue == val.value
+                        ? "select-item selected-box"
+                        : "select-item"
+                    }
+                  >
+                    <p>{fieldValue}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      });
+    });
+  }, [optionalFields]);
+
   const startAddingFunctional = () => {
     startAdding();
-    setTimeout(()=> {
-      const input = document.querySelectorAll('#address-input');
+    setTimeout(() => {
+      const input = document.querySelectorAll("#address-input-1");
       input[1].focus();
-    input[1].classList.add("scale-pop-anim");
+      input[1].classList.add("scale-pop-anim");
 
       input[1].scrollIntoView({ behavior: "smooth", block: "center" });
       setTimeout(() => {
         input[1].classList.remove("scale-pop-anim");
-      }, 1000); 
-    },[20])
-    
-    
-  }
+      }, 1000);
+    }, [20]);
+  };
   return (
     <Cont colors={COLORS}>
       {loading.state && (
@@ -768,7 +766,7 @@ const Bottombar = ({
 
           <div className="input-line">
             <div className="input-line">
-              <h4 className = 'text-shadow-red'>PRODUCT TYPES *</h4>
+              <h4 className="text-shadow-red">PRODUCT TYPES *</h4>
               <div className="red-line mar-bottom-8"></div>
               <ProductTags
                 tags={tags}
@@ -780,7 +778,7 @@ const Bottombar = ({
           </div>
           <CreateTag addTag={addTag} tags={tags} />
           <div className="input-line">
-            <h4 className = 'text-shadow-red'>BUSINESS NAME *</h4>
+            <h4 className="text-shadow-red">BUSINESS NAME *</h4>
             <div className="red-line mar-bottom-8"></div>
             <input
               {...register("name", {
@@ -795,7 +793,7 @@ const Bottombar = ({
             )}
           </div>
           <div className="input-line">
-            <h4 className = 'text-shadow-red'>DESCRIPTION *</h4>
+            <h4 className="text-shadow-red">DESCRIPTION *</h4>
             <div className="red-line mar-bottom-8"></div>
             <p className="italic">How are their prices?</p>
             <p className="italic mar-bottom-4">What was your experience?</p>
@@ -813,8 +811,8 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4 className = 'text-shadow-red'>HOW TO ORDER</h4>
-              <div className="red-line"></div>
+            <h4 className="text-shadow-red">HOW TO ORDER</h4>
+            <div className="red-line"></div>
             <p className="italic">Do you need to order from their website?</p>
             <p className="italic mar-bottom-4">
               Is it pickup only on certain days?
@@ -830,7 +828,7 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4 className = 'text-shadow-red'>SPECIFIC PRODUCTS</h4>
+            <h4 className="text-shadow-red">SPECIFIC PRODUCTS</h4>
             <div className="red-line mar-bottom-8"></div>
             <p className="italic mar-bottom-4">
               Add more specic products to show exactly what they have
@@ -947,9 +945,9 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4 className = 'text-shadow-red'>HOURS</h4>
+            <h4 className="text-shadow-red">HOURS</h4>
             <div className="red-line mar-bottom-8"></div>
-            <h5 className = 'black'>From</h5>
+            <h5 className="black">From</h5>
             <input
               {...register("hoursFrom", {
                 required: false,
@@ -958,7 +956,7 @@ const Bottombar = ({
               name="hoursFrom"
               className="mar-bottom-8"
             />
-            <h5 className = 'black'>To</h5>
+            <h5 className="black">To</h5>
             <input
               {...register("hoursTo", {
                 required: false,
@@ -969,7 +967,7 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4 className = 'text-shadow-red'>PICKUP OR DELIVERY?</h4>
+            <h4 className="text-shadow-red">PICKUP OR DELIVERY?</h4>
             <div className="red-line mar-bottom-8"></div>
             <label htmlFor="pickupAndDelivery">
               <div className="flex align-center">
@@ -1036,7 +1034,7 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4 className ='text-shadow-red'>WEBSITE LINK</h4>
+            <h4 className="text-shadow-red">WEBSITE LINK</h4>
             <div className="red-line mar-bottom-8"></div>
             <input
               {...register("website", {
@@ -1057,7 +1055,7 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4 className ='text-shadow-red'>CONTACT INFO *</h4>
+            <h4 className="text-shadow-red">CONTACT INFO *</h4>
             <div className="red-line mar-bottom-8"></div>
             <p className="bold">Email</p>
             <input
@@ -1081,13 +1079,16 @@ const Bottombar = ({
           </div>
 
           <div className="input-line">
-            <h4 className = 'text-shadow-red'>UPLOAD IMAGE/S</h4>
-              <div className="red-line mar-bottom-8"></div>
-            
-            <div onClick={() => imageRef.current.click()} className="image-upload-btn">
-                  <h5 className="blue">UPLOAD</h5>
-                  <FontAwesomeIcon icon={faUpload} className="icon-med blue" />
-                </div>
+            <h4 className="text-shadow-red">UPLOAD IMAGE/S</h4>
+            <div className="red-line mar-bottom-8"></div>
+
+            <div
+              onClick={() => imageRef.current.click()}
+              className="image-upload-btn"
+            >
+              <h5 className="blue">UPLOAD</h5>
+              <FontAwesomeIcon icon={faUpload} className="icon-med blue" />
+            </div>
             <input
               ref={imageRef}
               type="file"
@@ -1102,29 +1103,45 @@ const Bottombar = ({
           </div>
 
           <div className="optional-fields mar-bottom-16">
+            <p>Optional</p>
+            <div className="flex mar-bottom-8 space-between flex-wrap">
+              <h5 className="black">Product Specifications</h5>
+              <p
+                onClick={() =>
+                  serviceRatingRef.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  })
+                }
+                className="underline bold-hover "
+              >
+                Skip Section
+              </p>
+            </div>
+            <div className="grey-line mar-bottom-16"></div>
+            <div className="flex flex-wrap space-between">
+              {optionalfieldElems}
+            </div>
+          </div>
 
-           <p>Optional</p> 
-           <div className="flex mar-bottom-8 space-between flex-wrap">
-           <h5 className="black">Product Specifications</h5>
-           <p onClick = {()=>serviceRatingRef.current.scrollIntoView({ behavior: "smooth", block: "center" })} className="underline bold-hover ">Skip Section</p>
-           </div>
-           <div className="grey-line mar-bottom-16"></div>
-           <div className="flex flex-wrap space-between">
-           {optionalfieldElems}
-           </div>
-          
-           
-           </div>
-
-           <div className="optional-fields" ref = {serviceRatingRef}>
-
-           <p>Optional</p> 
-           <div className="flex mar-bottom-8 space-between flex-wrap">
-           <h5 className="black" >Service Rating</h5>
-           <p className="underline bold-hover" onClick = {()=>createButtonRef.current.scrollIntoView({ behavior: "smooth", block: "center" })}>Skip Section</p>
-           </div>
-           <div className="grey-line mar-bottom-16"></div>
-           <div className="stars ">
+          <div className="optional-fields" ref={serviceRatingRef}>
+            <p>Optional</p>
+            <div className="flex mar-bottom-8 space-between flex-wrap">
+              <h5 className="black">Service Rating</h5>
+              <p
+                className="underline bold-hover"
+                onClick={() =>
+                  createButtonRef.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  })
+                }
+              >
+                Skip Section
+              </p>
+            </div>
+            <div className="grey-line mar-bottom-16"></div>
+            <div className="stars ">
               <StarReview
                 field={reviewFields.pricing.name}
                 stars={reviewFields.pricing.stars}
@@ -1141,15 +1158,17 @@ const Bottombar = ({
                 updateStarsFunc={updateReviewFields}
               />
             </div>
-           </div>
-          
+          </div>
+
           <div className="mar-bottom-32"></div>
           <button
             style={{ display: "flex", width: "100%" }}
             type="submit"
             className="align-center justify-center blue-btn-one box-shadow-2 mar-bottom-32"
           >
-            <h3 className="mar-right-8" ref = {createButtonRef}>Create</h3>
+            <h3 className="mar-right-8" ref={createButtonRef}>
+              Create
+            </h3>
             <FontAwesomeIcon icon={faLocationDot} className="white icon-med" />
           </button>
         </form>
@@ -1165,7 +1184,7 @@ export const PlacesAutocomplete = ({
   location,
   setLocation,
   setAddress,
-  updateCoords = null
+  updateCoords = null,
 }) => {
   const {
     ready,
@@ -1203,8 +1222,8 @@ export const PlacesAutocomplete = ({
       clearSuggestions();
     }, 200);
 
-    if(updateCoords !== null) {
-      updateCoords({coords:{latitude:lat, longitude:lng}});
+    if (updateCoords !== null) {
+      updateCoords({ coords: { latitude: lat, longitude: lng } });
     }
 
     //const results = await getGeocode({ address: description });
@@ -1214,18 +1233,14 @@ export const PlacesAutocomplete = ({
   };
   const [showDropdown, setShowDropdown] = useState(false);
 
-  useEffect(()=> {
-
-  },[])
+  useEffect(() => {}, []);
   const handleClickOutside = useCallback(
     (e) => {
-      
       if (
         showDropdown &&
-        e.target.closest(".dropdown") !== dropdownEl.current
+        e.target.closest(".dropdown-address") !== dropdownEl.current
       ) {
         setShowDropdown(false);
-        
       }
     },
     [showDropdown, setShowDropdown]
@@ -1243,29 +1258,27 @@ export const PlacesAutocomplete = ({
   return (
     <div className="mar-bottom-32 relative">
       <p className="italic mar-bottom-4">Select from the dropdown</p>
-      <div className="dropdown" ref= {dropdownEl}>
-      <input
-        value={value}
-        type="text"
-        placeholder="Search an address"
-        onChange={(e) => setValue(e.target.value)}
-        id="address-input"
-        onFocus={()=>setShowDropdown(true)}
-        
-      />
+      <div className="dropdown-address" ref={dropdownEl}>
+        <input
+          value={value}
+          type="text"
+          placeholder="Search an address"
+          onChange={(e) => setValue(e.target.value)}
+          id="address-input"
+          onFocus={() => setShowDropdown(true)}
+        />
       </div>
       {showDropdown && (
         <ul className="google-dropdown">
-        {data.map((address, index) => {
-          return (
-            <li key={index} onClick={() => handleSelect(address)}>
-              <p>{address.description}</p>
-            </li>
-          );
-        })}
-      </ul>
+          {data.map((address, index) => {
+            return (
+              <li key={index} onClick={() => handleSelect(address)}>
+                <p>{address.description}</p>
+              </li>
+            );
+          })}
+        </ul>
       )}
-      
     </div>
   );
 };

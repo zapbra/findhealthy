@@ -8,6 +8,7 @@ import {
   faLocationDot,
   faEgg,
 } from "@fortawesome/free-solid-svg-icons";
+import toast from "react-hot-toast";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import Searchbar from "../search/Searchbar";
 import { PlacesAutocomplete } from "./Bottombar";
@@ -23,7 +24,7 @@ const Cont = styled.div`
     width: 200px;
   }
   @media only screen and (max-width: 800px) {
-    
+    // DO THIS NEXT
   }
   .radius-content {
     & > div {
@@ -186,6 +187,41 @@ const Sidebar = ({
     });
   };
   const applyFilter = () => {
+    if (address == "") {
+      toast("Please select an address from the dropdown.", {
+        duration: 4000,
+        position: "top-center",
+
+        // Styling
+        style: { border: "1px solid #E52323", backgroundColor: "#eee2dc;" },
+        className: "",
+
+        // Custom Icon
+        icon: "👇",
+
+        // Change colors of success/error/loading icon
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+
+        // Aria
+        ariaProps: {
+          role: "status",
+          "aria-live": "polite",
+        },
+      });
+      const searchBarElem = document.querySelector("#address-input");
+      searchBarElem.focus();
+      searchBarElem.classList.add("scale-pop-anim");
+
+      searchBarElem.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        searchBarElem.classList.remove("scale-pop-anim");
+      }, 1000);
+
+      return;
+    }
     let locationsFilter = filterLocationsByTags();
     locationsFilter = filterLocationsByCheckboxes(locationsFilter);
     locationsFilter = latitudeCalc(locationsFilter);

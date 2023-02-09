@@ -184,6 +184,7 @@ const SignupForm = ({ passwordState, togglePasswordState }) => {
             <p className="error">*Passwords must match</p>
           )}
         </div>
+        <button type="submit" hidden></button>
       </form>
       <div className="signup-footer justify-center flex">
         {loading ? (

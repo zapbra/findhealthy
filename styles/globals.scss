@@ -196,10 +196,10 @@ input[type="checkbox"]{
   /* Not removed via appearance */
   margin: 0;
   font: inherit;
-  color: currentColor;
+  color: $darkPink;
   width: 1.15em;
   height: 1.15em;
-  border: 0.15em solid currentColor;
+  border: 0.15em solid $darkPink;
   border-radius: 0.15em;
   transform: translateY(-0.075em);
   display: grid;

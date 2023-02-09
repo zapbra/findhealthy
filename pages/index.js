@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Google from "../components/google/index";
 import styled from "styled-components";
+import COLORS from "../data/colors";
 import { Toaster } from "react-hot-toast";
 import {
   fetchLocations,
@@ -63,7 +64,7 @@ export default function Home({ locationsFetch, tagsFetch }) {
   };
 
   return (
-    <Cont>
+    <Cont colors={COLORS}>
       <Google
         locations={locations}
         tagsFetch={tags}
