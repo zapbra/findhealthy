@@ -63,9 +63,9 @@ const Sidebar = ({
   };
 
   const [checkboxes, setCheckBoxes] = useState({
-    grassFed: { checked: true, name: "grassFed" },
-    organic: { checked: true, name: "organic" },
-    soyFree: { checked: true, name: "soyFree" },
+    grassFed: { checked: false, name: "grassFed" },
+    organic: { checked: false, name: "organic" },
+    soyFree: { checked: false, name: "soyFree" },
     unfrozen: { checked: false, name: "unfrozen" },
     dewormerFree: { checked: false, name: "dewormerFree" },
     pastureRaised: { checked: false, name: "pastureRaised" },
@@ -168,18 +168,30 @@ const Sidebar = ({
       )
     );
   };
-  console.log("lclclc");
-  console.log(locations);
-  const checkedBoxes = Object.entries(checkboxes)
-    .filter(([key, val]) => {
-      return val.checked;
-    })
-    .map((box) => box[0]);
-  const filterLocationsByCheckboxes = (locations) => {};
+
+  const filterLocationsByCheckboxes = () => {
+    const checkedBoxes = Object.entries(checkboxes)
+      .filter(([key, val]) => {
+        return val.checked;
+      })
+      .map((box) => box[0]);
+
+    return locations.filter((location) => {
+      return checkedBoxes.every((box) => {
+        console.log("...");
+        console.log(locations[0][box] == "true");
+        return location[box] === true;
+      });
+    });
+  };
   const applyFilter = () => {
-    let locationsFilter = filterLocationsByTags();
-    locationsFilter = latitudeCalc(locationsFilter);
-    setLocationsFilter(locationsFilter);
+    //let locationsFilter = filterLocationsByTags();
+    let locationsFilter = filterLocationsByCheckboxes();
+    //locationsFilter = latitudeCalc(locationsFilter);
+    //setLocationsFilter(locationsFilter);
+
+    console.log("locations");
+    console.log(locationsFilter);
   };
   function submitSearch(e) {
     e.preventDefault();
