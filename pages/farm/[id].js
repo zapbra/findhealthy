@@ -3,7 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import ImageSection from "../../components/farmview/ImageSection";
-import EditImageSection from '../../components/farmview/EditImageSection';
+import EditImageSection from "../../components/farmview/EditImageSection";
 import Sections from "../../components/farmview/Sections";
 import supabase from "../../utils/supabaseClient";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,7 +42,7 @@ const Preview = ({ location }) => {
       if (session.session != null) {
         setUser(session.session.user);
 
-        if (session.session.user.id == location.user_id.id) {
+        if (session.session.user.id == location?.user_id?.id) {
           setOrigPoster(true);
         }
       }
@@ -50,10 +50,7 @@ const Preview = ({ location }) => {
     fetchUser();
   }, []);
 
-  
-  const [images, setImages] = useState(
-    location.images
-  );
+  const [images, setImages] = useState(location.images);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -104,69 +101,68 @@ const Preview = ({ location }) => {
         )}
       </div>
 
-      
       {editMode ? (
         <>
-        <EditImageSection
-        images={images}
-        location_id={location.id}
-        user_id={user.id}
-        post_user_id={location.user?.id || null}
-      />
-        <EditSections
-          products={location.products}
-          description={location.description}
-          address={location.address[0].full_address}
-          website={location.website}
-          email={location.email}
-          phone={location.number}
-          delivery={location.pickup}
-          hoursFrom={location.hoursFrom}
-          hoursTo={location.hoursTo}
-          grassFed={location.grassFed}
-          organic={location.organic}
-          vaccineFree={location.vaccineFree}
-          soyFree={location.soyFree}
-          pastureRaised={location.pastureRaised}
-          dewormerFree={location.dewormerFree}
-          unfrozen={location.unfrozen}
-          pricing={location.pricing}
-          quality={location.quality}
-          friendly={location.friendly}
-          howToOrder={location.howToOrder}
-          location_id={location.id}
-        />
+          <EditImageSection
+            images={images}
+            location_id={location.id}
+            user_id={user.id}
+            post_user_id={location.user?.id || null}
+          />
+          <EditSections
+            products={location.products}
+            description={location.description}
+            address={location.address[0].full_address}
+            website={location.website}
+            email={location.email}
+            phone={location.number}
+            delivery={location.pickup}
+            hoursFrom={location.hoursFrom}
+            hoursTo={location.hoursTo}
+            grassFed={location.grassFed}
+            organic={location.organic}
+            vaccineFree={location.vaccineFree}
+            soyFree={location.soyFree}
+            pastureRaised={location.pastureRaised}
+            dewormerFree={location.dewormerFree}
+            unfrozen={location.unfrozen}
+            pricing={location.pricing}
+            quality={location.quality}
+            friendly={location.friendly}
+            howToOrder={location.howToOrder}
+            location_id={location.id}
+          />
         </>
       ) : (
         <>
-        <ImageSection
-        images={images}
-        location_id={location.id}
-        user_id={user.id}
-        post_user_id={location.user?.id || null}
-      />
-        <Sections
-          products={location.products}
-          description={location.description}
-          address={location.address[0].full_address}
-          website={location.website}
-          email={location.email}
-          phone={location.number}
-          delivery={location.pickup}
-          hoursFrom={location.hoursFrom}
-          hoursTo={location.hoursTo}
-          grassFed={location.grassFed}
-          organic={location.organic}
-          vaccineFree={location.vaccineFree}
-          soyFree={location.soyFree}
-          pastureRaised={location.pastureRaised}
-          dewormerFree={location.dewormerFree}
-          unfrozen={location.unfrozen}
-          pricing={location.pricing}
-          quality={location.quality}
-          friendly={location.friendly}
-          howToOrder={location.howToOrder}
-        />
+          <ImageSection
+            images={images}
+            location_id={location.id}
+            user_id={user.id}
+            post_user_id={location.user?.id || null}
+          />
+          <Sections
+            products={location.products}
+            description={location.description}
+            address={location.address[0].full_address}
+            website={location.website}
+            email={location.email}
+            phone={location.number}
+            delivery={location.pickup}
+            hoursFrom={location.hoursFrom}
+            hoursTo={location.hoursTo}
+            grassFed={location.grassFed}
+            organic={location.organic}
+            vaccineFree={location.vaccineFree}
+            soyFree={location.soyFree}
+            pastureRaised={location.pastureRaised}
+            dewormerFree={location.dewormerFree}
+            unfrozen={location.unfrozen}
+            pricing={location.pricing}
+            quality={location.quality}
+            friendly={location.friendly}
+            howToOrder={location.howToOrder}
+          />
         </>
       )}
     </Cont>

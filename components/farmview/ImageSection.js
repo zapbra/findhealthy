@@ -105,7 +105,7 @@ const Cont = styled.div`
 `;
 
 const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
-  const [previewUrl, setPreviewUrl] = useState(images[0].url || null);
+  const [previewUrl, setPreviewUrl] = useState(images[0]?.url || null);
   const [loading, setLoading] = useState({ state: false, msg: "" });
   const selectImage = (url) => {
     if (previewUrl === url) return;
@@ -120,7 +120,9 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       <div
         key={index}
         className={
-          image.url === previewUrl ? "selected-image image-select" : "image-select"
+          image.url === previewUrl
+            ? "selected-image image-select"
+            : "image-select"
         }
       >
         <img src={image.url} />
@@ -249,7 +251,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       }
     } catch (err) {
       setLoading({ state: false, msg: "" });
-      
+
       console.log(err.message);
       setLoading({ state: false, msg: "" });
       toast("Error uploading image", {
