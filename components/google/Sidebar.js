@@ -22,6 +22,9 @@ const Cont = styled.div`
   @media only screen and (max-width: 900px) {
     width: 200px;
   }
+  @media only screen and (max-width: 800px) {
+    
+  }
   .radius-content {
     & > div {
       background-color: ${(props) => props.colors.tan};
@@ -169,7 +172,7 @@ const Sidebar = ({
     );
   };
 
-  const filterLocationsByCheckboxes = () => {
+  const filterLocationsByCheckboxes = (locations) => {
     const checkedBoxes = Object.entries(checkboxes)
       .filter(([key, val]) => {
         return val.checked;
@@ -178,20 +181,15 @@ const Sidebar = ({
 
     return locations.filter((location) => {
       return checkedBoxes.every((box) => {
-        console.log("...");
-        console.log(locations[0][box] == "true");
-        return location[box] === true;
+        return location[box] == "true";
       });
     });
   };
   const applyFilter = () => {
-    //let locationsFilter = filterLocationsByTags();
-    let locationsFilter = filterLocationsByCheckboxes();
-    //locationsFilter = latitudeCalc(locationsFilter);
-    //setLocationsFilter(locationsFilter);
-
-    console.log("locations");
-    console.log(locationsFilter);
+    let locationsFilter = filterLocationsByTags();
+    locationsFilter = filterLocationsByCheckboxes(locationsFilter);
+    locationsFilter = latitudeCalc(locationsFilter);
+    setLocationsFilter(locationsFilter);
   };
   function submitSearch(e) {
     e.preventDefault();
@@ -390,8 +388,8 @@ const Sidebar = ({
             </div>
           </div>
         </div>
-        <div className="flex space-between">
-          <label className="checkbox-label">
+        <div className="flex space-between flex-wrap">
+          <label className="checkbox-label ">
             <p className="mar-right-8 bold ">Grass Fed</p>
             <input
               type="checkbox"
@@ -409,7 +407,7 @@ const Sidebar = ({
             />
           </label>
         </div>
-        <div className="flex space-between">
+        <div className="flex space-between flex-wrap">
           <label className="checkbox-label">
             <p className="mar-right-8 bold ">Vaccine Free</p>
             <input
@@ -428,7 +426,7 @@ const Sidebar = ({
             />
           </label>
         </div>
-        <div className="flex space-between">
+        <div className="flex space-between flex-wrap">
           <label className="checkbox-label">
             <p className="mar-right-8 bold ">Unfrozen</p>
             <input

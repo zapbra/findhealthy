@@ -183,8 +183,9 @@ textarea {
 }
 
 .checkbox-label{
-  display:inline-flex;
+  display:flex;
   align-items: center;
+  
   margin-top: 1em;
 }
 input[type="checkbox"]{

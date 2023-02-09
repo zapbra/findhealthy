@@ -15,7 +15,7 @@ const Cont = styled.div`
 
 const containerStyle = {
   width: "100%",
-  height: "70vh",
+  height: "80vh",
 };
 
 const options = {
@@ -29,7 +29,7 @@ function createKey(location) {
 const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   const [location, setLocation] = useState("");
   const [locationsFilter, setLocationsFilter] = useState(locations);
- 
+
   const [markers, setMarkers] = useState([]);
   const [center, setCenter] = useState({
     lat: 45.4215,
@@ -61,8 +61,6 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
       });
     });
   }, [locations, locationsFilter]);
-
-  
 
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
@@ -156,19 +154,18 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           locations={locations}
           setLocationsFilter={setLocationsFilter}
         />
-        {/*
-    <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={7}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-        onClick={(e) => adding && addMarker(e)}
-        options={{ gestureHandling: "greedy" }}
-      >
-        {markers}
-      </GoogleMap>
-  */}
+
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={7}
+          onLoad={onLoad}
+          onUnmount={onUnmount}
+          onClick={(e) => adding && addMarker(e)}
+          options={{ gestureHandling: "greedy" }}
+        >
+          {markers}
+        </GoogleMap>
       </div>
 
       <Bottombar
