@@ -19,8 +19,8 @@ const Cont = styled.div`
   padding: 8px;
   border-top: 2px solid ${(props) => props.colors.darkPink};
   border-bottom: 2px solid ${(props) => props.colors.darkPink};
-  @media only screen and (max-width:900px){
-    width:200px;
+  @media only screen and (max-width: 900px) {
+    width: 200px;
   }
   .radius-content {
     & > div {
@@ -52,18 +52,25 @@ const Sidebar = ({
   } = useForm();
 
   const [radius, setRadius] = useState("5km");
-  const [radiusText, setRadiusText] = useState('');
+  const [radiusText, setRadiusText] = useState("");
 
   const updateRadiusText = (e) => {
     const val = e.target.value;
-    
-    if(/^[0-9]*$/.test(val)){
+
+    if (/^[0-9]*$/.test(val)) {
       setRadiusText(val);
     }
-    
-  }
-  
-  const [checkboxes, setCheckBoxes] = useState({"grassFed": {checked}})
+  };
+
+  const [checkboxes, setCheckBoxes] = useState({
+    grassFed: { checked: false, name: "grassFed" },
+    organic: { checked: false, name: "organic" },
+    soyFree: { checked: false, name: "soyFree" },
+    unfrozen: { checked: false, name: "unfrozen" },
+    dewormerFree: { checked: false, name: "dewormerFree" },
+    pastureRaised: { checked: false, name: "pastureRaised" },
+    vaccineFree: { checked: false, name: "vaccineFree" },
+  });
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState("");
   const [tags, setTags] = useState([]);
@@ -133,16 +140,11 @@ const Sidebar = ({
     }, 500);
     return () => clearTimeout(delayType);
   }, [text]);
- 
-  
+
   const latitudeCalc = (locationsFilter) => {
-   
     const [lat1, lon1] = [address.lat, address.lng];
     const returnLocations = locationsFilter.filter((location) => {
-      const [lat2, lon2] = [
-        location.address[0].lat,
-        location.address[0].lng,
-      ];
+      const [lat2, lon2] = [location.address[0].lat, location.address[0].lng];
       const φ1 = (lat1 * Math.PI) / 180,
         φ2 = (lat2 * Math.PI) / 180,
         Δλ = ((lon2 - lon1) * Math.PI) / 180,
@@ -152,13 +154,12 @@ const Sidebar = ({
           Math.sin(φ1) * Math.sin(φ2) +
             Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)
         ) * R;
-        const curRadius = radiusText != '' ? Number(radiusText) : Number(radius.match(/[0-9]*/));
-      if(d/1000 <= curRadius) return true;
+      const curRadius =
+        radiusText != "" ? Number(radiusText) : Number(radius.match(/[0-9]*/));
+      if (d / 1000 <= curRadius) return true;
     });
     return returnLocations;
   };
-
-
 
   const filterLocationsByTags = () => {
     return locations.filter((location) =>
@@ -167,6 +168,7 @@ const Sidebar = ({
       )
     );
   };
+  const checkedBoxes = Object
   const applyFilter = () => {
     let locationsFilter = filterLocationsByTags();
     locationsFilter = latitudeCalc(locationsFilter);
@@ -208,9 +210,15 @@ const Sidebar = ({
       return val.toLowerCase();
     });
   };
- 
 
- 
+  const toggleCheckbox = (field) => {
+    setCheckBoxes((prev) => {
+      return {
+        ...prev,
+        [field]: { ...prev[field], checked: !prev[field].checked },
+      };
+    });
+  };
 
   const submitForm = handleSubmit(async (formData) => {});
   return (
@@ -258,7 +266,6 @@ const Sidebar = ({
             <div className="radius-header flex">
               <div className="flex-inline align-center">
                 <h4 className="text-shadow-red mar-right-8">Radius</h4>
-                
               </div>
               <FontAwesomeIcon icon={faCircle} className="red icon-ssm" />
             </div>
@@ -272,7 +279,6 @@ const Sidebar = ({
                     value="5"
                     id="5km"
                     checked={radius == "5km"}
-                    
                   />
                   <p className="mar-left-4">5km</p>
                 </div>
@@ -351,8 +357,8 @@ const Sidebar = ({
                 <p className="red bold inline-block">Other</p>
                 <div className="flex align-center">
                   <input
-                    value = {radiusText}
-                    onChange = {updateRadiusText}
+                    value={radiusText}
+                    onChange={updateRadiusText}
                     type="text"
                     placeholder="40..."
                     name="radiusText"
@@ -365,18 +371,72 @@ const Sidebar = ({
             </div>
           </div>
         </div>
-       <div className="flex space-around">
-        <label className = 'checkbox-label'>
-          <p className = 'mar-right-8 bold '>Grass Fed</p>
-        <input type = 'checkbox' />
-        </label>
+        <div className="flex space-between">
+          <label className="checkbox-label">
+            <p className="mar-right-8 bold ">Grass Fed</p>
+            <input
+              type="checkbox"
+              checked={checkboxes["grassFed"].checked}
+              onClick={() => toggleCheckbox("grassFed")}
+            />
+          </label>
 
-        <label className = 'checkbox-label'>
-          <p className = 'mar-right-8 bold '>Organic</p>
-        <input type = 'checkbox' />
-        </label>
+          <label className="checkbox-label">
+            <p className="mar-right-8 bold ">Organic</p>
+            <input
+              type="checkbox"
+              checked={checkboxes["organic"].checked}
+              onClick={() => toggleCheckbox("organic")}
+            />
+          </label>
         </div>
-       
+        <div className="flex space-between">
+          <label className="checkbox-label">
+            <p className="mar-right-8 bold ">Vaccine Free</p>
+            <input
+              type="checkbox"
+              checked={checkboxes["vaccineFree"].checked}
+              onClick={() => toggleCheckbox("vaccineFree")}
+            />
+          </label>
+
+          <label className="checkbox-label">
+            <p className="mar-right-8 bold ">Soy Free</p>
+            <input
+              type="checkbox"
+              checked={checkboxes["soyFree"].checked}
+              onClick={() => toggleCheckbox("soyFree")}
+            />
+          </label>
+        </div>
+        <div className="flex space-between">
+          <label className="checkbox-label">
+            <p className="mar-right-8 bold ">Unfrozen</p>
+            <input
+              type="checkbox"
+              checked={checkboxes["unfrozen"].checked}
+              onClick={() => toggleCheckbox("unfrozen")}
+            />
+          </label>
+
+          <label className="checkbox-label">
+            <p className="mar-right-8 bold ">Dewormer Free</p>
+            <input
+              type="checkbox"
+              checked={checkboxes["dewormerFree"].checked}
+              onClick={() => toggleCheckbox("dewormerFree")}
+            />
+          </label>
+        </div>
+        <label className="checkbox-label">
+          <p className="mar-right-8 bold ">Pasture Raised</p>
+          <input
+            type="checkbox"
+            checked={checkboxes["pastureRaised"].checked}
+            onClick={() => toggleCheckbox("pastureRaised")}
+          />
+        </label>
+        <div className="mar-bottom-8"></div>
         <div onClick={applyFilter} className="blue-btn-one">
           <h5>Search</h5>
         </div>
