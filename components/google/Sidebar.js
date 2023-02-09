@@ -63,6 +63,7 @@ const Sidebar = ({
     
   }
   
+  const [checkboxes, setCheckBoxes] = useState({"grassFed": {checked}})
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState("");
   const [tags, setTags] = useState([]);
@@ -364,12 +365,18 @@ const Sidebar = ({
             </div>
           </div>
         </div>
-        <div className="input-checkbox">
-        <label>
-          <p className = 'inline-block'>Grass Fed</p>
+       <div className="flex space-around">
+        <label className = 'checkbox-label'>
+          <p className = 'mar-right-8 bold '>Grass Fed</p>
+        <input type = 'checkbox' />
+        </label>
+
+        <label className = 'checkbox-label'>
+          <p className = 'mar-right-8 bold '>Organic</p>
         <input type = 'checkbox' />
         </label>
         </div>
+       
         <div onClick={applyFilter} className="blue-btn-one">
           <h5>Search</h5>
         </div>
