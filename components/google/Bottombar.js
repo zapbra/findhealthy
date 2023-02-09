@@ -130,7 +130,17 @@ const Bottombar = ({
       };
     });
   };
-
+  const [optionalFields, setOptionalFields] = useState({
+    grassFed: { name: "Grass Fed", value: "unspecified" },
+    organic: { name: "Organic", value: "unspecified" },
+    vaccineFree: { name: "Vaccine Free", value: "unspecified" },
+    pastureRaised: { name: "Pasture Raised", value: "unspecified" },
+    soyFree: { name: "Soy Free", value: "unspecified" },
+    dewormerFree: { name: "Dewormer Free", value: "unspecified" },
+    unfrozen: { name: "Unfrozen", value: "unspecified" },
+  });
+  console.log("optioanl fields");
+  console.log(optionalFields);
   const updateProductValue = (e) => {
     const value = e.target.value;
     const regex = /^[0-9.$ ]*$/;
@@ -352,13 +362,13 @@ const Bottombar = ({
         formData.email,
         numberOrganize.join(""),
         selectedTags,
-        optionalFields.grassFed.value,
-        optionalFields.organic.value,
-        optionalFields.vaccineFree.value,
-        optionalFields.pastureRaised.value,
-        optionalFields.soyFree.value,
-        optionalFields.dewormerFree.value,
-        optionalFields.unfrozen.value,
+        optionalFields.grassFed.value == "yes" ? true : false,
+        optionalFields.organic.value == "yes" ? true : false,
+        optionalFields.vaccineFree.value == "yes" ? true : false,
+        optionalFields.pastureRaised.value == "yes" ? true : false,
+        optionalFields.soyFree.value == "yes" ? true : false,
+        optionalFields.dewormerFree.value == "yes" ? true : false,
+        optionalFields.unfrozen.value == "yes" ? true : false,
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
@@ -377,13 +387,13 @@ const Bottombar = ({
         formData.email,
         numberOrganize.join(""),
         selectedTags,
-        optionalFields.grassFed.value,
-        optionalFields.organic.value,
-        optionalFields.vaccineFree.value,
-        optionalFields.pastureRaised.value,
-        optionalFields.soyFree.value,
-        optionalFields.dewormerFree.value,
-        optionalFields.unfrozens.value,
+        optionalFields.grassFed.value == "yes" ? true : false,
+        optionalFields.organic.value == "yes" ? true : false,
+        optionalFields.vaccineFree.value == "yes" ? true : false,
+        optionalFields.pastureRaised.value == "yes" ? true : false,
+        optionalFields.soyFree.value == "yes" ? true : false,
+        optionalFields.dewormerFree.value == "yes" ? true : false,
+        optionalFields.unfrozens.value == "yes" ? true : false,
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
@@ -622,16 +632,6 @@ const Bottombar = ({
   const hidePhoto = () => {
     setShowPhotoDisplay(false);
   };
-
-  const [optionalFields, setOptionalFields] = useState({
-    grassFed: { name: "Grass Fed", value: "unspecified" },
-    organic: { name: "Organic", value: "unspecified" },
-    vaccineFree: { name: "Vaccine Free", value: "unspecified" },
-    pastureRaised: { name: "Pasture Raised", value: "unspecified" },
-    soyFree: { name: "Soy Free", value: "unspecified" },
-    dewormerFree: { name: "Dewormer Free", value: "unspecified" },
-    unfrozen: { name: "Unfrozen", value: "unspecified" },
-  });
 
   const updateFields = (name, value) => {
     setOptionalFields((prev) => {
