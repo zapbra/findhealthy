@@ -4,6 +4,7 @@ import COLORS from "../../data/colors";
 import PhotoDisplay from "../popups/PhotoDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { nanoid } from "nanoid";
+import IconSelect from "../inputs/IconSelect";
 import {
   faClose,
   faPlus,
@@ -827,6 +828,7 @@ const Bottombar = ({
             </div>
           </div>
           <CreateTag addTag={addTag} tags={tags} />
+          <IconSelect />
           <form className=" opacity-anim" onSubmit={submitForm}>
             <div className="input-line">
               <h4 className="text-shadow-red">BUSINESS NAME *</h4>
