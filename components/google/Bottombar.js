@@ -100,7 +100,7 @@ const Bottombar = ({
     setValue,
     formState: { errors },
   } = useForm();
-
+  const [selectedIcon, setSelectedIcon] = useState("/icons/meat.png");
   const [loading, setLoading] = useState({ state: false, msg: "" });
   const [images, setImages] = useState([]);
   const [tags, setTags] = useState([]);
@@ -828,7 +828,10 @@ const Bottombar = ({
             </div>
           </div>
           <CreateTag addTag={addTag} tags={tags} />
-          <IconSelect />
+          <IconSelect
+            selectedIcon={selectedIcon}
+            setSelectedIcon={setSelectedIcon}
+          />
           <form className=" opacity-anim" onSubmit={submitForm}>
             <div className="input-line">
               <h4 className="text-shadow-red">BUSINESS NAME *</h4>
