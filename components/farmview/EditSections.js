@@ -359,6 +359,8 @@ const Sections = ({
       numberOrganize.splice(4, 0, ")");
       numberOrganize.splice(5, 0, "-");
       numberOrganize.splice(9, 0, "-");
+      console.log('---');
+      console.log(formData)
       const locationId = await updateLocation(
         formData.name,
         formData.description,
@@ -368,21 +370,21 @@ const Sections = ({
         formData.website,
         formData.email,
         numberOrganize.join(""),
-        formData.grassFed.value == "yes" ? true : formData.grassFed.value == 'no' ? false : 'unspecified',
-        formData.organic.value == "yes" ? true :  formData.organic.value == 'no' ? false : 'unspecified',
-        formData.vaccineFree.value == "yes" ? true : formData.vaccineFree.value == 'no' ? false : 'unspecified',
-        formData.pastureRaised.value == "yes" ? true : formData.pastureRaised.value == 'no' ? false : 'unspecified',
-        formData.soyFree.value == "yes" ? true : formData.soyFree.value == 'no' ? false : 'unspecified',
-        formData.dewormerFree.value == "yes" ? true : formData.dewormerFree.value == 'no' ? false : 'unspecified',
-        formData.unfrozen.value == "yes" ? true : formData.unfrozen.value == 'no' ? false : 'unspecified',
+        formData.grassFed,
+        formData.organic,
+        formData.vaccineFree,
+        formData.pastureRaised,
+        formData.soyFree,
+        formData.dewormerFree,
+        formData.unfrozen,
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
         formData.howToOrder,
         location_id
       );
-      console.log('kkkk');
-      console.log(locationId);
+    console.log('---asd-asd');
+    console.log(formData.description);
       const addressState = await updateAddress(
         location_id,
         addressData.fullAddress,

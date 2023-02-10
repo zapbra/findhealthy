@@ -166,12 +166,11 @@ export const updateLocation = async (
         friendly,
         howToOrder,
       })
-      .eq('id', id)
-      .select(id);
+      .eq('id', id);
 
     if (error) throw error;
       
-    return data;
+    return true;
   } catch (error) {
     console.log(error);
     return error;
