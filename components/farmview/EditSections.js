@@ -29,7 +29,7 @@ import supabase from "../../utils/supabaseClient";
 import {
   createProduct,
   deleteProduct,
-  updateLocation,
+  updateLocation,//FIX THIS
   updateAddress,
 } from "../../utils/supabaseFunctions";
 const Cont = styled.form`
@@ -241,7 +241,7 @@ const Sections = ({
   });
 
   const [location, setLocation] = useState(address.full_address);
-  const updateLocation = (value) => {
+  const updateLocationElem = (value) => {
     setLocation(value);
   };
   console.log('address');
@@ -808,7 +808,7 @@ const Sections = ({
               <h5 className="blue">ADDRESS</h5>
               <PlacesAutocomplete
                 location={location}
-                setLocation={updateLocation}
+                setLocation={updateLocationElem}
                 setAddress={setAddressData}
               />
             </div>
