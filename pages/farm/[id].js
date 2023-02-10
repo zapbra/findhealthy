@@ -25,7 +25,9 @@ export const getServerSideProps = async (pageContext) => {
   const title = pageContext.query.title;
   const { data, error } = await supabase
     .from("locations")
-    .select("*, address(*,state_id(*), country_id(*)), products(*), images(*), user_id(id, username)")
+    .select(
+      "*, address(*,state_id(*), country_id(*)), products(*), images(*), user_id(id, username)"
+    )
     .eq("name", title)
     .single();
   return {
@@ -68,13 +70,15 @@ const Preview = ({ locationsFetch }) => {
 
   const reFetchLocation = async () => {
     const { data, error } = await supabase
-    .from("locations")
-    .select("*, address(*,state_id(*), country_id(*)), products(*), images(*), user_id(id, username)")
-    .eq("name", title)
-    .single();
+      .from("locations")
+      .select(
+        "*, address(*,state_id(*), country_id(*)), products(*), images(*), user_id(id, username)"
+      )
+      .eq("name", title)
+      .single();
     setLocation(data);
-  }
-  
+  };
+
   const description =
     "They sell grass fed beef, pasture raised chicken (fresh) and they also sell fresh organs every few months or so. They do deliveries to the Parkdale market every Saturday between 11:00 AM and 1:30 PM";
   return (
@@ -104,15 +108,22 @@ const Preview = ({ locationsFetch }) => {
           ))}
         </div>
         {origPoster && (
-          <div
-            onClick={toggleEditMode}
-            className="black-btn flex-inline cursor align-center"
-          >
-            <h4 className="mar-right-16">
-              {editMode ? "CANCEL EDIT" : "EDIT"}
-            </h4>
-            <FontAwesomeIcon icon={faPencil} className=" icon-sm white" />
-          </div>
+          <>
+            <div
+              onClick={toggleEditMode}
+              className="black-btn flex-inline cursor align-center"
+            >
+              <h4 className="mar-right-16">
+                {editMode ? "CANCEL EDIT" : "EDIT"}
+              </h4>
+              <FontAwesomeIcon icon={faPencil} className=" icon-sm white" />
+            </div>
+            {editMode && (
+              <div className="red-btn-one">
+                <h4>DELETE</h4>
+              </div>
+            )}
+          </>
         )}
       </div>
 
@@ -146,7 +157,7 @@ const Preview = ({ locationsFetch }) => {
             friendly={location.friendly}
             howToOrder={location.howToOrder}
             location_id={location.id}
-            reFetchLocation = {reFetchLocation}
+            reFetchLocation={reFetchLocation}
           />
         </>
       ) : (

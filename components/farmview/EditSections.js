@@ -9,7 +9,7 @@ import Dropdown from "../google/Dropdown";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { PlacesAutocomplete } from "../google/Bottombar";
 import { getGeocode } from "use-places-autocomplete";
-
+import DeletePopup from "../popups/DeletePopup";
 import {
   faCheck,
   faClose,
@@ -29,7 +29,7 @@ import supabase from "../../utils/supabaseClient";
 import {
   createProduct,
   deleteProduct,
-  updateLocation,//FIX THIS
+  updateLocation, //FIX THIS
   updateAddress,
 } from "../../utils/supabaseFunctions";
 const Cont = styled.form`
@@ -98,28 +98,26 @@ const Cont = styled.form`
     }
   }
   .product-item {
-    border-bottom: 1px solid ${props=>props.colors.grey};
+    border-bottom: 1px solid ${(props) => props.colors.grey};
     padding-bottom: 16px;
     margin-bottom: 16px;
     h5 {
       margin-right: 8px;
     }
 
-     .product-content {
-      display:flex;
+    .product-content {
+      display: flex;
       justify-content: space-between;
-      h5::before{
-      content:'•';
-      margin-right: 4px;
-    }
-      
-      
+      h5::before {
+        content: "•";
+        margin-right: 4px;
+      }
+
       flex-wrap: wrap;
     }
 
     .price {
       background-color: #fff;
-      
     }
   }
   .description-text {
@@ -224,7 +222,7 @@ const Sections = ({
   quality,
   friendly,
   location_id,
-  reFetchLocation
+  reFetchLocation,
 }) => {
   const {
     handleSubmit,
@@ -246,7 +244,7 @@ const Sections = ({
   const updateLocationElem = (value) => {
     setLocation(value);
   };
-  console.log('address');
+  console.log("address");
   console.log(address);
   const [addressData, setAddressData] = useState({
     fullAddress: address.full_address,
@@ -254,7 +252,7 @@ const Sections = ({
     state: address.state_id.name,
     country: address.country_id.name,
     lat: address.lat,
-    lng: address.lng
+    lng: address.lng,
   });
   const checkAddressValid = async () => {
     try {
@@ -330,7 +328,7 @@ const Sections = ({
   });
 
   const submitEdit = handleSubmit(async (formData) => {
-    setLoading({state:true,msg:'submitting changes...'})
+    setLoading({ state: true, msg: "submitting changes..." });
     const validAddress = await checkAddressValid();
     if (validAddress) {
       const deletedState = await Promise.all(
@@ -351,17 +349,15 @@ const Sections = ({
             );
           })
       );
-          
-      const numberOrganize = formData.phone
-        .replaceAll(/[^0-9]/g, "")
-        .split("");
-       
+
+      const numberOrganize = formData.phone.replaceAll(/[^0-9]/g, "").split("");
+
       numberOrganize.unshift("(");
       numberOrganize.splice(4, 0, ")");
       numberOrganize.splice(5, 0, "-");
       numberOrganize.splice(9, 0, "-");
-      console.log('---');
-      console.log(formData)
+      console.log("---");
+      console.log(formData);
       const locationId = await updateLocation(
         formData.name,
         formData.description,
@@ -384,7 +380,7 @@ const Sections = ({
         formData.howToOrder,
         location_id
       );
-    
+
       const addressState = await updateAddress(
         location_id,
         addressData.fullAddress,
@@ -394,10 +390,10 @@ const Sections = ({
         addressData.country,
         addressData.state
       );
-      setLoading({state:false, msg:''});
+      setLoading({ state: false, msg: "" });
       reFetchLocation();
-    } else{
-      setLoading({state:false, msg:''});
+    } else {
+      setLoading({ state: false, msg: "" });
     }
   });
 
@@ -434,7 +430,7 @@ const Sections = ({
   const [productsCopy, setProductsCopy] = useState(products);
   const [deletedProducts, setDeletedProducts] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
-  console.log('copy');
+  console.log("copy");
   console.log(productsCopy);
   const addProduct = (e) => {
     e.preventDefault();
@@ -663,7 +659,8 @@ const Sections = ({
   };
   return (
     <Cont colors={COLORS} className="section-holder" onSubmit={submitEdit}>
-       {loading.state && (
+      <DeletePopup text="post" />
+      {loading.state && (
         <div className="loading-screen">
           <div className="loading-items">
             <div class="lds-ring-green">
@@ -1336,7 +1333,11 @@ const Sections = ({
           <FontAwesomeIcon icon={faPencil} className="icon-ssm white" />
         </div>
       </section>
-      <div style = {{borderRadius: '0 0 8px 8px'}} onClick={submitEdit} className="blue-btn-one">
+      <div
+        style={{ borderRadius: "0 0 8px 8px" }}
+        onClick={submitEdit}
+        className="blue-btn-one"
+      >
         <h3>SUBMIT CHANGES</h3>
       </div>
     </Cont>
