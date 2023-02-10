@@ -28,9 +28,6 @@ export const getStaticProps = async () => {
 export default function Home({ locationsFetch, tagsFetch }) {
   const [locations, setLocations] = useState(locationsFetch);
   const [tags, setTags] = useState(tagsFetch);
-  console.log("locations");
-  console.log(locationsFetch);
-  console.log("locations");
 
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -51,6 +48,7 @@ export default function Home({ locationsFetch, tagsFetch }) {
   useEffect(() => {
     console.log(locations);
   }, [locations]);
+  
   const fetchNewLocation = async (id) => {
     const location = fetchLocation(id);
     location.then((res) => pushLocation(res));

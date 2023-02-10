@@ -121,7 +121,7 @@ const Cont = styled.div`
 
 const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
   const [imagesCopy, setImagesCopy] = useState(images);
-  const [previewUrl, setPreviewUrl] = useState({url:imagesCopy[0].url, id:0} || null);
+  const [previewUrl, setPreviewUrl] = useState({url:imagesCopy[0]?.url, id:0} || null);
   const [loading, setLoading] = useState({ state: false, msg: "" });
   const selectImage = (url, id) => {
     if (previewUrl.url === url) return;

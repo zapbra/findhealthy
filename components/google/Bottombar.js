@@ -821,7 +821,7 @@ const Bottombar = ({
             />
           </div>
 
-          <div className="input-line">
+          <form onSubmit = {addProduct} className="input-line">
             <h4 className="text-shadow-red">SPECIFIC PRODUCTS</h4>
             <div className="red-line mar-bottom-8"></div>
             <p className="italic mar-bottom-4">
@@ -930,13 +930,13 @@ const Bottombar = ({
             <div className="mar-bottom-8"></div>
             {productElems}
             <div className="mar-bottom-16"></div>
-            <div className="blue-btn-one" onClick={addProduct}>
+            <button className="blue-btn-one" onClick={addProduct}>
               <div className="flex align-center">
                 <h5 className="mar-right-8">Add</h5>
                 <FontAwesomeIcon icon={faPlus} className="icon-ssm white" />
               </div>
-            </div>
-          </div>
+            </button>
+          </form>
 
           <div className="input-line">
             <h4 className="text-shadow-red">HOURS</h4>
@@ -1155,16 +1155,17 @@ const Bottombar = ({
           </div>
 
           <div className="mar-bottom-32"></div>
-          <button
+          <div
             style={{ display: "flex", width: "100%" }}
             type="submit"
             className="align-center justify-center blue-btn-one box-shadow-2 mar-bottom-32"
+            onClick = {submitForm}
           >
             <h3 className="mar-right-8" ref={createButtonRef}>
               Create
             </h3>
             <FontAwesomeIcon icon={faLocationDot} className="white icon-med" />
-          </button>
+          </div>
         </form>
       )}
     </Cont>
