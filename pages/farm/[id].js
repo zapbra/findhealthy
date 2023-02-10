@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import EditSections from "../../components/farmview/EditSections";
 import { Toaster } from "react-hot-toast";
+import DeletePopup from "../../components/popups/DeletePopup";
 const Cont = styled.div`
   border: 1px solid ${(props) => props.colors.grey};
   background-color: #fff !important;
@@ -78,11 +79,27 @@ const Preview = ({ locationsFetch }) => {
       .single();
     setLocation(data);
   };
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const showPopup = () => {
+    setShowDeletePopup(true);
+  };
+  const hidePopup = () => {
+    setShowDeletePopup(false);
+  };
+
+  const deletePost = () => {};
 
   const description =
     "They sell grass fed beef, pasture raised chicken (fresh) and they also sell fresh organs every few months or so. They do deliveries to the Parkdale market every Saturday between 11:00 AM and 1:30 PM";
   return (
     <Cont colors={COLORS} className="default-page box-shadow-2">
+      {showDeletePopup && (
+        <DeletePopup
+          text="post"
+          deleteFunction={deletePost}
+          cancelFunction={hideForm}
+        />
+      )}
       <Toaster />
       <div className="header flex flex-wrap space-between align-center">
         <div className="flex align-center mar-bottom-16">
@@ -119,7 +136,7 @@ const Preview = ({ locationsFetch }) => {
               <FontAwesomeIcon icon={faPencil} className=" icon-sm white" />
             </div>
             {editMode && (
-              <div className="red-btn-one">
+              <div onClick={show} className="red-btn-one">
                 <h4>DELETE</h4>
               </div>
             )}
