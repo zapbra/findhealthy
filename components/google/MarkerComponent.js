@@ -37,6 +37,7 @@ const MarkerComponent = ({
   hoursTo,
   tags,
   products,
+  icon,
 }) => {
   const [open, setOpen] = useState(false);
   const catche = (e) => {
@@ -45,14 +46,7 @@ const MarkerComponent = ({
 
   return (
     <Marker
-      icon={{
-        path: "M8 12l-4.7023 2.4721.898-5.236L.3916 5.5279l5.2574-.764L8 0l2.3511 4.764 5.2574.7639-3.8043 3.7082.898 5.236z",
-        fillColor: "yellow",
-        fillOpacity: 0.9,
-        scale: 2,
-        strokeColor: "gold",
-        strokeWeight: 2,
-      }}
+      icon={icon}
       position={latLong}
       label={name}
       onClick={() => setOpen(true)}
@@ -64,7 +58,6 @@ const MarkerComponent = ({
               <p style={{ backgroundColor: "#CCE729" }} className="tag-four">
                 {tags[0]}
               </p>
-
               <p style={{ backgroundColor: "#DF5F28" }} className="tag-four">
                 {tags[1]}
               </p>
@@ -73,9 +66,7 @@ const MarkerComponent = ({
                   {tags[2]}
                 </p>
               )}
-  [tags[3] !== undefined && (
-    
-  )]
+              [tags[3] !== undefined && ( )]
               <p style={{ backgroundColor: "#DF5F28" }} className="tag-four">
                 {tags[3]}
               </p>

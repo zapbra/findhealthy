@@ -59,6 +59,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
             hoursTo={location.hoursTo}
             tags={location.tags}
             products={location.products}
+            icon = {location.icon}
           />
         );
       });
