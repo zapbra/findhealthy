@@ -224,6 +224,7 @@ const Sections = ({
   quality,
   friendly,
   location_id,
+  reFetchLocation
 }) => {
   const {
     handleSubmit,
@@ -394,6 +395,7 @@ const Sections = ({
         addressData.state
       );
       setLoading({state:false, msg:''});
+      reFetchLocation();
     } else{
       setLoading({state:false, msg:''});
     }

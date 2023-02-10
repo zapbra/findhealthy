@@ -30,16 +30,18 @@ export const getServerSideProps = async (pageContext) => {
     .single();
   return {
     props: {
-      location: data,
+      locationsFetch: data,
     },
   };
 };
 
-const Preview = ({ location }) => {
+const Preview = ({ locationsFetch }) => {
   const [origPoster, setOrigPoster] = useState(false);
   const [user, setUser] = useState("null");
   const router = useRouter();
-  console.log(router.)
+  const title = router.query.title;
+  const [location, setLocation] = useState(locationsFetch);
+
   useEffect(() => {
     const fetchUser = async () => {
       const { data: session } = await supabase.auth.getSession();
@@ -63,6 +65,15 @@ const Preview = ({ location }) => {
       return !prev;
     });
   };
+
+  const reFetchLocation = async () => {
+    const { data, error } = await supabase
+    .from("locations")
+    .select("*, address(*,state_id(*), country_id(*)), products(*), images(*), user_id(id, username)")
+    .eq("name", title)
+    .single();
+    setLocation(data);
+  }
   
   const description =
     "They sell grass fed beef, pasture raised chicken (fresh) and they also sell fresh organs every few months or so. They do deliveries to the Parkdale market every Saturday between 11:00 AM and 1:30 PM";
@@ -135,6 +146,7 @@ const Preview = ({ location }) => {
             friendly={location.friendly}
             howToOrder={location.howToOrder}
             location_id={location.id}
+            reFetchLocation = {reFetchLocation}
           />
         </>
       ) : (
