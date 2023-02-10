@@ -38,8 +38,9 @@ const Cont = styled.form`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: minmax(300px, 1fr);
   @media only screen and (max-width: 900px) {
-    grid-template-rows: repeat(4, minmax(300px, 1fr));
+    grid-template-rows: repeat(4, auto);
     grid-template-columns: 1fr;
+    align-items: start;
     & > section:nth-of-type(3) {
       background: #fff !important;
     }
@@ -328,8 +329,7 @@ const Sections = ({
   });
 
   const submitEdit = handleSubmit(async (formData) => {
-    console.log('lll')
-    console.log(typeof(formData.pastureRaised))
+    setLoading({state:true,msg:'submitting changes...'})
     const validAddress = await checkAddressValid();
     if (validAddress) {
       const deletedState = await Promise.all(
@@ -383,8 +383,7 @@ const Sections = ({
         formData.howToOrder,
         location_id
       );
-    console.log('---asd-asd');
-    console.log(formData.description);
+    
       const addressState = await updateAddress(
         location_id,
         addressData.fullAddress,
@@ -394,7 +393,9 @@ const Sections = ({
         addressData.country,
         addressData.state
       );
-      
+      setLoading({state:false, msg:''});
+    } else{
+      setLoading({state:false, msg:''});
     }
   });
 
@@ -660,6 +661,19 @@ const Sections = ({
   };
   return (
     <Cont colors={COLORS} className="section-holder" onSubmit={submitEdit}>
+       {loading.state && (
+        <div className="loading-screen">
+          <div className="loading-items">
+            <div class="lds-ring-green">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <p className="bold green">{loading.msg}</p>
+          </div>
+        </div>
+      )}
       <section className="section">
         <div>
           <div className="center-inline mar-bottom-16">
@@ -1320,7 +1334,7 @@ const Sections = ({
           <FontAwesomeIcon icon={faPencil} className="icon-ssm white" />
         </div>
       </section>
-      <div onClick={submitEdit} className="blue-btn-one">
+      <div style = {{borderRadius: '0 0 8px 8px'}} onClick={submitEdit} className="blue-btn-one">
         <h3>SUBMIT CHANGES</h3>
       </div>
     </Cont>

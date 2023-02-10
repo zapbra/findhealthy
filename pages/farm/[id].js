@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
@@ -13,6 +14,7 @@ import { Toaster } from "react-hot-toast";
 const Cont = styled.div`
   border: 1px solid ${(props) => props.colors.grey};
   background-color: #fff !important;
+  border-radius: 8px;
   .header {
     padding: 16px;
     background-color: ${(props) => props.colors.tan};
@@ -36,6 +38,8 @@ export const getServerSideProps = async (pageContext) => {
 const Preview = ({ location }) => {
   const [origPoster, setOrigPoster] = useState(false);
   const [user, setUser] = useState("null");
+  const router = useRouter();
+  console.log(router.)
   useEffect(() => {
     const fetchUser = async () => {
       const { data: session } = await supabase.auth.getSession();

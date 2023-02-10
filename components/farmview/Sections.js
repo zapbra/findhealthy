@@ -8,6 +8,7 @@ import { getHours } from "../../utils/functions";
 const Cont = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  
   grid-template-rows: minmax(300px, 1fr);
   @media only screen and (max-width: 900px) {
     grid-template-rows: repeat(4, auto);
