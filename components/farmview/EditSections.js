@@ -240,17 +240,19 @@ const Sections = ({
     libraries,
   });
 
-  const [location, setLocation] = useState(address);
+  const [location, setLocation] = useState(address.full_address);
   const updateLocation = (value) => {
     setLocation(value);
   };
+  console.log('address');
+  console.log(address);
   const [addressData, setAddressData] = useState({
-    fullAddress: "",
-    street: "",
-    state: "",
-    country: "",
-    lat: "",
-    lng: "",
+    fullAddress: address.full_address,
+    text_address: address.text_address,
+    state: address.state_id.name,
+    country: address.country_id.name,
+    lat: address.lat,
+    lng: address.lng
   });
   const checkAddressValid = async () => {
     try {
@@ -334,7 +336,7 @@ const Sections = ({
         })
       );
       const publishState = await Promise.all(
-        productsCopy
+        newProducts
           .filter((product) => product.id === undefined)
           .map((product) => {
             return createProduct(
@@ -346,10 +348,11 @@ const Sections = ({
             );
           })
       );
-
+          
       const numberOrganize = formData.phone
         .replaceAll(/[^0-9]/g, "")
         .split("");
+       
       numberOrganize.unshift("(");
       numberOrganize.splice(4, 0, ")");
       numberOrganize.splice(5, 0, "-");
@@ -373,17 +376,20 @@ const Sections = ({
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
-        formData.howToOrder
+        formData.howToOrder,
+        location_id
       );
+      
       const addressState = updateAddress(
         location_id,
         addressData.fullAddress,
-        addressData.street,
+        addressData.text_address,
         addressData.lat,
         addressData.lng,
         addressData.country,
         addressData.state
       );
+      
     }
   });
 
@@ -419,7 +425,9 @@ const Sections = ({
   const productInput = useRef(null);
   const [productsCopy, setProductsCopy] = useState(products);
   const [deletedProducts, setDeletedProducts] = useState([]);
-
+  const [newProducts, setNewProducts] = useState([]);
+  console.log('copy');
+  console.log(productsCopy);
   const addProduct = (e) => {
     e.preventDefault();
     if (product.name === "") {
@@ -443,6 +451,9 @@ const Sections = ({
     setProductsCopy((prev) => {
       return [...prev, product];
     });
+    setNewProducts((prev) => {
+      return [...prev, product];
+    });
 
     setProduct({
       name: "",
@@ -459,6 +470,9 @@ const Sections = ({
       });
     }
     setProductsCopy((prev) => {
+      return prev.filter((product) => product.id != id);
+    });
+    setNewProducts((prev) => {
       return prev.filter((product) => product.id != id);
     });
   };

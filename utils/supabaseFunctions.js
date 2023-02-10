@@ -140,7 +140,7 @@ export const updateLocation = async (
   quality,
   friendly,
   howToOrder,
-  user_id
+  id
 ) => {
   try {
     const { data, error } = await supabase
@@ -154,7 +154,6 @@ export const updateLocation = async (
         website,
         email,
         number,
-        tags,
         grassFed,
         organic,
         vaccineFree,
@@ -167,12 +166,12 @@ export const updateLocation = async (
         friendly,
         howToOrder,
       })
-      .eq("user_id", user_id)
+      .eq('id', id)
       .select(id);
 
     if (error) throw error;
 
-    return data.id;
+    return data;
   } catch (error) {
     console.log(error);
     return false;

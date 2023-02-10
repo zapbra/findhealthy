@@ -23,7 +23,7 @@ export const getServerSideProps = async (pageContext) => {
   const title = pageContext.query.title;
   const { data, error } = await supabase
     .from("locations")
-    .select("*, address(*), products(*), images(*), user_id(id, username)")
+    .select("*, address(*,state_id(*), country_id(*)), products(*), images(*), user_id(id, username)")
     .eq("name", title)
     .single();
   return {
@@ -112,7 +112,7 @@ const Preview = ({ location }) => {
           <EditSections
             products={location.products}
             description={location.description}
-            address={location.address[0].full_address}
+            address={location.address[0]}
             website={location.website}
             email={location.email}
             phone={location.number}
