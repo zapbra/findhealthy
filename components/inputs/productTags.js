@@ -74,7 +74,7 @@ const ProductTypes = ({ tags, selectedTags, pushTag, deleteTag }) => {
   return (
     <Cont colors={COLORS}>
       <div className="tags-input-box mar-bottom-8">
-        <form onSubmit={enterTag} className="inline-block">
+        <form onSubmit={enterTag} className="inline-block mar-right-8">
           <input
             type="text"
             value={text}
@@ -88,7 +88,10 @@ const ProductTypes = ({ tags, selectedTags, pushTag, deleteTag }) => {
       <div className="tag-holder">{renderTags}</div>
       <div className="mar-bottom-8"></div>
       {renderRange < tags.length && (
-        <div onClick={increaseRenderRange} className=" align-center blue-btn-one flex-inline">
+        <div
+          onClick={increaseRenderRange}
+          className=" align-center blue-btn-one flex-inline"
+        >
           <p className="bold mar-right-8">SHOW MORE</p>
           <FontAwesomeIcon icon={faEllipsis} className="icon-ssm white" />
         </div>

@@ -30,9 +30,9 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   const [location, setLocation] = useState("");
   const [locationsFilter, setLocationsFilter] = useState(locations);
 
-  useEffect(()=> {
+  useEffect(() => {
     setLocationsFilter(locations);
-  },locations)
+  }, [locations]);
   const [markers, setMarkers] = useState([]);
   const [center, setCenter] = useState({
     lat: 45.4215,
