@@ -170,11 +170,11 @@ export const updateLocation = async (
       .select(id);
 
     if (error) throw error;
-
+      
     return data;
   } catch (error) {
     console.log(error);
-    return false;
+    return error;
   }
 };
 

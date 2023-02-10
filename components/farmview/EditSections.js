@@ -328,6 +328,8 @@ const Sections = ({
   });
 
   const submitEdit = handleSubmit(async (formData) => {
+    console.log('lll')
+    console.log(typeof(formData.pastureRaised))
     const validAddress = await checkAddressValid();
     if (validAddress) {
       const deletedState = await Promise.all(
@@ -357,7 +359,7 @@ const Sections = ({
       numberOrganize.splice(4, 0, ")");
       numberOrganize.splice(5, 0, "-");
       numberOrganize.splice(9, 0, "-");
-      const locationId = updateLocation(
+      const locationId = await updateLocation(
         formData.name,
         formData.description,
         formData.hoursFrom,
@@ -366,21 +368,22 @@ const Sections = ({
         formData.website,
         formData.email,
         numberOrganize.join(""),
-        formData.grassFed,
-        formData.organic,
-        formData.vaccineFree,
-        formData.pastureRaised,
-        formData.soyFree,
-        formData.dewormerFree,
-        formData.unfrozen,
+        formData.grassFed.value == "yes" ? true : formData.grassFed.value == 'no' ? false : 'unspecified',
+        formData.organic.value == "yes" ? true :  formData.organic.value == 'no' ? false : 'unspecified',
+        formData.vaccineFree.value == "yes" ? true : formData.vaccineFree.value == 'no' ? false : 'unspecified',
+        formData.pastureRaised.value == "yes" ? true : formData.pastureRaised.value == 'no' ? false : 'unspecified',
+        formData.soyFree.value == "yes" ? true : formData.soyFree.value == 'no' ? false : 'unspecified',
+        formData.dewormerFree.value == "yes" ? true : formData.dewormerFree.value == 'no' ? false : 'unspecified',
+        formData.unfrozen.value == "yes" ? true : formData.unfrozen.value == 'no' ? false : 'unspecified',
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
         formData.howToOrder,
         location_id
       );
-      
-      const addressState = updateAddress(
+      console.log('kkkk');
+      console.log(locationId);
+      const addressState = await updateAddress(
         location_id,
         addressData.fullAddress,
         addressData.text_address,
