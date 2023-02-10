@@ -362,13 +362,41 @@ const Bottombar = ({
         formData.email,
         numberOrganize.join(""),
         selectedTags,
-        optionalFields.grassFed.value == "yes" ? true : optionalFields.grassFed.value == 'no' ? false : 'unspecified',
-        optionalFields.organic.value == "yes" ? true :  optionalFields.organic.value == 'no' ? false : 'unspecified',
-        optionalFields.vaccineFree.value == "yes" ? true : optionalFields.vaccineFree.value == 'no' ? false : 'unspecified',
-        optionalFields.pastureRaised.value == "yes" ? true : optionalFields.pastureRaised.value == 'no' ? false : 'unspecified',
-        optionalFields.soyFree.value == "yes" ? true : optionalFields.soyFree.value == 'no' ? false : 'unspecified',
-        optionalFields.dewormerFree.value == "yes" ? true : optionalFields.dewormerFree.value == 'no' ? false : 'unspecified',
-        optionalFields.unfrozen.value == "yes" ? true : optionalFields.unfrozen.value == 'no' ? false : 'unspecified',
+        optionalFields.grassFed.value == "yes"
+          ? true
+          : optionalFields.grassFed.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.organic.value == "yes"
+          ? true
+          : optionalFields.organic.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.vaccineFree.value == "yes"
+          ? true
+          : optionalFields.vaccineFree.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.pastureRaised.value == "yes"
+          ? true
+          : optionalFields.pastureRaised.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.soyFree.value == "yes"
+          ? true
+          : optionalFields.soyFree.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.dewormerFree.value == "yes"
+          ? true
+          : optionalFields.dewormerFree.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.unfrozen.value == "yes"
+          ? true
+          : optionalFields.unfrozen.value == "no"
+          ? false
+          : "unspecified",
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
@@ -387,13 +415,41 @@ const Bottombar = ({
         formData.email,
         numberOrganize.join(""),
         selectedTags,
-        optionalFields.grassFed.value == "yes" ? true : optionalFields.grassFed.value == 'no' ? false : 'unspecified',
-        optionalFields.organic.value == "yes" ? true :  optionalFields.organic.value == 'no' ? false : 'unspecified',
-        optionalFields.vaccineFree.value == "yes" ? true : optionalFields.vaccineFree.value == 'no' ? false : 'unspecified',
-        optionalFields.pastureRaised.value == "yes" ? true : optionalFields.pastureRaised.value == 'no' ? false : 'unspecified',
-        optionalFields.soyFree.value == "yes" ? true : optionalFields.soyFree.value == 'no' ? false : 'unspecified',
-        optionalFields.dewormerFree.value == "yes" ? true : optionalFields.dewormerFree.value == 'no' ? false : 'unspecified',
-        optionalFields.unfrozen.value == "yes" ? true : optionalFields.unfrozen.value == 'no' ? false : 'unspecified',
+        optionalFields.grassFed.value == "yes"
+          ? true
+          : optionalFields.grassFed.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.organic.value == "yes"
+          ? true
+          : optionalFields.organic.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.vaccineFree.value == "yes"
+          ? true
+          : optionalFields.vaccineFree.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.pastureRaised.value == "yes"
+          ? true
+          : optionalFields.pastureRaised.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.soyFree.value == "yes"
+          ? true
+          : optionalFields.soyFree.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.dewormerFree.value == "yes"
+          ? true
+          : optionalFields.dewormerFree.value == "no"
+          ? false
+          : "unspecified",
+        optionalFields.unfrozen.value == "yes"
+          ? true
+          : optionalFields.unfrozen.value == "no"
+          ? false
+          : "unspecified",
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
@@ -749,7 +805,7 @@ const Bottombar = ({
       <div className="mar-bottom-16"></div>
       <br />
       {adding && (
-        <form className=" fake-form opacity-anim" onSubmit={submitForm}>
+        <div className="fake-form">
           <h4 className="mar-bottom-8 text-shadow-red">ENTER AN ADDRESS *</h4>
           <div className="red-line mar-bottom-8"></div>
           <PlacesAutocomplete
@@ -771,402 +827,407 @@ const Bottombar = ({
             </div>
           </div>
           <CreateTag addTag={addTag} tags={tags} />
-          <div className="input-line">
-            <h4 className="text-shadow-red">BUSINESS NAME *</h4>
-            <div className="red-line mar-bottom-8"></div>
-            <input
-              {...register("name", {
-                required: true,
-              })}
-              type="text"
-              placeholder="Business Name"
-              name="name"
-            />
-            {errors.name?.type === "required" && (
-              <p className="error">*Name is required</p>
-            )}
-          </div>
-          <div className="input-line">
-            <h4 className="text-shadow-red">DESCRIPTION *</h4>
-            <div className="red-line mar-bottom-8"></div>
-            <p className="italic">How are their prices?</p>
-            <p className="italic mar-bottom-4">What was your experience?</p>
-            <textarea
-              {...register("description", {
-                required: true,
-              })}
-              type="text"
-              placeholder="Describe the farm/store"
-              name="description"
-            />
-            {errors.description?.type === "required" && (
-              <p className="error">*Description is required</p>
-            )}
-          </div>
+          <form className=" opacity-anim" onSubmit={submitForm}>
+            <div className="input-line">
+              <h4 className="text-shadow-red">BUSINESS NAME *</h4>
+              <div className="red-line mar-bottom-8"></div>
+              <input
+                {...register("name", {
+                  required: true,
+                })}
+                type="text"
+                placeholder="Business Name"
+                name="name"
+              />
+              {errors.name?.type === "required" && (
+                <p className="error">*Name is required</p>
+              )}
+            </div>
+            <div className="input-line">
+              <h4 className="text-shadow-red">DESCRIPTION *</h4>
+              <div className="red-line mar-bottom-8"></div>
+              <p className="italic">How are their prices?</p>
+              <p className="italic mar-bottom-4">What was your experience?</p>
+              <textarea
+                {...register("description", {
+                  required: true,
+                })}
+                type="text"
+                placeholder="Describe the farm/store"
+                name="description"
+              />
+              {errors.description?.type === "required" && (
+                <p className="error">*Description is required</p>
+              )}
+            </div>
 
-          <div className="input-line">
-            <h4 className="text-shadow-red">HOW TO ORDER</h4>
-            <div className="red-line"></div>
-            <p className="italic">Do you need to order from their website?</p>
-            <p className="italic mar-bottom-4">
-              Is it pickup only on certain days?
-            </p>
-            <textarea
-              {...register("howToOrder", {
-                required: false,
-              })}
-              type="text"
-              placeholder="Pickup location, delivery, etc"
-              name="howToOrder"
-            />
-          </div>
+            <div className="input-line">
+              <h4 className="text-shadow-red">HOW TO ORDER</h4>
+              <div className="red-line"></div>
+              <p className="italic">Do you need to order from their website?</p>
+              <p className="italic mar-bottom-4">
+                Is it pickup only on certain days?
+              </p>
+              <textarea
+                {...register("howToOrder", {
+                  required: false,
+                })}
+                type="text"
+                placeholder="Pickup location, delivery, etc"
+                name="howToOrder"
+              />
+            </div>
 
-          <form onSubmit = {addProduct} className="input-line">
-            <h4 className="text-shadow-red">SPECIFIC PRODUCTS</h4>
-            <div className="red-line mar-bottom-8"></div>
-            <p className="italic mar-bottom-4">
-              Add more specic products to show exactly what they have
-            </p>
-            <div className="relative">
-              <div className="tags-input-box mar-bottom-8 align-center flex">
-                <FontAwesomeIcon
-                  icon={faEgg}
-                  className="icon-ssm blue mar-right-8"
-                />
-                <input
-                  value={product.name}
-                  onChange={(e) => updateProduct(e, "name")}
-                  type="text"
-                  placeholder="sirloin steak... unsalted raw cheese..."
-                  ref={productInput}
-                  className="flex-one"
-                />
-              </div>
-              <div className="tags-input-box flex-inline align-center dollar-input inline-block mar-bottom-8">
-                <FontAwesomeIcon
-                  icon={faDollarSign}
-                  className="icon-ssm blue mar-right-8"
-                />
-                <input
-                  type="text"
-                  placeholder="14.99..."
-                  style={{ width: "160px" }}
-                  value={product.value}
-                  ref={productValueRef}
-                  onChange={(e) => updateProductValue(e, "value")}
-                />
-              </div>
-              <br />
+            <form onSubmit={addProduct} className="input-line">
+              <h4 className="text-shadow-red">SPECIFIC PRODUCTS</h4>
+              <div className="red-line mar-bottom-8"></div>
+              <p className="italic mar-bottom-4">
+                Add more specic products to show exactly what they have
+              </p>
               <div className="relative">
-                <div className="dropdown" ref={dropdownEl2}>
-                  <input type="hidden" />
-
-                  <div
-                    className="dropdown__selected"
-                    onClick={() => setShowDropdown2(!showDropdown2)}
-                  >
-                    {selectedMeasure ? (
-                      <>
-                        <FontAwesomeIcon
-                          icon={faWeightScale}
-                          className="icon-ssm blue mar-right-8"
-                        />
-                        {selectedMeasure}
-                      </>
-                    ) : (
-                      "Please select one option"
-                    )}
-                  </div>
-                </div>
-                {showDropdown2 && (
-                  <Dropdown
-                    searchPlaceholder="pound"
-                    search={measurementSearch}
-                    searchChangeHandler={measureSearchChangeHandler}
-                    selectedValue={selectedMeasure}
-                    selectedIndex={selectedMeasureIndex}
-                    changeSelectedHandler={changeSelectedMeasureHandler}
-                    name="weight"
-                    regions={measureOptions}
+                <div className="tags-input-box mar-bottom-8 align-center flex">
+                  <FontAwesomeIcon
+                    icon={faEgg}
+                    className="icon-ssm blue mar-right-8"
                   />
-                )}
+                  <input
+                    value={product.name}
+                    onChange={(e) => updateProduct(e, "name")}
+                    type="text"
+                    placeholder="sirloin steak... unsalted raw cheese..."
+                    ref={productInput}
+                    className="flex-one"
+                  />
+                </div>
+                <div className="tags-input-box flex-inline align-center dollar-input inline-block mar-bottom-8">
+                  <FontAwesomeIcon
+                    icon={faDollarSign}
+                    className="icon-ssm blue mar-right-8"
+                  />
+                  <input
+                    type="text"
+                    placeholder="14.99..."
+                    style={{ width: "160px" }}
+                    value={product.value}
+                    ref={productValueRef}
+                    onChange={(e) => updateProductValue(e, "value")}
+                  />
+                </div>
+                <br />
+                <div className="relative">
+                  <div className="dropdown" ref={dropdownEl2}>
+                    <input type="hidden" />
+
+                    <div
+                      className="dropdown__selected"
+                      onClick={() => setShowDropdown2(!showDropdown2)}
+                    >
+                      {selectedMeasure ? (
+                        <>
+                          <FontAwesomeIcon
+                            icon={faWeightScale}
+                            className="icon-ssm blue mar-right-8"
+                          />
+                          {selectedMeasure}
+                        </>
+                      ) : (
+                        "Please select one option"
+                      )}
+                    </div>
+                  </div>
+                  {showDropdown2 && (
+                    <Dropdown
+                      searchPlaceholder="pound"
+                      search={measurementSearch}
+                      searchChangeHandler={measureSearchChangeHandler}
+                      selectedValue={selectedMeasure}
+                      selectedIndex={selectedMeasureIndex}
+                      changeSelectedHandler={changeSelectedMeasureHandler}
+                      name="weight"
+                      regions={measureOptions}
+                    />
+                  )}
+                </div>
+                <div className="mar-bottom-8"></div>
+                <div className="relative">
+                  <div className="dropdown" ref={dropdownEl}>
+                    <input type="hidden" />
+
+                    <div
+                      className="dropdown__selected"
+                      onClick={() => setShowDropdown(!showDropdown)}
+                    >
+                      {selectedValue ? (
+                        <>
+                          <FontAwesomeIcon
+                            icon={faCoins}
+                            className="icon-ssm blue mar-right-8"
+                          />
+                          {selectedValue}
+                        </>
+                      ) : (
+                        "Please select one option"
+                      )}
+                    </div>
+                  </div>
+                  {showDropdown && (
+                    <Dropdown
+                      searchPlaceholder="USD"
+                      search={dollarSearch}
+                      searchChangeHandler={searchChangeHandler}
+                      selectedValue={selectedValue}
+                      selectedIndex={selectedIndex}
+                      changeSelectedHandler={changeSelectedHandler}
+                      name="dollar"
+                      regions={options}
+                    />
+                  )}
+                </div>
               </div>
               <div className="mar-bottom-8"></div>
-              <div className="relative">
-                <div className="dropdown" ref={dropdownEl}>
-                  <input type="hidden" />
-
-                  <div
-                    className="dropdown__selected"
-                    onClick={() => setShowDropdown(!showDropdown)}
-                  >
-                    {selectedValue ? (
-                      <>
-                        <FontAwesomeIcon
-                          icon={faCoins}
-                          className="icon-ssm blue mar-right-8"
-                        />
-                        {selectedValue}
-                      </>
-                    ) : (
-                      "Please select one option"
-                    )}
-                  </div>
+              {productElems}
+              <div className="mar-bottom-16"></div>
+              <button className="blue-btn-one" onClick={addProduct}>
+                <div className="flex align-center">
+                  <h5 className="mar-right-8">Add</h5>
+                  <FontAwesomeIcon icon={faPlus} className="icon-ssm white" />
                 </div>
-                {showDropdown && (
-                  <Dropdown
-                    searchPlaceholder="USD"
-                    search={dollarSearch}
-                    searchChangeHandler={searchChangeHandler}
-                    selectedValue={selectedValue}
-                    selectedIndex={selectedIndex}
-                    changeSelectedHandler={changeSelectedHandler}
-                    name="dollar"
-                    regions={options}
+              </button>
+            </form>
+
+            <div className="input-line">
+              <h4 className="text-shadow-red">HOURS</h4>
+              <div className="red-line mar-bottom-8"></div>
+              <h5 className="black">From</h5>
+              <input
+                {...register("hoursFrom", {
+                  required: false,
+                })}
+                type="time"
+                name="hoursFrom"
+                className="mar-bottom-8"
+              />
+              <h5 className="black">To</h5>
+              <input
+                {...register("hoursTo", {
+                  required: false,
+                })}
+                type="time"
+                name="hoursTo"
+              />
+            </div>
+
+            <div className="input-line">
+              <h4 className="text-shadow-red">PICKUP OR DELIVERY?</h4>
+              <div className="red-line mar-bottom-8"></div>
+              <label htmlFor="pickupAndDelivery">
+                <div className="flex align-center">
+                  <input
+                    {...register("pickup", {
+                      required: true,
+                    })}
+                    type="radio"
+                    value="pickup & delivery"
+                    id="pickupAndDelivery"
                   />
-                )}
+                  <p className="mar-left-4">Pickup & Delivery</p>
+                </div>
+              </label>
+
+              <label htmlFor="pickupOnly">
+                <div className="flex align-center">
+                  <input
+                    {...register("pickup", {
+                      required: true,
+                    })}
+                    type="radio"
+                    id="pickupOnly"
+                    value="pickup"
+                  />
+                  <p className="mar-left-4">
+                    {" "}
+                    <strong>Pickup</strong> Only
+                  </p>
+                </div>
+              </label>
+
+              <label htmlFor="deliveryOnly">
+                <div className="flex align-center">
+                  <input
+                    {...register("pickup", {
+                      required: true,
+                    })}
+                    type="radio"
+                    id="deliveryOnly"
+                    value="delivery"
+                  />
+                  <p className="mar-left-4">
+                    {" "}
+                    <strong>Delivery</strong> Only
+                  </p>
+                </div>
+              </label>
+
+              <label htmlFor="unspecified">
+                <div className="flex align-center">
+                  <input
+                    {...register("pickup", {
+                      required: true,
+                    })}
+                    type="radio"
+                    id="unspecified"
+                    value="unspecified"
+                    defaultChecked
+                  />
+                  <p className="mar-left-4">Unspecified</p>
+                </div>
+              </label>
+            </div>
+
+            <div className="input-line">
+              <h4 className="text-shadow-red">WEBSITE LINK</h4>
+              <div className="red-line mar-bottom-8"></div>
+              <input
+                {...register("website", {
+                  required: false,
+                  pattern: {
+                    value:
+                      /(https|http)?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+                    message: "Must be a valid link starting with http/https",
+                  },
+                })}
+                type="text"
+                placeholder="www.example.com"
+                name="website"
+              />
+              {errors.website?.type === "pattern" && (
+                <p className="error">*{errors.website.message}</p>
+              )}
+            </div>
+
+            <div className="input-line">
+              <h4 className="text-shadow-red">CONTACT INFO *</h4>
+              <div className="red-line mar-bottom-8"></div>
+              <p className="bold">Email</p>
+              <input
+                {...register("email", {
+                  required: false,
+                })}
+                type="email"
+                placeholder="Email"
+                name="email"
+              />
+              <div className="mar-bottom-16"></div>
+              <p className="bold">Phone Number</p>
+              <input
+                {...register("number", {
+                  required: false,
+                })}
+                type="text"
+                placeholder="(613) - 256 - 1919..."
+                name="number"
+              />
+            </div>
+
+            <div className="input-line">
+              <h4 className="text-shadow-red">UPLOAD IMAGE/S</h4>
+              <div className="red-line mar-bottom-8"></div>
+
+              <div
+                onClick={() => imageRef.current.click()}
+                className="image-upload-btn"
+              >
+                <h5 className="blue">UPLOAD</h5>
+                <FontAwesomeIcon icon={faUpload} className="icon-med blue" />
+              </div>
+              <input
+                ref={imageRef}
+                type="file"
+                hidden={true}
+                onChange={uploadImage}
+              />
+              <RenderImages
+                setPhotoDisplayVisible={setPhotoDisplayVisible}
+                images={images}
+                updateSelectedImage={updateSelectedImage}
+              />
+            </div>
+
+            <div className="optional-fields mar-bottom-16">
+              <p>Optional</p>
+              <div className="flex mar-bottom-8 space-between flex-wrap">
+                <h5 className="black">Product Specifications</h5>
+                <p
+                  onClick={() =>
+                    serviceRatingRef.current.scrollIntoView({
+                      behavior: "smooth",
+                      block: "center",
+                    })
+                  }
+                  className="underline bold-hover "
+                >
+                  Skip Section
+                </p>
+              </div>
+              <div className="grey-line mar-bottom-16"></div>
+              <div className="flex flex-wrap space-between">
+                {optionalfieldElems}
               </div>
             </div>
-            <div className="mar-bottom-8"></div>
-            {productElems}
-            <div className="mar-bottom-16"></div>
-            <button className="blue-btn-one" onClick={addProduct}>
-              <div className="flex align-center">
-                <h5 className="mar-right-8">Add</h5>
-                <FontAwesomeIcon icon={faPlus} className="icon-ssm white" />
-              </div>
-            </button>
-          </form>
 
-          <div className="input-line">
-            <h4 className="text-shadow-red">HOURS</h4>
-            <div className="red-line mar-bottom-8"></div>
-            <h5 className="black">From</h5>
-            <input
-              {...register("hoursFrom", {
-                required: false,
-              })}
-              type="time"
-              name="hoursFrom"
-              className="mar-bottom-8"
-            />
-            <h5 className="black">To</h5>
-            <input
-              {...register("hoursTo", {
-                required: false,
-              })}
-              type="time"
-              name="hoursTo"
-            />
-          </div>
-
-          <div className="input-line">
-            <h4 className="text-shadow-red">PICKUP OR DELIVERY?</h4>
-            <div className="red-line mar-bottom-8"></div>
-            <label htmlFor="pickupAndDelivery">
-              <div className="flex align-center">
-                <input
-                  {...register("pickup", {
-                    required: true,
-                  })}
-                  type="radio"
-                  value="pickup & delivery"
-                  id="pickupAndDelivery"
-                />
-                <p className="mar-left-4">Pickup & Delivery</p>
-              </div>
-            </label>
-
-            <label htmlFor="pickupOnly">
-              <div className="flex align-center">
-                <input
-                  {...register("pickup", {
-                    required: true,
-                  })}
-                  type="radio"
-                  id="pickupOnly"
-                  value="pickup"
-                />
-                <p className="mar-left-4">
-                  {" "}
-                  <strong>Pickup</strong> Only
+            <div className="optional-fields" ref={serviceRatingRef}>
+              <p>Optional</p>
+              <div className="flex mar-bottom-8 space-between flex-wrap">
+                <h5 className="black">Service Rating</h5>
+                <p
+                  className="underline bold-hover"
+                  onClick={() =>
+                    createButtonRef.current.scrollIntoView({
+                      behavior: "smooth",
+                      block: "center",
+                    })
+                  }
+                >
+                  Skip Section
                 </p>
               </div>
-            </label>
-
-            <label htmlFor="deliveryOnly">
-              <div className="flex align-center">
-                <input
-                  {...register("pickup", {
-                    required: true,
-                  })}
-                  type="radio"
-                  id="deliveryOnly"
-                  value="delivery"
+              <div className="grey-line mar-bottom-16"></div>
+              <div className="stars ">
+                <StarReview
+                  field={reviewFields.pricing.name}
+                  stars={reviewFields.pricing.stars}
+                  updateStarsFunc={updateReviewFields}
                 />
-                <p className="mar-left-4">
-                  {" "}
-                  <strong>Delivery</strong> Only
-                </p>
-              </div>
-            </label>
-
-            <label htmlFor="unspecified">
-              <div className="flex align-center">
-                <input
-                  {...register("pickup", {
-                    required: true,
-                  })}
-                  type="radio"
-                  id="unspecified"
-                  value="unspecified"
-                  defaultChecked
+                <StarReview
+                  field={reviewFields.quality.name}
+                  stars={reviewFields.quality.stars}
+                  updateStarsFunc={updateReviewFields}
                 />
-                <p className="mar-left-4">Unspecified</p>
+                <StarReview
+                  field={reviewFields.friendly.name}
+                  stars={reviewFields.friendly.stars}
+                  updateStarsFunc={updateReviewFields}
+                />
               </div>
-            </label>
-          </div>
+            </div>
 
-          <div className="input-line">
-            <h4 className="text-shadow-red">WEBSITE LINK</h4>
-            <div className="red-line mar-bottom-8"></div>
-            <input
-              {...register("website", {
-                required: false,
-                pattern: {
-                  value:
-                    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
-                  message: "Must be a valid link starting with http/https",
-                },
-              })}
-              type="text"
-              placeholder="www.example.com"
-              name="website"
-            />
-            {errors.website?.type === "pattern" && (
-              <p className="error">*{errors.website.message}</p>
-            )}
-          </div>
-
-          <div className="input-line">
-            <h4 className="text-shadow-red">CONTACT INFO *</h4>
-            <div className="red-line mar-bottom-8"></div>
-            <p className="bold">Email</p>
-            <input
-              {...register("email", {
-                required: false,
-              })}
-              type="email"
-              placeholder="Email"
-              name="email"
-            />
-            <div className="mar-bottom-16"></div>
-            <p className="bold">Phone Number</p>
-            <input
-              {...register("number", {
-                required: false,
-              })}
-              type="text"
-              placeholder="(613) - 256 - 1919..."
-              name="number"
-            />
-          </div>
-
-          <div className="input-line">
-            <h4 className="text-shadow-red">UPLOAD IMAGE/S</h4>
-            <div className="red-line mar-bottom-8"></div>
-
+            <div className="mar-bottom-32"></div>
             <div
-              onClick={() => imageRef.current.click()}
-              className="image-upload-btn"
+              style={{ display: "flex", width: "100%" }}
+              type="submit"
+              className="align-center justify-center blue-btn-one box-shadow-2 mar-bottom-32"
+              onClick={submitForm}
             >
-              <h5 className="blue">UPLOAD</h5>
-              <FontAwesomeIcon icon={faUpload} className="icon-med blue" />
-            </div>
-            <input
-              ref={imageRef}
-              type="file"
-              hidden={true}
-              onChange={uploadImage}
-            />
-            <RenderImages
-              setPhotoDisplayVisible={setPhotoDisplayVisible}
-              images={images}
-              updateSelectedImage={updateSelectedImage}
-            />
-          </div>
-
-          <div className="optional-fields mar-bottom-16">
-            <p>Optional</p>
-            <div className="flex mar-bottom-8 space-between flex-wrap">
-              <h5 className="black">Product Specifications</h5>
-              <p
-                onClick={() =>
-                  serviceRatingRef.current.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                  })
-                }
-                className="underline bold-hover "
-              >
-                Skip Section
-              </p>
-            </div>
-            <div className="grey-line mar-bottom-16"></div>
-            <div className="flex flex-wrap space-between">
-              {optionalfieldElems}
-            </div>
-          </div>
-
-          <div className="optional-fields" ref={serviceRatingRef}>
-            <p>Optional</p>
-            <div className="flex mar-bottom-8 space-between flex-wrap">
-              <h5 className="black">Service Rating</h5>
-              <p
-                className="underline bold-hover"
-                onClick={() =>
-                  createButtonRef.current.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                  })
-                }
-              >
-                Skip Section
-              </p>
-            </div>
-            <div className="grey-line mar-bottom-16"></div>
-            <div className="stars ">
-              <StarReview
-                field={reviewFields.pricing.name}
-                stars={reviewFields.pricing.stars}
-                updateStarsFunc={updateReviewFields}
-              />
-              <StarReview
-                field={reviewFields.quality.name}
-                stars={reviewFields.quality.stars}
-                updateStarsFunc={updateReviewFields}
-              />
-              <StarReview
-                field={reviewFields.friendly.name}
-                stars={reviewFields.friendly.stars}
-                updateStarsFunc={updateReviewFields}
+              <h3 className="mar-right-8" ref={createButtonRef}>
+                Create
+              </h3>
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                className="white icon-med"
               />
             </div>
-          </div>
-
-          <div className="mar-bottom-32"></div>
-          <div
-            style={{ display: "flex", width: "100%" }}
-            type="submit"
-            className="align-center justify-center blue-btn-one box-shadow-2 mar-bottom-32"
-            onClick = {submitForm}
-          >
-            <h3 className="mar-right-8" ref={createButtonRef}>
-              Create
-            </h3>
-            <FontAwesomeIcon icon={faLocationDot} className="white icon-med" />
-          </div>
-        </form>
+          </form>
+        </div>
       )}
     </Cont>
   );

@@ -224,6 +224,7 @@ const Sections = ({
   friendly,
   location_id,
   reFetchLocation,
+  setEditMode,
 }) => {
   const {
     handleSubmit,
@@ -393,6 +394,7 @@ const Sections = ({
       );
       setLoading({ state: false, msg: "" });
       reFetchLocation();
+      setEditMode(false);
     } else {
       setLoading({ state: false, msg: "" });
     }
@@ -658,11 +660,9 @@ const Sections = ({
     const elem = document.getElementById(id);
     elem.focus();
   };
- 
+
   return (
     <Cont colors={COLORS} className="section-holder">
-      
-
       <form onSubmit={submitEdit}>
         {loading.state && (
           <div className="loading-screen">

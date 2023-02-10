@@ -203,6 +203,7 @@ const Preview = ({ locationFetch }) => {
             howToOrder={location.howToOrder}
             location_id={location.id}
             reFetchLocation={reFetchLocation}
+            setEditMode={setEditMode}
           />
         </>
       ) : (

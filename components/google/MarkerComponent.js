@@ -10,8 +10,7 @@ const Cont = styled.div`
   max-width: 320px;
   .tags-holder {
     border-bottom: 1px solid ${(props) => props.colors.grey};
-  
-    
+
     display: flex;
     justify-content: center;
     //background-color: ${(props) => props.colors.grey};
@@ -22,7 +21,7 @@ const Cont = styled.div`
   }
   .field-line {
     margin-bottom: 8px;
-    word-break:break-word;
+    word-break: break-word;
   }
 `;
 const MarkerComponent = ({
@@ -69,11 +68,14 @@ const MarkerComponent = ({
               <p style={{ backgroundColor: "#DF5F28" }} className="tag-four">
                 {tags[1]}
               </p>
-
-              <p style={{ backgroundColor: "#3BAC46" }} className="tag-four">
-                {tags[2]}
-              </p>
-
+              {tags[2] !== undefined && (
+                <p style={{ backgroundColor: "#3BAC46" }} className="tag-four">
+                  {tags[2]}
+                </p>
+              )}
+  [tags[3] !== undefined && (
+    
+  )]
               <p style={{ backgroundColor: "#DF5F28" }} className="tag-four">
                 {tags[3]}
               </p>
@@ -92,19 +94,19 @@ const MarkerComponent = ({
               </div>
             </Link>
             <div className="field-line">
-              <p className = 'black bold'>Name</p>
+              <p className="black bold">Name</p>
               <div className="grey-line mar-bottom-4"></div>
               <h5 className="bold black">{name}</h5>
             </div>
 
             <div className="field-line">
-              <p className = 'black bold'>Address</p>
+              <p className="black bold">Address</p>
               <div className="grey-line mar-bottom-4"></div>
               <h5 className="bold black">{address}</h5>
             </div>
             {website != null && (
               <div className="field-line">
-                <p className = 'black bold'>Website</p>
+                <p className="black bold">Website</p>
                 <div className="grey-line mar-bottom-4"></div>
                 <a href={website}>
                   <p className="bold">{website}</p>
@@ -113,14 +115,14 @@ const MarkerComponent = ({
             )}
 
             <div className="field-line">
-              <p className = 'black bold'>Description</p>
+              <p className="black bold">Description</p>
               <p className="info-box-description">{description}</p>
             </div>
 
             <div className="field-line">
-              <p className = 'bold'>Products</p>
+              <p className="bold">Products</p>
               <div className="grey-line mar-bottom-4"></div>
-              <ul className = 'products-holder'>
+              <ul className="products-holder">
                 {products.map((product, index) => {
                   return (
                     <li key={index} className="product mar-bottom-4">
@@ -151,7 +153,7 @@ const MarkerComponent = ({
               )}
               {number != null && (
                 <div className="flex-one">
-                  <p className = 'bold'>Phone:</p>
+                  <p className="bold">Phone:</p>
                   <div className="grey-line mar-bottom-4"></div>
                   <a href={`tel:${number}`}>
                     <p className="bold">{number}</p>
@@ -160,12 +162,12 @@ const MarkerComponent = ({
               )}
             </div>
             <div className="field-line">
-              <p className = 'bold'>Pickup or delivery?</p>
+              <p className="bold">Pickup or delivery?</p>
               <div className="grey-line mar-bottom-4"></div>
               <h5 className="bold black">{pickup}</h5>
             </div>
 
-            <p className = 'bold' >Hours</p>
+            <p className="bold">Hours</p>
             <div className="grey-line mar-bottom-4"></div>
             <div className="flex">
               <div
