@@ -13,7 +13,7 @@ const TagBoxElem = styled.div`
   overflow: hidden;
   overflow-y: auto;
   position: relative;
-  
+
   @media only screen and (max-width: 426px) {
     width: 100%;
   }
@@ -26,17 +26,16 @@ const Content = styled.div`
 `;
 const TagsCont = styled.div`
   margin-top: 8px;
-  
+
   position: relative;
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
 `;
 
-const FormDropdown = styled.form`
+const FormDropdown = styled.div`
   display: flex;
   justify-content: flex-end;
   position: relative;
-  
 `;
 
 const InputLine = styled.input`
@@ -47,11 +46,11 @@ const InputLine = styled.input`
   border-radius: 0.5rem !important;
   font-size: 1.25rem;
   margin-left: auto;
-  outline:none;
+  outline: none;
   &:focus {
     border-radius: 0.5rem 0.5rem 0 0 !important;
-    outline:none !important;
-    border: 2px solid #AC3B61;
+    outline: none !important;
+    border: 2px solid #ac3b61;
   }
   @media only screen and (max-width: 440px) {
     width: 100%;
@@ -65,11 +64,10 @@ const DropdownHolder = styled.div`
   @media only screen and (min-width: 600px) {
     width: 100%;
   }
-  
 `;
 
 const Dropdown = styled.div`
-z-index:5;
+  z-index: 5;
   position: relative;
   width: 100%;
   border: 1px solid black;
@@ -124,7 +122,7 @@ const Searchbar = (props) => {
           id={tag.id}
           className="item"
         >
-          <p className = 'bold'>{tag.name}</p>
+          <p className="bold">{tag.name}</p>
         </div>
       );
     }
@@ -136,7 +134,6 @@ const Searchbar = (props) => {
         key={nanoid()}
         id={tag.id}
         title={tag.name}
-        
       />
     );
   });
@@ -200,7 +197,7 @@ const Searchbar = (props) => {
               colors={props.colors}
             >
               <FontAwesomeIcon
-              icon = {faChevronDown}
+                icon={faChevronDown}
                 className={extendDropdown ? "icon-green rotate" : "icon-green"}
               />
             </DropdownIcon>
