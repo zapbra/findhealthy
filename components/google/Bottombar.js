@@ -454,7 +454,8 @@ const Bottombar = ({
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
-        formData.howToOrder
+        formData.howToOrder,
+        selectedIcon
       );
       return locationId;
     }
