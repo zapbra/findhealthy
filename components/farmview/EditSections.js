@@ -280,7 +280,7 @@ const Sections = ({
           "aria-live": "polite",
         },
       });
-      const searchBarElem = document.querySelector(".google-dropdown");
+      const searchBarElem = document.querySelector("#address-input");
       searchBarElem.focus();
       searchBarElem.classList.add("scale-pop-anim");
 
@@ -347,7 +347,7 @@ const Sections = ({
           })
       );
 
-      const numberOrganize = formData.number
+      const numberOrganize = formData.phone
         .replaceAll(/[^0-9]/g, "")
         .split("");
       numberOrganize.unshift("(");
@@ -363,7 +363,6 @@ const Sections = ({
         formData.website,
         formData.email,
         numberOrganize.join(""),
-        selectedTags,
         formData.grassFed,
         formData.organic,
         formData.vaccineFree,
@@ -898,8 +897,8 @@ const Sections = ({
           </div>
         </div>
         <div>
-          <div className="center-inline">
-            <h4 className="blue">HOURS</h4>
+          <div className="flex flex-column align-center">
+            <h4 className="blue mar-bottom-8">HOURS</h4>
             <div className="input-line">
               <h5>From</h5>
               <input

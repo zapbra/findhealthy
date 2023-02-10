@@ -120,7 +120,8 @@ const Cont = styled.div`
 `;
 
 const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
-  const [previewUrl, setPreviewUrl] = useState({url:images[0].url, id:0} || null);
+  const [imagesCopy, setImagesCopy] = useState(images);
+  const [previewUrl, setPreviewUrl] = useState({url:imagesCopy[0].url, id:0} || null);
   const [loading, setLoading] = useState({ state: false, msg: "" });
   const selectImage = (url, id) => {
     if (previewUrl.url === url) return;
@@ -130,7 +131,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       imageRef.current.classList.remove("opacity-anim-fast");
     }, 250);
   };
-  
+
   const imageElements = images.map((image, index) => {
     return (
       <div
@@ -143,7 +144,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       </div>
     );
   });
-  const [imagesCopy, setImagesCopy] = useState(images);
+  
   const [imageElems, setImageElems] = useState([]);
   useEffect(() => {
     const imageArr = [];
@@ -177,6 +178,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
           </div>
         );
       } else {
+        
         //if image doesn't exist
         if (user_id === post_user_id) {
           imageArr.push(
@@ -199,7 +201,8 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
     setImageElems(imageArr);
   }, [imagesCopy, previewUrl]);
   
-  
+  console.log('imag eelems');
+  console.log(imageElems);
   const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
 
   const setPhotoDisplayVisible = () => {
@@ -274,10 +277,10 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       return;
     }
     const image = imagesCopy[id];
-    
+   
     const deleteStatus = await deleteImgurImage(image);
-
-    if(deleteStatus){
+   
+    if(typeof image == 'undefined' ? true : deleteStatus){
         setLoading({ state: true, msg: "Uploading image..." });
         const file = event.target.files[0];
         let formData = new FormData();
@@ -374,7 +377,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
       {showPhotoDisplay && (
         <PhotoDisplay selectedImage={previewUrl?.url} hidePhoto={hidePhoto} />
       )}
-      <input id='0' ref={imageInputRef} type="file" onChange={(e) =>uploadImage(e, e.target.id)} hidden />
+      <input id={imagesCopy.length-1} ref={imageInputRef} type="file" onChange={(e) =>uploadImage(e, e.target.id)} hidden />
       <div className="hero-image-section dark-blue-bg">
         {previewUrl?.url !== null ? (
           <div className="image-holder ">
@@ -382,7 +385,11 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
             <div
               className="image-upload-btn"
               onClick = {()=> {
+                if(imagesCopy.length < 4){
+                  imageInputRef.current.id = imageInputRef.current.id+1;
+                } else{
                 imageInputRef.current.id = previewUrl.id;
+                }
                 imageInputRef.current.click()
             }}
             >

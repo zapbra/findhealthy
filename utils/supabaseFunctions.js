@@ -129,7 +129,6 @@ export const updateLocation = async (
   website = null,
   email = null,
   number = null,
-  tags,
   grassFed,
   organic,
   vaccineFree,
