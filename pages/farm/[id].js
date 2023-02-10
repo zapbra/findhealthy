@@ -10,8 +10,9 @@ import supabase from "../../utils/supabaseClient";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import EditSections from "../../components/farmview/EditSections";
-import { Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import DeletePopup from "../../components/popups/DeletePopup";
+import { deleteLocation } from "../../utils/supabaseFunctions";
 const Cont = styled.div`
   border: 1px solid ${(props) => props.colors.grey};
   background-color: #fff !important;
@@ -33,18 +34,19 @@ export const getServerSideProps = async (pageContext) => {
     .single();
   return {
     props: {
-      locationsFetch: data,
+      locationFetch: data,
     },
   };
 };
 
-const Preview = ({ locationsFetch }) => {
+const Preview = ({ locationFetch }) => {
   const [origPoster, setOrigPoster] = useState(false);
   const [user, setUser] = useState("null");
   const router = useRouter();
   const title = router.query.title;
-  const [location, setLocation] = useState(locationsFetch);
+  const [location, setLocation] = useState(locationFetch);
 
+  const [loading, setLoading] = useState({ state: false, msg: "" });
   useEffect(() => {
     const fetchUser = async () => {
       const { data: session } = await supabase.auth.getSession();
@@ -87,17 +89,43 @@ const Preview = ({ locationsFetch }) => {
     setShowDeletePopup(false);
   };
 
-  const deletePost = () => {};
+  const deletePost = async () => {
+    setLoading({ state: true, msg: "deleting post..." });
+    const deleteState = await deleteLocation(location.id);
+    if (deleteState == true) {
+      setLoading({ state: false, msg: "" });
+      toast.success("Post deleted! Rerouting back to home");
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+    } else {
+      setLoading({ state: false, msg: "" });
+      toast.error(`Error deleting post... ${deleteState}`);
+    }
+  };
 
   const description =
     "They sell grass fed beef, pasture raised chicken (fresh) and they also sell fresh organs every few months or so. They do deliveries to the Parkdale market every Saturday between 11:00 AM and 1:30 PM";
   return (
     <Cont colors={COLORS} className="default-page box-shadow-2">
+      {loading.state && (
+        <div className="loading-screen">
+          <div className="loading-items">
+            <div class="lds-ring-green">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <p className="bold green">{loading.msg}</p>
+          </div>
+        </div>
+      )}
       {showDeletePopup && (
         <DeletePopup
           text="post"
           deleteFunction={deletePost}
-          cancelFunction={hideForm}
+          cancelFunction={hidePopup}
         />
       )}
       <Toaster />
@@ -136,7 +164,7 @@ const Preview = ({ locationsFetch }) => {
               <FontAwesomeIcon icon={faPencil} className=" icon-sm white" />
             </div>
             {editMode && (
-              <div onClick={show} className="red-btn-one">
+              <div onClick={showPopup} className="red-btn-one">
                 <h4>DELETE</h4>
               </div>
             )}

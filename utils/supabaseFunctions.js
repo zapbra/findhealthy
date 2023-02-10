@@ -166,14 +166,27 @@ export const updateLocation = async (
         friendly,
         howToOrder,
       })
-      .eq('id', id);
+      .eq("id", id);
 
     if (error) throw error;
-      
+
     return true;
   } catch (error) {
     console.log(error);
     return error;
+  }
+};
+
+export const deleteLocation = async (id) => {
+  try {
+    const { data, error } = await supabase
+      .from("locations")
+      .delete()
+      .eq("id", id);
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    return error.message;
   }
 };
 
@@ -384,11 +397,8 @@ export const createImage = async (url, deleteHash, location_id) => {
 
 export const deleteImage = async (id) => {
   try {
-    const { data, error } = await supabase.from('images')
-    .delete()
-    .eq('id', id)
-    ;
-    if(error) throw error;
+    const { data, error } = await supabase.from("images").delete().eq("id", id);
+    if (error) throw error;
     return true;
   } catch (error) {
     return false;
