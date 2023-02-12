@@ -4,19 +4,29 @@ import COLORS from "../../data/colors";
 import Toggle from "../inputs/Toggle";
 import Searchbar from "../search/Searchbar";
 import { PlacesAutocomplete } from "./Bottombar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronDown,
+  faLocationDot,
+  faEgg,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
+import toast from "react-hot-toast";
 import Select from "./Select";
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
   padding: 4px 8px;
-
+  .filter-bar-holder {
+    display: flex;
+    padding: 8px;
+    background-color: ${(props) => props.colors.lightBeige};
+    border-radius: 16px;
+  }
   .filter-bar {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-around;
-    background-color: ${(props) => props.colors.lightBeige};
-    border-radius: 16px;
-    padding: 8px;
   }
   .toggles-holder {
     display: flex;
@@ -39,17 +49,25 @@ const Cont = styled.div`
   .dropdown__selected {
     border: none;
   }
+  .submit-btn {
+    @media only screen and (max-width: 400px) {
+      display: flex !important;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  .mobile-submit {
+    @media only screen and (min-width: 1000px) {
+      display: none !important;
+    }
+  }
+  .desktop-submit {
+    @media only screen and (max-width: 1000px) {
+      display: none !important;
+    }
+  }
 `;
 const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
-  const [checkboxes, setCheckBoxes] = useState({
-    grassFed: { checked: false, name: "grassFed" },
-    organic: { checked: false, name: "organic" },
-    soyFree: { checked: false, name: "soyFree" },
-    unfrozen: { checked: false, name: "unfrozen" },
-    dewormerFree: { checked: false, name: "dewormerFree" },
-    pastureRaised: { checked: false, name: "pastureRaised" },
-    vaccineFree: { checked: false, name: "vaccineFree" },
-  });
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState("");
   const [tags, setTags] = useState([]);
@@ -208,44 +226,146 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
     return <Toggle selected={val} setSelected={updateFilters} />;
   });
 
+  const filterLocationsByTags = () => {
+    return locations.filter((location) =>
+      searchTags.every((searchTag) =>
+        location.tags.some((tag) => tag == searchTag.name)
+      )
+    );
+  };
+
+  const filterLocationsByCheckboxes = (locations) => {
+    const checkedBoxes = Object.entries(filters)
+      .filter(([key, val]) => {
+        return val.checked;
+      })
+      .map((box) => box[0]);
+
+    return locations.filter((location) => {
+      return checkedBoxes.every((box) => {
+        return location[box] == "true";
+      });
+    });
+  };
+  const [radiusText, setRadiusText] = useState("");
+  const latitudeCalc = (locationsFilter) => {
+    const [lat1, lon1] = [address.lat, address.lng];
+    const returnLocations = locationsFilter.filter((location) => {
+      const [lat2, lon2] = [location.address[0].lat, location.address[0].lng];
+      const φ1 = (lat1 * Math.PI) / 180,
+        φ2 = (lat2 * Math.PI) / 180,
+        Δλ = ((lon2 - lon1) * Math.PI) / 180,
+        R = 6371e3;
+      const d =
+        Math.acos(
+          Math.sin(φ1) * Math.sin(φ2) +
+            Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)
+        ) * R;
+      const curRadius =
+        radiusText != "" ? Number(radiusText) : Number(value.match(/[0-9]*/));
+      if (d / 1000 <= curRadius) return true;
+    });
+    return returnLocations;
+  };
+
+  const applyFilter = () => {
+    if (address == "") {
+      toast("Please select an address from the dropdown.", {
+        duration: 4000,
+        position: "top-center",
+
+        // Styling
+        style: { border: "1px solid #E52323", backgroundColor: "#eee2dc;" },
+        className: "",
+
+        // Custom Icon
+        icon: "👇",
+
+        // Change colors of success/error/loading icon
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+
+        // Aria
+        ariaProps: {
+          role: "status",
+          "aria-live": "polite",
+        },
+      });
+      const searchBarElem = document.querySelector("#address-input");
+      searchBarElem.focus();
+      searchBarElem.classList.add("scale-pop-anim");
+
+      searchBarElem.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        searchBarElem.classList.remove("scale-pop-anim");
+      }, 1000);
+
+      return;
+    }
+    let locationsFilter = filterLocationsByTags();
+    locationsFilter = filterLocationsByCheckboxes(locationsFilter);
+    locationsFilter = latitudeCalc(locationsFilter);
+    setLocationsFilter(locationsFilter);
+  };
   return (
     <Cont colors={COLORS}>
-      <div className="filter-bar">
-        <div className="mar-bottom-16">
-          <Searchbar
-            text={text}
-            updateText={updateText}
-            removeSearchTag={removeSearchTag}
-            pushTag={pushSearchTag}
-            pushSearchTag={pushSearchTag}
-            tags={searchTags}
-            submitSearch={submitSearch}
-            removeTag={removeTag}
-            filterTags={filterTags}
-            colors={COLORS}
-          />
+      <div className="filter-bar-holder">
+        <div className="filter-bar">
+          <div className="mar-bottom-16">
+            <Searchbar
+              text={text}
+              updateText={updateText}
+              removeSearchTag={removeSearchTag}
+              pushTag={pushSearchTag}
+              pushSearchTag={pushSearchTag}
+              tags={searchTags}
+              submitSearch={submitSearch}
+              removeTag={removeTag}
+              filterTags={filterTags}
+              colors={COLORS}
+            />
+          </div>
+          <div className="mar-bottom-16">
+            <p>City, address or location</p>
+            <PlacesAutocomplete
+              setAddress={setAddress}
+              location={location}
+              setLocation={setLocation}
+              updateCoords={updateCoords}
+            />
+          </div>
+          <div className="mar-bottom-16 ">
+            <Select
+              title="Enter radius"
+              regions={radiusValues}
+              options={dynamicRadius}
+              setOptions={setDynamicRadius}
+              name="radius"
+              value={value}
+              updateValue={updateValue}
+            />
+          </div>
+          <div className="toggles-holder small-scrollbar mar-bottom-16 ">
+            {toggles}
+          </div>
+
+          <div
+            onClick={applyFilter}
+            className="blue-btn-one flex-inline align-center submit-btn mobile-submit"
+          >
+            <h5 className="mar-right-8">Search</h5>
+            <FontAwesomeIcon icon={faSearch} className="icon-ssm white" />
+          </div>
         </div>
-        <div className="mar-bottom-16">
-          <p>City, address or location</p>
-          <PlacesAutocomplete
-            setAddress={setAddress}
-            location={location}
-            setLocation={setLocation}
-            updateCoords={updateCoords}
-          />
+        <div
+          onClick={applyFilter}
+          className="blue-btn-one flex-inline align-center submit-btn desktop-submit"
+        >
+          <h5 className="mar-right-8">Search</h5>
+          <FontAwesomeIcon icon={faSearch} className="icon-ssm white" />
         </div>
-        <div className="mar-bottom-16 ">
-          <Select
-            title="Enter radius"
-            regions={radiusValues}
-            options={dynamicRadius}
-            setOptions={setDynamicRadius}
-            name="radius"
-            value={value}
-            updateValue={updateValue}
-          />
-        </div>
-        <div className="toggles-holder small-scrollbar ">{toggles}</div>
       </div>
     </Cont>
   );

@@ -1328,6 +1328,7 @@ export const PlacesAutocomplete = ({
           onChange={(e) => setValue(e.target.value)}
           id="address-input"
           onFocus={() => setShowDropdown(true)}
+          autocomplete="off"
         />
       </div>
       {showDropdown && (
