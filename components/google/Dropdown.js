@@ -35,7 +35,7 @@ const Dropdown = ({
         onChange={searchChangeHandler}
         ref={searchInputEl}
       />
-      <div className="dropdown__menu_items" ref={itemsEl}>
+      <div className="dropdown__menu_items small-scrollbar" ref={itemsEl}>
         {regions.map((item, index) => (
           <div
             className={

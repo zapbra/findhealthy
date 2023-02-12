@@ -9,10 +9,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const TagBoxElem = styled.div`
   border-radius: 0.5rem;
-  max-height: 200px;
-  overflow: hidden;
-  overflow-y: auto;
+  max-height: 100px;
+
   position: relative;
+  max-width: 400px;
+  overflow: auto;
 
   @media only screen and (max-width: 426px) {
     width: 100%;
@@ -61,6 +62,7 @@ const DropdownHolder = styled.div`
   position: absolute;
   width: 100%;
   top: 45px;
+
   @media only screen and (min-width: 600px) {
     width: 100%;
   }
@@ -70,10 +72,11 @@ const Dropdown = styled.div`
   z-index: 5;
   position: relative;
   width: 100%;
-  border: 1px solid black;
+
   max-height: 210px;
   overflow-y: scroll;
   cursor: pointer;
+  border: 1px solid ${(props) => props.colors.grey};
   .item {
     padding-left: 4px;
     background-color: #fff;
@@ -168,7 +171,7 @@ const Searchbar = (props) => {
 
   return (
     <Content>
-      <TagBoxElem colors={props.colors}>
+      <TagBoxElem colors={props.colors} className="small-scrollbar">
         <TagsCont>{tags}</TagsCont>
       </TagBoxElem>
       <FormDropdown
@@ -185,22 +188,9 @@ const Searchbar = (props) => {
         />
         {showDropdown && (
           <DropdownHolder>
-            <Dropdown
-              className={extendDropdown ? "extend" : ""}
-              colors={COLORS}
-            >
+            <Dropdown className="box-shadow small-scrollbar" colors={COLORS}>
               {lines}
             </Dropdown>
-            <DropdownIcon
-              className={extendDropdown ? "extend-icon" : ""}
-              onClick={toggleExtendDropdown}
-              colors={props.colors}
-            >
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                className={extendDropdown ? "icon-green rotate" : "icon-green"}
-              />
-            </DropdownIcon>
           </DropdownHolder>
         )}
       </FormDropdown>

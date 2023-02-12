@@ -810,6 +810,7 @@ const Bottombar = ({
         <div className="fake-form">
           <h4 className="mar-bottom-8 text-shadow-red">ENTER AN ADDRESS *</h4>
           <div className="red-line mar-bottom-8"></div>
+          <p className="italic mar-bottom-4">Select from the dropdown</p>
           <PlacesAutocomplete
             location={location}
             setLocation={setLocation}
@@ -1318,8 +1319,7 @@ export const PlacesAutocomplete = ({
   }, [handleClickOutside]);
 
   return (
-    <div className="mar-bottom-32 relative">
-      <p className="italic mar-bottom-4">Select from the dropdown</p>
+    <div className=" relative">
       <div className="dropdown-address" ref={dropdownEl}>
         <input
           value={value}

@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import COLORS from "../../data/colors";
@@ -17,9 +16,7 @@ const TagElem = styled.div`
   align-items: center;
   gap: 5px;
   min-height: 32px;
-  p {
-    font-size: 1.25rem;
-  }
+
   .x-icon {
     width: 24px;
     cursor: pointer;
@@ -32,7 +29,8 @@ const SearchTag = (props) => {
   return (
     <TagElem id={props.id} colors={COLORS} color={props.color}>
       <p>{props.title}</p>
-      <FontAwesomeIcon icon = {faClose}
+      <FontAwesomeIcon
+        icon={faClose}
         onClick={() => props.removeSearchTag(props.id)}
         className="x-icon"
       />

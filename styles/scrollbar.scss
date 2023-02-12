@@ -1,0 +1,45 @@
+$tan: #edc7b7;
+$light-beige: #eee2dc;
+$grey: #bab2b5;
+$darkBlue: rgb(18, 60, 105);
+$darkPink: #ac3b61;
+$redGrey: #81646d;
+$black: #192430;
+$k: "#fff";
+$none: none;
+$yellow: #9fac3b;
+$purple: #7028e4;
+$blue: #2521e5;
+$red: #e52323;
+$yellow: #cce729;
+$orange: #df5f28;
+$green: #3bac46;
+$offWhite: rgb(231, 239, 248);
+$darkGrey: #533f45;
+$light-blue: #278ffd;
+$light-blue-2: #88c1ff;
+$light-green: #27fd55;
+
+::-webkit-scrollbar {
+  width: 1rem;
+  background: $light-beige;
+}
+.small-scrollbar {
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+}
+::-webkit-scrollbar-thumb {
+  background: $darkPink;
+  border-radius: 1rem;
+
+  &:hover {
+    background: $green;
+  }
+}
+@supports (scrollbar-color: #002b67 $light-beige) {
+  * {
+    scrollbar-color: $darkPink $light-beige;
+    scrollbar-width: auto;
+  }
+}
