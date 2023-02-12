@@ -21,6 +21,7 @@ const Cont = styled.div`
     padding: 8px;
     background-color: ${(props) => props.colors.lightBeige};
     border-radius: 16px;
+    align-items: center;
   }
   .filter-bar {
     display: flex;
