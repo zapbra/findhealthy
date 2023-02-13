@@ -12,7 +12,7 @@ import {
 import toast from "react-hot-toast";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import Searchbar from "../search/Searchbar";
-import { PlacesAutocomplete } from "./Bottombar";
+import Listing from "../sidebar/listing";
 
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
@@ -31,23 +31,29 @@ const Cont = styled.div`
       max-width: 200px;
       margin-bottom: 16px;
     }
-   
-   
   }
-
- 
 `;
 
-const Sidebar = ({
-  locations,
-}) => {
-  console.log('locations');
-  console.log(locations)
-  return (
-    <Cont colors={COLORS}>
-     
-    </Cont>
-  );
+const Sidebar = ({ locations }) => {
+  console.log("locations");
+  console.log(locations);
+  const sidebarLocations = locations.map((location) => {
+    return (
+      <Listing
+        name={location.name}
+        address={location.address[0].full_address}
+        created_at={location.created_at}
+        icon={location.icon}
+        tags={location.tags}
+        howToOrder={location.howToOrder}
+        pricing={location.pricing}
+        quality={location.quality}
+        friendly={location.friendly}
+        image={location.images.length == 0 ? null : location.images[0].url}
+      />
+    );
+  });
+  return <Cont colors={COLORS}>{sidebarLocations}</Cont>;
 };
 
 export default Sidebar;

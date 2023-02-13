@@ -151,6 +151,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(updateCoords);
   }, []);
+  
   const isLoaded = true;
   return isLoaded ? (
     <Cont>
@@ -165,7 +166,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         <Sidebar
           tagsFetch={tagsFetch}
           updateCoords={updateCoords}
-          locations={locations}
+          locations={locationsFilter}
           setLocationsFilter={setLocationsFilter}
         />  {/*
         <GoogleMap
