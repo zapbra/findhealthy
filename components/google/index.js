@@ -154,7 +154,6 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
 
   return isLoaded ? (
     <Cont>
-      {adding && <Alert />}
       <Topbar
         tagsFetch={tagsFetch}
         updateCoords={updateCoords}

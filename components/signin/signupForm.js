@@ -99,6 +99,7 @@ const SignupForm = ({ passwordState, togglePasswordState }) => {
         <div className="input-line">
           <h5>USERNAME</h5>
           <input
+            autofocus
             {...register("username", {
               required: true,
               pattern: {
