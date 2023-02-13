@@ -404,7 +404,8 @@ const Bottombar = ({
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
         formData.howToOrder,
-        user.id
+        user.id,
+        selectedIcon
       );
       return locationId;
     } else {

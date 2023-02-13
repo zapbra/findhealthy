@@ -5,6 +5,7 @@ import { Marker, InfoWindow } from "@react-google-maps/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExpand, faEye } from "@fortawesome/free-solid-svg-icons";
 import COLORS from "../../data/colors";
+import colors from "../../data/colors";
 
 const Cont = styled.div`
   max-width: 320px;
@@ -58,20 +59,28 @@ const MarkerComponent = ({
               <p style={{ backgroundColor: "#CCE729" }} className="tag-four">
                 {tags[0]}
               </p>
-              <p style={{ backgroundColor: "#DF5F28" }} className="tag-four">
+              <p
+                style={{ backgroundColor: COLORS.lightOrange }}
+                className="tag-four"
+              >
                 {tags[1]}
               </p>
               {tags[2] !== undefined && (
-                <p style={{ backgroundColor: "#3BAC46" }} className="tag-four">
+                <p
+                  style={{ backgroundColor: COLORS.lightGreen }}
+                  className="tag-four"
+                >
                   {tags[2]}
                 </p>
               )}
-              {tags[3] !== undefined && ( 
-                <p style={{ backgroundColor: "#DF5F28" }} className="tag-four">
-                {tags[3]}
-              </p>
+              {tags[3] !== undefined && (
+                <p
+                  style={{ backgroundColor: COLORS.lightRed }}
+                  className="tag-four"
+                >
+                  {tags[3]}
+                </p>
               )}
-              
             </div>
             <Link
               href={{

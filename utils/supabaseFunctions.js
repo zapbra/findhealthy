@@ -47,7 +47,7 @@ const createLocation = async (
         quality,
         friendly,
         howToOrder,
-        icon
+        icon,
       })
       .select("id")
       .single();
@@ -83,7 +83,8 @@ export const createUserLocation = async (
   quality,
   friendly,
   howToOrder,
-  user_id
+  user_id,
+  icon
 ) => {
   try {
     const { data, error } = await supabase
@@ -110,6 +111,7 @@ export const createUserLocation = async (
         friendly,
         howToOrder,
         user_id,
+        icon,
       })
       .select("id")
       .single();
