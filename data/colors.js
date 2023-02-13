@@ -7,10 +7,12 @@ export default {
   darkPink: "#AC3B61",
   darkGrey: "#81646D",
   black: "#192430",
-  yellow: "#9FAC3B",
+  yellow: "#cce729",
   offWhite: "#E7EFF8",
   green: "#3BAC46",
   redGrey: "#81646D",
   lightBlue: "#278ffd",
   lightGreen: "#27fd55",
+  lightOrange: "#fd7d27",
+  lightRed: "#fd2727",
 };

@@ -21,7 +21,7 @@ const Cont = styled.div`
   padding: 8px;
   border-top: 2px solid ${(props) => props.colors.darkPink};
   border-bottom: 2px solid ${(props) => props.colors.darkPink};
-  height: 80vh;
+  height: 75vh;
   overflow: auto;
 
   @media only screen and (max-width: 900px) {
@@ -34,6 +34,10 @@ const Cont = styled.div`
       max-width: 200px;
       margin-bottom: 16px;
     }
+  }
+  @media only screen and (max-width: 400px) {
+    width: 90%;
+    margin: 0 5%;
   }
 `;
 

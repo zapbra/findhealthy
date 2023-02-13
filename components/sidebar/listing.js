@@ -5,6 +5,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { getRandomColor } from "../../utils/functions";
 const Cont = styled.div`
   background: #fff;
   border: 1px solid ${(props) => props.colors.grey};
@@ -23,7 +24,7 @@ const Cont = styled.div`
   }
   .tags-holder {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 4px;
     border-radius: 8px 8px 0 0;
     margin-bottom: 8px;
@@ -48,7 +49,7 @@ const Listing = ({
   const [tagElems, setTagsElems] = useState(
     tags.map((tag) => {
       return (
-        <div className="tag-four">
+        <div style={{ backgroundColor: getRandomColor() }} className="tag-four">
           <p className="black">{tag}</p>
         </div>
       );
@@ -109,10 +110,11 @@ const Listing = ({
         </div>
         <div className="black-line-2 mar-bottom-8"></div>
         <p className="light black">{address}</p>
-        <div className="tags-holder">{tagElems}</div>
+
         <div className="grey-line mar-bottom-8"></div>
         <p className="black mar-bottom-8">{pickup}</p>
         <div className="grey-line mar-bottom-8"></div>
+        <div className="tags-holder">{tagElems}</div>
         {starFields}
         <div className="grey-line mar-top-8"></div>
       </Cont>

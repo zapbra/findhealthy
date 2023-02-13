@@ -19,7 +19,7 @@ const Cont = styled.div`
 
 const containerStyle = {
   width: "100%",
-  height: "80vh",
+  height: "75vh",
 };
 
 const options = {
@@ -152,7 +152,6 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
     navigator.geolocation.getCurrentPosition(updateCoords);
   }, []);
 
-
   return isLoaded ? (
     <Cont>
       {adding && <Alert />}
@@ -169,7 +168,6 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           locations={locationsFilter}
           setLocationsFilter={setLocationsFilter}
         />{" "}
-        
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
@@ -181,7 +179,6 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         >
           {markers}
         </GoogleMap>
-  
       </div>
 
       <Bottombar

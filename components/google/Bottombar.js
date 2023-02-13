@@ -43,7 +43,9 @@ import Dropdown from "./Dropdown";
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
   padding: 16px;
-
+  .dropdown {
+    border: none;
+  }
   form {
     position: relative;
   }
@@ -816,7 +818,7 @@ const Bottombar = ({
             setLocation={setLocation}
             setAddress={setAddress}
           />
-
+          <div className="mar-bottom-32"></div>
           <div className="input-line">
             <div className="input-line">
               <h4 className="text-shadow-red">PRODUCT TYPES *</h4>
