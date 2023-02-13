@@ -375,7 +375,7 @@ export const fetchLocation = async (id) => {
   try {
     const { data, error } = await supabase
       .from("locations")
-      .select("*,address(*), products(*)")
+      .select("*,address(*), products(*), images(*)")
       .eq("id", id)
       .single();
     if (error) throw error;
