@@ -16,16 +16,20 @@ import Select from "./Select";
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
   padding: 4px 8px;
-  
+
   .filter-bar {
     display: flex;
-    background-color:  ${(props) => props.colors.lightBeige};
+    background-color: ${(props) => props.colors.lightBeige};
     border-radius: 16px;
     padding: 8px;
     flex-direction: column;
   }
-  .filter-bar-top{
-    flex-wrap:wrap;
+  .filter-bar-top {
+    flex-wrap: wrap;
+    display: flex;
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+    }
   }
 
   .toggles-holder {
@@ -97,7 +101,6 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
       });
     });
   }, []);
-
 
   function findClosestTag() {
     if (tags.length == 0) return;
@@ -233,9 +236,9 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
     );
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     applyFilter();
-  },[filters, value, tags])
+  }, [filters, value, tags]);
 
   const filterLocationsByCheckboxes = (locations) => {
     const checkedBoxes = Object.entries(filters)
@@ -316,47 +319,47 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
     <Cont colors={COLORS}>
       <div className="filter-bar-holder">
         <div className="filter-bar">
-          <div className  = 'flex space-around filter-bar-top'>
-          <div className="mar-bottom-16">
-            <p>Tags</p>
-            <Searchbar
-              text={text}
-              updateText={updateText}
-              removeSearchTag={removeSearchTag}
-              pushTag={pushSearchTag}
-              pushSearchTag={pushSearchTag}
-              tags={searchTags}
-              submitSearch={submitSearch}
-              removeTag={removeTag}
-              filterTags={filterTags}
-              colors={COLORS}
-            />
-          </div>
-          <div className="mar-bottom-16">
-            <p>City, address or location</p>
-            <PlacesAutocomplete
-              setAddress={setAddress}
-              location={location}
-              setLocation={setLocation}
-              updateCoords={updateCoords}
-            />
-          </div>
-          <div className="mar-bottom-16 ">
-            <Select
-              title="Enter radius"
-              regions={radiusValues}
-              options={dynamicRadius}
-              setOptions={setDynamicRadius}
-              name="radius"
-              value={value}
-              updateValue={updateValue}
-            />
-          </div>
+          <div className="flex space-around filter-bar-top">
+            <div className="mar-bottom-16">
+              <p>Tags</p>
+              <Searchbar
+                text={text}
+                updateText={updateText}
+                removeSearchTag={removeSearchTag}
+                pushTag={pushSearchTag}
+                pushSearchTag={pushSearchTag}
+                tags={searchTags}
+                submitSearch={submitSearch}
+                removeTag={removeTag}
+                filterTags={filterTags}
+                colors={COLORS}
+              />
+            </div>
+            <div className="mar-bottom-16">
+              <p>City, address or location</p>
+              <PlacesAutocomplete
+                setAddress={setAddress}
+                location={location}
+                setLocation={setLocation}
+                updateCoords={updateCoords}
+              />
+            </div>
+            <div className="mar-bottom-16 ">
+              <Select
+                title="Enter radius"
+                regions={radiusValues}
+                options={dynamicRadius}
+                setOptions={setDynamicRadius}
+                name="radius"
+                value={value}
+                updateValue={updateValue}
+              />
+            </div>
           </div>
           <div className="toggles-holder small-scrollbar mar-bottom-16 ">
             {toggles}
           </div>
-    {/*
+          {/*
           <div
             onClick={applyFilter}
             className="blue-btn-one flex-inline align-center submit-btn mobile-submit"
