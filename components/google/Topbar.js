@@ -98,8 +98,7 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
     });
   }, []);
 
-  console.log("xxx");
-  console.log(filterTags);
+
   function findClosestTag() {
     if (tags.length == 0) return;
     setFilterTags((prevTags) => {

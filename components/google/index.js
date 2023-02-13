@@ -69,7 +69,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
       });
     });
   }, [locations, locationsFilter]);
-
+/*
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -88,7 +88,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
-
+*/
   const updateLocation = (value) => {
     setLocation(value);
   };
@@ -151,7 +151,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(updateCoords);
   }, []);
-
+  const isLoaded = true;
   return isLoaded ? (
     <Cont>
       {adding && <Alert />}
@@ -167,7 +167,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           updateCoords={updateCoords}
           locations={locations}
           setLocationsFilter={setLocationsFilter}
-        />
+        />  {/*
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
@@ -179,6 +179,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         >
           {markers}
         </GoogleMap>
+  */}
       </div>
 
       <Bottombar
