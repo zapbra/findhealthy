@@ -21,6 +21,8 @@ const Cont = styled.div`
   padding: 8px;
   border-top: 2px solid ${(props) => props.colors.darkPink};
   border-bottom: 2px solid ${(props) => props.colors.darkPink};
+  height: 80vh;
+  overflow: auto;
 
   @media only screen and (max-width: 900px) {
     width: 200px;

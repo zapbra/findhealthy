@@ -10,6 +10,15 @@ const Cont = styled.div`
   border: 1px solid ${(props) => props.colors.grey};
   padding: 8px;
   margin-bottom: 16px;
+  transition: box-shadow 0.25s ease;
+  cursor: pointer;
+  &:hover {
+    box-shadow: none;
+    h5,
+    p {
+      text-decoration: underline;
+    }
+  }
   .image-holder {
     width: 100%;
     height: 200px;
@@ -55,9 +64,9 @@ const Listing = ({
     })
   );
   return (
-    <Cont colors={COLORS}>
+    <Cont colors={COLORS} className="box-shadow-2">
       {image !== null && (
-        <div className="image-holder">
+        <div className="image-holder mar-bottom-8">
           <Image
             src={image}
             style={{ objectFit: "cover" }}
@@ -68,9 +77,13 @@ const Listing = ({
       )}
       <p className="contrast">{new Date(created_at).toDateString()} </p>
       <h5 className="black">{name}</h5>
+      <div className="black-line-2 mar-bottom-8"></div>
       <p className="light black">{address}</p>
-      <p className="black">{pickup}</p>
+      <div className="grey-line mar-bottom-8"></div>
+      <p className="black mar-bottom-8">{pickup}</p>
+      <div className="grey-line mar-bottom-8"></div>
       {starFields}
+      <div className="grey-line mar-top-8"></div>
     </Cont>
   );
 };
