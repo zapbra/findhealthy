@@ -11,4 +11,6 @@ export default {
   offWhite: "#E7EFF8",
   green: "#3BAC46",
   redGrey: "#81646D",
+  lightBlue: "#278ffd",
+  lightGreen: "#27fd55",
 };

@@ -12,17 +12,25 @@ const Cont = styled.div`
   margin-bottom: 16px;
   transition: box-shadow 0.25s ease;
   cursor: pointer;
+
   &:hover {
     box-shadow: none;
-    h5,
-    p {
-      text-decoration: underline;
-    }
   }
   .image-holder {
     width: 100%;
     height: 200px;
     position: relative;
+  }
+  .tags-holder {
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .tag-four {
+    margin-bottom: 8px;
   }
 `;
 const Listing = ({
@@ -37,6 +45,15 @@ const Listing = ({
   friendly,
   image = null,
 }) => {
+  const [tagElems, setTagsElems] = useState(
+    tags.map((tag) => {
+      return (
+        <div className="tag-four">
+          <p className="black">{tag}</p>
+        </div>
+      );
+    })
+  );
   const [starFields, setStarFields] = useState(
     [
       { name: "Pricing", value: pricing },
@@ -83,10 +100,16 @@ const Listing = ({
             />
           </div>
         )}
-        <p className="contrast">{new Date(created_at).toDateString()} </p>
-        <h5 className="black">{name}</h5>
+        <div className="flex align-center space-between">
+          <div>
+            <p className="contrast">{new Date(created_at).toDateString()} </p>
+            <h5 className="black">{name}</h5>
+          </div>
+          <Image src={icon} width={32} height={32} quality="100" />
+        </div>
         <div className="black-line-2 mar-bottom-8"></div>
         <p className="light black">{address}</p>
+        <div className="tags-holder">{tagElems}</div>
         <div className="grey-line mar-bottom-8"></div>
         <p className="black mar-bottom-8">{pickup}</p>
         <div className="grey-line mar-bottom-8"></div>

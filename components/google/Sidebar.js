@@ -28,7 +28,8 @@ const Cont = styled.div`
     width: 200px;
   }
   @media only screen and (max-width: 800px) {
-    width: 100%;
+    width: 80%;
+    margin: 0 10%;
     .input-line {
       max-width: 200px;
       margin-bottom: 16px;
