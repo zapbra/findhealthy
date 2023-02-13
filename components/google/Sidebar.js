@@ -45,7 +45,7 @@ const Sidebar = ({ locations }) => {
         created_at={location.created_at}
         icon={location.icon}
         tags={location.tags}
-        howToOrder={location.howToOrder}
+        pickup={location.pickup}
         pricing={location.pricing}
         quality={location.quality}
         friendly={location.friendly}
