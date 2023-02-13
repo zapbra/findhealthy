@@ -95,8 +95,8 @@ const Navbar = () => {
   return (
     <Cont colors={COLORS} id="navbar">
       <div className="nav-desktop">
-        <Link href="/" className = 'no-color-link text-shadow-red'>
-          <h5 className="inline-block mar-right-32">FINDHEALTHY</h5>
+        <Link href="/" className="no-color-link text-shadow-red">
+          <h5 className="inline-block mar-right-32">FOODMAP</h5>
         </Link>
         {user !== null ? (
           <Link href="/account">
@@ -114,17 +114,15 @@ const Navbar = () => {
 
         <div className="grid-cont">
           <div className="nav-section food-section">
-            <Link href="/" className = 'no-color-link text-shadow-red'>
+            <Link href="/" className="no-color-link text-shadow-red">
               <h4 className=" mar-right-32 ">FOOD MAP</h4>
             </Link>
-            <Link href = '/' className = 'no-color-link text-shadow-red'>
-            <h5 className="mar-right-16">MAP</h5>
+            <Link href="/" className="no-color-link text-shadow-red">
+              <h5 className="mar-right-16">MAP</h5>
             </Link>
-            <Link href = '/' className = 'no-color-link text-shadow-red'>
-            <h5>FORUM</h5>
-
+            <Link href="/" className="no-color-link text-shadow-red">
+              <h5>FORUM</h5>
             </Link>
-            
           </div>
 
           <div className="nav-section">
@@ -141,8 +139,11 @@ const Navbar = () => {
       <div className="nav-mobile">
         <div className="nav-mobile-content">
           <div className="flex align-center flex-wrap">
-            <Link href="/" className="mar-right-16 no-color-link text-shadow-red ">
-              <h4>FINDHEALTHY</h4>
+            <Link
+              href="/"
+              className="mar-right-16 no-color-link text-shadow-red "
+            >
+              <h4>FOODMAP</h4>
             </Link>
             {user !== null ? (
               <Link href="/account">
