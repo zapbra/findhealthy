@@ -16,19 +16,18 @@ import Select from "./Select";
 const Cont = styled.div`
   background-color: ${(props) => props.colors.tan};
   padding: 4px 8px;
-  .filter-bar-holder {
-    display: flex;
-    padding: 8px;
-    background-color: ${(props) => props.colors.lightBeige};
-    border-radius: 16px;
-    align-items: center;
-  }
+  
   .filter-bar {
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    background-color:  ${(props) => props.colors.lightBeige};
+    border-radius: 16px;
+    padding: 8px;
+    flex-direction: column;
   }
+  .filter-bar-top{
+    flex-wrap:wrap;
+  }
+
   .toggles-holder {
     display: flex;
     flex-wrap: wrap;
@@ -235,6 +234,10 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
     );
   };
 
+  useEffect(()=> {
+    applyFilter();
+  },[filters, value, tags])
+
   const filterLocationsByCheckboxes = (locations) => {
     const checkedBoxes = Object.entries(filters)
       .filter(([key, val]) => {
@@ -314,7 +317,9 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
     <Cont colors={COLORS}>
       <div className="filter-bar-holder">
         <div className="filter-bar">
+          <div className  = 'flex space-around filter-bar-top'>
           <div className="mar-bottom-16">
+            <p>Tags</p>
             <Searchbar
               text={text}
               updateText={updateText}
@@ -348,10 +353,11 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
               updateValue={updateValue}
             />
           </div>
+          </div>
           <div className="toggles-holder small-scrollbar mar-bottom-16 ">
             {toggles}
           </div>
-
+    {/*
           <div
             onClick={applyFilter}
             className="blue-btn-one flex-inline align-center submit-btn mobile-submit"
@@ -359,7 +365,10 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
             <h5 className="mar-right-8">Search</h5>
             <FontAwesomeIcon icon={faSearch} className="icon-ssm white" />
           </div>
+  */}
         </div>
+
+        {/*
         <div
           onClick={applyFilter}
           className="blue-btn-one flex-inline align-center submit-btn desktop-submit"
@@ -367,6 +376,7 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
           <h5 className="mar-right-8">Search</h5>
           <FontAwesomeIcon icon={faSearch} className="icon-ssm white" />
         </div>
+  */}
       </div>
     </Cont>
   );

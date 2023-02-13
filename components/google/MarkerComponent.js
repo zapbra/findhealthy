@@ -66,10 +66,12 @@ const MarkerComponent = ({
                   {tags[2]}
                 </p>
               )}
-              [tags[3] !== undefined && ( )]
-              <p style={{ backgroundColor: "#DF5F28" }} className="tag-four">
+              {tags[3] !== undefined && ( 
+                <p style={{ backgroundColor: "#DF5F28" }} className="tag-four">
                 {tags[3]}
               </p>
+              )}
+              
             </div>
             <Link
               href={{

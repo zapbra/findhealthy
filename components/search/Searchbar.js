@@ -42,7 +42,7 @@ const FormDropdown = styled.div`
 const InputLine = styled.input`
   height: 2.5rem;
   width: 100%;
-  margin-top: 5px;
+  
   font-weight: bold;
   border-radius: 0.5rem !important;
   font-size: 1.25rem;
@@ -61,7 +61,7 @@ const InputLine = styled.input`
 const DropdownHolder = styled.div`
   position: absolute;
   width: 100%;
-  top: 45px;
+  top: 40px;
 
   @media only screen and (min-width: 600px) {
     width: 100%;
@@ -171,9 +171,7 @@ const Searchbar = (props) => {
 
   return (
     <Content>
-      <TagBoxElem colors={props.colors} className="small-scrollbar">
-        <TagsCont>{tags}</TagsCont>
-      </TagBoxElem>
+     
       <FormDropdown
         className="form-dropdown"
         onSubmit={props.submitSearch}
@@ -194,6 +192,9 @@ const Searchbar = (props) => {
           </DropdownHolder>
         )}
       </FormDropdown>
+      <TagBoxElem colors={props.colors} className="small-scrollbar">
+        <TagsCont>{tags}</TagsCont>
+      </TagBoxElem>
     </Content>
   );
 };
