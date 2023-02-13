@@ -53,7 +53,7 @@ const ProductTypes = ({ tags, selectedTags, pushTag, deleteTag }) => {
   };
 
   const updateText = (e) => {
-    setText(e.target.value);
+    setText(e.target.value.toLowerCase());
 
     if (e.target.value === "") {
       setCopyTags(tags);
