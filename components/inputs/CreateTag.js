@@ -78,7 +78,7 @@ const CreateTag = ({ addTag, tags }) => {
   const [text, setText] = useState("");
   const [renderTags, setRenderTags] = useState([]);
   const updateText = (e) => {
-    setText(e.target.value);
+    setText(e.target.value.toLowerCase());
 
     setRenderTags((prev) => {
       return tags.filter((tag) => tag.includes(e.target.value));
@@ -127,25 +127,22 @@ const CreateTag = ({ addTag, tags }) => {
       }, 1000);
     }
     // check if word is valid in dictionary
-    
-   
-   
-      //create tag
-      if (renderTags.length === 0) {
-        addTag(text);
-        setText("");
-        toast.success("Tag created!");
-        setRenderTags((prev) => {
-          return tags.filter((tag) => tag.includes(""));
-        });
-      } else {
-        findClosestMatch();
-      }
 
-      //addTag(text);
-      //setText("");
-      //toast.success("Tag created!");
-    
+    //create tag
+    if (renderTags.length === 0) {
+      addTag(text);
+      setText("");
+      toast.success("Tag created!");
+      setRenderTags((prev) => {
+        return tags.filter((tag) => tag.includes(""));
+      });
+    } else {
+      findClosestMatch();
+    }
+
+    //addTag(text);
+    //setText("");
+    //toast.success("Tag created!");
   };
   const tagElems = renderTags.map((tag, index) => (
     <p key={index} id={tag} className="tag-two">
