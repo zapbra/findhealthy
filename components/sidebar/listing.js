@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-
+import Link from "next/link";
 const Cont = styled.div`
   background: #fff;
   border: 1px solid ${(props) => props.colors.grey};
@@ -64,27 +64,36 @@ const Listing = ({
     })
   );
   return (
-    <Cont colors={COLORS} className="box-shadow-2">
-      {image !== null && (
-        <div className="image-holder mar-bottom-8">
-          <Image
-            src={image}
-            style={{ objectFit: "cover" }}
-            quality="100"
-            fill
-          />
-        </div>
-      )}
-      <p className="contrast">{new Date(created_at).toDateString()} </p>
-      <h5 className="black">{name}</h5>
-      <div className="black-line-2 mar-bottom-8"></div>
-      <p className="light black">{address}</p>
-      <div className="grey-line mar-bottom-8"></div>
-      <p className="black mar-bottom-8">{pickup}</p>
-      <div className="grey-line mar-bottom-8"></div>
-      {starFields}
-      <div className="grey-line mar-top-8"></div>
-    </Cont>
+    <Link
+      href={{
+        pathname: `/farm/${name}`,
+        query: {
+          title: name,
+        },
+      }}
+    >
+      <Cont colors={COLORS} className="box-shadow-2">
+        {image !== null && (
+          <div className="image-holder mar-bottom-8">
+            <Image
+              src={image}
+              style={{ objectFit: "cover" }}
+              quality="100"
+              fill
+            />
+          </div>
+        )}
+        <p className="contrast">{new Date(created_at).toDateString()} </p>
+        <h5 className="black">{name}</h5>
+        <div className="black-line-2 mar-bottom-8"></div>
+        <p className="light black">{address}</p>
+        <div className="grey-line mar-bottom-8"></div>
+        <p className="black mar-bottom-8">{pickup}</p>
+        <div className="grey-line mar-bottom-8"></div>
+        {starFields}
+        <div className="grey-line mar-top-8"></div>
+      </Cont>
+    </Link>
   );
 };
 
