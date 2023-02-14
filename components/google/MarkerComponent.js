@@ -46,12 +46,7 @@ const MarkerComponent = ({
   };
 
   return (
-    <Marker
-      icon={icon}
-      position={latLong}
-      label={name}
-      onClick={() => setOpen(true)}
-    >
+    <Marker icon={icon} position={latLong} onClick={() => setOpen(true)}>
       {open && (
         <InfoWindow onCloseClick={() => setOpen(false)}>
           <Cont colors={COLORS} className="info-box">
