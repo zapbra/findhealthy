@@ -47,9 +47,13 @@ const Listing = ({
   image = null,
 }) => {
   const [tagElems, setTagsElems] = useState(
-    tags.map((tag) => {
+    tags.map((tag, index) => {
       return (
-        <div style={{ backgroundColor: getRandomColor() }} className="tag-four">
+        <div
+          key={index}
+          style={{ backgroundColor: getRandomColor() }}
+          className="tag-four"
+        >
           <p className="black">{tag}</p>
         </div>
       );
@@ -97,6 +101,7 @@ const Listing = ({
               src={image}
               style={{ objectFit: "cover" }}
               quality="100"
+              alt={name}
               fill
             />
           </div>

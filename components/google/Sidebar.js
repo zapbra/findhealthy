@@ -44,9 +44,10 @@ const Cont = styled.div`
 const Sidebar = ({ locations }) => {
   console.log("locations");
   console.log(locations);
-  const sidebarLocations = locations.map((location) => {
+  const sidebarLocations = locations.map((location, index) => {
     return (
       <Listing
+        key={index}
         name={location.name}
         address={location.address[0].full_address}
         created_at={location.created_at}

@@ -285,7 +285,7 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
         position: "top-center",
 
         // Styling
-        style: { border: "1px solid #E52323", backgroundColor: "#eee2dc;" },
+        style: { border: "1px solid #E52323", backgroundColor: "#eee2dc" },
         className: "",
 
         // Custom Icon

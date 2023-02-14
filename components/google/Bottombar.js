@@ -142,8 +142,7 @@ const Bottombar = ({
     dewormerFree: { name: "Dewormer Free", value: "unspecified" },
     unfrozen: { name: "Unfrozen", value: "unspecified" },
   });
-  console.log("optioanl fields");
-  console.log(optionalFields);
+
   const updateProductValue = (e) => {
     const value = e.target.value;
     const regex = /^[0-9.$ ]*$/;
@@ -1331,7 +1330,7 @@ export const PlacesAutocomplete = ({
           onChange={(e) => setValue(e.target.value)}
           id="address-input"
           onFocus={() => setShowDropdown(true)}
-          autocomplete="off"
+          autoComplete="off"
         />
       </div>
       {showDropdown && (

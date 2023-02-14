@@ -34,13 +34,15 @@ const Toggle = ({ selected, setSelected }) => {
       <div
         onClick={() => setSelected(selected.name)}
         style={{
-          backgroundColor: selected.checked ? COLORS.green : COLORS.grey,
+          backgroundColor: selected?.checked ? COLORS.green : COLORS.grey,
         }}
         className="toggle-holder"
       >
         <div
           style={{
-            transform: selected.checked ? "translateX(calc(100% + 3px))" : "",
+            transform: selected?.checked
+              ? "translateX(calc(100% + 3px))"
+              : "translateX(0px)",
           }}
           className="circle"
         ></div>
