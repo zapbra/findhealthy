@@ -24,7 +24,7 @@ const Cont = styled.div`
   }
   .splitter {
     width: 24px;
-    height: 260%;
+    height: 500%;
     background: ${(props) => props.colors.darkPink};
     margin-right: 8px;
     position: relative;
@@ -33,7 +33,7 @@ const Cont = styled.div`
   }
   .splitter-blue {
     width: 24px;
-    height: 260%;
+    height: 500%;
     background: ${(props) => props.colors.darkBlue};
     margin-right: 16px;
     position: relative;
@@ -43,7 +43,6 @@ const Cont = styled.div`
   .nav-section {
     display: flex;
     align-items: flex-end;
-    height: 80px;
   }
   .food-section {
     padding-right: 40px;
@@ -96,7 +95,7 @@ const Navbar = () => {
   return (
     <Cont colors={COLORS} id="navbar">
       <div className="nav-desktop">
-        <div className="flex">
+        <div className="flex mar-bottom-8">
           <Link href="/" className="no-color-link text-shadow-red mar-right-32">
             <Image
               src="/icons/logo_sm.png"

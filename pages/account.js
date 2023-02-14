@@ -33,8 +33,7 @@ const Account = () => {
   useEffect(() => {
     fetchUser();
   }, []);
-  console.log("user");
-  console.log(user);
+
   return (
     <Cont colors={COLORS}>
       <Toaster />

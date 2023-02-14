@@ -23,7 +23,7 @@ const Location = ({ name, address, created_at, url, tags, description }) => {
   const tagElems = tags.map((tag, index) => {
     return (
       <div key={index} className="tag-five">
-        {tag}
+        <p>{tag}</p>
       </div>
     );
   });

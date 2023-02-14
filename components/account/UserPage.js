@@ -19,7 +19,14 @@ const UserPage = ({ user, fetchUser }) => {
   const router = useRouter();
   useEffect(() => {
     const fetchLocationsWrapper = async () => {
-      const locationsFetch = await fetchUserLocations(user.id);
+      let locationsFetch = await fetchUserLocations(user.id);
+      locationsFetch = locationsFetch.sort((a, b) => {
+        return new Date(a.created_at) > new Date(b.created_at)
+          ? -1
+          : new Date(a.created_at) < new Date(b.created_at)
+          ? 1
+          : 0;
+      });
       setLocations(locationsFetch);
     };
     fetchLocationsWrapper();
