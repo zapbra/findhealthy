@@ -235,9 +235,13 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
       )
     );
   };
-
+  const [firstLoad, setFirstLoad] = useState(true);
   useEffect(() => {
-    applyFilter();
+    if (firstLoad) {
+      setFirstLoad(false);
+    } else {
+      applyFilter();
+    }
   }, [filters, value, tags]);
 
   const filterLocationsByCheckboxes = (locations) => {
