@@ -14,6 +14,10 @@ const Cont = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  .red-btn-one {
+    width: 90%;
+    margin: 32px auto 0;
+  }
 `;
 const SigninForm = ({ passwordState, togglePasswordState, updateHeight }) => {
   const [user, setUser] = useState(null);
@@ -28,8 +32,10 @@ const SigninForm = ({ passwordState, togglePasswordState, updateHeight }) => {
       setIsLogged(false);
     }
   };
-  console.log("///");
-  console.log(isLogged);
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   const signInRef = useRef(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -84,11 +90,18 @@ const SigninForm = ({ passwordState, togglePasswordState, updateHeight }) => {
       setLoading(false);
     }
   });
-
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut();
+    toast.success("You are no longer singed in");
+    fetchUser();
+    router.reload();
+  };
   return (
     <Cont>
       {isLogged ? (
-        <p></p>
+        <div className="red-btn-one " onClick={logout}>
+          <h5>Sign Out</h5>
+        </div>
       ) : (
         <>
           <form onSubmit={signIn} ref={signInRef}>
