@@ -25,9 +25,9 @@ const Welcome = () => {
     fetchUser();
   }, []);
   const meta = {
-    title: "Login",
+    title: "welcome",
     description:
-      "Healthyfoodmap account page. Login to your existing account or create a new account to save posts for later and create your own posts.",
+      "Thanks for signing up for healthyfoodmap.com. Please sign in to your new account, or check your email for authentication if you haven't done so..",
     link: "https://healthyfoodmap.com/",
     type: "website",
     date: "2023-02-14 15:00:00.000",
