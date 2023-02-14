@@ -126,6 +126,7 @@ const SupplierBox = ({ links, pros, cons, name, country, image }) => {
           src={image}
           style={{ objectFit: "contain" }}
           alt={name}
+          sizes={"100%"}
         />
       </div>
     </Cont>

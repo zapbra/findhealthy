@@ -102,6 +102,7 @@ const Listing = ({
               style={{ objectFit: "cover" }}
               quality="100"
               alt={name}
+              sizes={"100%"}
               fill
             />
           </div>

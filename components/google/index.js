@@ -8,6 +8,11 @@ import { useState, useCallback, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import { Toaster } from "react-hot-toast";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import latCountryCodes from "../../data/latCountryCodes.json";
 const Cont = styled.div`
   min-height: 100vh;
   .google-holder {
@@ -70,8 +75,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
       });
     });
   }, [locations, locationsFilter]);
-
-  /*
+  const [coords, setCoords] = useState(null);
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -90,7 +94,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
-*/
+
   const updateLocation = (value) => {
     setLocation(value);
   };
@@ -156,7 +160,13 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
       };
     });
   };
-
+  const {
+    ready,
+    value,
+    setValue,
+    suggestions: { status, data },
+    clearSuggestions,
+  } = usePlacesAutocomplete();
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(updateCoords);
     if (window !== undefined) {
@@ -173,7 +183,58 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
       }
     }
   }, []);
-  const isLoaded = true;
+  //DO THIS NEXT
+  useEffect(() => {
+    const checkForUserLocation = async () => {
+      if (window !== undefined) {
+        const location = JSON.parse(window.localStorage.getItem("position"));
+        if (location == null) {
+          // reverse this above
+          const dataFetch = await fetch(
+            "https://api.db-ip.com/v2/free/self"
+          ).then((res) => res.json());
+          console.log(dataFetch);
+          const country = latCountryCodes.ref_country_codes.find(
+            (code) => code.country == "hel"
+          );
+
+          if (country != undefined) {
+            updateCoords({
+              coords: {
+                latitude: country.latitude,
+                longitude: country.longitude,
+              },
+            });
+          }
+        }
+      }
+    };
+
+    checkForUserLocation();
+  }, []);
+  const fetchLocation = async () => {
+    if (coords !== null) {
+      updateCoords(coords);
+    } else {
+      const dataFetch = await fetch("https://api.db-ip.com/v2/free/self").then(
+        (res) => res.json()
+      );
+
+      setValue(dataFetch.city);
+    }
+  };
+  useEffect(() => {
+    const fetchLoc = async () => {
+      if (data.length > 0) {
+        const results = await getGeocode({ address: data[0].description });
+        const { lat, lng } = await getLatLng(results[0]);
+
+        updateCoords({ coords: { latitude: lat, longitude: lng } });
+        setCoords({ coords: { latitude: lat, longitude: lng } });
+      }
+    };
+    fetchLoc();
+  }, [data]);
   return isLoaded ? (
     <Cont>
       <Toaster />
@@ -183,6 +244,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         locations={locations}
         setLocationsFilter={setLocationsFilter}
       />
+
       <div className="google-holder">
         <Sidebar
           tagsFetch={tagsFetch}
@@ -190,7 +252,6 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           locations={locationsFilter}
           setLocationsFilter={setLocationsFilter}
         />{" "}
-        {/*
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
@@ -202,7 +263,6 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         >
           {markers}
         </GoogleMap>
-  */}
       </div>
 
       <Bottombar
@@ -215,6 +275,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         addTag={addTag}
         fetchNewLocation={fetchNewLocation}
         user={user}
+        fetchLocation={fetchLocation}
       />
       <div className="lg-spacer"></div>
       <Suppliers />

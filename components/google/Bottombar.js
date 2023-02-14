@@ -94,6 +94,7 @@ const Bottombar = ({
   addTag,
   fetchNewLocation,
   user,
+  fetchLocation,
 }) => {
   const {
     handleSubmit,
@@ -789,7 +790,15 @@ const Bottombar = ({
       {showPhotoDisplay && (
         <PhotoDisplay selectedImage={selectedImage} hidePhoto={hidePhoto} />
       )}
-
+      <div className="flex flex-end">
+        <div
+          className="black-btn flex-inline align-center"
+          onClick={fetchLocation}
+        >
+          <h5 className="mar-right-8">FIND ME</h5>
+          <FontAwesomeIcon icon={faLocationDot} className="icon-ssm white" />
+        </div>
+      </div>
       <button
         disabled={adding}
         onClick={startAddingFunctional}
@@ -1266,6 +1275,7 @@ export const PlacesAutocomplete = ({
     setValue(address.description);
     setLocation(address.description);
     const results = await getGeocode({ address: address.description });
+    console.log(results[0]);
     const { lat, lng } = await getLatLng(results[0]);
 
     const addressSplit = address.description.split(",");

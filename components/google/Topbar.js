@@ -71,7 +71,13 @@ const Cont = styled.div`
     }
   }
 `;
-const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
+const Topbar = ({
+  tagsFetch,
+  updateCoords,
+  locations,
+  setLocationsFilter,
+  fetchLocation,
+}) => {
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState("");
   const [tags, setTags] = useState([]);
@@ -201,6 +207,9 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
     "50km",
     "100km",
     "200km",
+    "500km",
+    "1000km",
+    "10000km",
   ]);
   const [value, setValue] = useState("50km");
   const [dynamicRadius, setDynamicRadius] = useState(radiusValues);
@@ -225,7 +234,7 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
     });
   };
   const toggles = Object.entries(filters).map(([key, val], index) => {
-    return <Toggle selected={val} setSelected={updateFilters} />;
+    return <Toggle key={index} selected={val} setSelected={updateFilters} />;
   });
 
   const filterLocationsByTags = () => {
@@ -323,6 +332,7 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
     <Cont colors={COLORS}>
       <div className="filter-bar-holder">
         <div className="filter-bar">
+          
           <div className="flex space-around filter-bar-top">
             <div className="mar-bottom-16">
               <p>Tags</p>
@@ -363,6 +373,7 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
           <div className="toggles-holder small-scrollbar mar-bottom-16 ">
             {toggles}
           </div>
+          
           {/*
           <div
             onClick={applyFilter}

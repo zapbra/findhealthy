@@ -42,8 +42,6 @@ const Cont = styled.div`
 `;
 
 const Sidebar = ({ locations }) => {
-  console.log("locations");
-  console.log(locations);
   const sidebarLocations = locations.map((location, index) => {
     return (
       <Listing
