@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -170,8 +171,12 @@ const Signup = () => {
       <Toaster />
       <div className="login box-shadow-2">
         <div className="header">
-          <div className="grey-circle mar-bottom-16"></div>
-          <h5 className="white">FINDHEALTHY</h5>
+          <Image
+            src="/icons/logo_sm.png"
+            width={134}
+            height={85.666}
+            quality="100"
+          />
         </div>
         <div className="sign-up-toggle">
           <div
