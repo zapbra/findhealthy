@@ -4,6 +4,7 @@ import styled from "styled-components";
 import COLORS from "../data/colors";
 import NotLogged from "../components/account/notlogged";
 import UserPage from "../components/account/UserPage";
+import { Toaster } from "react-hot-toast";
 const Cont = styled.div`
   .default-page {
     background: #fff;
@@ -20,17 +21,30 @@ const Cont = styled.div`
 const Account = () => {
   const [user, setUser] = useState(null);
   const [isLogged, setIsLogged] = useState(false);
+  const fetchUser = async () => {
+    const { data: session } = await supabase.auth.getSession();
+    if (session.session != null) {
+      setUser(session.session.user);
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
+  };
   useEffect(() => {
-    const fetchUser = async () => {
-      const { data: session } = await supabase.auth.getSession();
-      if (session.session != null) {
-        setUser(session.session.user);
-        setIsLogged(true);
-      }
-    };
     fetchUser();
   }, []);
-  return <Cont colors={COLORS}>{isLogged ? <UserPage /> : <NotLogged />}</Cont>;
+  console.log("user");
+  console.log(user);
+  return (
+    <Cont colors={COLORS}>
+      <Toaster />
+      {isLogged ? (
+        <UserPage user={user} fetchUser={fetchUser} />
+      ) : (
+        <NotLogged />
+      )}
+    </Cont>
+  );
 };
 
 export default Account;

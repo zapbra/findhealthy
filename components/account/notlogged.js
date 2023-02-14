@@ -1,17 +1,26 @@
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import supabase from "../../utils/supabaseClient";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
   .default-page {
     background: #fff;
-    border: 1px solid ${(props) => props.colors.grey};
+    border: none !important;
+    width: 100%;
+    margin: 80px 0;
   }
   .title-spec {
     padding: 16px;
   }
   .text-content {
     background-color: ${(props) => props.colors.lightBeige};
+    padding: 16px;
+  }
+  .features {
+    border-radius: 16px;
     padding: 16px;
   }
 `;
@@ -28,26 +37,60 @@ const NotLogged = () => {
   }, []);
   return (
     <Cont colors={COLORS}>
-      <div className="default-page box-shadow-2">
-        <div className="center-inline title-spec">
-          <h3>You are not currently a user</h3>
-        </div>
-        <div className="text-content mar-bottom-16">
-          <p>
-            Signing up allows you to have your own posts, which you can edit in
-            the future
-          </p>
-          <p>Non users can still create posts, but you can't edit them</p>
-          <p>
-            Also, you can save posts for later, and share your page with your
-            posts and create forum posts (in the future){" "}
-          </p>
-        </div>
-        <div className="padding-16">
-          <div className="black-btn inline-block">
-            <h5>Sign up</h5>
+      <div className="default-page">
+        <div className="flex space-around sm-spacer">
+          <div className="center-inline">
+            <h3 className="blue text-shadow mar-bottom-16">
+              You Are Not Signed In!
+            </h3>
+            <h4 className="light blue mar-bottom-8">
+              Create an account or login
+            </h4>
+            <Link href="/login">
+              <div className="blue-btn-one">
+                <h5>Login</h5>
+              </div>
+            </Link>
+          </div>
+          <div className="features box-shadow">
+            <div className="flex align-center">
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="icon-ssm green mar-right-16"
+              />
+              <p className="bold">
+                location posts can be edited later (can’t be with guest account)
+              </p>
+            </div>
+
+            <div className="flex align-center">
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="icon-ssm green mar-right-16"
+              />
+              <p className="bold">Save location posts for later</p>
+            </div>
+
+            <div className="flex align-center">
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="icon-ssm green mar-right-16"
+              />
+              <p className="bold">
+                Share your account page with all your location posts
+              </p>
+            </div>
+
+            <div className="flex align-center">
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="icon-ssm green mar-right-16"
+              />
+              <p className="bold">Forum post notifications (future feature)</p>
+            </div>
           </div>
         </div>
+        <div className="blue-line"></div>
       </div>
     </Cont>
   );
