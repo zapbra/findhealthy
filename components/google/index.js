@@ -235,6 +235,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
     };
     fetchLoc();
   }, [data]);
+
   return isLoaded ? (
     <Cont>
       <Toaster />

@@ -48,7 +48,7 @@ export default function Home({ locationsFetch, tagsFetch }) {
   useEffect(() => {
     console.log(locations);
   }, [locations]);
-  
+
   const fetchNewLocation = async (id) => {
     const location = fetchLocation(id);
     location.then((res) => pushLocation(res));
@@ -60,9 +60,33 @@ export default function Home({ locationsFetch, tagsFetch }) {
     };
     createTag(name).then((res) => res && updateTags());
   };
-
+  const meta = {
+    title: "Farm Map",
+    description:
+      "Find farms in your local area. Soy free eggs, grass fed meats and raw milk finder. You can also share your favorite farms in your area for others to discover, create an account to save posts or interact with other peoples posts. Worldwide farm finder.",
+    link: "https://healthyfoodmap.com/",
+    type: "website",
+    date: "2023-02-14 15:00:00.000",
+    image: "/seo/index.PNG",
+    keywords:
+      "online farm finder, find farm, find farms near me, grassfed meat near me, healthyfoodmap, healthy farms, find farms, farm finder",
+  };
   return (
     <Cont colors={COLORS}>
+      <Head>
+        <meta name="robots" content="follow, index" />
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content="Healthyfoodmap" />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+        <meta property="article:published_time" content={meta.date} />
+        <link rel="canonical" href={meta.image} />
+        <meta property="og:url" content={meta.link} />
+        <meta name="keywords" content={meta.keywords} />
+
+        <meta name="description" content={meta.description} />
+      </Head>
       <Google
         locations={locations}
         tagsFetch={tags}

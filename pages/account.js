@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useState, useEffect } from "react";
 import supabase from "../utils/supabaseClient";
 import styled from "styled-components";
@@ -33,9 +34,33 @@ const Account = () => {
   useEffect(() => {
     fetchUser();
   }, []);
-
+  const meta = {
+    title: "Account",
+    description:
+      "Healthyfoodmap account page. See your saved posts, created posts and account details.",
+    link: "https://healthyfoodmap.com/",
+    type: "website",
+    date: "2023-02-14 15:00:00.000",
+    image: "/seo/account.PNG",
+    keywords:
+      "online farm finder, find farm, find farms near me, grassfed meat near me, healthyfoodmap, healthy farms, find farms, farm finder",
+  };
   return (
     <Cont colors={COLORS}>
+      <Head>
+        <meta name="robots" content="follow, index" />
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content="Healthyfoodmap" />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+        <meta property="article:published_time" content={meta.date} />
+        <link rel="canonical" href={meta.image} />
+        <meta property="og:url" content={meta.link} />
+        <meta name="keywords" content={meta.keywords} />
+
+        <meta name="description" content={meta.description} />
+      </Head>
       <Toaster />
       {isLogged ? (
         <UserPage user={user} fetchUser={fetchUser} />
