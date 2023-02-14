@@ -49,7 +49,7 @@ const Cont = styled.div`
   }
   li {
     margin-bottom: 8px;
-    display:block;
+    display: block;
   }
   .image-holder {
     position: relative;
@@ -71,7 +71,7 @@ const SupplierBox = ({ links, pros, cons, name, country, image }) => {
     pros.map((pro, index) => {
       return (
         <li key={index}>
-          <p className="bold">{pro}</p>
+          <p className="bold list-item">{pro}</p>
         </li>
       );
     })
@@ -81,7 +81,7 @@ const SupplierBox = ({ links, pros, cons, name, country, image }) => {
     cons.map((con, index) => {
       return (
         <li key={index}>
-          <p className="bold red">{con}</p>
+          <p className="bold light-red list-item-red">{con}</p>
         </li>
       );
     })
@@ -99,9 +99,9 @@ const SupplierBox = ({ links, pros, cons, name, country, image }) => {
               icon={faLink}
               className="light-blue icon-sm mar-right-8"
             />
-            <Link href={links[0]}>
-              <p className="bold"> {links[0]} </p>
-            </Link>
+            <a target="_blank" href={links[0]}>
+              <p className="bold light-blue underline-hover"> {links[0]} </p>
+            </a>
           </div>
           {links[1] !== null && (
             <div className="flex align-center">
@@ -109,9 +109,9 @@ const SupplierBox = ({ links, pros, cons, name, country, image }) => {
                 icon={faInstagram}
                 className="mar-right-8 light-blue icon-sm"
               />
-              <Link href={links[1]}>
-                <p className="bold"> {links[1]} </p>
-              </Link>
+              <a target="_blank" href={links[1]}>
+                <p className="bold light-blue underline-hover"> {links[1]} </p>
+              </a>
             </div>
           )}
 

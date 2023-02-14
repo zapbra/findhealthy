@@ -311,7 +311,19 @@ li {
   flex-direction: column;
   align-items: flex-start;
 }
-
+.list-item {
+  &::before {
+    content: "•";
+    margin-right: 4px;
+  }
+}
+.list-item-red {
+  &::before {
+    content: "•";
+    margin-right: 4px;
+    color: $light-red;
+  }
+}
 .product {
   display: flex;
   align-items: center;
