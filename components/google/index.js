@@ -7,6 +7,7 @@ import Suppliers from "./Suppliers";
 import { useState, useCallback, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
+import { Toaster } from "react-hot-toast";
 const Cont = styled.div`
   min-height: 100vh;
   .google-holder {
@@ -154,6 +155,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
 
   return isLoaded ? (
     <Cont>
+      <Toaster />
       <Topbar
         tagsFetch={tagsFetch}
         updateCoords={updateCoords}

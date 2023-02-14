@@ -9,9 +9,10 @@ const Cont = styled.div`
   padding: 8px 12px;
 `;
 const PostPreview = ({ title, locations }) => {
-  const locationElems = locations.map((location) => {
+  const locationElems = locations.map((location, index) => {
     return (
       <Location
+        key={index}
         name={location.name}
         address={location.address[0].full_address}
         tags={location.tags}

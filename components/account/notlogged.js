@@ -23,6 +23,12 @@ const Cont = styled.div`
     border-radius: 16px;
     padding: 16px;
   }
+  .content-holder {
+    align-items: center;
+    @media only screen and (max-width: 1000px) {
+      flex-direction: column;
+    }
+  }
 `;
 const NotLogged = () => {
   const [user, setUser] = useState(null);
@@ -38,8 +44,8 @@ const NotLogged = () => {
   return (
     <Cont colors={COLORS}>
       <div className="default-page">
-        <div className="flex space-around sm-spacer">
-          <div className="center-inline">
+        <div className="flex space-around sm-spacer content-holder">
+          <div className="center-inline ssm-spacer">
             <h3 className="blue text-shadow mar-bottom-16">
               You Are Not Signed In!
             </h3>
@@ -52,8 +58,8 @@ const NotLogged = () => {
               </div>
             </Link>
           </div>
-          <div className="features box-shadow">
-            <div className="flex align-center">
+          <div className="features box-shadow ssm-spacer">
+            <div className="flex align-center mar-bottom-16">
               <FontAwesomeIcon
                 icon={faPlus}
                 className="icon-ssm green mar-right-16"
@@ -63,7 +69,7 @@ const NotLogged = () => {
               </p>
             </div>
 
-            <div className="flex align-center">
+            <div className="flex align-center mar-bottom-16">
               <FontAwesomeIcon
                 icon={faPlus}
                 className="icon-ssm green mar-right-16"
@@ -71,7 +77,7 @@ const NotLogged = () => {
               <p className="bold">Save location posts for later</p>
             </div>
 
-            <div className="flex align-center">
+            <div className="flex align-center mar-bottom-16">
               <FontAwesomeIcon
                 icon={faPlus}
                 className="icon-ssm green mar-right-16"
@@ -81,7 +87,7 @@ const NotLogged = () => {
               </p>
             </div>
 
-            <div className="flex align-center">
+            <div className="flex align-center mar-bottom-16">
               <FontAwesomeIcon
                 icon={faPlus}
                 className="icon-ssm green mar-right-16"

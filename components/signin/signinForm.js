@@ -16,6 +16,20 @@ const Cont = styled.div`
   flex-direction: column;
 `;
 const SigninForm = ({ passwordState, togglePasswordState, updateHeight }) => {
+  const [user, setUser] = useState(null);
+  const [isLogged, setIsLogged] = useState(false);
+  const fetchUser = async () => {
+    const { data: session } = await supabase.auth.getSession();
+    console.log(session);
+    if (session.session != null) {
+      setUser(session.session.user);
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
+  };
+  console.log("///");
+  console.log(isLogged);
   const signInRef = useRef(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -73,69 +87,75 @@ const SigninForm = ({ passwordState, togglePasswordState, updateHeight }) => {
 
   return (
     <Cont>
-      <form onSubmit={signIn} ref={signInRef}>
-        <div className="input-line">
-          <h5>EMAIL</h5>
-          <input
-            {...register("emailSignIn", {
-              required: true,
-            })}
-            type="email"
-            placeholder="example@gmail.com"
-            name="emailSignIn"
-          />
-          {errors.emailSignIn?.type === "required" && (
-            <p className="error">*Email is required</p>
-          )}
-        </div>
+      {isLogged ? (
+        <p></p>
+      ) : (
+        <>
+          <form onSubmit={signIn} ref={signInRef}>
+            <div className="input-line">
+              <h5>EMAIL</h5>
+              <input
+                {...register("emailSignIn", {
+                  required: true,
+                })}
+                type="email"
+                placeholder="example@gmail.com"
+                name="emailSignIn"
+              />
+              {errors.emailSignIn?.type === "required" && (
+                <p className="error">*Email is required</p>
+              )}
+            </div>
 
-        <div className="input-line">
-          <h5>PASSWORD</h5>
-          <div className="tags-input-box">
-            <input
-              {...register("passwordSignIn", {
-                required: true,
-                pattern: {
-                  value: /.{4,50}/,
-                  message: "Minimum of 4 letters",
-                },
-              })}
-              type={passwordState}
-              placeholder="password"
-              name="passwordSignIn"
-            />
-            <FontAwesomeIcon
-              onClick={togglePasswordState}
-              icon={passwordState === "password" ? faEye : faEyeSlash}
-              className="blue icon-sm"
-            />
-          </div>
+            <div className="input-line">
+              <h5>PASSWORD</h5>
+              <div className="tags-input-box">
+                <input
+                  {...register("passwordSignIn", {
+                    required: true,
+                    pattern: {
+                      value: /.{4,50}/,
+                      message: "Minimum of 4 letters",
+                    },
+                  })}
+                  type={passwordState}
+                  placeholder="password"
+                  name="passwordSignIn"
+                />
+                <FontAwesomeIcon
+                  onClick={togglePasswordState}
+                  icon={passwordState === "password" ? faEye : faEyeSlash}
+                  className="blue icon-sm"
+                />
+              </div>
 
-          {errors.passwordSignIn?.type === "required" && (
-            <p className="error">*Password is required</p>
-          )}
-          {errors.passwordSignIn?.type === "pattern" && (
-            <p className="error">*{errors?.passwordSignIn?.message}</p>
-          )}
-        </div>
-        <button type="submit" hidden></button>
-      </form>
-      <div className="signup-footer justify-center flex">
-        {loading ? (
-          <div class="lds-ring-green">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+              {errors.passwordSignIn?.type === "required" && (
+                <p className="error">*Password is required</p>
+              )}
+              {errors.passwordSignIn?.type === "pattern" && (
+                <p className="error">*{errors?.passwordSignIn?.message}</p>
+              )}
+            </div>
+            <button type="submit" hidden></button>
+          </form>
+          <div className="signup-footer justify-center flex">
+            {loading ? (
+              <div class="lds-ring-green">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            ) : (
+              <FontAwesomeIcon
+                icon={faCircleChevronRight}
+                className="white icon-xl cursor"
+                onClick={signIn}
+              />
+            )}
           </div>
-        ) : (
-          <FontAwesomeIcon
-            icon={faCircleChevronRight}
-            className="white icon-xl cursor"
-            onClick={signIn}
-          />
-        )}
-      </div>
+        </>
+      )}
     </Cont>
   );
 };

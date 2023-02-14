@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import supabase from "../../utils/supabaseClient";
@@ -15,6 +16,7 @@ const Cont = styled.div`
 
 const UserPage = ({ user, fetchUser }) => {
   const [locations, setLocations] = useState([]);
+  const router = useRouter();
   useEffect(() => {
     const fetchLocationsWrapper = async () => {
       const locationsFetch = await fetchUserLocations(user.id);
@@ -26,6 +28,7 @@ const UserPage = ({ user, fetchUser }) => {
     const { error } = await supabase.auth.signOut();
     toast.success("You are no longer singed in");
     fetchUser();
+    router.reload();
   };
   return (
     <Cont colors={COLORS}>

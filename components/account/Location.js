@@ -20,8 +20,12 @@ const Cont = styled.div`
   }
 `;
 const Location = ({ name, address, created_at, url, tags, description }) => {
-  const tagElems = tags.map((tag) => {
-    return <div className="tag-five">{tag}</div>;
+  const tagElems = tags.map((tag, index) => {
+    return (
+      <div key={index} className="tag-five">
+        {tag}
+      </div>
+    );
   });
   return (
     <Link
@@ -49,6 +53,7 @@ const Location = ({ name, address, created_at, url, tags, description }) => {
                 float: "left",
               }}
               className="mar-right-8 image-100"
+              alt={name}
             />
           )}
           <p className="mar-bottom-16 text">{description}</p>
