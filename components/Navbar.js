@@ -123,10 +123,10 @@ const Navbar = () => {
         <div className="grid-cont">
           <div className="nav-section food-section">
             <Link href="/" className="no-color-link text-shadow-red">
-              <h4 className=" mar-right-32 ">FOOD MAP</h4>
+              <h4 className=" mar-right-32 underline-hover">FOOD MAP</h4>
             </Link>
             <Link href="/" className="no-color-link text-shadow-red">
-              <h5 className="mar-right-16">MAP</h5>
+              <h5 className="mar-right-16 underline-hover">MAP</h5>
             </Link>
             <Link href="/" className="no-color-link text-shadow-red">
               <h5>FORUM</h5>

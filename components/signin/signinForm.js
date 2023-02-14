@@ -40,7 +40,7 @@ const SigninForm = ({ passwordState, togglePasswordState, updateHeight }) => {
       if (error) throw error;
       setLoading(false);
       console.log(data);
-      router.push("/");
+      router.reload("/");
     } catch (error) {
       console.log(error);
 

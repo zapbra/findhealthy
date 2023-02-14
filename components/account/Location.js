@@ -8,7 +8,7 @@ const Cont = styled.div`
   background-color: #fff;
   border-radius: 8px;
   padding: 12px 8px;
-
+  overflow: auto;
   margin-bottom: 16px;
   transition: box-shadow 0.25s ease;
   &:hover {
