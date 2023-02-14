@@ -85,9 +85,6 @@ const MarkerComponent = ({
             <Link
               href={{
                 pathname: `/farm/${name}`,
-                query: {
-                  title: name,
-                },
               }}
             >
               <div className="blue-btn-one flex justify-center align-center mar-bottom-16">
@@ -208,9 +205,6 @@ const MarkerComponent = ({
             <Link
               href={{
                 pathname: `/farm/${name}`,
-                query: {
-                  title: name,
-                },
               }}
             >
               <div className="blue-btn-one flex justify-center align-center mar-bottom-16">

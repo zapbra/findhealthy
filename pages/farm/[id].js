@@ -24,7 +24,7 @@ const Cont = styled.div`
 `;
 
 export const getServerSideProps = async (pageContext) => {
-  const title = pageContext.query.title;
+  const title = pageContext.query.id;
   const { data, error } = await supabase
     .from("locations")
     .select(
@@ -39,10 +39,11 @@ export const getServerSideProps = async (pageContext) => {
   };
 };
 
-const Preview = ({ locationFetch }) => {
+const Preview = ({ locationFetch, x }) => {
   const [origPoster, setOrigPoster] = useState(false);
   const [user, setUser] = useState("null");
   const router = useRouter();
+  console.log(router.basePath);
   const title = router.query.title;
   const [location, setLocation] = useState(locationFetch);
 

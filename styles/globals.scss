@@ -105,24 +105,9 @@ $light-orange: #fd7d27;
 a {
   text-decoration: none;
   color: $blue;
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    color: $blue;
-  }
-  &:hover {
-    text-decoration: none;
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    p {
-      text-decoration: underline;
-    }
+  text-decoration: none !important;
+  p {
+    color: $black;
   }
 }
 html,
