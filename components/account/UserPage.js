@@ -1,16 +1,57 @@
 import styled from "styled-components";
 import COLORS from "../../data/colors";
+import supabase from "../../utils/supabaseClient";
+import Image from "next/image";
+import { fetchUserLocations } from "../../utils/supabaseFunctions";
+import { useEffect, useState } from "react";
+import PostPreview from "./PostPreview";
+import toast from "react-hot-toast";
 const Cont = styled.div`
   .default-page {
     background: #fff;
-    border: 1px solid ${(props) => props.colors.grey};
+    border: none !important;
   }
 `;
 
-const UserPage = () => {
+const UserPage = ({ user, fetchUser }) => {
+  const [locations, setLocations] = useState([]);
+  useEffect(() => {
+    const fetchLocationsWrapper = async () => {
+      const locationsFetch = await fetchUserLocations(user.id);
+      setLocations(locationsFetch);
+    };
+    fetchLocationsWrapper();
+  }, []);
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut();
+    toast.success("You are no longer singed in");
+    fetchUser();
+  };
   return (
     <Cont colors={COLORS}>
-      <div className="default-page"></div>
+      <div className="default-page">
+        <div className="flex align-center space-between">
+          <div className="flex align-center">
+            <Image
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_IMAGE_PATH}${user.user_metadata.avatar_url}
+            `}
+              width={128}
+              height={128}
+              style={{ borderRadius: "50%" }}
+              alt="avatar"
+              quality="100"
+              className="mar-right-32"
+            />
+            <h5 className="blue">{user.user_metadata.username}</h5>
+          </div>
+          <div className="red-btn-one" onClick={logout}>
+            <h5>Sign Out</h5>
+          </div>
+        </div>
+        <div className="mar-bottom-32"></div>
+        <div className="blue-line mar-bottom-32"></div>
+        <PostPreview title="Recent Posts" locations={locations} />
+      </div>
     </Cont>
   );
 };

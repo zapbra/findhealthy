@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -95,22 +96,29 @@ const Navbar = () => {
   return (
     <Cont colors={COLORS} id="navbar">
       <div className="nav-desktop">
-        <Link href="/" className="no-color-link text-shadow-red">
-          <h5 className="inline-block mar-right-32">FOODMAP</h5>
-        </Link>
-        {user !== null ? (
-          <Link href="/account">
-            <div className="inline-block black-btn">
-              <h5>{user.user_metadata.username}</h5>
-            </div>
+        <div className="flex">
+          <Link href="/" className="no-color-link text-shadow-red mar-right-32">
+            <Image
+              src="/icons/logo_sm.png"
+              width={68.333}
+              height={43.666}
+              quality="100"
+            />
           </Link>
-        ) : (
-          <Link href="/login">
-            <div className="inline-block black-btn">
-              <h5>Login</h5>
-            </div>
-          </Link>
-        )}
+          {user !== null ? (
+            <Link href="/account">
+              <div className="inline-block black-btn">
+                <h5>{user.user_metadata.username}</h5>
+              </div>
+            </Link>
+          ) : (
+            <Link href="/login">
+              <div className="inline-block black-btn">
+                <h5>Login</h5>
+              </div>
+            </Link>
+          )}
+        </div>
 
         <div className="grid-cont">
           <div className="nav-section food-section">

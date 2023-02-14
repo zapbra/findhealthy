@@ -283,7 +283,7 @@ const Sections = ({
             <h5 className="black mar-bottom-8">WEBSITE</h5>
             <div className="grey-line mar-bottom-4"></div>
             <a target="_blank" href={website}>
-              <p className="bold">{website}</p>
+              <p className="bold light-blue underline-hover">{website}</p>
             </a>
           </div>
           {email !== "" && (
@@ -291,7 +291,7 @@ const Sections = ({
               <h5 className="black mar-bottom-8">EMAIL</h5>
               <div className="black-line mar-bottom-4"></div>
               <a href={`mailto:${email}`}>
-                <p className="bold">{email}</p>
+                <p className="bold light-blue underline-hover">{email}</p>
               </a>
             </div>
           )}

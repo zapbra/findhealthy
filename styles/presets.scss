@@ -13,12 +13,14 @@ $yellow: #cce729;
 $orange: #df5f28;
 $green: #3bac46;
 $offWhite: #e7eff8;
+$light-red: #fd2727;
 p {
   line-height: 1.5;
 }
 .text-center {
   text-align: center;
 }
+
 //fonts and colors
 h1,
 h2,
@@ -42,6 +44,9 @@ h6 {
 }
 .red {
   color: $dark-pink;
+}
+.light-red {
+  color: $light-red;
 }
 .light-red {
   color: $red;
@@ -126,10 +131,10 @@ h6 {
 .mar-top-16 {
   margin-top: 16px;
 }
-.padding-16{
+.padding-16 {
   padding: 16px;
 }
-.padding-32{
+.padding-32 {
   padding: 32px;
 }
 .mar-top-32 {

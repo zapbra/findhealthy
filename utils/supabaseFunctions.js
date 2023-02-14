@@ -317,6 +317,19 @@ export const fetchLocations = async () => {
   }
 };
 
+export const fetchUserLocations = async (user_id) => {
+  try {
+    const { data, error } = await supabase
+      .from("locations")
+      .select("*, address(*), products(*), images(*)")
+      .eq("user_id", user_id);
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const fetchTags = async () => {
   try {
     const { data, error } = await supabase.from("tags").select("name, id");

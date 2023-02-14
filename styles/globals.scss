@@ -21,7 +21,7 @@ $red: #e52323;
 $yellow: #cce729;
 $orange: #df5f28;
 $green: #3bac46;
-$offWhite: rgb(231, 239, 248);
+$offWhite: hsl(212, 55%, 94%);
 $darkGrey: #533f45;
 $light-blue: #278ffd;
 $light-blue-2: #88c1ff;
@@ -105,24 +105,9 @@ $light-orange: #fd7d27;
 a {
   text-decoration: none;
   color: $blue;
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    color: $blue;
-  }
-  &:hover {
-    text-decoration: none;
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    p {
-      text-decoration: underline;
-    }
+  text-decoration: none !important;
+  p {
+    color: $black;
   }
 }
 html,
@@ -326,7 +311,19 @@ li {
   flex-direction: column;
   align-items: flex-start;
 }
-
+.list-item {
+  &::before {
+    content: "•";
+    margin-right: 4px;
+  }
+}
+.list-item-red {
+  &::before {
+    content: "•";
+    margin-right: 4px;
+    color: $light-red;
+  }
+}
 .product {
   display: flex;
   align-items: center;
@@ -377,6 +374,11 @@ li {
 }
 .red-line {
   background-color: $darkPink;
+  width: 100%;
+  height: 2px;
+}
+.blue-line {
+  background-color: $darkBlue;
   width: 100%;
   height: 2px;
 }
@@ -442,12 +444,19 @@ li {
   padding: 2px 4px;
   font-weight: 600;
 }
+.tag-five {
+  border: 1px solid $black;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
 .black-line {
   height: 1px;
   width: 100%;
   background-color: $redGrey;
 }
-.black-line-2{
+.black-line-2 {
   height: 2px;
   width: 100%;
   background-color: $black;
