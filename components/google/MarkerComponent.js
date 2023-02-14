@@ -108,7 +108,7 @@ const MarkerComponent = ({
                 <p className="black bold">Website</p>
                 <div className="grey-line mar-bottom-4"></div>
                 <a href={website}>
-                  <p className="bold">{website}</p>
+                  <p className="bold light-blue underline-hover">{website}</p>
                 </a>
               </div>
             )}
@@ -146,7 +146,7 @@ const MarkerComponent = ({
                   <p className="bold">Email:</p>
                   <div className="grey-line mar-bottom-4"></div>
                   <a href={`mailto:${email}`}>
-                    <p className="bold">{email}</p>{" "}
+                    <p className="bold light-blue underline-hover">{email}</p>{" "}
                   </a>
                 </div>
               )}
@@ -155,7 +155,7 @@ const MarkerComponent = ({
                   <p className="bold">Phone:</p>
                   <div className="grey-line mar-bottom-4"></div>
                   <a href={`tel:${number}`}>
-                    <p className="bold">{number}</p>
+                    <p className="bold light-blue underline-hover">{number}</p>
                   </a>
                 </div>
               )}
