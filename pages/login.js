@@ -176,6 +176,7 @@ const Signup = () => {
             width={134}
             height={85.666}
             quality="100"
+            priority
           />
         </div>
         <div className="sign-up-toggle">
