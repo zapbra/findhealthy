@@ -105,7 +105,7 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
       </section>
 
       <div className="white-line"></div>
-
+      {/*
       <section>
         <h3 className="white">FISH FINDER </h3>
         <Link href="/" onClick={hideMobileActive}>
@@ -129,6 +129,7 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
           </div>
         </Link>
       </section>
+    */}
     </Cont>
   );
 };

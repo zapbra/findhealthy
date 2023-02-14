@@ -132,14 +132,15 @@ const Navbar = () => {
               <h5>FORUM</h5>
             </Link>
           </div>
-
           <div className="nav-section">
             <div className="splitter"></div>
             <div className="splitter-blue"></div>
+            {/*
             <h4 className="blue mar-right-32"> FISH FINDER</h4>
             <h5 className="blue mar-right-16">MAP</h5>
             <h5 className="blue mar-right-16">ARTICLES</h5>
             <h5 className="blue mar-right-16">DATA SEARCH</h5>
+            */}
           </div>
         </div>
       </div>
