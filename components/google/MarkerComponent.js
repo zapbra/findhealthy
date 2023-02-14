@@ -128,7 +128,7 @@ const MarkerComponent = ({
                 {products.map((product, index) => {
                   return (
                     <li key={index} className="product mar-bottom-4">
-                      <h5 className="black">{product.name}</h5>
+                      <h6 className="black">{product.name}</h6>
                       <div className="spacer-line"></div>
                       <div className="price">
                         <p>
@@ -172,37 +172,40 @@ const MarkerComponent = ({
             <p className="bold">Hours</p>
             <div className="grey-line mar-bottom-4"></div>
             <div className="flex">
-              <div
-                style={{ borderRight: "1px solid black" }}
-                className="mar-right-8 pad-right-8 flex-one"
-              >
-                <p className="bold">Opens</p>
-                <p>
-                  {new Date("1970-01-01T" + hoursFrom + "Z").toLocaleTimeString(
-                    "en-US",
-                    {
+              {hoursFrom !== "" && (
+                <div
+                  style={{ borderRight: "1px solid black" }}
+                  className="mar-right-8 pad-right-8 flex-one"
+                >
+                  <p className="bold">Opens</p>
+                  <p>
+                    {new Date(
+                      "1970-01-01T" + hoursFrom + "Z"
+                    ).toLocaleTimeString("en-US", {
                       timeZone: "UTC",
                       hour12: true,
                       hour: "numeric",
                       minute: "numeric",
-                    }
-                  )}
-                </p>
-              </div>
-              <div className="flex-one">
-                <p className="bold">Closes</p>
-                <p>
-                  {new Date("1970-01-01T" + hoursTo + "Z").toLocaleTimeString(
-                    "en-US",
-                    {
-                      timeZone: "UTC",
-                      hour12: true,
-                      hour: "numeric",
-                      minute: "numeric",
-                    }
-                  )}
-                </p>
-              </div>
+                    })}
+                  </p>
+                </div>
+              )}
+              {hoursTo !== "" && (
+                <div className="flex-one">
+                  <p className="bold">Closes</p>
+                  <p>
+                    {new Date("1970-01-01T" + hoursTo + "Z").toLocaleTimeString(
+                      "en-US",
+                      {
+                        timeZone: "UTC",
+                        hour12: true,
+                        hour: "numeric",
+                        minute: "numeric",
+                      }
+                    )}
+                  </p>
+                </div>
+              )}
             </div>
             <div className="mar-bottom-16"></div>
             <Link

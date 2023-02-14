@@ -201,6 +201,9 @@ const Topbar = ({ tagsFetch, updateCoords, locations, setLocationsFilter }) => {
     "50km",
     "100km",
     "200km",
+    "500km",
+    "1000km",
+    "10000km",
   ]);
   const [value, setValue] = useState("50km");
   const [dynamicRadius, setDynamicRadius] = useState(radiusValues);
