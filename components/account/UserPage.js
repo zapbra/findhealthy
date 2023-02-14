@@ -35,15 +35,9 @@ const UserPage = ({ user, fetchUser }) => {
       <div className="default-page">
         <div className="flex align-center space-between">
           <div className="flex align-center">
-            <Image
-              src={`${process.env.NEXT_PUBLIC_SUPABASE_IMAGE_PATH}${user.user_metadata.avatar_url}
-            `}
-              width={128}
-              height={128}
-              style={{ borderRadius: "50%" }}
-              alt="avatar"
-              quality="100"
+            <img
               className="mar-right-32"
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_IMAGE_PATH}${user.user_metadata.avatar_url}`}
             />
             <h5 className="blue">{user.user_metadata.username}</h5>
           </div>
