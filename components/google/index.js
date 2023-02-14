@@ -142,6 +142,13 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   };
 
   const updateCoords = (position) => {
+    window.localStorage.setItem(
+      "position",
+      JSON.stringify({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      })
+    );
     setCenter((prev) => {
       return {
         lat: position.coords.latitude,
@@ -153,9 +160,17 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(updateCoords);
     if (window !== undefined) {
-      const location = window.localStorage.getItem("position");
-      console.log("window location:");
-      console.log(location);
+      let location = window.localStorage.getItem("position");
+      if (location == null) {
+      } else {
+        location = JSON.parse(location);
+        setCenter((prev) => {
+          return {
+            lat: location.lat,
+            lng: location.lng,
+          };
+        });
+      }
     }
   }, []);
   const isLoaded = true;
