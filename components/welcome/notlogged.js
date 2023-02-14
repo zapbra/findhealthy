@@ -4,7 +4,12 @@ import supabase from "../../utils/supabaseClient";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faEye,
+  faEyeSlash,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 const Cont = styled.div`
@@ -119,9 +124,7 @@ const NotLogged = () => {
             <h3 className="blue text-shadow mar-bottom-16">
               Thanks For Signing Up!
             </h3>
-            <h4 className="light blue mar-bottom-8">
-              Please click the verification link in your email and login below
-            </h4>
+            <h4 className="light contrast mar-bottom-8">Login below</h4>
 
             <form onSubmit={submitForm}>
               <div className="input-line">
@@ -175,40 +178,53 @@ const NotLogged = () => {
               </button>
             </form>
           </div>
-
-          <div className="features box-shadow ssm-spacer">
-            <div className="flex align-center mar-bottom-16">
+          <div className="flex flex-column">
+            <div className="features box-shadow ssm-spacer center-inline ">
+              <h3 className="blue text-shadow ">Check your email</h3>
               <FontAwesomeIcon
-                icon={faPlus}
-                className="icon-ssm green mar-right-16"
+                icon={faEnvelope}
+                className="blue icon-lg mar-bottom-16"
               />
-              <p className="bold">Location posts can now be edited later</p>
+              <h5 className="light contrast">
+                A verification link has been sent to your email
+              </h5>
             </div>
+            <div className="features box-shadow ssm-spacer">
+              <div className="flex align-center mar-bottom-16">
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="icon-ssm green mar-right-16"
+                />
+                <p className="bold">Location posts can now be edited later</p>
+              </div>
 
-            <div className="flex align-center mar-bottom-16">
-              <FontAwesomeIcon
-                icon={faPlus}
-                className="icon-ssm green mar-right-16"
-              />
-              <p className="bold">Save location posts for later</p>
-            </div>
+              <div className="flex align-center mar-bottom-16">
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="icon-ssm green mar-right-16"
+                />
+                <p className="bold">Save location posts for later</p>
+              </div>
 
-            <div className="flex align-center mar-bottom-16">
-              <FontAwesomeIcon
-                icon={faPlus}
-                className="icon-ssm green mar-right-16"
-              />
-              <p className="bold">
-                Share your account page with all your location posts
-              </p>
-            </div>
+              <div className="flex align-center mar-bottom-16">
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="icon-ssm green mar-right-16"
+                />
+                <p className="bold">
+                  Share your account page with all your location posts
+                </p>
+              </div>
 
-            <div className="flex align-center mar-bottom-16">
-              <FontAwesomeIcon
-                icon={faPlus}
-                className="icon-ssm green mar-right-16"
-              />
-              <p className="bold">Forum post notifications (future feature)</p>
+              <div className="flex align-center mar-bottom-16">
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="icon-ssm green mar-right-16"
+                />
+                <p className="bold">
+                  Forum post notifications (future feature)
+                </p>
+              </div>
             </div>
           </div>
         </div>

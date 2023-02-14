@@ -2,7 +2,11 @@ import Link from "next/link";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faArrowTurnUp,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
   background: rgb(18, 60, 105);
   background: linear-gradient(
@@ -74,6 +78,16 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
       >
         <FontAwesomeIcon icon={faArrowTurnUp} className="icon-sm white" />
       </div>
+      <Link onClick={hideMobileActive} href="/account">
+        <div className="flex line align-center mar-bottom-32">
+          <FontAwesomeIcon
+            icon={faUser}
+            className="white icon-sm mar-right-8"
+          />
+
+          <h4 className="white text-shadow-white light">ACCOUNT</h4>
+        </div>
+      </Link>
       <section>
         <h3 className="white">FOOD MAP </h3>
         <Link onClick={hideMobileActive} href="/">
