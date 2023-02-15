@@ -270,6 +270,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
     zIndex: 1,
   });
 
+  const [locationDistances, setLocationDistances] = useState([]);
   return isLoaded ? (
     <Cont>
       <Toaster />
@@ -283,6 +284,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         setRadiusValues={setRadiusValues}
         value={radiusValue}
         setValue={setRadiusValue}
+        setLocationDistances = {setLocationDistances}
       />
       <div className="google-holder">
         <Sidebar

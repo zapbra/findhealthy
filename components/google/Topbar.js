@@ -82,6 +82,7 @@ const Topbar = ({
   setRadiusValues,
   value,
   setValue,
+  setLocationDistances
 }) => {
   const [address, setAddress] = useState({ lat: center.lat, lng: center.lng });
   const [location, setLocation] = useState("");
@@ -276,6 +277,9 @@ const Topbar = ({
         ) * R;
       const curRadius =
         radiusText != "" ? Number(radiusText) : Number(value.match(/[0-9]*/));
+      console.log("---");
+      console.log(location.name);
+      console.log(d / 1000);
       if (d / 1000 <= curRadius) return true;
     });
     return returnLocations;
