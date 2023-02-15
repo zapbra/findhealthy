@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Circle } from "@react-google-maps/api";
 import Bottombar from "./Bottombar";
 import MarkerComponent from "./MarkerComponent";
 import Alert from "../popups/alert";
@@ -48,6 +48,26 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
     lat: 45.4215,
     lng: -75.695,
   });
+  const [radiusValues, setRadiusValues] = useState([
+    "5km",
+    "10km",
+    "25km",
+    "50km",
+    "100km",
+    "200km",
+    "500km",
+    "1000km",
+    "10000km",
+  ]);
+  const [radiusValue, setRadiusValue] = useState("50km");
+  useEffect(() => {
+    setOptions((prev) => {
+      return {
+        ...prev,
+        radius: Number(radiusValue.match(/[0-9]*/)) * 1000,
+      };
+    });
+  }, [radiusValue]);
   useEffect(() => {
     setMarkers((prev) => {
       return locationsFilter.map((location, index) => {
@@ -236,6 +256,20 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
     fetchLoc();
   }, [data]);
 
+  const [options, setOptions] = useState({
+    strokeColor: "#FF0000",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#FF0000",
+    fillOpacity: 0.2,
+    clickable: false,
+    draggable: false,
+    editable: false,
+    visible: true,
+    radius: 50000,
+    zIndex: 1,
+  });
+
   return isLoaded ? (
     <Cont>
       <Toaster />
@@ -244,8 +278,12 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         updateCoords={updateCoords}
         locations={locations}
         setLocationsFilter={setLocationsFilter}
+        center={center}
+        radiusValues={radiusValues}
+        setRadiusValues={setRadiusValues}
+        value={radiusValue}
+        setValue={setRadiusValue}
       />
-
       <div className="google-holder">
         <Sidebar
           tagsFetch={tagsFetch}
@@ -257,12 +295,14 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={7}
+          zoom={10}
           onLoad={onLoad}
           onUnmount={onUnmount}
           onClick={(e) => adding && addMarker(e)}
           options={{ gestureHandling: "greedy" }}
         >
+          <Circle center={center} options={options} />
+
           {markers}
         </GoogleMap>
       </div>
@@ -277,7 +317,6 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         addTag={addTag}
         fetchNewLocation={fetchNewLocation}
         user={user}
-        
       />
       <div className="lg-spacer"></div>
       <Suppliers />

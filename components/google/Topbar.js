@@ -77,8 +77,13 @@ const Topbar = ({
   locations,
   setLocationsFilter,
   fetchLocation,
+  center,
+  radiusValues,
+  setRadiusValues,
+  value,
+  setValue,
 }) => {
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState({ lat: center.lat, lng: center.lng });
   const [location, setLocation] = useState("");
   const [tags, setTags] = useState([]);
   const [searchTags, setSearchTags] = useState([]);
@@ -200,18 +205,7 @@ const Topbar = ({
     removeTag(id);
     setText("");
   }
-  const [radiusValues, setRadiusValues] = useState([
-    "5km",
-    "10km",
-    "25km",
-    "50km",
-    "100km",
-    "200km",
-    "500km",
-    "1000km",
-    "10000km",
-  ]);
-  const [value, setValue] = useState("50km");
+
   const [dynamicRadius, setDynamicRadius] = useState(radiusValues);
   const updateValue = (val) => {
     setValue(val);
@@ -288,7 +282,7 @@ const Topbar = ({
   };
 
   const applyFilter = () => {
-    if (address == "") {
+    if (address == "" && address.lat == undefined) {
       toast("Please select an address from the dropdown.", {
         duration: 4000,
         position: "top-center",
@@ -332,7 +326,6 @@ const Topbar = ({
     <Cont colors={COLORS}>
       <div className="filter-bar-holder">
         <div className="filter-bar">
-          
           <div className="flex space-around filter-bar-top">
             <div className="mar-bottom-16">
               <p>Tags</p>
@@ -373,7 +366,7 @@ const Topbar = ({
           <div className="toggles-holder small-scrollbar mar-bottom-16 ">
             {toggles}
           </div>
-          
+
           {/*
           <div
             onClick={applyFilter}
