@@ -82,7 +82,7 @@ const Topbar = ({
   setRadiusValues,
   value,
   setValue,
-  setLocationDistances
+  setLocationDistances,
 }) => {
   const [address, setAddress] = useState({ lat: center.lat, lng: center.lng });
   const [location, setLocation] = useState("");
@@ -262,6 +262,32 @@ const Topbar = ({
     });
   };
   const [radiusText, setRadiusText] = useState("");
+  useEffect(() => {
+    setLocationDistances((prev) => {
+      const [lat1, lon1] = [address.lat, address.lng];
+      const returnLocations = locations.map((location) => {
+        const [lat2, lon2] = [location.address[0].lat, location.address[0].lng];
+        const φ1 = (lat1 * Math.PI) / 180,
+          φ2 = (lat2 * Math.PI) / 180,
+          Δλ = ((lon2 - lon1) * Math.PI) / 180,
+          R = 6371e3;
+        const d =
+          Math.acos(
+            Math.sin(φ1) * Math.sin(φ2) +
+              Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)
+          ) * R;
+        const curRadius =
+          radiusText != "" ? Number(radiusText) : Number(value.match(/[0-9]*/));
+
+        return {
+          name: location.name,
+          distance: (d / 1000).toFixed(2),
+          id: location.id,
+        };
+      });
+      return returnLocations;
+    });
+  }, [address]);
   const latitudeCalc = (locationsFilter) => {
     const [lat1, lon1] = [address.lat, address.lng];
     const returnLocations = locationsFilter.filter((location) => {

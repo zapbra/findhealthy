@@ -96,6 +96,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
     });
   }, [locations, locationsFilter]);
   const [coords, setCoords] = useState(null);
+
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -270,6 +271,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
     zIndex: 1,
   });
 
+  //const isLoaded = true;
   const [locationDistances, setLocationDistances] = useState([]);
   return isLoaded ? (
     <Cont>
@@ -284,7 +286,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         setRadiusValues={setRadiusValues}
         value={radiusValue}
         setValue={setRadiusValue}
-        setLocationDistances = {setLocationDistances}
+        setLocationDistances={setLocationDistances}
       />
       <div className="google-holder">
         <Sidebar
@@ -293,6 +295,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           locations={locationsFilter}
           setLocationsFilter={setLocationsFilter}
           fetchLocation={fetchLocation}
+          locationDistances={locationDistances}
         />{" "}
         <GoogleMap
           mapContainerStyle={containerStyle}

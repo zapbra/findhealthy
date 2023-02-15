@@ -23,14 +23,14 @@ const Cont = styled.div`
   border-bottom: 2px solid ${(props) => props.colors.darkPink};
   height: 75vh;
   overflow: hidden;
-  .black-btn{
+  .black-btn {
     position: sticky;
     margin-bottom: 32px;
   }
-.location-holder{
-  height:100%;
-  overflow: auto;
-}
+  .location-holder {
+    height: 100%;
+    overflow: auto;
+  }
   @media only screen and (max-width: 900px) {
     width: 200px;
   }
@@ -48,8 +48,28 @@ const Cont = styled.div`
   }
 `;
 
-const Sidebar = ({ locations, fetchLocation }) => {
-  const sidebarLocations = locations.map((location, index) => {
+const Sidebar = ({ locations, fetchLocation, locationDistances }) => {
+  const locationsSort =
+    locationDistances.length > 0
+      ? locations.sort((a, b) => {
+          let locA = locationDistances.find(
+            (location) => location.name == a.name
+          );
+          let locB = locationDistances.find(
+            (location) => location.name == b.name
+          );
+          return Number(locA.distance) < Number(locB.distance)
+            ? -1
+            : Number(locA.distance) > Number(locB.distance)
+            ? 1
+            : 0;
+        })
+      : locations;
+  const sidebarLocations = locationsSort.map((location, index) => {
+    const locationDistance = locationDistances.find(
+      (locationDistance) => locationDistance.name == location.name
+    );
+
     return (
       <Listing
         key={index}
@@ -63,11 +83,13 @@ const Sidebar = ({ locations, fetchLocation }) => {
         quality={location.quality}
         friendly={location.friendly}
         image={location.images.length == 0 ? null : location.images[0].url}
+        distance={locationDistance?.distance}
       />
     );
   });
-  return <Cont colors={COLORS}>
-    <div className="flex flex-end">
+  return (
+    <Cont colors={COLORS}>
+      <div className="flex flex-end">
         <div
           className="black-btn flex-inline align-center"
           onClick={fetchLocation}
@@ -76,11 +98,9 @@ const Sidebar = ({ locations, fetchLocation }) => {
           <FontAwesomeIcon icon={faLocationDot} className="icon-ssm white" />
         </div>
       </div>
-      <div className="location-holder">
-      {sidebarLocations}
-      </div>
-    
-    </Cont>;
+      <div className="location-holder">{sidebarLocations}</div>
+    </Cont>
+  );
 };
 
 export default Sidebar;

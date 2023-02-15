@@ -3,7 +3,7 @@ import COLORS from "../../data/colors";
 import Image from "next/image";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { getRandomColor } from "../../utils/functions";
 const Cont = styled.div`
@@ -45,6 +45,7 @@ const Listing = ({
   quality,
   friendly,
   image = null,
+  distance,
 }) => {
   const [tagElems, setTagsElems] = useState(
     tags.map((tag, index) => {
@@ -107,6 +108,10 @@ const Listing = ({
             />
           </div>
         )}
+        <div className="flex flex-end align-center">
+          <p className="bold mar-right-8">{distance} km</p>
+          <FontAwesomeIcon icon={faLocationDot} className="icon-ssm black" />
+        </div>
         <div className="flex align-center space-between">
           <div>
             <p className="contrast">{new Date(created_at).toDateString()} </p>
