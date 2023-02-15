@@ -246,7 +246,7 @@ const Topbar = ({
     } else {
       applyFilter();
     }
-  }, [filters, value, tags]);
+  }, [filters, value, tags, address]);
 
   const filterLocationsByCheckboxes = (locations) => {
     const checkedBoxes = Object.entries(filters)
