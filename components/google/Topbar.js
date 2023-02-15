@@ -303,9 +303,7 @@ const Topbar = ({
         ) * R;
       const curRadius =
         radiusText != "" ? Number(radiusText) : Number(value.match(/[0-9]*/));
-      console.log("---");
-      console.log(location.name);
-      console.log(d / 1000);
+
       if (d / 1000 <= curRadius) return true;
     });
     return returnLocations;

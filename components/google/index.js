@@ -4,7 +4,7 @@ import Bottombar from "./Bottombar";
 import MarkerComponent from "./MarkerComponent";
 import Alert from "../popups/alert";
 import Suppliers from "./Suppliers";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import { Toaster } from "react-hot-toast";
@@ -43,6 +43,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   useEffect(() => {
     setLocationsFilter(locations);
   }, [locations]);
+  const circleRef = useRef(null);
   const [markers, setMarkers] = useState([]);
   const [center, setCenter] = useState({
     lat: 45.4215,
@@ -106,9 +107,6 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   const [map, setMap] = useState(null);
 
   const onLoad = useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-
     setMap(map);
   }, []);
 
@@ -306,7 +304,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           onClick={(e) => adding && addMarker(e)}
           options={{ gestureHandling: "greedy" }}
         >
-          <Circle center={center} options={options} />
+          <Circle center={center} options={options} ref={circleRef} />
 
           {markers}
         </GoogleMap>
