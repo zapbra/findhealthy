@@ -100,7 +100,7 @@ const CreateTag = ({ addTag, tags }) => {
             return tagLetter === letter;
           });
           if (index !== -1) {
-            console.log(tagSplit[index]);
+          
             matches.push(tagSplit.slice(index, 1));
           }
         });
@@ -108,11 +108,11 @@ const CreateTag = ({ addTag, tags }) => {
         if (matches.length > currentMatch.words) {
           currentMatch.variable = tag;
           currentMatch.words = matches.length;
-          console.log(matches);
+       
         }
       }
     });
-    console.log(currentMatch);
+  
     setShowNotification(true);
     setTagText(currentMatch.variable);
   };

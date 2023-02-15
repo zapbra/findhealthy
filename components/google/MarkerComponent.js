@@ -41,9 +41,7 @@ const MarkerComponent = ({
   icon,
 }) => {
   const [open, setOpen] = useState(false);
-  const catche = (e) => {
-    console.log(e);
-  };
+ 
 
   return (
     <Marker icon={icon} position={latLong} onClick={() => setOpen(true)}>

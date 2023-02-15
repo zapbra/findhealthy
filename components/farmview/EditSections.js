@@ -246,8 +246,7 @@ const Sections = ({
   const updateLocationElem = (value) => {
     setLocation(value);
   };
-  console.log("address");
-  console.log(address);
+
   const [addressData, setAddressData] = useState({
     fullAddress: address.full_address,
     text_address: address.text_address,
@@ -358,8 +357,7 @@ const Sections = ({
       numberOrganize.splice(4, 0, ")");
       numberOrganize.splice(5, 0, "-");
       numberOrganize.splice(9, 0, "-");
-      console.log("---");
-      console.log(formData);
+    
       const locationId = await updateLocation(
         formData.name,
         formData.description,
@@ -433,8 +431,7 @@ const Sections = ({
   const [productsCopy, setProductsCopy] = useState(products);
   const [deletedProducts, setDeletedProducts] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
-  console.log("copy");
-  console.log(productsCopy);
+ 
   const addProduct = (e) => {
     e.preventDefault();
     if (product.name === "") {

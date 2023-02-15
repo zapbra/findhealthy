@@ -1267,7 +1267,7 @@ export const PlacesAutocomplete = ({
     setValue(address.description);
     setLocation(address.description);
     const results = await getGeocode({ address: address.description });
-    console.log(results[0]);
+   
     const { lat, lng } = await getLatLng(results[0]);
 
     const addressSplit = address.description.split(",");

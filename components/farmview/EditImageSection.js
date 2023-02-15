@@ -205,8 +205,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
     setImageElems(imageArr);
   }, [imagesCopy, previewUrl]);
   
-  console.log('imag eelems');
-  console.log(imageElems);
+  
   const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
 
   const setPhotoDisplayVisible = () => {
@@ -312,9 +311,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
                 prevCopy.splice(id, 1);
               return [...prevCopy, uploadedImage[0]];
             });
-            console.log('xx')
-            console.log(uploadedImage[0])
-            console.log('xx')
+            
             setPreviewUrl(prev => {
                 return {
                 ...prev, 
@@ -323,7 +320,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
             })
             setLoading({ state: false, msg: "" });
           } else {
-            console.log(res);
+            
             setLoading({ state: false, msg: "" });
             toast("Error uploading image", {
               duration: 4000,

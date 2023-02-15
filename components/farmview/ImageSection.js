@@ -169,12 +169,7 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
     }
     setImageElems(imageArr);
   }, [imagesCopy, previewUrl]);
-  useEffect(() => {
-    console.log("iamges...");
-    console.log(imageElems);
-  }, [imageElems]);
-  console.log("kkk");
-  console.log(images);
+
   const [showPhotoDisplay, setShowPhotoDisplay] = useState(false);
 
   const setPhotoDisplayVisible = () => {
@@ -216,14 +211,14 @@ const ImageSection = ({ images, location_id, user_id, post_user_id }) => {
           res.data.deletehash,
           location_id
         );
-        console.log("xxx");
-        console.log(uploadedImage);
+    
+      
         setImagesCopy((prev) => {
           return [...prev, uploadedImage[0]];
         });
         setLoading({ state: false, msg: "" });
       } else {
-        console.log(res);
+     
         setLoading({ state: false, msg: "" });
         toast("Error uploading image", {
           duration: 4000,

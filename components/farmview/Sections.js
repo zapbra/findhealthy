@@ -253,8 +253,7 @@ const Sections = ({
       );
     })
   );
-  console.log("phone");
-  console.log(phone == "()--");
+
   return (
     <Cont colors={COLORS} className="section-holder">
       <section className="section">

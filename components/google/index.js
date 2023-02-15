@@ -212,7 +212,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           const dataFetch = await fetch(
             "https://api.db-ip.com/v2/free/self"
           ).then((res) => res.json());
-          console.log(dataFetch);
+         
           const country = latCountryCodes.ref_country_codes.find(
             (code) => code.country == "hel"
           );
