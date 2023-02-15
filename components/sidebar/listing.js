@@ -12,6 +12,9 @@ const Cont = styled.div`
   padding: 8px;
   margin-bottom: 16px;
   transition: box-shadow 0.25s ease;
+  &:hover {
+    border: 1px solid ${(props) => props.colors.black};
+  }
   cursor: pointer;
 
   &:hover {
@@ -94,6 +97,7 @@ const Listing = ({
           title: name,
         },
       }}
+      className="underline-hover"
     >
       <Cont colors={COLORS} className="box-shadow-2">
         {image !== null && (
