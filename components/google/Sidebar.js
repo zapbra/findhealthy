@@ -22,8 +22,15 @@ const Cont = styled.div`
   border-top: 2px solid ${(props) => props.colors.darkPink};
   border-bottom: 2px solid ${(props) => props.colors.darkPink};
   height: 75vh;
+  overflow: hidden;
+  .black-btn{
+    position: sticky;
+    margin-bottom: 32px;
+  }
+.location-holder{
+  height:100%;
   overflow: auto;
-
+}
   @media only screen and (max-width: 900px) {
     width: 200px;
   }
@@ -41,7 +48,7 @@ const Cont = styled.div`
   }
 `;
 
-const Sidebar = ({ locations }) => {
+const Sidebar = ({ locations, fetchLocation }) => {
   const sidebarLocations = locations.map((location, index) => {
     return (
       <Listing
@@ -59,7 +66,21 @@ const Sidebar = ({ locations }) => {
       />
     );
   });
-  return <Cont colors={COLORS}>{sidebarLocations}</Cont>;
+  return <Cont colors={COLORS}>
+    <div className="flex flex-end">
+        <div
+          className="black-btn flex-inline align-center"
+          onClick={fetchLocation}
+        >
+          <h5 className="mar-right-8">FIND ME</h5>
+          <FontAwesomeIcon icon={faLocationDot} className="icon-ssm white" />
+        </div>
+      </div>
+      <div className="location-holder">
+      {sidebarLocations}
+      </div>
+    
+    </Cont>;
 };
 
 export default Sidebar;

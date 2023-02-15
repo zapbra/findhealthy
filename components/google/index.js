@@ -252,6 +252,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           updateCoords={updateCoords}
           locations={locationsFilter}
           setLocationsFilter={setLocationsFilter}
+          fetchLocation={fetchLocation}
         />{" "}
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -276,7 +277,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         addTag={addTag}
         fetchNewLocation={fetchNewLocation}
         user={user}
-        fetchLocation={fetchLocation}
+        
       />
       <div className="lg-spacer"></div>
       <Suppliers />
