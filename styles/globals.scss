@@ -117,10 +117,10 @@ body {
 
 .default-page {
   background-color: $tan;
-  margin: 5% 10%;
-  @media only screen and (max-width: 600px) {
-    margin: 5% 0;
-  }
+  width:100%;
+  margin-top:64px;
+  padding-left:32px;
+  padding-right:32px;
 }
 .loading-screen {
   position: fixed;

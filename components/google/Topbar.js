@@ -287,7 +287,7 @@ const Topbar = ({
       });
       return returnLocations;
     });
-  }, [address]);
+  }, [address, locations]);
   const latitudeCalc = (locationsFilter) => {
     const [lat1, lon1] = [address.lat, address.lng];
     const returnLocations = locationsFilter.filter((location) => {

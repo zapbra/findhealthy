@@ -60,7 +60,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
     "1000km",
     "10000km",
   ]);
-  const [radiusValue, setRadiusValue] = useState("50km");
+  const [radiusValue, setRadiusValue] = useState("10000km");
   useEffect(() => {
     setOptions((prev) => {
       return {
@@ -304,7 +304,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           onClick={(e) => adding && addMarker(e)}
           options={{ gestureHandling: "greedy" }}
         >
-          <Circle center={center} options={options} ref={circleRef} />
+          <Circle visible = {false} center={center} options={options} ref={circleRef} />
 
           {markers}
         </GoogleMap>

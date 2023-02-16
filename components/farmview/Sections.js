@@ -96,11 +96,11 @@ const Cont = styled.div`
     }
   }
   .description-text {
-    border: 1px solid ${(props) => props.colors.grey};
+    
     padding: 8px;
     max-height: 800px;
     overflow-y: auto;
-    background-color: ${(props) => props.colors.lightBeige};
+    
   }
   .section-line {
     border-bottom: 1px solid ${(props) => props.colors.grey};
@@ -267,7 +267,7 @@ const Sections = ({
           <div className="center-inline mar-bottom-16">
             <h4>DESCRIPTION</h4>
           </div>
-          <div className="description-text box-shadow-2">{description}</div>
+          <div className="description-text small-scrollbar">{description}</div>
         </div>
       </section>
       <section className="section">

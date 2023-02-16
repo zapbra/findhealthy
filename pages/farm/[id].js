@@ -62,7 +62,7 @@ const Preview = ({ locationFetch, x }) => {
     fetchUser();
   }, []);
 
-  const [images, setImages] = useState(location.images);
+  const [images, setImages] = useState(location?.images || []);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -72,14 +72,15 @@ const Preview = ({ locationFetch, x }) => {
     });
   };
 
-  const reFetchLocation = async () => {
+  const reFetchLocation = async (id) => {
     const { data, error } = await supabase
       .from("locations")
       .select(
         "*, address(*,state_id(*), country_id(*)), products(*), images(*), user_id(id, username)"
       )
-      .eq("name", title)
+      .eq("id", id)
       .single();
+      
     setLocation(data);
   };
   const [showDeletePopup, setShowDeletePopup] = useState(false);

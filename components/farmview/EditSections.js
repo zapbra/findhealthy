@@ -391,7 +391,7 @@ const Sections = ({
         addressData.state
       );
       setLoading({ state: false, msg: "" });
-      reFetchLocation();
+      reFetchLocation(location_id);
       setEditMode(false);
     } else {
       setLoading({ state: false, msg: "" });
