@@ -15,7 +15,7 @@ const Cont = styled.div`
   min-height: 100vh;
 `;
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const locationsFetch = await fetchLocations();
   const tagsFetch = await fetchTags();
   return {
