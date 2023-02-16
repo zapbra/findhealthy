@@ -96,11 +96,9 @@ const Cont = styled.div`
     }
   }
   .description-text {
-    
     padding: 8px;
     max-height: 800px;
     overflow-y: auto;
-    
   }
   .section-line {
     border-bottom: 1px solid ${(props) => props.colors.grey};
@@ -299,7 +297,7 @@ const Sections = ({
               <h5 className=" black mar-bottom-8">PHONE</h5>
               <div className="grey-line mar-bottom-4"></div>
               <a href={`tel:${phone}`}>
-                <p className="bold">{phone}</p>
+                <p className="bold light-blue underline-hover">{phone}</p>
               </a>
             </div>
           )}
@@ -329,7 +327,7 @@ const Sections = ({
         <div className="farm-field-holder">
           <div>{farmFields}</div>
         </div>
-        <div className="star-field-holder">{starFields}</div>
+        <div className="star-field-holder align-center">{starFields}</div>
       </section>
       <section style={{ backgroundColor: "#fff" }}>
         <div className="center-inline">

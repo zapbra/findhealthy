@@ -65,6 +65,7 @@ const IconSelect = ({ selectedIcon, setSelectedIcon }) => {
     "/icons/fish.png",
     "/icons/fruit.png",
     "/icons/market.png",
+    "/icons/honey.png"
   ]);
   const setIcon = (icon) => {
     setIcons((icons) => {

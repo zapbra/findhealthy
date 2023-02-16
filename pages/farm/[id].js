@@ -14,9 +14,10 @@ import { toast, Toaster } from "react-hot-toast";
 import DeletePopup from "../../components/popups/DeletePopup";
 import { deleteLocation } from "../../utils/supabaseFunctions";
 const Cont = styled.div`
-  border: 1px solid ${(props) => props.colors.grey};
-  background-color: #fff !important;
-  border-radius: 8px;
+
+  background-color: #fff;
+  max-width:1600px;
+  margin: 0 auto;
   .header {
     padding: 16px;
     background-color: ${(props) => props.colors.tan};
@@ -109,7 +110,7 @@ const Preview = ({ locationFetch, x }) => {
   const description =
     "They sell grass fed beef, pasture raised chicken (fresh) and they also sell fresh organs every few months or so. They do deliveries to the Parkdale market every Saturday between 11:00 AM and 1:30 PM";
   return (
-    <Cont colors={COLORS} className="default-page box-shadow-2">
+    <Cont colors={COLORS} className="default-page">
       {loading.state && (
         <div className="loading-screen">
           <div className="loading-items">
