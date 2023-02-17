@@ -469,3 +469,145 @@ export const checkEmailUnique = async (email) => {
     return false;
   }
 };
+
+export const createFish = async (name, nutrients_id) => {
+  try {
+    const { data, error } = await supabase
+      .from("fish")
+      .insert({ name, nutrients_id })
+      .select();
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const createNutrients = async (
+  vitamin_a_daily_value,
+  vitamin_a_units,
+  vitamin_c_daily_value,
+  vitamin_c_units,
+  vitamin_d_daily_value,
+  vitamin_d_units,
+  vitamin_e_daily_value,
+  vitamin_e_units,
+  vitamin_k_daily_value,
+  vitamin_k_units,
+  thiamin_daily_value,
+  thiamin_units,
+  niacin_daily_value,
+  niacin_units,
+  vitamin_b6_daily_value,
+  vitamin_b6_units,
+  folate_daily_value,
+  folate_units,
+  vitamin_b12_daily_value,
+  vitamin_b12_units,
+  pantothenic_acid_daily_value,
+  pantothenic_acid_units,
+  choline_daily_value,
+  choline_units,
+  calcium_daily_value,
+  calcium_units,
+  iron_daily_value,
+  iron_units,
+  magnesium_daily_value,
+  magnesium_units,
+  phosphorus_daily_value,
+  phosphorus_units,
+  potassium_daily_value,
+  potassium_units,
+  sodium_daily_value,
+  sodium_units,
+  zinc_daily_value,
+  zinc_units,
+  copper_daily_value,
+  copper_units,
+  manganese_daily_value,
+  manganese_units,
+  selenium_daily_value,
+  selenium_units,
+  cholesterol_daily_value,
+  cholesterol_units,
+  omega3_daily_value,
+  omega3_units,
+  omega6_daily_value,
+  omega6_units,
+  protein,
+  carbs,
+  fat,
+  polyunsaturated_fat,
+  saturated_fat,
+  monounsaturated_fat,
+  quantity
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("nutrients")
+      .insert({
+        vitamin_a_daily_value,
+        vitamin_a_units,
+        vitamin_c_daily_value,
+        vitamin_c_units,
+        vitamin_d_daily_value,
+        vitamin_d_units,
+        vitamin_e_daily_value,
+        vitamin_e_units,
+        vitamin_k_daily_value,
+        vitamin_k_units,
+        thiamin_daily_value,
+        thiamin_units,
+        niacin_daily_value,
+        niacin_units,
+        vitamin_b6_daily_value,
+        vitamin_b6_units,
+        folate_daily_value,
+        folate_units,
+        vitamin_b12_daily_value,
+        vitamin_b12_units,
+        pantothenic_acid_daily_value,
+        pantothenic_acid_units,
+        choline_daily_value,
+        choline_units,
+        calcium_daily_value,
+        calcium_units,
+        iron_daily_value,
+        iron_units,
+        magnesium_daily_value,
+        magnesium_units,
+        phosphorus_daily_value,
+        phosphorus_units,
+        potassium_daily_value,
+        potassium_units,
+        sodium_daily_value,
+        sodium_units,
+        zinc_daily_value,
+        zinc_units,
+        copper_daily_value,
+        copper_units,
+        manganese_daily_value,
+        manganese_units,
+        selenium_daily_value,
+        selenium_units,
+        cholesterol_daily_value,
+        cholesterol_units,
+        omega3_daily_value,
+        omega3_units,
+        omega6_daily_value,
+        omega6_units,
+        protein,
+        carbs,
+        fat,
+        polyunsaturated_fat,
+        saturated_fat,
+        monounsaturated_fat,
+        quantity,
+      })
+      .select();
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
