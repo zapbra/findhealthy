@@ -530,9 +530,9 @@ export const createNutrients = async (
   selenium_units,
   cholesterol_daily_value,
   cholesterol_units,
-  omega3_daily_value,
+ 
   omega3_units,
-  omega6_daily_value,
+
   omega6_units,
   protein,
   carbs,
@@ -592,9 +592,8 @@ export const createNutrients = async (
         selenium_units,
         cholesterol_daily_value,
         cholesterol_units,
-        omega3_daily_value,
         omega3_units,
-        omega6_daily_value,
+    
         omega6_units,
         protein,
         carbs,
@@ -611,3 +610,17 @@ export const createNutrients = async (
     return error;
   }
 };
+
+
+export const fetchOceans = async () => {
+  try {
+    const {data, error}  = await supabase.from('oceans')
+    .select();
+    
+    if(error) throw error;
+    return data;
+  } catch(error) {
+    console.log(error);
+    return error;
+  }
+}
