@@ -33,15 +33,15 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = "Carp";
+const fishName = "Roughy, Orange";
 const grams = 100;
-const protein = 17.8;
+const protein = 16.4;
 
 const obj =
-  "Vitamin A30.0IU1% Vitamin C1.6mg3% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.6mg3% Vitamin K0.1mcg0% Thiamin0.1mg8% Riboflavin0.1mg3% Niacin1.6mg8% Vitamin B60.2mg9% Folate15.0mcg4% Vitamin B121.5mcg26% Pantothenic Acid0.7mg7% Choline65.0mg Calcium41.0mg4% Iron1.2mg7% Magnesium29.0mg7% Phosphorus415mg42% Potassium333mg10% Sodium49.0mg2% Zinc1.5mg10% Copper0.1mg3% Manganese0.0mg2% Selenium12.6mcg18% Cholesterol66.0mg22% Total Omega-3 fatty acids704mg Total Omega-6 fatty acids517mg";
+  "Vitamin A299IU6% Vitamin C16.0mg27% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)7.0mg35% Vitamin K0.2mcg0% Thiamin0.2mg16% Riboflavin0.7mg44% Niacin1.8mg9% Vitamin B60.2mg8% Folate80.0mcg20% Vitamin B1210.0mcg167% Pantothenic Acid1.0mg10% Choline335mg Calcium22.0mg2% Iron0.6mg3% Magnesium20.0mg5% Phosphorus402mg40% Potassium221mg6% Sodium91.0mg4% Zinc1.0mg7% Copper0.1mg5% Manganese0.0mg1% Selenium40.3mcg58% Cholesterol374mg125% Total Omega-3 fatty acids2434mg Total Omega-6 fatty acids29.0mg";
 
 const fats =
-  "Total Fat5.6g9% Saturated Fat1.1g5% Monounsaturated Fat2.3g Polyunsaturated Fat1.4g";
+  "Total Fat6.4g10% Saturated Fat1.5g7% Monounsaturated Fat1.7g Polyunsaturated Fat2.7g";
 const carbs = 0;
 
 const testing = () => {
@@ -56,7 +56,7 @@ const testing = () => {
     polyunsaturatedFat = Number(polyunsaturatedFat);
     monounsaturatedFat = Number(monounsaturatedFat);
     saturatedFat = Number(saturatedFat);
-    totalFat = Number(saturatedFat);
+    totalFat = Number(totalFat);
 
     const objectHolder = {};
     // split based on these symbols
@@ -78,6 +78,7 @@ const testing = () => {
     items.splice(12, 0, ...spliceCalcium);
     console.log(items);
     // for every field because it's the same length as the array we just made
+    
     const objects = Object.entries(fields).map(([key, val], index) => {
       const field = val;
 
@@ -87,7 +88,7 @@ const testing = () => {
 
       let mg, dv;
       // if the nutrient field is empty, set the values to null
-      if (values == " ") {
+      if (values == " " || values == '') {
         mg = null;
         dv = null;
       } else {
@@ -155,9 +156,9 @@ const testing = () => {
       objectHolder.selenium.units,
       objectHolder.cholesterol.daily_value,
       objectHolder.cholesterol.units,
-      objectHolder.omega3.daily_value,
+     
       objectHolder.omega3.units,
-      objectHolder.omega6.daily_value,
+      
       objectHolder.omega6.units,
       protein,
       carbs,
@@ -169,7 +170,7 @@ const testing = () => {
     );
     console.log(nutrients);
     const fish = await createFish(fishName, nutrients[0].id);
-    console.log(fish);
+    console.log(fish); 
   };
 
   useEffect(() => {
