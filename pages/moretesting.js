@@ -7,29 +7,44 @@ const Cont = styled.div``;
 
 import React from "react";
 
-const countries = [
-  "South Africa",
-  "Namibia",
-  "Angola",
-  "Equatorial Guinea",
-  "Brazil",
-  "Uruguay",
-  "Argentina",
-  "South Africa",
-];
 const Moretesting = () => {
-  useEffect(() => {
-    const insertFunction = async () => {
-      const res = await Promise.all(
-        countries.map((country) => {
-          return supabase.from("oceanCountry").insert({ name: country });
-        })
-      );
-      console.log(res);
-    };
-    //insertFunction();
-  }, []);
-  return <Cont colors={COLORS}></Cont>;
+  let countries = "Norway".split(",");
+
+  countries = countries.map((country) => country.trim());
+  console.log(countries);
+  const insertFunction = async () => {
+    const res = await Promise.all(
+      countries.map((country) => {
+        console.log(country);
+        return supabase.from("oceanCountry").insert({ name: country }).select();
+      })
+    );
+    console.log(res);
+  };
+  const upsertFunction = async () => {
+    const res = await Promise.all(
+      countries.map((country) => {
+        console.log(country);
+        return supabase
+          .from("oceanCountry")
+          .update({ ocean_id: 3, sea_id: 15 })
+          .eq("name", country)
+          .select();
+      })
+    );
+    console.log(res);
+  };
+
+  return (
+    <Cont colors={COLORS}>
+      <div onClick={insertFunction} style={{ border: "1px solid black" }}>
+        <h4>Click me to insert</h4>
+      </div>
+      <div onClick={upsertFunction} style={{ border: "1px solid black" }}>
+        <h4>Click me to update</h4>
+      </div>
+    </Cont>
+  );
 };
 
 export default Moretesting;
