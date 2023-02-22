@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
-import { Marker, InfoWindow } from "@react-google-maps/api";
+import { Marker, InfoWindow, } from "@react-google-maps/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExpand, faEye } from "@fortawesome/free-solid-svg-icons";
 import COLORS from "../../data/colors";
@@ -44,9 +44,9 @@ const MarkerComponent = ({
  
 
   return (
-    <Marker icon={icon} position={latLong} onClick={() => setOpen(true)}>
+    <Marker label = {name} icon={icon} position={latLong} onClick={() => setOpen(true)}>
       {open && (
-        <InfoWindow onCloseClick={() => setOpen(false)}>
+        <InfoWindow  onCloseClick={() => setOpen(false)}>
           <Cont colors={COLORS} className="info-box">
             <div className="tags-holder ">
               <p style={{ backgroundColor: "#CCE729" }} className="tag-four">
