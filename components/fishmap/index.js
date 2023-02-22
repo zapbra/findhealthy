@@ -7,7 +7,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 import latCountryCodes from "../../data/latCountryCodes.json";
-import { fetchOceans } from "../../utils/supabaseFunctions";
+
 const Cont = styled.div`
   min-height: 100vh;
   .google-holder {
@@ -31,8 +31,8 @@ const options = {
 function createKey(location) {
   return location.lat + location.lng;
 }
-const Index = ({}) => {
-  const [oceans, setOceans] = useState([]);
+const Index = ({oceansFetch}) => {
+  const [oceans, setOceans] = useState(oceansFetch);
   const circleRef = useRef(null);
   const [markers, setMarkers] = useState([]);
   const [center, setCenter] = useState({
@@ -58,7 +58,7 @@ const Index = ({}) => {
             draggable: false,
             editable: false,
             visible: true,
-            radius: ocean.radius,
+            radius: ocean.radius * 1000,
             zIndex: 1,
           }}
         />
@@ -67,7 +67,7 @@ const Index = ({}) => {
   );
 
   const [coords, setCoords] = useState(null);
-  /*
+  
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -85,7 +85,7 @@ const Index = ({}) => {
   }, []);
 
 
-  */
+  
   const [adding, setAdding] = useState(false);
 
   const startAdding = () => {
@@ -119,23 +119,32 @@ const Index = ({}) => {
     clearSuggestions,
   } = usePlacesAutocomplete();
 
-  useEffect(() => {
-    const fetchOceanFunc = async () => {
-      const oceansFetch = await fetchOceans();
-      console.log(oceansFetch);
-      setOceans(oceansFetch);
-    };
-    fetchOceanFunc();
-  }, []);
+  
+  const circ = <Circle  center={{
+    lat: 45.4215,
+    lng: -75.695,
+  }} options={{
+    strokeColor: "#FF0000",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#FF0000",
+    fillOpacity: 0.2,
+    clickable: false,
+    draggable: false,
+    editable: false,
+    visible: true,
+    radius: 500000,
+    zIndex: 1,
+  }}  />;
 
-  //const isLoaded = true;
-  const isLoaded = true;
+ console.log('xxx');
+ console.log(oceanElems);
   return isLoaded ? (
     <Cont>
       <Toaster />
 
       <div className="google-holder">
-        {/*
+        
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
@@ -145,10 +154,11 @@ const Index = ({}) => {
           onClick={(e) => adding && addMarker(e)}
           options={{ gestureHandling: "greedy" }}
         >
-          <Circle visible = {false} center={center} options={options} ref={circleRef} /> 
+         
+    {oceanElems}
 
-          {markers}
-        </GoogleMap> */}
+       
+        </GoogleMap> 
       </div>
 
       <div className="lg-spacer"></div>

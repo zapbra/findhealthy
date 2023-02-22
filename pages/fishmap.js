@@ -3,19 +3,26 @@ import Fishmap from "../components/fishmap/index";
 import styled from "styled-components";
 import COLORS from "../data/colors";
 import { Toaster } from "react-hot-toast";
-
+import { fetchOceans } from "../utils/supabaseFunctions";
 import supabase from "../utils/supabaseClient";
 import { useEffect, useState } from "react";
 const Cont = styled.div`
   min-height: 100vh;
 `;
-/*
-export const getServerSideProps = async () => {
-} */
-export default function Home({ locationsFetch, tagsFetch }) {
-  const [locations, setLocations] = useState(locationsFetch);
-  const [tags, setTags] = useState(tagsFetch);
 
+export const getServerSideProps = async () => {
+  
+      const oceansFetch = await fetchOceans();
+    
+   return {
+    props: {
+      oceansFetch
+    }
+   }
+} 
+export default function Home({ oceansFetch }) {
+  
+  const [oceans, setOceans] = useState(oceansFetch);
   const [user, setUser] = useState(null);
   useEffect(() => {
     const fetchUser = async () => {
@@ -55,7 +62,7 @@ export default function Home({ locationsFetch, tagsFetch }) {
 
         <meta name="description" content={meta.description} />
       </Head>
-      <Fishmap />
+      <Fishmap oceansFetch={oceans}/>
     </Cont>
   );
 }

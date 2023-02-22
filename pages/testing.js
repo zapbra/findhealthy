@@ -33,15 +33,14 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = "Roughy, Orange";
+const fishName = "Squid, Mixed Species";
 const grams = 100;
-const protein = 16.4;
+const protein = 15.6;
 
-const obj =
-  "Vitamin A299IU6% Vitamin C16.0mg27% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)7.0mg35% Vitamin K0.2mcg0% Thiamin0.2mg16% Riboflavin0.7mg44% Niacin1.8mg9% Vitamin B60.2mg8% Folate80.0mcg20% Vitamin B1210.0mcg167% Pantothenic Acid1.0mg10% Choline335mg Calcium22.0mg2% Iron0.6mg3% Magnesium20.0mg5% Phosphorus402mg40% Potassium221mg6% Sodium91.0mg4% Zinc1.0mg7% Copper0.1mg5% Manganese0.0mg1% Selenium40.3mcg58% Cholesterol374mg125% Total Omega-3 fatty acids2434mg Total Omega-6 fatty acids29.0mg";
+const obj = "Vitamin A33.0IU1% Vitamin C4.7mg8% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)1.2mg6% Vitamin K0.0mcg0% Thiamin0.0mg1% Riboflavin0.4mg24% Niacin2.2mg11% Vitamin B60.1mg3% Folate5.0mcg1% Vitamin B121.3mcg22% Pantothenic Acid0.5mg5% Choline65.0mg Calcium32.0mg3% Iron0.7mg4% Magnesium33.0mg8% Phosphorus221mg22% Potassium246mg7% Sodium44.0mg2% Zinc1.5mg10% Copper1.9mg95% Manganese0.0mg2% Selenium44.8mcg64% Cholesterol233mg78% Total Omega-3 fatty acids496mg Total Omega-6 fatty acids2.0mg";
 
 const fats =
-  "Total Fat6.4g10% Saturated Fat1.5g7% Monounsaturated Fat1.7g Polyunsaturated Fat2.7g";
+  "Total Fat1.4g2% Saturated Fat0.4g2% Monounsaturated Fat0.1g Polyunsaturated Fat0.5g";
 const carbs = 0;
 
 const testing = () => {
