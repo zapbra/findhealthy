@@ -3,7 +3,12 @@ import Fishmap from "../components/fishmap/index";
 import styled from "styled-components";
 import COLORS from "../data/colors";
 import { Toaster } from "react-hot-toast";
-import { fetchOceans, fetchSeas, fetchPollution} from "../utils/supabaseFunctions";
+import {
+  fetchOceans,
+  fetchSeas,
+  fetchPollution,
+  fetchOceanFish,
+} from "../utils/supabaseFunctions";
 import supabase from "../utils/supabaseClient";
 import { useEffect, useState } from "react";
 const Cont = styled.div`
@@ -11,20 +16,29 @@ const Cont = styled.div`
 `;
 
 export const getServerSideProps = async () => {
-      const oceansFetch = await fetchOceans();
-      const seasFetch = await fetchSeas();
-      const pollutionFetch = await fetchPollution();
-   return {
+  const oceansFetch = await fetchOceans();
+  const seasFetch = await fetchSeas();
+  const pollutionFetch = await fetchPollution();
+  const fishFetch = await fetchOceanFish();
+  return {
     props: {
-      oceansFetch, seasFetch, pollutionFetch
-    }
-   }
-} 
-export default function Home({ oceansFetch, seasFetch, pollutionFetch }) {
-  
+      oceansFetch,
+      seasFetch,
+      pollutionFetch,
+      fishFetch,
+    },
+  };
+};
+export default function Home({
+  oceansFetch,
+  seasFetch,
+  pollutionFetch,
+  fishFetch,
+}) {
   const [oceans, setOceans] = useState(oceansFetch);
   const [seas, setSeas] = useState(seasFetch);
   const [pollution, setPollution] = useState(pollutionFetch);
+  const [fish, setFish] = useState(fishFetch);
   const [user, setUser] = useState(null);
   useEffect(() => {
     const fetchUser = async () => {
@@ -36,7 +50,6 @@ export default function Home({ oceansFetch, seasFetch, pollutionFetch }) {
     fetchUser();
   }, []);
 
-  
   const meta = {
     title: "Fish Map",
     description:
@@ -48,6 +61,7 @@ export default function Home({ oceansFetch, seasFetch, pollutionFetch }) {
     keywords:
       "what fish are healthiest to eat, healthy fish to eat, most polluted fish, ",
   };
+  console.log(fish);
   return (
     <Cont colors={COLORS}>
       <Head>
@@ -64,7 +78,12 @@ export default function Home({ oceansFetch, seasFetch, pollutionFetch }) {
 
         <meta name="description" content={meta.description} />
       </Head>
-      <Fishmap oceansFetch={oceans} seasFetch = {seas} pollutionFetch = {pollution} />
+      <Fishmap
+        oceansFetch={oceans}
+        seasFetch={seas}
+        pollutionFetch={pollution}
+        fishFetch = {fish}
+      />
     </Cont>
   );
 }

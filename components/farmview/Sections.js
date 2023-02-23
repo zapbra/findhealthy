@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
+import ReactMarkdown from "react-markdown";
 import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -265,7 +266,7 @@ const Sections = ({
           <div className="center-inline mar-bottom-16">
             <h4>DESCRIPTION</h4>
           </div>
-          <div className="description-text small-scrollbar">{description}</div>
+          <ReactMarkdown className="description-text small-scrollbar markdown">{description}</ReactMarkdown>
         </div>
       </section>
       <section className="section">

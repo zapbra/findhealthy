@@ -9,7 +9,7 @@ import Dropdown from "../google/Dropdown";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { PlacesAutocomplete } from "../google/Bottombar";
 import { getGeocode } from "use-places-autocomplete";
-
+import Editor from "../Editor";
 import {
   faCheck,
   faClose,
@@ -234,6 +234,12 @@ const Sections = ({
     formState: { errors },
   } = useForm();
 
+  const [editDescription, setEditDescription] = useState(description);
+  const updateDescription = (value) => {
+    setEditDescription(value);
+  }
+
+ 
   const [loading, setLoading] = useState({ state: false, msg: "" });
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
@@ -303,7 +309,7 @@ const Sections = ({
     }
   };
   useEffect(() => {
-    setValue("description", description);
+    
     setValue("address", address);
     setValue("website", website);
     setValue("email", email);
@@ -360,7 +366,7 @@ const Sections = ({
     
       const locationId = await updateLocation(
         formData.name,
-        formData.description,
+        editDescription,
         formData.hoursFrom,
         formData.hoursTo,
         formData.pickup,
@@ -799,15 +805,10 @@ const Sections = ({
             <div className="center-inline mar-bottom-16">
               <h4>DESCRIPTION</h4>
             </div>
-            <textarea
-              type="text"
-              className="description-text"
-              name="description"
-              id="description"
-              {...register("description", {
-                required: false,
-              })}
-            ></textarea>
+            <Editor id = 'description'
+              section = {editDescription}
+              updateSection = {updateDescription}
+              />
             <div
               onClick={() => focusField("description")}
               className="black-btn flex-inline align-center"

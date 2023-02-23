@@ -530,7 +530,7 @@ export const createNutrients = async (
   selenium_units,
   cholesterol_daily_value,
   cholesterol_units,
- 
+
   omega3_units,
 
   omega6_units,
@@ -593,7 +593,7 @@ export const createNutrients = async (
         cholesterol_daily_value,
         cholesterol_units,
         omega3_units,
-    
+
         omega6_units,
         protein,
         carbs,
@@ -611,43 +611,52 @@ export const createNutrients = async (
   }
 };
 
-
 export const fetchOceans = async () => {
   try {
-    const {data, error}  = await supabase.from('oceans')
-    .select();
-    
-    if(error) throw error;
+    const { data, error } = await supabase.from("oceans").select();
+
+    if (error) throw error;
     return data;
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     return error;
   }
-}
+};
 
 export const fetchSeas = async () => {
   try {
-    const {data, error}  = await supabase.from('seas')
-    .select();
-    
-    if(error) throw error;
+    const { data, error } = await supabase.from("seas").select();
+
+    if (error) throw error;
     return data;
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     return error;
   }
-}
+};
+
+export const fetchOceanFish = async () => {
+  try {
+    const { data, error } = await supabase
+      .from("oceanFish")
+      .select("*, fish_id(*)");
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
 
 export const fetchPollution = async () => {
   try {
-    const {data, error}  = await supabase.from('pollution')
-    .select();
-    
-    if(error) throw error;
+    const { data, error } = await supabase.from("pollution").select();
+
+    if (error) throw error;
     return data;
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     return error;
   }
-}
-
+};

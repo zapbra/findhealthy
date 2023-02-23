@@ -73,6 +73,25 @@ $light-orange: #fd7d27;
     margin-bottom: 8px;
   }
 }
+.mde-preview{
+  background: #fff;
+}
+.mde-header{
+  border-radius: 8px 8px 0 0 !important;
+  border:1px solid $darkPink;
+}
+.editor{
+  
+  border-radius: 8px;
+  textarea {
+    border-radius: 0 0 8px 8px;
+    border:1px solid $darkPink !important;
+  }
+  button{
+    padding: 4px 8px;
+  }
+}
+
 .select-box {
   border: 1px solid $grey;
   display: inline-flex;

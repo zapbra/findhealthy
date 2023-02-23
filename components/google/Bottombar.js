@@ -5,6 +5,7 @@ import PhotoDisplay from "../popups/PhotoDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { nanoid } from "nanoid";
 import IconSelect from "../inputs/IconSelect";
+import Editor from "../Editor";
 import {
   faClose,
   faPlus,
@@ -103,6 +104,14 @@ const Bottombar = ({
     setValue,
     formState: { errors },
   } = useForm();
+  const [description, setDescription] = useState('');
+  const updateDescription = (value) => {
+    setDescription(value);
+  }
+  const [howToOrder, setHowToOrder] = useState('');
+  const updateHowToOrder = (value) => {
+    setHowToOrder(value);
+  }
   const [selectedIcon, setSelectedIcon] = useState("/icons/meat.png");
   const [loading, setLoading] = useState({ state: false, msg: "" });
   const [images, setImages] = useState([]);
@@ -304,21 +313,23 @@ const Bottombar = ({
   const createButtonRef = useRef(null);
   const clearForm = () => {
     setValue("name", "");
-    setValue("description", "");
-    setValue("howToOrder", "");
+    setDescription('')
+    setHowToOrder('')
     setValue("hoursFrom", "");
     setValue("hoursTo", "");
     setValue("pickup", "unspecified");
     setValue("website", "");
     setValue("email", "");
     setValue("number", "");
-    setValue("grassFed", "unspecified");
-    setValue("organic", "unspecified");
-    setValue("vaccineFree", "unspecified");
-    setValue("pastureRaised", "unspecified");
-    setValue("soyFree", "unspecified");
-    setValue("A2", "unspecified");
-    setValue("unfrozen", "unspecified");
+    setOptionalFields({
+      grassFed: { name: "Grass Fed", value: "unspecified" },
+      organic: { name: "Organic", value: "unspecified" },
+      vaccineFree: { name: "Vaccine Free", value: "unspecified" },
+      pastureRaised: { name: "Pasture Raised", value: "unspecified" },
+      soyFree: { name: "Soy Free", value: "unspecified" },
+      a2: { name: "A2", value: "unspecified" },
+      unfrozen: { name: "Unfrozen", value: "unspecified" },
+    });
     setImages([]);
     setLocation("");
     setProducts([]);
@@ -357,7 +368,7 @@ const Bottombar = ({
     if (user !== null) {
       let locationId = await createUserLocation(
         formData.name,
-        formData.description,
+        description,
         formData.hoursFrom,
         formData.hoursTo,
         formData.pickup,
@@ -403,7 +414,7 @@ const Bottombar = ({
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
-        formData.howToOrder,
+        howToOrder,
         user.id,
         selectedIcon
       );
@@ -411,7 +422,7 @@ const Bottombar = ({
     } else {
       let locationId = await createLocation(
         formData.name,
-        formData.description,
+        description,
         formData.hoursFrom,
         formData.hoursTo,
         formData.pickup,
@@ -457,7 +468,7 @@ const Bottombar = ({
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
         reviewFields.friendly.stars === 0 ? null : reviewFields.friendly.stars,
-        formData.howToOrder,
+        howToOrder,
         selectedIcon
       );
       return locationId;
@@ -858,17 +869,11 @@ const Bottombar = ({
               <div className="red-line mar-bottom-8"></div>
               <p className="italic">How are their prices?</p>
               <p className="italic mar-bottom-4">What was your experience?</p>
-              <textarea
-                {...register("description", {
-                  required: true,
-                })}
-                type="text"
-                placeholder="Describe the farm/store"
-                name="description"
+              <Editor id = 'description'
+              section = {description}
+              updateSection = {updateDescription}
               />
-              {errors.description?.type === "required" && (
-                <p className="error">*Description is required</p>
-              )}
+              
             </div>
 
             <div className="input-line">
@@ -878,14 +883,11 @@ const Bottombar = ({
               <p className="italic mar-bottom-4">
                 Is it pickup only on certain days?
               </p>
-              <textarea
-                {...register("howToOrder", {
-                  required: false,
-                })}
-                type="text"
-                placeholder="Pickup location, delivery, etc"
-                name="howToOrder"
+              <Editor id = 'howToOrder'
+              section = {howToOrder}
+              updateSection = {updateHowToOrder}
               />
+              
             </div>
 
             <form onSubmit={addProduct} className="input-line">

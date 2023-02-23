@@ -3,6 +3,7 @@ import { GoogleMap, useJsApiLoader, Circle } from "@react-google-maps/api";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Toaster } from "react-hot-toast";
 import MarkerComponent from "./MarkerComponent";
+import FishMarker from "./FishMarker";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -32,10 +33,11 @@ const options = {
 function createKey(location) {
   return location.lat + location.lng;
 }
-const Index = ({ oceansFetch, seasFetch, pollutionFetch }) => {
+const Index = ({ oceansFetch, seasFetch, pollutionFetch, fishFetch }) => {
   const [oceans, setOceans] = useState(oceansFetch);
   const [seas, setSeas] = useState(seasFetch);
   const [pollution, setPollution] = useState(pollutionFetch);
+  const [fish, setFish] = useState(fishFetch);
   const circleRef = useRef(null);
   const [markers, setMarkers] = useState([]);
   const [center, setCenter] = useState({
@@ -75,16 +77,14 @@ const Index = ({ oceansFetch, seasFetch, pollutionFetch }) => {
         <MarkerComponent
           latLong={{
             lat: ocean.lat,
-            lng: ocean.lng
+            lng: ocean.lng,
           }}
           name={ocean.name}
-          icon='/icons/water.png'
-
+          icon="/icons/water.png"
         />
-      )
+      );
     })
   );
-
 
   const [seaElems, setSeaElems] = useState(
     seas.map((sea) => {
@@ -118,15 +118,14 @@ const Index = ({ oceansFetch, seasFetch, pollutionFetch }) => {
         <MarkerComponent
           latLong={{
             lat: sea.lat,
-            lng: sea.lng
+            lng: sea.lng,
           }}
           name={sea.name}
-          icon='/icons/sea.png'
+          icon="/icons/sea.png"
         />
-      )
+      );
     })
-  )
-
+  );
 
   const [pollutionElems, setPollutionlems] = useState(
     pollution.map((pollutionItem) => {
@@ -160,20 +159,34 @@ const Index = ({ oceansFetch, seasFetch, pollutionFetch }) => {
         <MarkerComponent
           latLong={{
             lat: pollutionItem.lat,
-            lng: pollutionItem.lng
+            lng: pollutionItem.lng,
           }}
           name={pollutionItem.name}
-        
-          icon='/icons/pollution.png'
+          icon="/icons/pollution.png"
           date={pollutionItem.date}
           severity={pollutionItem.severity}
           description={pollutionItem.description}
-
         />
-      )
+      );
     })
-  )
+  );
 
+  const [fishMarkers, setFishMarkers] = useState(
+    fish.map((fishItem) => {
+      return (
+        <FishMarker
+          latLong={{
+            lat: fishItem.lat,
+            lng: fishItem.lng,
+          }}
+          name={fishItem.fish_id.name}
+          appearance={fishItem.fish_id.appearance}
+          description={fishItem.fish_id.description}
+          icon="/icons/fish2.png"
+        />
+      );
+    })
+  );
   const [coords, setCoords] = useState(null);
 
   const [libraries] = useState(["places"]);
@@ -191,8 +204,6 @@ const Index = ({ oceansFetch, seasFetch, pollutionFetch }) => {
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
-
-
 
   const [adding, setAdding] = useState(false);
 
@@ -227,17 +238,13 @@ const Index = ({ oceansFetch, seasFetch, pollutionFetch }) => {
     clearSuggestions,
   } = usePlacesAutocomplete();
 
-
-
-
-  console.log('xxx');
+  console.log("xxx");
   console.log(oceanElems);
   return isLoaded ? (
     <Cont>
       <Toaster />
 
       <div className="google-holder">
-
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
@@ -247,7 +254,6 @@ const Index = ({ oceansFetch, seasFetch, pollutionFetch }) => {
           onClick={(e) => adding && addMarker(e)}
           options={{ gestureHandling: "greedy" }}
         >
-
           {oceanElems}
           {oceanMarkers}
 
@@ -256,6 +262,8 @@ const Index = ({ oceansFetch, seasFetch, pollutionFetch }) => {
 
           {pollutionElems}
           {pollutionMarkers}
+
+          {fishMarkers}
         </GoogleMap>
       </div>
 
