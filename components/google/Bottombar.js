@@ -140,7 +140,7 @@ const Bottombar = ({
     vaccineFree: { name: "Vaccine Free", value: "unspecified" },
     pastureRaised: { name: "Pasture Raised", value: "unspecified" },
     soyFree: { name: "Soy Free", value: "unspecified" },
-    dewormerFree: { name: "Dewormer Free", value: "unspecified" },
+    a2: { name: "A2", value: "unspecified" },
     unfrozen: { name: "Unfrozen", value: "unspecified" },
   });
 
@@ -317,7 +317,7 @@ const Bottombar = ({
     setValue("vaccineFree", "unspecified");
     setValue("pastureRaised", "unspecified");
     setValue("soyFree", "unspecified");
-    setValue("dewormerFree", "unspecified");
+    setValue("A2", "unspecified");
     setValue("unfrozen", "unspecified");
     setImages([]);
     setLocation("");
@@ -390,9 +390,9 @@ const Bottombar = ({
           : optionalFields.soyFree.value == "no"
           ? false
           : "unspecified",
-        optionalFields.dewormerFree.value == "yes"
+        optionalFields.A2.value == "yes"
           ? true
-          : optionalFields.dewormerFree.value == "no"
+          : optionalFields.A2.value == "no"
           ? false
           : "unspecified",
         optionalFields.unfrozen.value == "yes"
@@ -444,9 +444,9 @@ const Bottombar = ({
           : optionalFields.soyFree.value == "no"
           ? false
           : "unspecified",
-        optionalFields.dewormerFree.value == "yes"
+        optionalFields.A2.value == "yes"
           ? true
-          : optionalFields.dewormerFree.value == "no"
+          : optionalFields.A2.value == "no"
           ? false
           : "unspecified",
         optionalFields.unfrozen.value == "yes"

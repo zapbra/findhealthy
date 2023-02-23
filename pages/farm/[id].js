@@ -198,7 +198,7 @@ const Preview = ({ locationFetch, x }) => {
             vaccineFree={location.vaccineFree}
             soyFree={location.soyFree}
             pastureRaised={location.pastureRaised}
-            dewormerFree={location.dewormerFree}
+            A2={location.A2}
             unfrozen={location.unfrozen}
             pricing={location.pricing}
             quality={location.quality}
@@ -232,7 +232,7 @@ const Preview = ({ locationFetch, x }) => {
             vaccineFree={location.vaccineFree}
             soyFree={location.soyFree}
             pastureRaised={location.pastureRaised}
-            dewormerFree={location.dewormerFree}
+            A2={location.A2}
             unfrozen={location.unfrozen}
             pricing={location.pricing}
             quality={location.quality}

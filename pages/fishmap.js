@@ -3,7 +3,7 @@ import Fishmap from "../components/fishmap/index";
 import styled from "styled-components";
 import COLORS from "../data/colors";
 import { Toaster } from "react-hot-toast";
-import { fetchOceans } from "../utils/supabaseFunctions";
+import { fetchOceans, fetchSeas, fetchPollution} from "../utils/supabaseFunctions";
 import supabase from "../utils/supabaseClient";
 import { useEffect, useState } from "react";
 const Cont = styled.div`
@@ -11,18 +11,20 @@ const Cont = styled.div`
 `;
 
 export const getServerSideProps = async () => {
-  
       const oceansFetch = await fetchOceans();
-    
+      const seasFetch = await fetchSeas();
+      const pollutionFetch = await fetchPollution();
    return {
     props: {
-      oceansFetch
+      oceansFetch, seasFetch, pollutionFetch
     }
    }
 } 
-export default function Home({ oceansFetch }) {
+export default function Home({ oceansFetch, seasFetch, pollutionFetch }) {
   
   const [oceans, setOceans] = useState(oceansFetch);
+  const [seas, setSeas] = useState(seasFetch);
+  const [pollution, setPollution] = useState(pollutionFetch);
   const [user, setUser] = useState(null);
   useEffect(() => {
     const fetchUser = async () => {
@@ -62,7 +64,7 @@ export default function Home({ oceansFetch }) {
 
         <meta name="description" content={meta.description} />
       </Head>
-      <Fishmap oceansFetch={oceans}/>
+      <Fishmap oceansFetch={oceans} seasFetch = {seas} pollutionFetch = {pollution} />
     </Cont>
   );
 }

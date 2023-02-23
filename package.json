@@ -29,6 +29,7 @@
     "react-fontawesome": "^1.7.1",
     "react-hook-form": "^7.41.5",
     "react-hot-toast": "^2.4.0",
+    "react-markdown": "^8.0.5",
     "sass": "^1.57.1",
     "styled-components": "^5.3.6",
     "use-places-autocomplete": "^4.0.0"

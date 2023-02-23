@@ -175,7 +175,7 @@ const Sections = ({
   vaccineFree,
   soyFree,
   pastureRaised,
-  dewormerFree,
+  A2,
   unfrozen,
   pricing,
   quality,
@@ -204,7 +204,7 @@ const Sections = ({
       { name: "Vaccine Free", value: vaccineFree },
       { name: "Soy Free", value: soyFree },
       { name: "Pasture Raised", value: pastureRaised },
-      { name: "Dewormer Free", value: dewormerFree },
+      { name: "A2", value: A2 },
       { name: "Unfrozen", value: unfrozen },
     ]
       .filter((field) => field.value != "unspecified")

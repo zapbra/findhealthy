@@ -15,7 +15,7 @@ const createLocation = async (
   vaccineFree,
   pastureRaised,
   soyFree,
-  dewormerFree,
+  A2,
   unfrozen,
   pricing,
   quality,
@@ -41,7 +41,7 @@ const createLocation = async (
         vaccineFree,
         pastureRaised,
         soyFree,
-        dewormerFree,
+        A2,
         unfrozen,
         pricing,
         quality,
@@ -77,7 +77,7 @@ export const createUserLocation = async (
   vaccineFree,
   pastureRaised,
   soyFree,
-  dewormerFree,
+  A2,
   unfrozen,
   pricing,
   quality,
@@ -104,7 +104,7 @@ export const createUserLocation = async (
         vaccineFree,
         pastureRaised,
         soyFree,
-        dewormerFree,
+        A2,
         unfrozen,
         pricing,
         quality,
@@ -138,7 +138,7 @@ export const updateLocation = async (
   vaccineFree,
   pastureRaised,
   soyFree,
-  dewormerFree,
+  A2,
   unfrozen,
   pricing,
   quality,
@@ -163,7 +163,7 @@ export const updateLocation = async (
         vaccineFree,
         pastureRaised,
         soyFree,
-        dewormerFree,
+        A2,
         unfrozen,
         pricing,
         quality,
@@ -624,3 +624,30 @@ export const fetchOceans = async () => {
     return error;
   }
 }
+
+export const fetchSeas = async () => {
+  try {
+    const {data, error}  = await supabase.from('seas')
+    .select();
+    
+    if(error) throw error;
+    return data;
+  } catch(error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const fetchPollution = async () => {
+  try {
+    const {data, error}  = await supabase.from('pollution')
+    .select();
+    
+    if(error) throw error;
+    return data;
+  } catch(error) {
+    console.log(error);
+    return error;
+  }
+}
+

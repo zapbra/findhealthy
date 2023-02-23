@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { GoogleMap, useJsApiLoader, Circle } from "@react-google-maps/api";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Toaster } from "react-hot-toast";
+import MarkerComponent from "./MarkerComponent";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -31,8 +32,10 @@ const options = {
 function createKey(location) {
   return location.lat + location.lng;
 }
-const Index = ({oceansFetch}) => {
+const Index = ({ oceansFetch, seasFetch, pollutionFetch }) => {
   const [oceans, setOceans] = useState(oceansFetch);
+  const [seas, setSeas] = useState(seasFetch);
+  const [pollution, setPollution] = useState(pollutionFetch);
   const circleRef = useRef(null);
   const [markers, setMarkers] = useState([]);
   const [center, setCenter] = useState({
@@ -49,10 +52,10 @@ const Index = ({oceansFetch}) => {
             lng: ocean.lng,
           }}
           options={{
-            strokeColor: "#FF0000",
+            strokeColor: "#0000FF",
             strokeOpacity: 0.8,
             strokeWeight: 2,
-            fillColor: "#FF0000",
+            fillColor: "#0000FF",
             fillOpacity: 0.2,
             clickable: false,
             draggable: false,
@@ -66,8 +69,113 @@ const Index = ({oceansFetch}) => {
     })
   );
 
+  const [oceanMarkers, setOceanMarkers] = useState(
+    oceans.map((ocean) => {
+      return (
+        <MarkerComponent
+          latLong={{
+            lat: ocean.lat,
+            lng: ocean.lng
+          }}
+          name={ocean.name}
+          icon='/icons/water.png'
+
+        />
+      )
+    })
+  );
+
+
+  const [seaElems, setSeaElems] = useState(
+    seas.map((sea) => {
+      return (
+        <Circle
+          center={{
+            lat: sea.lat,
+            lng: sea.lng,
+          }}
+          options={{
+            strokeColor: "#00FF00",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#00FF00",
+            fillOpacity: 0.2,
+            clickable: false,
+            draggable: false,
+            editable: false,
+            visible: true,
+            radius: sea.radius * 1000,
+            zIndex: 1,
+          }}
+        />
+      );
+    })
+  );
+
+  const [seaMarkers, setSeaMarkers] = useState(
+    seas.map((sea) => {
+      return (
+        <MarkerComponent
+          latLong={{
+            lat: sea.lat,
+            lng: sea.lng
+          }}
+          name={sea.name}
+          icon='/icons/sea.png'
+        />
+      )
+    })
+  )
+
+
+  const [pollutionElems, setPollutionlems] = useState(
+    pollution.map((pollutionItem) => {
+      return (
+        <Circle
+          center={{
+            lat: pollutionItem.lat,
+            lng: pollutionItem.lng,
+          }}
+          options={{
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#FF0000",
+            fillOpacity: 0.2,
+            clickable: false,
+            draggable: false,
+            editable: false,
+            visible: true,
+            radius: pollutionItem.radius * 1000,
+            zIndex: 1,
+          }}
+        />
+      );
+    })
+  );
+
+  const [pollutionMarkers, setPollutionMarkers] = useState(
+    pollution.map((pollutionItem) => {
+      return (
+        <MarkerComponent
+          latLong={{
+            lat: pollutionItem.lat,
+            lng: pollutionItem.lng
+          }}
+          name={pollutionItem.name}
+        
+          icon='/icons/pollution.png'
+          date={pollutionItem.date}
+          severity={pollutionItem.severity}
+          description={pollutionItem.description}
+
+        />
+      )
+    })
+  )
+
   const [coords, setCoords] = useState(null);
-  
+
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -85,7 +193,7 @@ const Index = ({oceansFetch}) => {
   }, []);
 
 
-  
+
   const [adding, setAdding] = useState(false);
 
   const startAdding = () => {
@@ -119,32 +227,17 @@ const Index = ({oceansFetch}) => {
     clearSuggestions,
   } = usePlacesAutocomplete();
 
-  
-  const circ = <Circle  center={{
-    lat: 45.4215,
-    lng: -75.695,
-  }} options={{
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FF0000",
-    fillOpacity: 0.2,
-    clickable: false,
-    draggable: false,
-    editable: false,
-    visible: true,
-    radius: 500000,
-    zIndex: 1,
-  }}  />;
 
- console.log('xxx');
- console.log(oceanElems);
+
+
+  console.log('xxx');
+  console.log(oceanElems);
   return isLoaded ? (
     <Cont>
       <Toaster />
 
       <div className="google-holder">
-        
+
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
@@ -154,11 +247,16 @@ const Index = ({oceansFetch}) => {
           onClick={(e) => adding && addMarker(e)}
           options={{ gestureHandling: "greedy" }}
         >
-         
-    {oceanElems}
 
-       
-        </GoogleMap> 
+          {oceanElems}
+          {oceanMarkers}
+
+          {seaElems}
+          {seaMarkers}
+
+          {pollutionElems}
+          {pollutionMarkers}
+        </GoogleMap>
       </div>
 
       <div className="lg-spacer"></div>

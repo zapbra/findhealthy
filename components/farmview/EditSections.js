@@ -217,7 +217,7 @@ const Sections = ({
   vaccineFree,
   soyFree,
   pastureRaised,
-  dewormerFree,
+  A2,
   unfrozen,
   pricing,
   quality,
@@ -314,7 +314,7 @@ const Sections = ({
     setValue("vaccineFree", vaccineFree);
     setValue("pastureRaised", pastureRaised);
     setValue("soyFree", soyFree);
-    setValue("dewormerFree", dewormerFree);
+    setValue("A2", A2);
     setValue("unfrozen", unfrozen);
     setValue("howToOrder", howToOrder);
     setValue("hoursFrom", hoursFrom);
@@ -372,7 +372,7 @@ const Sections = ({
         formData.vaccineFree,
         formData.pastureRaised,
         formData.soyFree,
-        formData.dewormerFree,
+        formData.A2,
         formData.unfrozen,
         reviewFields.pricing.stars === 0 ? null : reviewFields.pricing.stars,
         reviewFields.quality.stars === 0 ? null : reviewFields.quality.stars,
@@ -505,7 +505,7 @@ const Sections = ({
       { name: "Vaccine Free", value: vaccineFree },
       { name: "Soy Free", value: soyFree },
       { name: "Pasture Raised", value: pastureRaised },
-      { name: "Dewormer Free", value: dewormerFree },
+      { name: "A2", value: A2 },
       { name: "Unfrozen", value: unfrozen },
     ]
       .filter((field) => field.value != "unspecified")
@@ -1199,44 +1199,44 @@ const Sections = ({
               </div>
 
               <div className="radio-line">
-                <h4 className="mar-bottom-8">DEWORMER FREE?</h4>
+                <h4 className="mar-bottom-8">A2?</h4>
                 <div className="flex mar-bottom-8">
-                  <label htmlFor="dewormers-true">
+                  <label htmlFor="A2-true">
                     <div className="flex align-center mar-right-8">
                       <input
-                        {...register("dewormerFree", {
+                        {...register("A2", {
                           required: false,
                         })}
                         type="radio"
                         value="true"
-                        id="dewormers-true"
+                        id="A2-true"
                       />
                       <p className="mar-left-4">Yes</p>
                     </div>
                   </label>
 
-                  <label htmlFor="dewormers-false">
+                  <label htmlFor="A2-false">
                     <div className="flex align-center">
                       <input
-                        {...register("dewormerFree", {
+                        {...register("A2", {
                           required: false,
                         })}
                         type="radio"
-                        id="dewormers-false"
+                        id="A2-false"
                         value="false"
                       />
                       <p className="mar-left-4">No</p>
                     </div>
                   </label>
                 </div>
-                <label htmlFor="dewormers-unspecified">
+                <label htmlFor="A2-unspecified">
                   <div className="flex align-center">
                     <input
-                      {...register("dewormerFree", {
+                      {...register("A2", {
                         required: false,
                       })}
                       type="radio"
-                      id="dewormers-unspecified"
+                      id="A2-unspecified"
                       value="unspecified"
                       defaultChecked
                     />
