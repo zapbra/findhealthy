@@ -40,7 +40,18 @@ const MarkerComponent = ({ latLong, name, icon, description, appearance }) => {
           <Cont colors={COLORS} className="info-box">
             <h5 className=" underline">{name}</h5>
 
-            <div className="mar-bottom-16"></div>
+            <div className="mar-bottom-8"></div>
+            <Link
+              href={{
+                pathname: `/fish/${name}`,
+              }}
+            >
+              <div className="blue-btn-one flex justify-center align-center mar-bottom-16">
+                <h5 className="mar-right-8">VIEW FISH</h5>
+                <FontAwesomeIcon icon={faEye} className="icon-sm white" />
+              </div>
+            </Link>
+            <div className="mar-bottom-8"></div>
             {description !== null && (
               <>
                 <h5 className="black mar-bottom-8">Where are they found?</h5>
