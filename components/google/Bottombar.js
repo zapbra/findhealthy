@@ -149,7 +149,7 @@ const Bottombar = ({
     vaccineFree: { name: "Vaccine Free", value: "unspecified" },
     pastureRaised: { name: "Pasture Raised", value: "unspecified" },
     soyFree: { name: "Soy Free", value: "unspecified" },
-    a2: { name: "A2", value: "unspecified" },
+    A2: { name: "A2", value: "unspecified" },
     unfrozen: { name: "Unfrozen", value: "unspecified" },
   });
 
