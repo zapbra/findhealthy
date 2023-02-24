@@ -1,11 +1,11 @@
-import { useState } from "react";
-import ReactMde from "react-mde";
+import { useState, useRef } from "react";
+import {Mde} from "fc-mde";
 import Showdown from "showdown";
 
-import "react-mde/lib/styles/css/react-mde-all.css";
+
 export default function Editor({ section, updateSection }) {
   const [selectedTab, setSelectedTab] = useState("write");
-
+  const refTextarea = useRef(null);
   const converter = new Showdown.Converter({
     tables: true,
     simplifiedAutoLink: true,
@@ -15,9 +15,10 @@ export default function Editor({ section, updateSection }) {
 
   return (
     <section className="pane editor">
-      <ReactMde
-        value={section}
-        onChange={updateSection}
+      <Mde
+        text={section}
+        setText={updateSection}
+        refTextarea = {refTextarea}
         selectedTab={selectedTab}
         onTabChange={setSelectedTab}
         generateMarkdownPreview={(markdown) =>
