@@ -649,6 +649,34 @@ export const fetchOceanFish = async () => {
   }
 };
 
+export const fetchFishByName = async (name) => {
+  try {
+    const { data, error } = await supabase
+      .from("fish")
+      .select("*, nutrients_id(*), oceanFish(ocean_id(name), sea_id(name))").eq('name', name);
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const fetchFish = async (name) => {
+  try {
+    const { data, error } = await supabase
+      .from("fish")
+      .select("name")
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 export const fetchPollution = async () => {
   try {
     const { data, error } = await supabase.from("pollution").select();

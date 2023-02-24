@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import COLORS from "../data/colors";
 import supabase from "../utils/supabaseClient";
-import { createFish, createNutrients } from "../utils/supabaseFunctions";
+import { createFish, createNutrients, } from "../utils/supabaseFunctions";
 const Cont = styled.div``;
 
 const fields = {
