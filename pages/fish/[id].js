@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
-import { fetchFish, fetchFishByName } from "../../utils/supabaseFunctions";
+import { fetchFish, fetchFishByName, fetchAllFishNames } from "../../utils/supabaseFunctions";
 import NutrientFacts from "../../components/nutritionFacts/index";
 import NutrientTopSection from "../../components/nutritionFacts/NutrientTopSection";
 const Cont = styled.div`
@@ -26,26 +26,26 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const fishFetch = await fetchFishByName(params.id);
-
+  const allFishFetch = await fetchAllFishNames();
   return {
     props: {
       fishFetch,
+      allFishFetch
     },
   };
 }
 
-const Fish = ({ fishFetch }) => {
+const Fish = ({ fishFetch, allFishFetch }) => {
   const [fish, setFish] = useState(fishFetch[0]);
-  console.log("x");
-  console.log(fish);
+  const [allFish, setAllFish] = useState(allFishFetch);
   return (
     <Cont colors={COLORS}>
       <div className="center-inline title-spec flex align-center justify-center mar-bottom-32">
         <h3 className="blue mar-right-16">{fish.name}</h3>
         <img src="/icons/fish2.png" />
       </div>
-      <NutrientTopSection />
-      <NutrientFacts nutrients={fish.nutrients_id} />
+     
+      <NutrientFacts fish = {fish} allFish = {allFish}  />
     </Cont>
   );
 };

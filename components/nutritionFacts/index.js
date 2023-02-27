@@ -18,13 +18,15 @@ const Cont = styled.div`
     border-bottom: 1px solid ${(props) => props.colors.black};
   }
 `;
-const index = ({ nutrients }) => {
+const index = ({ fish, allFish }) => {
+  const [nutrients, setNutrients] = useState(fish.nutrients_id);
+
   return (
     <Cont colors={COLORS}>
       <div className="center-inline">
       <h5 className="blue mar-bottom-32">Nutrition Facts</h5>
       </div>
-      
+      <NutrientTopSection name = {fish.name} allFish = {allFish} />
       <div className="nutrient-holder">
         <div className="nutrient-title">
           <p className="bold">Vitamins</p>

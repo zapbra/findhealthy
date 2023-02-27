@@ -677,6 +677,20 @@ export const fetchFish = async (name) => {
   }
 };
 
+export const fetchAllFishNames = async () => {
+  try {
+    const { data, error } = await supabase
+      .from("fish")
+      .select('name');
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 export const fetchPollution = async () => {
   try {
     const { data, error } = await supabase.from("pollution").select();
