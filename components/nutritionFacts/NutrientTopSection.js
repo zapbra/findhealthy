@@ -39,10 +39,7 @@ const Cont = styled.div`
   }
 `;
 const NutrientTopSection = ({ name, allFish, fish, quantity, setQuantity }) => {
-  const [quantities, setQuantities] = useState([
-    `${quantity} grams`,
-    ...QUANTITIES,
-  ]);
+  const [quantities, setQuantities] = useState([`${quantity} `, ...QUANTITIES]);
   const [fishNames, setFishNames] = useState(
     allFish.map((fish) => {
       return fish.name;
