@@ -245,7 +245,8 @@ const index = ({ fish, allFish }) => {
               ).toFixed(2) || null,
             units:
               fish.nutrients_id.vitamin_d_units?.match(/(mcg|mg|IU)/)[0] || 0,
-            daily_value: fish.nutrients_id.vitamin_d_daily_value || 0,
+            daily_value:
+              (fish.nutrients_id.vitamin_d_daily_value / ratio).toFixed(2) || 0,
           },
           "Vitamin E": {
             value:
@@ -256,7 +257,9 @@ const index = ({ fish, allFish }) => {
             units:
               fish.nutrients_id.vitamin_e_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
-            daily_value: fish.nutrients_id.vitamin_e_daily_value,
+            daily_value: (
+              fish.nutrients_id.vitamin_e_daily_value / ratio
+            ).toFixed(2),
           },
           "Vitamin K": {
             value:
@@ -267,7 +270,9 @@ const index = ({ fish, allFish }) => {
             units:
               fish.nutrients_id.vitamin_k_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
-            daily_value: fish.nutrients_id.vitamin_k_daily_value,
+            daily_value: (
+              fish.nutrients_id.vitamin_k_daily_value / ratio
+            ).toFixed(2),
           },
           Thiamin: {
             value:
@@ -276,7 +281,9 @@ const index = ({ fish, allFish }) => {
               ).toFixed(2) || null,
             units:
               fish.nutrients_id.thiamin_units?.match(/(mcg|mg|IU)/)[0] || null,
-            daily_value: fish.nutrients_id.thiamin_daily_value,
+            daily_value: (
+              fish.nutrients_id.thiamin_daily_value / ratio
+            ).toFixed(2),
           },
           Niacin: {
             value:
@@ -285,7 +292,9 @@ const index = ({ fish, allFish }) => {
               ).toFixed(2) || null,
             units:
               fish.nutrients_id.niacin_units?.match(/(mcg|mg|IU)/)[0] || null,
-            daily_value: fish.nutrients_id.niacin_daily_value,
+            daily_value: (fish.nutrients_id.niacin_daily_value / ratio).toFixed(
+              2
+            ),
           },
           "Vitamin B6": {
             value:
@@ -296,7 +305,9 @@ const index = ({ fish, allFish }) => {
             units:
               fish.nutrients_id.vitamin_b6_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
-            daily_value: fish.nutrients_id.vitamin_b6_daily_value,
+            daily_value: (
+              fish.nutrients_id.vitamin_b6_daily_value / ratio
+            ).toFixed(2),
           },
           Folate: {
             value:
@@ -305,7 +316,9 @@ const index = ({ fish, allFish }) => {
               ).toFixed(2) || null,
             units:
               fish.nutrients_id.folate_units?.match(/(mcg|mg|IU)/)[0] || null,
-            daily_value: fish.nutrients_id.folate_daily_value,
+            daily_value: (fish.nutrients_id.folate_daily_value / ratio).toFixed(
+              2
+            ),
           },
           "Vitamin B12": {
             value:
@@ -316,7 +329,9 @@ const index = ({ fish, allFish }) => {
             units:
               fish.nutrients_id.vitamin_b12_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
-            daily_value: fish.nutrients_id.vitamin_b12_daily_value,
+            daily_value: (
+              fish.nutrients_id.vitamin_b12_daily_value / ratio
+            ).toFixed(2),
           },
           "Pantothenic Acid": {
             value:
@@ -329,7 +344,9 @@ const index = ({ fish, allFish }) => {
               fish.nutrients_id.pantothenic_acid_units?.match(
                 /(mcg|mg|IU)/
               )[0] || null,
-            daily_value: fish.nutrients_id.pantothenic_acid_daily_value,
+            daily_value: (
+              fish.nutrients_id.pantothenic_acid_daily_value / ratio
+            ).toFixed(2),
           },
           Choline: {
             value:
@@ -347,7 +364,9 @@ const index = ({ fish, allFish }) => {
               ).toFixed(2) || null,
             units:
               fish.nutrients_id.calcium_units?.match(/(mcg|mg|IU)/)[0] || null,
-            daily_value: fish.nutrients_id.calcium_daily_value,
+            daily_value: (
+              fish.nutrients_id.calcium_daily_value / ratio
+            ).toFixed(2),
           },
           Iron: {
             value:
@@ -356,7 +375,9 @@ const index = ({ fish, allFish }) => {
               ).toFixed(2) || null,
             units:
               fish.nutrients_id.iron_units?.match(/(mcg|mg|IU)/)[0] || null,
-            daily_value: fish.nutrients_id.iron_daily_value,
+            daily_value: (fish.nutrients_id.iron_daily_value / ratio).toFixed(
+              2
+            ),
           },
           Magnesium: {
             value:
@@ -367,7 +388,9 @@ const index = ({ fish, allFish }) => {
             units:
               fish.nutrients_id.magnesium_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
-            daily_value: fish.nutrients_id.magnesium_daily_value,
+            daily_value: (
+              fish.nutrients_id.magnesium_daily_value / ratio
+            ).toFixed(2),
           },
           Phosphorus: {
             value:
@@ -378,7 +401,9 @@ const index = ({ fish, allFish }) => {
             units:
               fish.nutrients_id.phosphorus_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
-            daily_value: fish.nutrients_id.phosphorus_daily_value,
+            daily_value: (
+              fish.nutrients_id.phosphorus_daily_value / ratio
+            ).toFixed(2),
           },
           Potassium: {
             value:
@@ -389,7 +414,9 @@ const index = ({ fish, allFish }) => {
             units:
               fish.nutrients_id.potassium_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
-            daily_value: fish.nutrients_id.potassium_daily_value,
+            daily_value: (
+              fish.nutrients_id.potassium_daily_value / ratio
+            ).toFixed(2),
           },
           Sodium: {
             value:
@@ -398,7 +425,9 @@ const index = ({ fish, allFish }) => {
               ).toFixed(2) || null,
             units:
               fish.nutrients_id.sodium_units?.match(/(mcg|mg|IU)/)[0] || null,
-            daily_value: fish.nutrients_id.sodium_daily_value,
+            daily_value: (fish.nutrients_id.sodium_daily_value / ratio).toFixed(
+              2
+            ),
           },
           Zinc: {
             value:
@@ -407,7 +436,9 @@ const index = ({ fish, allFish }) => {
               ).toFixed(2) || null,
             units:
               fish.nutrients_id.zinc_units?.match(/(mcg|mg|IU)/)[0] || null,
-            daily_value: fish.nutrients_id.zinc_daily_value,
+            daily_value: (fish.nutrients_id.zinc_daily_value / ratio).toFixed(
+              2
+            ),
           },
           Copper: {
             value:
@@ -416,7 +447,9 @@ const index = ({ fish, allFish }) => {
               ).toFixed(2) || null,
             units:
               fish.nutrients_id.copper_units?.match(/(mcg|mg|IU)/)[0] || null,
-            daily_value: fish.nutrients_id.copper_daily_value,
+            daily_value: (fish.nutrients_id.copper_daily_value / ratio).toFixed(
+              2
+            ),
           },
           Manganese: {
             value:
@@ -427,7 +460,9 @@ const index = ({ fish, allFish }) => {
             units:
               fish.nutrients_id.manganese_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
-            daily_value: fish.nutrients_id.manganese_daily_value,
+            daily_value: (
+              fish.nutrients_id.manganese_daily_value / ratio
+            ).toFixed(2),
           },
           Selenium: {
             value:
@@ -436,7 +471,9 @@ const index = ({ fish, allFish }) => {
               ).toFixed(2) || null,
             units:
               fish.nutrients_id.selenium_units?.match(/(mcg|mg|IU)/)[0] || null,
-            daily_value: fish.nutrients_id.selenium_daily_value,
+            daily_value: (
+              fish.nutrients_id.selenium_daily_value / ratio
+            ).toFixed(2),
           },
           Cholesterol: {
             value:
@@ -447,7 +484,9 @@ const index = ({ fish, allFish }) => {
             units:
               fish.nutrients_id.cholesterol_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
-            daily_value: fish.nutrients_id.cholesterol_daily_value,
+            daily_value: (
+              fish.nutrients_id.cholesterol_daily_value / ratio
+            ).toFixed(2),
           },
           "Omega 6": {
             value:
@@ -491,6 +530,7 @@ const index = ({ fish, allFish }) => {
       };
     });
   };
+  console.log(nutrientObject);
   return (
     <Cont colors={COLORS}>
       <div
@@ -515,67 +555,93 @@ const index = ({ fish, allFish }) => {
         </div>
         <NutrientLine
           name="Vitamin A"
-          units={`${nutrientObject.nutrients["Vitamin A"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Vitamin A"].value || ""} ${
+            nutrientObject.nutrients["Vitamin A"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Vitamin A"].daily_value}
         />
         <NutrientLine
           name="Vitamin C"
-          units={`${nutrientObject.nutrients["Vitamin C"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Vitamin C"].value || ""} ${
+            nutrientObject.nutrients["Vitamin C"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Vitamin C"].daily_value}
         />
         <NutrientLine
           name="Vitamin D"
-          units={`${nutrientObject.nutrients["Vitamin D"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Vitamin D"].value || ""} ${
+            nutrientObject.nutrients["Vitamin D"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Vitamin D"].daily_value}
         />
         <NutrientLine
           name="Vitamin E"
-          units={`${nutrientObject.nutrients["Vitamin E"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Vitamin E"].value || ""} ${
+            nutrientObject.nutrients["Vitamin E"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Vitamin E"].daily_value}
         />
         <NutrientLine
           name="Vitamin K"
-          units={`${nutrientObject.nutrients["Vitamin K"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Vitamin K"].value || ""} ${
+            nutrientObject.nutrients["Vitamin K"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Vitamin K"].daily_value}
         />
         <NutrientLine
           name="Thiamin"
-          units={`${nutrientObject.nutrients["Thiamin"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Thiamin"].value || ""} ${
+            nutrientObject.nutrients["Thiamin"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Thiamin"].daily_value}
         />
         <NutrientLine
           name="Niacin"
-          units={`${nutrientObject.nutrients["Niacin"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Niacin"].value || ""} ${
+            nutrientObject.nutrients["Niacin"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Niacin"].daily_value}
         />
         <NutrientLine
           name="Vitamin B6"
-          units={`${nutrientObject.nutrients["Vitamin B6"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
-          dv={nutrientObject.nutrients["Vitamin B6"].daily_value}
+          units={`${nutrientObject.nutrients["Vitamin B6"].value || ""} ${
+            nutrientObject.nutrients["Vitamin B6"].units || ""
+          }`}
+          dv={nutrientObject.nutrients["Vitamin B6"].daily_value || ""}
         />
         <NutrientLine
           name="Folate"
-          units={`${nutrientObject.nutrients["Folate"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Folate"].value || ""} ${
+            nutrientObject.nutrients["Folate"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Folate"].daily_value}
         />
         <NutrientLine
           name="Vitamin B12"
-          units={`${nutrientObject.nutrients["Vitamin B12"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Vitamin B12"].value || ""} ${
+            nutrientObject.nutrients["Vitamin B12"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Vitamin B12"].daily_value}
         />
         <NutrientLine
           name="Pantothenic Acid"
-          units={`${nutrientObject.nutrients["Pantothenic Acid"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Pantothenic Acid"].value || ""} ${
+            nutrientObject.nutrients["Pantothenic Acid"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Pantothenic Acid"].daily_value}
         />
         <NutrientLine
           name="Choline"
-          units={`${nutrientObject.nutrients["Choline"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Choline"].value || ""} ${
+            nutrientObject.nutrients["Choline"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Choline"].daily_value}
         />
         <NutrientLine
           name="Calcium"
-          units={`${nutrientObject.nutrients["Calcium"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Calcium"].value || ""} ${
+            nutrientObject.nutrients["Calcium"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Calcium"].daily_value}
         />
         <div className="mar-bottom-32"></div>
@@ -585,52 +651,72 @@ const index = ({ fish, allFish }) => {
 
         <NutrientLine
           name="Iron"
-          units={`${nutrientObject.nutrients["Iron"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Iron"].value || ""} ${
+            nutrientObject.nutrients["Iron"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Iron"].daily_value}
         />
         <NutrientLine
           name="Magnesium"
-          units={`${nutrientObject.nutrients["Magnesium"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Magnesium"].value || ""} ${
+            nutrientObject.nutrients["Magnesium"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Magnesium"].daily_value}
         />
         <NutrientLine
           name="Phosphorus"
-          units={`${nutrientObject.nutrients["Phosphorus"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Phosphorus"].value || ""} ${
+            nutrientObject.nutrients["Phosphorus"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Phosphorus"].daily_value}
         />
         <NutrientLine
           name="Potassium"
-          units={`${nutrientObject.nutrients["Potassium"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Potassium"].value || ""} ${
+            nutrientObject.nutrients["Potassium"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Potassium"].daily_value}
         />
         <NutrientLine
           name="Sodium"
-          units={`${nutrientObject.nutrients["Sodium"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Sodium"].value || ""} ${
+            nutrientObject.nutrients["Sodium"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Sodium"].daily_value}
         />
         <NutrientLine
           name="Zinc"
-          units={`${nutrientObject.nutrients["Zinc"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Zinc"].value || ""} ${
+            nutrientObject.nutrients["Zinc"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Zinc"].daily_value}
         />
         <NutrientLine
           name="Copper"
-          units={`${nutrientObject.nutrients["Copper"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Copper"].value || ""} ${
+            nutrientObject.nutrients["Copper"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Copper"].daily_value}
         />
         <NutrientLine
           name="Manganese"
-          units={`${nutrientObject.nutrients["Manganese"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Manganese"].value || ""} ${
+            nutrientObject.nutrients["Manganese"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Manganese"].daily_value}
         />
         <NutrientLine
           name="Selenium"
-          units={`${nutrientObject.nutrients["Selenium"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Selenium"].value || ""} ${
+            nutrientObject.nutrients["Selenium"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Selenium"].daily_value}
         />
         <NutrientLine
           name="Cholesterol"
-          units={`${nutrientObject.nutrients["Cholesterol"].value} ${nutrientObject.nutrients["Vitamin A"].units}`}
+          units={`${nutrientObject.nutrients["Cholesterol"].value || ""} ${
+            nutrientObject.nutrients["Cholesterol"].units || ""
+          }`}
           dv={nutrientObject.nutrients["Cholesterol"].daily_value}
         />
         <div className="mar-bottom-32"></div>
@@ -675,12 +761,12 @@ const index = ({ fish, allFish }) => {
         />
         <MacroLine
           name="Omega 6"
-          units={`${nutrientObject.nutrients["Omega 3"].value} mg`}
+          units={`${nutrientObject.nutrients["Omega 3"].value || ""} mg`}
         />
 
         <MacroLine
           name="Omega 3"
-          units={`${nutrientObject.nutrients["Omega 6"].value} mg`}
+          units={`${nutrientObject.nutrients["Omega 6"].value || ""} mg`}
         />
       </div>
     </Cont>
