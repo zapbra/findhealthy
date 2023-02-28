@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import COLORS from "../data/colors";
 import supabase from "../utils/supabaseClient";
-import { createFish, createNutrients, } from "../utils/supabaseFunctions";
+import { createFish, createNutrients, createFood } from "../utils/supabaseFunctions";
 const Cont = styled.div``;
 
 const fields = {
@@ -36,7 +36,7 @@ const fields = {
 const fishName = "Squid, Mixed Species";
 const grams = 100;
 const protein = 15.6;
-
+const food_category_id = 1;
 const obj = "Vitamin A33.0IU1% Vitamin C4.7mg8% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)1.2mg6% Vitamin K0.0mcg0% Thiamin0.0mg1% Riboflavin0.4mg24% Niacin2.2mg11% Vitamin B60.1mg3% Folate5.0mcg1% Vitamin B121.3mcg22% Pantothenic Acid0.5mg5% Choline65.0mg Calcium32.0mg3% Iron0.7mg4% Magnesium33.0mg8% Phosphorus221mg22% Potassium246mg7% Sodium44.0mg2% Zinc1.5mg10% Copper1.9mg95% Manganese0.0mg2% Selenium44.8mcg64% Cholesterol233mg78% Total Omega-3 fatty acids496mg Total Omega-6 fatty acids2.0mg";
 
 const fats =
@@ -168,16 +168,12 @@ const testing = () => {
       grams
     );
     console.log(nutrients);
-    const fish = await createFish(fishName, nutrients[0].id);
-    console.log(fish); 
+    //const fish = await createFish(fishName, nutrients[0].id);
+    const food = await createFood(fishName, nutrients[0].id, food_category_id);
+    console.log(food); 
   };
 
-  useEffect(() => {
-    const createFishWrapper = async () => {
-      //const fish = await createFish("mermaidxx");
-    };
-    createFishWrapper();
-  }, []);
+  
   return (
     <Cont colors={COLORS}>
       <div onClick={splitAndInsert} style={{ border: "1px solid black" }}>

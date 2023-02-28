@@ -483,6 +483,19 @@ export const createFish = async (name, nutrients_id) => {
   }
 };
 
+export const createFood = async (name, nutrients_id, food_category_id) => {
+  try {
+    const { data, error } = await supabase
+      .from("foods")
+      .insert({ name, nutrients_id, food_category_id })
+      .select();
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const createNutrients = async (
   vitamin_a_daily_value,
   vitamin_a_units,
