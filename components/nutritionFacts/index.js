@@ -6,12 +6,20 @@ import MacroLine from "./MacroLine";
 import NutrientTopSection from "./NutrientTopSection";
 
 const Cont = styled.div`
-  max-width: 400px;
   margin: 0 auto;
+  .nutrient-sections-holder {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
   .nutrient-holder {
     border: 1px solid ${(props) => props.colors.grey};
     border-radius: 8px;
     padding: 8px;
+    max-width: 400px;
+    margin: 0 16px 32px;
+    flex: 1;
   }
   .nutrient-title {
     background-color: ${(props) => props.colors.offWhite};
@@ -549,225 +557,231 @@ const index = ({ fish, allFish }) => {
         quantity={quantity}
         setQuantity={toggleQuantity}
       />
-      <div className="nutrient-holder box-shadow-2">
-        <div className="nutrient-title">
-          <p className="bold">Vitamins</p>
+      <div className="nutrient-sections-holder">
+        <div className="nutrient-holder box-shadow-2">
+          <div className="nutrient-title">
+            <p className="bold">Vitamins</p>
+          </div>
+          <NutrientLine
+            name="Vitamin A"
+            units={`${nutrientObject.nutrients["Vitamin A"].value || ""} ${
+              nutrientObject.nutrients["Vitamin A"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Vitamin A"].daily_value}
+          />
+          <NutrientLine
+            name="Vitamin C"
+            units={`${nutrientObject.nutrients["Vitamin C"].value || ""} ${
+              nutrientObject.nutrients["Vitamin C"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Vitamin C"].daily_value}
+          />
+          <NutrientLine
+            name="Vitamin D"
+            units={`${nutrientObject.nutrients["Vitamin D"].value || ""} ${
+              nutrientObject.nutrients["Vitamin D"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Vitamin D"].daily_value}
+          />
+          <NutrientLine
+            name="Vitamin E"
+            units={`${nutrientObject.nutrients["Vitamin E"].value || ""} ${
+              nutrientObject.nutrients["Vitamin E"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Vitamin E"].daily_value}
+          />
+          <NutrientLine
+            name="Vitamin K"
+            units={`${nutrientObject.nutrients["Vitamin K"].value || ""} ${
+              nutrientObject.nutrients["Vitamin K"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Vitamin K"].daily_value}
+          />
+          <NutrientLine
+            name="Thiamin"
+            units={`${nutrientObject.nutrients["Thiamin"].value || ""} ${
+              nutrientObject.nutrients["Thiamin"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Thiamin"].daily_value}
+          />
+          <NutrientLine
+            name="Niacin"
+            units={`${nutrientObject.nutrients["Niacin"].value || ""} ${
+              nutrientObject.nutrients["Niacin"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Niacin"].daily_value}
+          />
+          <NutrientLine
+            name="Vitamin B6"
+            units={`${nutrientObject.nutrients["Vitamin B6"].value || ""} ${
+              nutrientObject.nutrients["Vitamin B6"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Vitamin B6"].daily_value || ""}
+          />
+          <NutrientLine
+            name="Folate"
+            units={`${nutrientObject.nutrients["Folate"].value || ""} ${
+              nutrientObject.nutrients["Folate"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Folate"].daily_value}
+          />
+          <NutrientLine
+            name="Vitamin B12"
+            units={`${nutrientObject.nutrients["Vitamin B12"].value || ""} ${
+              nutrientObject.nutrients["Vitamin B12"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Vitamin B12"].daily_value}
+          />
+          <NutrientLine
+            name="Pantothenic Acid"
+            units={`${
+              nutrientObject.nutrients["Pantothenic Acid"].value || ""
+            } ${nutrientObject.nutrients["Pantothenic Acid"].units || ""}`}
+            dv={nutrientObject.nutrients["Pantothenic Acid"].daily_value}
+          />
+          <NutrientLine
+            name="Choline"
+            units={`${nutrientObject.nutrients["Choline"].value || ""} ${
+              nutrientObject.nutrients["Choline"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Choline"].daily_value}
+          />
+          <NutrientLine
+            name="Calcium"
+            units={`${nutrientObject.nutrients["Calcium"].value || ""} ${
+              nutrientObject.nutrients["Calcium"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Calcium"].daily_value}
+          />
         </div>
-        <NutrientLine
-          name="Vitamin A"
-          units={`${nutrientObject.nutrients["Vitamin A"].value || ""} ${
-            nutrientObject.nutrients["Vitamin A"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Vitamin A"].daily_value}
-        />
-        <NutrientLine
-          name="Vitamin C"
-          units={`${nutrientObject.nutrients["Vitamin C"].value || ""} ${
-            nutrientObject.nutrients["Vitamin C"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Vitamin C"].daily_value}
-        />
-        <NutrientLine
-          name="Vitamin D"
-          units={`${nutrientObject.nutrients["Vitamin D"].value || ""} ${
-            nutrientObject.nutrients["Vitamin D"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Vitamin D"].daily_value}
-        />
-        <NutrientLine
-          name="Vitamin E"
-          units={`${nutrientObject.nutrients["Vitamin E"].value || ""} ${
-            nutrientObject.nutrients["Vitamin E"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Vitamin E"].daily_value}
-        />
-        <NutrientLine
-          name="Vitamin K"
-          units={`${nutrientObject.nutrients["Vitamin K"].value || ""} ${
-            nutrientObject.nutrients["Vitamin K"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Vitamin K"].daily_value}
-        />
-        <NutrientLine
-          name="Thiamin"
-          units={`${nutrientObject.nutrients["Thiamin"].value || ""} ${
-            nutrientObject.nutrients["Thiamin"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Thiamin"].daily_value}
-        />
-        <NutrientLine
-          name="Niacin"
-          units={`${nutrientObject.nutrients["Niacin"].value || ""} ${
-            nutrientObject.nutrients["Niacin"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Niacin"].daily_value}
-        />
-        <NutrientLine
-          name="Vitamin B6"
-          units={`${nutrientObject.nutrients["Vitamin B6"].value || ""} ${
-            nutrientObject.nutrients["Vitamin B6"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Vitamin B6"].daily_value || ""}
-        />
-        <NutrientLine
-          name="Folate"
-          units={`${nutrientObject.nutrients["Folate"].value || ""} ${
-            nutrientObject.nutrients["Folate"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Folate"].daily_value}
-        />
-        <NutrientLine
-          name="Vitamin B12"
-          units={`${nutrientObject.nutrients["Vitamin B12"].value || ""} ${
-            nutrientObject.nutrients["Vitamin B12"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Vitamin B12"].daily_value}
-        />
-        <NutrientLine
-          name="Pantothenic Acid"
-          units={`${nutrientObject.nutrients["Pantothenic Acid"].value || ""} ${
-            nutrientObject.nutrients["Pantothenic Acid"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Pantothenic Acid"].daily_value}
-        />
-        <NutrientLine
-          name="Choline"
-          units={`${nutrientObject.nutrients["Choline"].value || ""} ${
-            nutrientObject.nutrients["Choline"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Choline"].daily_value}
-        />
-        <NutrientLine
-          name="Calcium"
-          units={`${nutrientObject.nutrients["Calcium"].value || ""} ${
-            nutrientObject.nutrients["Calcium"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Calcium"].daily_value}
-        />
         <div className="mar-bottom-32"></div>
-        <div className="nutrient-title">
-          <p className="bold">Minerals</p>
-        </div>
+        <div className="nutrient-holder box-shadow-2">
+          <div className="nutrient-title">
+            <p className="bold">Minerals</p>
+          </div>
 
-        <NutrientLine
-          name="Iron"
-          units={`${nutrientObject.nutrients["Iron"].value || ""} ${
-            nutrientObject.nutrients["Iron"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Iron"].daily_value}
-        />
-        <NutrientLine
-          name="Magnesium"
-          units={`${nutrientObject.nutrients["Magnesium"].value || ""} ${
-            nutrientObject.nutrients["Magnesium"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Magnesium"].daily_value}
-        />
-        <NutrientLine
-          name="Phosphorus"
-          units={`${nutrientObject.nutrients["Phosphorus"].value || ""} ${
-            nutrientObject.nutrients["Phosphorus"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Phosphorus"].daily_value}
-        />
-        <NutrientLine
-          name="Potassium"
-          units={`${nutrientObject.nutrients["Potassium"].value || ""} ${
-            nutrientObject.nutrients["Potassium"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Potassium"].daily_value}
-        />
-        <NutrientLine
-          name="Sodium"
-          units={`${nutrientObject.nutrients["Sodium"].value || ""} ${
-            nutrientObject.nutrients["Sodium"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Sodium"].daily_value}
-        />
-        <NutrientLine
-          name="Zinc"
-          units={`${nutrientObject.nutrients["Zinc"].value || ""} ${
-            nutrientObject.nutrients["Zinc"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Zinc"].daily_value}
-        />
-        <NutrientLine
-          name="Copper"
-          units={`${nutrientObject.nutrients["Copper"].value || ""} ${
-            nutrientObject.nutrients["Copper"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Copper"].daily_value}
-        />
-        <NutrientLine
-          name="Manganese"
-          units={`${nutrientObject.nutrients["Manganese"].value || ""} ${
-            nutrientObject.nutrients["Manganese"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Manganese"].daily_value}
-        />
-        <NutrientLine
-          name="Selenium"
-          units={`${nutrientObject.nutrients["Selenium"].value || ""} ${
-            nutrientObject.nutrients["Selenium"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Selenium"].daily_value}
-        />
-        <NutrientLine
-          name="Cholesterol"
-          units={`${nutrientObject.nutrients["Cholesterol"].value || ""} ${
-            nutrientObject.nutrients["Cholesterol"].units || ""
-          }`}
-          dv={nutrientObject.nutrients["Cholesterol"].daily_value}
-        />
+          <NutrientLine
+            name="Iron"
+            units={`${nutrientObject.nutrients["Iron"].value || ""} ${
+              nutrientObject.nutrients["Iron"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Iron"].daily_value}
+          />
+          <NutrientLine
+            name="Magnesium"
+            units={`${nutrientObject.nutrients["Magnesium"].value || ""} ${
+              nutrientObject.nutrients["Magnesium"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Magnesium"].daily_value}
+          />
+          <NutrientLine
+            name="Phosphorus"
+            units={`${nutrientObject.nutrients["Phosphorus"].value || ""} ${
+              nutrientObject.nutrients["Phosphorus"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Phosphorus"].daily_value}
+          />
+          <NutrientLine
+            name="Potassium"
+            units={`${nutrientObject.nutrients["Potassium"].value || ""} ${
+              nutrientObject.nutrients["Potassium"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Potassium"].daily_value}
+          />
+          <NutrientLine
+            name="Sodium"
+            units={`${nutrientObject.nutrients["Sodium"].value || ""} ${
+              nutrientObject.nutrients["Sodium"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Sodium"].daily_value}
+          />
+          <NutrientLine
+            name="Zinc"
+            units={`${nutrientObject.nutrients["Zinc"].value || ""} ${
+              nutrientObject.nutrients["Zinc"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Zinc"].daily_value}
+          />
+          <NutrientLine
+            name="Copper"
+            units={`${nutrientObject.nutrients["Copper"].value || ""} ${
+              nutrientObject.nutrients["Copper"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Copper"].daily_value}
+          />
+          <NutrientLine
+            name="Manganese"
+            units={`${nutrientObject.nutrients["Manganese"].value || ""} ${
+              nutrientObject.nutrients["Manganese"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Manganese"].daily_value}
+          />
+          <NutrientLine
+            name="Selenium"
+            units={`${nutrientObject.nutrients["Selenium"].value || ""} ${
+              nutrientObject.nutrients["Selenium"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Selenium"].daily_value}
+          />
+          <NutrientLine
+            name="Cholesterol"
+            units={`${nutrientObject.nutrients["Cholesterol"].value || ""} ${
+              nutrientObject.nutrients["Cholesterol"].units || ""
+            }`}
+            dv={nutrientObject.nutrients["Cholesterol"].daily_value}
+          />
+        </div>
         <div className="mar-bottom-32"></div>
-        <div className="nutrient-title">
-          <p className="bold">Macronutrients</p>
+        <div className="nutrient-holder box-shadow-2">
+          <div className="nutrient-title">
+            <p className="bold">Macronutrients</p>
+          </div>
+          <MacroLine
+            name="Protein"
+            units={nutrientObject.macros.Protein.value}
+            grams={true}
+          />
+
+          <MacroLine
+            name="Carbohydrates"
+            units={nutrientObject.macros.Carbs.value}
+            grams={true}
+          />
+
+          <div className="mar-bottom-32"></div>
+          <div className="nutrient-title">
+            <p className="bold">Fatty Acids</p>
+          </div>
+          <MacroLine
+            name="Total Fat"
+            units={nutrientObject.macros.Fat.value}
+            grams={true}
+          />
+          <MacroLine
+            name="Saturated Fat"
+            units={nutrientObject.macros["Saturated Fat"].value}
+            grams={true}
+          />
+          <MacroLine
+            name="Monounsaturated Fat"
+            units={nutrientObject.macros["Monounsaturated Fat"].value}
+            grams={true}
+          />
+          <MacroLine
+            name="Polyunsaturated_fat Fat"
+            units={nutrientObject.macros["Polyunsaturated Fat"].value}
+            grams={true}
+          />
+          <MacroLine
+            name="Omega 6"
+            units={`${nutrientObject.nutrients["Omega 3"].value || ""} mg`}
+          />
+
+          <MacroLine
+            name="Omega 3"
+            units={`${nutrientObject.nutrients["Omega 6"].value || ""} mg`}
+          />
         </div>
-        <MacroLine
-          name="Protein"
-          units={nutrientObject.macros.Protein.value}
-          grams={true}
-        />
-
-        <MacroLine
-          name="Carbohydrates"
-          units={nutrientObject.macros.Carbs.value}
-          grams={true}
-        />
-
-        <div className="mar-bottom-32"></div>
-        <div className="nutrient-title">
-          <p className="bold">Fatty Acids</p>
-        </div>
-        <MacroLine
-          name="Total Fat"
-          units={nutrientObject.macros.Fat.value}
-          grams={true}
-        />
-        <MacroLine
-          name="Saturated Fat"
-          units={nutrientObject.macros["Saturated Fat"].value}
-          grams={true}
-        />
-        <MacroLine
-          name="Monounsaturated Fat"
-          units={nutrientObject.macros["Monounsaturated Fat"].value}
-          grams={true}
-        />
-        <MacroLine
-          name="Polyunsaturated_fat Fat"
-          units={nutrientObject.macros["Polyunsaturated Fat"].value}
-          grams={true}
-        />
-        <MacroLine
-          name="Omega 6"
-          units={`${nutrientObject.nutrients["Omega 3"].value || ""} mg`}
-        />
-
-        <MacroLine
-          name="Omega 3"
-          units={`${nutrientObject.nutrients["Omega 6"].value || ""} mg`}
-        />
       </div>
     </Cont>
   );

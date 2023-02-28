@@ -10,6 +10,10 @@ import {
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
   .dropdown {
     border: none;
     &__menu {
@@ -55,7 +59,7 @@ const NutrientTopSection = ({ name, allFish, fish, quantity, setQuantity }) => {
   console.log(fish);
   return (
     <Cont colors={COLORS} className="mar-bottom-16">
-      <div className="flex">
+      <div className="flex flex-wrap">
         <div className="flex  mar-bottom-16 mar-right-16">
           <div className="icon-button">
             <p className="bold">Save</p>
@@ -79,7 +83,7 @@ const NutrientTopSection = ({ name, allFish, fish, quantity, setQuantity }) => {
           </div>
         </div>
       </div>
-      <div className="flex">
+      <div className="flex flex-wrap">
         <div className="flex flex-column mar-right-16">
           <h5 className="contrast light mar-bottom-4">FOOD</h5>
 

@@ -10,34 +10,37 @@ const Cont = styled.div`
   justify-content: space-between;
   padding: 4px 0px 4px 4px;
   border-bottom: 1px solid ${(props) => props.colors.grey};
-  p{
+  p {
     z-index: 1;
   }
-  .line-content{
-    min-width:128px;
+  .line-content {
+    min-width: 128px;
     justify-content: space-between;
   }
-  .green-bg{
+  .green-bg {
     position: absolute;
-    height:100%;
-    background-color: ${props=> props.colors.lightGreen};
-    top:0;
-    opacity: .5;
-    
-    
+    height: 100%;
+    background-color: ${(props) => props.colors.lightGreen};
+    top: 0;
+    opacity: 0.5;
   }
 `;
 const NutrientLine = ({ name, units, dv }) => {
-  
   return (
-    <Cont colors={COLORS} >
-      <div className="green-bg" style = {{width: dv <= 100 ? `${dv}%` : '100%', backgroundColor: dv <= 100 ? COLORS.lightGreen : COLORS.lightRed}}></div>
+    <Cont colors={COLORS}>
+      <div
+        className="green-bg"
+        style={{
+          width: dv <= 100 ? `${dv}%` : "100%",
+          backgroundColor: dv <= 100 ? COLORS.lightGreen : COLORS.lightRed,
+        }}
+      ></div>
       <p>{name}</p>
-      <div className = 'flex line-content'>
+      <div className="flex line-content">
         <p className="bold mar-right-16"> {units}</p>
         <div className="flex">
           <p className="bold">{dv} </p>
-          <p className = 'mar-left-4'>%DV</p>
+          <p className="mar-left-4">%DV</p>
         </div>
       </div>
     </Cont>
