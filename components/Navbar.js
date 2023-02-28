@@ -134,15 +134,17 @@ const Navbar = () => {
           <div className="nav-section">
             <div className="splitter"></div>
             <div className="splitter-blue"></div>
-            <Link href = '/fishmap' className = 'text-shadow-blue'>
-            <h4 className="blue mar-right-32 underline-hover"> FISH FINDER</h4>
+            <Link href="/fishmap" className="text-shadow-blue">
+              <h4 className="blue mar-right-32 underline-hover">
+                {" "}
+                FISH FINDER
+              </h4>
             </Link>
-            <Link href = '/fishmap' className = 'text-shadow-blue'>
-            <h5 className="blue mar-right-16 underline-hover">MAP</h5>
+            <Link href="/fishmap" className="text-shadow-blue">
+              <h5 className="blue mar-right-16 underline-hover">MAP</h5>
             </Link>
             <h5 className="blue mar-right-16">ARTICLES</h5>
             <h5 className="blue mar-right-16">DATA SEARCH</h5>
-           
           </div>
         </div>
       </div>

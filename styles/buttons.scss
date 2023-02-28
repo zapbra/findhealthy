@@ -27,8 +27,20 @@ $light-orange: #fd7d27;
   background-color: #fff;
   padding: 8px 16px;
   display: inline-flex;
+  align-items: center;
+  cursor:pointer;
+  &:hover{
+    border: 1px solid $black;
+  }
+  &:active{
+    background-color: $offWhite;
+  }
+  .icon-ssm{
+    color: $green;
+  }
   p{
-    color: $light-green
+    color: $green;
+    margin-right: 8px;
   }
 }
 

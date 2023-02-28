@@ -8,6 +8,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
+  display: none !important;
   background: rgb(18, 60, 105);
   background: linear-gradient(
     0deg,

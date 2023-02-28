@@ -3,7 +3,12 @@ import styled from "styled-components";
 import COLORS from "../../data/colors";
 import Select from "../google/Select";
 import QUANTITIES from "../../data/Quantities";
-import {FontAW}
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHeart,
+  faPrint,
+  faDownload,
+} from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
   .dropdown {
     border: none;
@@ -17,6 +22,9 @@ const Cont = styled.div`
   .dropdown__selected {
     border: 1px solid ${(props) => props.colors.grey};
     border-radius: 8px;
+    &:hover {
+      border: 1px solid ${(props) => props.colors.black};
+    }
   }
   .small-scrollbar {
     ::-webkit-scrollbar {
@@ -30,8 +38,7 @@ const Cont = styled.div`
     }
   }
 `;
-const NutrientTopSection = ({ name, allFish, fish }) => {
-  const [quantity, setQuantity] = useState(fish.nutrients_id.quantity);
+const NutrientTopSection = ({ name, allFish, fish, quantity, setQuantity }) => {
   const [quantities, setQuantities] = useState([
     `${quantity} grams`,
     ...QUANTITIES,
@@ -46,12 +53,34 @@ const NutrientTopSection = ({ name, allFish, fish }) => {
       return fish.name;
     })
   );
+
   const [value, setValue] = useState(name);
   console.log(fish);
   return (
     <Cont colors={COLORS} className="mar-bottom-16">
-      <div className="flex mar-bottom-16">
-        <div className="icon-button"></div>
+      <div className="flex">
+        <div className="flex  mar-bottom-16 mar-right-16">
+          <div className="icon-button">
+            <p className="bold">Save</p>
+            <FontAwesomeIcon icon={faHeart} className="icon-ssm" />
+          </div>
+        </div>
+
+        <div
+          onClick={() => window.print()}
+          className="flex mar-bottom-16 mar-right-16"
+        >
+          <div className="icon-button">
+            <p className="bold">Print</p>
+            <FontAwesomeIcon icon={faPrint} className="icon-ssm" />
+          </div>
+        </div>
+        <div className="flex mar-bottom-16">
+          <div className="icon-button">
+            <p className="bold">Download</p>
+            <FontAwesomeIcon icon={faDownload} className="icon-ssm" />
+          </div>
+        </div>
       </div>
       <div className="flex">
         <div className="flex flex-column mar-right-16">
@@ -73,7 +102,7 @@ const NutrientTopSection = ({ name, allFish, fish }) => {
           <Select
             regions={QUANTITIES}
             name="quantity"
-            value={`${quantity} grams`}
+            value={quantity}
             updateValue={setQuantity}
             options={quantities}
             setOptions={setQuantities}
