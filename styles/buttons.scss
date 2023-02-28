@@ -17,7 +17,20 @@ $green: #3BAC46;
 $offWhite: #E7EFF8;
 $light-blue: #278ffd;
 $light-red:rgb(253, 39, 39);
-
+$light-blue: #278ffd;
+$light-blue-2: #88c1ff;
+$light-green: #27fd55;
+$light-orange: #fd7d27;
+.icon-button{
+  border: 1px solid $grey;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 8px 16px;
+  display: inline-flex;
+  p{
+    color: $light-green
+  }
+}
 
 .blue-btn-one {
   background-color: $light-blue;

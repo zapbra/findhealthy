@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { Toaster } from "react-hot-toast";
 import MarkerComponent from "./MarkerComponent";
 import FishMarker from "./FishMarker";
+
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,

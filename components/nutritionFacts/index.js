@@ -4,6 +4,7 @@ import COLORS from "../../data/colors";
 import NutrientLine from "./NutrientLine";
 import MacroLine from './MacroLine';
 import NutrientTopSection from "./NutrientTopSection";
+
 const Cont = styled.div`
   max-width: 400px;
   margin: 0 auto;
@@ -26,7 +27,7 @@ const index = ({ fish, allFish }) => {
       <div className="center-inline">
       <h5 className="blue mar-bottom-32">Nutrition Facts</h5>
       </div>
-      <NutrientTopSection name = {fish.name} allFish = {allFish} />
+      <NutrientTopSection name = {fish.name} allFish = {allFish} fish = {fish} />
       <div className="nutrient-holder">
         <div className="nutrient-title">
           <p className="bold">Vitamins</p>
