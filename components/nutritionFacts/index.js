@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import NutrientLine from "./NutrientLine";
 import MacroLine from "./MacroLine";
 import NutrientTopSection from "./NutrientTopSection";
-
+import Found from "./Found";
+import AboutSection from "./AboutSection";
+import ImageSection from "./ImageSection";
 const Cont = styled.div`
   margin: 0 auto;
   .nutrient-sections-holder {
@@ -28,11 +30,32 @@ const Cont = styled.div`
   }
 `;
 const index = ({ fish, allFish }) => {
+  const [fishOceans, setFishOceans] = useState({ oceans: [], seas: [] });
+  useEffect(() => {
+    const oceans = [];
+    for (let i = 0; i < fish.oceanFish.length; i++) {
+      if (!oceans.some((ocean) => ocean == fish.oceanFish[i].ocean_id.name)) {
+        oceans.push(fish.oceanFish[i].ocean_id.name);
+      }
+    }
+    const seas = [];
+    for (let i = 0; i < fish.oceanFish.length; i++) {
+      if (!oceans.some((ocean) => ocean == fish.oceanFish[i].sea_id?.name)) {
+        if (fish.oceanFish[i].sea_id !== null) {
+          seas.push(fish.oceanFish[i].sea_id.name);
+        }
+      }
+    }
+    console.log(oceans);
+    console.log(seas);
+    setFishOceans({ oceans, seas });
+  }, []);
+
   const [quantity, setQuantity] = useState(
     `${fish.nutrients_id.quantity} grams`
   );
   const [nutrients, setNutrients] = useState(fish.nutrients_id);
-  console.log(nutrients);
+
   const [nutrientObject, setNutrientObject] = useState({
     nutrients: {
       "Vitamin A": {
@@ -221,10 +244,12 @@ const index = ({ fish, allFish }) => {
         nutrients: {
           "Vitamin A": {
             value:
-              (
-                fish.nutrients_id.vitamin_a_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.vitamin_a_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.vitamin_a_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.vitamin_a_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -234,10 +259,12 @@ const index = ({ fish, allFish }) => {
           },
           "Vitamin C": {
             value:
-              (
-                fish.nutrients_id.vitamin_c_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.vitamin_c_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.vitamin_c_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2),
             units:
               fish.nutrients_id.vitamin_c_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -247,10 +274,12 @@ const index = ({ fish, allFish }) => {
           },
           "Vitamin D": {
             value:
-              (
-                fish.nutrients_id.vitamin_d_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.vitamin_d_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.vitamin_d_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2),
             units:
               fish.nutrients_id.vitamin_d_units?.match(/(mcg|mg|IU)/)[0] || 0,
             daily_value:
@@ -258,10 +287,12 @@ const index = ({ fish, allFish }) => {
           },
           "Vitamin E": {
             value:
-              (
-                fish.nutrients_id.vitamin_e_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.vitamin_e_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.vitamin_e_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.vitamin_e_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -271,10 +302,12 @@ const index = ({ fish, allFish }) => {
           },
           "Vitamin K": {
             value:
-              (
-                fish.nutrients_id.vitamin_k_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.vitamin_k_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.vitamin_k_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.vitamin_k_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -284,9 +317,12 @@ const index = ({ fish, allFish }) => {
           },
           Thiamin: {
             value:
-              (
-                fish.nutrients_id.thiamin_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.thiamin_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.thiamin_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.thiamin_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: (
@@ -295,9 +331,12 @@ const index = ({ fish, allFish }) => {
           },
           Niacin: {
             value:
-              (
-                fish.nutrients_id.niacin_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.niacin_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.niacin_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.niacin_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: (fish.nutrients_id.niacin_daily_value / ratio).toFixed(
@@ -306,10 +345,12 @@ const index = ({ fish, allFish }) => {
           },
           "Vitamin B6": {
             value:
-              (
-                fish.nutrients_id.vitamin_b6_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.vitamin_b6_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.vitamin_b6_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.vitamin_b6_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -319,9 +360,12 @@ const index = ({ fish, allFish }) => {
           },
           Folate: {
             value:
-              (
-                fish.nutrients_id.folate_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.folate_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.folate_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.folate_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: (fish.nutrients_id.folate_daily_value / ratio).toFixed(
@@ -330,10 +374,13 @@ const index = ({ fish, allFish }) => {
           },
           "Vitamin B12": {
             value:
-              (
-                fish.nutrients_id.vitamin_b12_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.vitamin_b12_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.vitamin_b12_units?.match(
+                      /\d*\.*\d*/g
+                    )[0] / ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.vitamin_b12_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -343,11 +390,13 @@ const index = ({ fish, allFish }) => {
           },
           "Pantothenic Acid": {
             value:
-              (
-                fish.nutrients_id.pantothenic_acid_units?.match(
-                  /\d*\.*\d*/g
-                )[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.pantothenic_acid_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.pantothenic_acid_units?.match(
+                      /\d*\.*\d*/g
+                    )[0] / ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.pantothenic_acid_units?.match(
                 /(mcg|mg|IU)/
@@ -358,18 +407,24 @@ const index = ({ fish, allFish }) => {
           },
           Choline: {
             value:
-              (
-                fish.nutrients_id.choline_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.choline_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.choline_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.choline_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: fish.nutrients_id?.choline_daily_value || null,
           },
           Calcium: {
             value:
-              (
-                fish.nutrients_id.calcium_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.calcium_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.calcium_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.calcium_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: (
@@ -378,9 +433,11 @@ const index = ({ fish, allFish }) => {
           },
           Iron: {
             value:
-              (
-                fish.nutrients_id.iron_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.iron_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.iron_units?.match(/\d*\.*\d*/g)[0] / ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.iron_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: (fish.nutrients_id.iron_daily_value / ratio).toFixed(
@@ -389,10 +446,12 @@ const index = ({ fish, allFish }) => {
           },
           Magnesium: {
             value:
-              (
-                fish.nutrients_id.magnesium_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.magnesium_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.magnesium_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.magnesium_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -402,10 +461,12 @@ const index = ({ fish, allFish }) => {
           },
           Phosphorus: {
             value:
-              (
-                fish.nutrients_id.phosphorus_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.phosphorus_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.phosphorus_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.phosphorus_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -415,10 +476,12 @@ const index = ({ fish, allFish }) => {
           },
           Potassium: {
             value:
-              (
-                fish.nutrients_id.potassium_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.potassium_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.potassium_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.potassium_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -428,9 +491,12 @@ const index = ({ fish, allFish }) => {
           },
           Sodium: {
             value:
-              (
-                fish.nutrients_id.sodium_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.sodium_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.sodium_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.sodium_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: (fish.nutrients_id.sodium_daily_value / ratio).toFixed(
@@ -439,9 +505,11 @@ const index = ({ fish, allFish }) => {
           },
           Zinc: {
             value:
-              (
-                fish.nutrients_id.zinc_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.zinc_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.zinc_units?.match(/\d*\.*\d*/g)[0] / ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.zinc_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: (fish.nutrients_id.zinc_daily_value / ratio).toFixed(
@@ -450,9 +518,12 @@ const index = ({ fish, allFish }) => {
           },
           Copper: {
             value:
-              (
-                fish.nutrients_id.copper_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.copper_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.copper_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.copper_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: (fish.nutrients_id.copper_daily_value / ratio).toFixed(
@@ -461,10 +532,12 @@ const index = ({ fish, allFish }) => {
           },
           Manganese: {
             value:
-              (
-                fish.nutrients_id.manganese_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.manganese_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.manganese_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.manganese_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -474,9 +547,12 @@ const index = ({ fish, allFish }) => {
           },
           Selenium: {
             value:
-              (
-                fish.nutrients_id.selenium_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.selenium_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.selenium_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.selenium_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: (
@@ -485,10 +561,13 @@ const index = ({ fish, allFish }) => {
           },
           Cholesterol: {
             value:
-              (
-                fish.nutrients_id.cholesterol_units?.match(/\d*\.*\d*/g)[0] /
-                ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.cholesterol_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.cholesterol_units?.match(
+                      /\d*\.*\d*/g
+                    )[0] / ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.cholesterol_units?.match(/(mcg|mg|IU)/)[0] ||
               null,
@@ -498,18 +577,24 @@ const index = ({ fish, allFish }) => {
           },
           "Omega 6": {
             value:
-              (
-                fish.nutrients_id.omega6_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.omega6_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.omega6_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.omega6_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: null,
           },
           "Omega 3": {
             value:
-              (
-                fish.nutrients_id.omega3_units?.match(/\d*\.*\d*/g)[0] / ratio
-              ).toFixed(2) || null,
+              fish.nutrients_id.omega3_units == null
+                ? ""
+                : (
+                    fish.nutrients_id.omega3_units?.match(/\d*\.*\d*/g)[0] /
+                    ratio
+                  ).toFixed(2) || null,
             units:
               fish.nutrients_id.omega3_units?.match(/(mcg|mg|IU)/)[0] || null,
             daily_value: null,
@@ -538,15 +623,10 @@ const index = ({ fish, allFish }) => {
       };
     });
   };
-  console.log(nutrientObject);
+
+  console.log(fish);
   return (
     <Cont colors={COLORS}>
-      <div
-        onClick={() => toggleQuantity(50)}
-        style={{ border: "1px solid black" }}
-      >
-        toggle
-      </div>
       <div className="center-inline">
         <h5 className="blue mar-bottom-32">Nutrition Facts</h5>
       </div>
@@ -783,6 +863,17 @@ const index = ({ fish, allFish }) => {
           />
         </div>
       </div>
+      <div className="sm-spacer-bot-res"></div>
+      <Found seas={fishOceans.seas} oceans={fishOceans.oceans} />
+      <div className="sm-spacer-bot-res"></div>
+
+      <ImageSection name={fish.name} />
+      <div className="sm-spacer-bot-res"></div>
+      <AboutSection
+        appearance={fish.appearance}
+        description={fish.description}
+        name={fish.name}
+      />
     </Cont>
   );
 };

@@ -21,7 +21,7 @@ $red: #e52323;
 $yellow: #cce729;
 $orange: #df5f28;
 $green: #3bac46;
-$offWhite: hsl(212, 55%, 94%);
+$offWhite: #e7eff8;
 $darkGrey: #533f45;
 $light-blue: #278ffd;
 $light-blue-2: #88c1ff;
@@ -37,6 +37,37 @@ $light-orange: #fd7d27;
     color: $darkPink;
     text-decoration-color: inherit !important;
   }
+}
+
+.header{
+  border-top: 2px solid $darkBlue;
+  background-color: $offWhite;
+  padding: 32px;
+  width: 100%;
+  text-align: center;
+}
+.redirect-box{
+  display:inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  margin-right: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid $black;
+  transition: box-shadow .25s ease;
+  margin-bottom: 16px;
+  p{
+    margin-right: 8px;
+  }
+  &:hover{
+    box-shadow: none;
+    background: rgb(231,239,248);
+background: linear-gradient(90deg, rgba(231,239,248,1) 0%, rgba(255,255,255,1) 35%, rgba(231,239,248,1) 100%);
+  }
+}
+.gradient-light-blue { 
+  background: rgb(231,239,248);
+background: linear-gradient(90deg, rgba(231,239,248,1) 0%, rgba(255,255,255,1) 35%, rgba(231,239,248,1) 100%);
 }
 .image-upload-btn {
   border-radius: 32px;

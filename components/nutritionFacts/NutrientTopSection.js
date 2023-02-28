@@ -56,9 +56,9 @@ const NutrientTopSection = ({ name, allFish, fish, quantity, setQuantity }) => {
   );
 
   const [value, setValue] = useState(name);
-  console.log(fish);
+  
   return (
-    <Cont colors={COLORS} className="mar-bottom-16">
+    <Cont colors={COLORS} className="mar-bottom-32">
       <div className="flex flex-wrap">
         <div className="flex  mar-bottom-16 mar-right-16">
           <div className="icon-button">
