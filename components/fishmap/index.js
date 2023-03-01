@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { Toaster } from "react-hot-toast";
 import MarkerComponent from "./MarkerComponent";
 import FishMarker from "./FishMarker";
+import SeaMarker from "./SeaMarker";
 
 import usePlacesAutocomplete, {
   getGeocode,
@@ -116,13 +117,14 @@ const Index = ({ oceansFetch, seasFetch, pollutionFetch, fishFetch }) => {
   const [seaMarkers, setSeaMarkers] = useState(
     seas.map((sea) => {
       return (
-        <MarkerComponent
+        <SeaMarker
           latLong={{
             lat: sea.lat,
             lng: sea.lng,
           }}
           name={sea.name}
           icon="/icons/sea.png"
+          description={sea.description}
         />
       );
     })

@@ -648,6 +648,18 @@ export const fetchSeas = async () => {
   }
 };
 
+export const fetchSeaNames = async () => {
+  try {
+    const { data, error } = await supabase.from("seas").select("name");
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 export const fetchOceanFish = async () => {
   try {
     const { data, error } = await supabase
@@ -666,7 +678,8 @@ export const fetchFishByName = async (name) => {
   try {
     const { data, error } = await supabase
       .from("fish")
-      .select("*, nutrients_id(*), oceanFish(ocean_id(name), sea_id(name))").eq('name', name);
+      .select("*, nutrients_id(*), oceanFish(ocean_id(name), sea_id(name))")
+      .eq("name", name);
 
     if (error) throw error;
     return data;
@@ -678,9 +691,7 @@ export const fetchFishByName = async (name) => {
 
 export const fetchFish = async (name) => {
   try {
-    const { data, error } = await supabase
-      .from("fish")
-      .select("name")
+    const { data, error } = await supabase.from("fish").select("name");
 
     if (error) throw error;
     return data;
@@ -692,9 +703,7 @@ export const fetchFish = async (name) => {
 
 export const fetchAllFishNames = async () => {
   try {
-    const { data, error } = await supabase
-      .from("fish")
-      .select('name');
+    const { data, error } = await supabase.from("fish").select("name");
 
     if (error) throw error;
     return data;
