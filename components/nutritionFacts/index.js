@@ -624,7 +624,7 @@ const index = ({ fish, allFish }) => {
     });
   };
 
-  console.log(fish);
+  
   return (
     <Cont colors={COLORS}>
       <div className="center-inline">
@@ -636,6 +636,7 @@ const index = ({ fish, allFish }) => {
         fish={fish}
         quantity={quantity}
         setQuantity={toggleQuantity}
+        nutrientObject = {nutrientObject}
       />
       <div className="nutrient-sections-holder">
         <div className="nutrient-holder box-shadow-2">

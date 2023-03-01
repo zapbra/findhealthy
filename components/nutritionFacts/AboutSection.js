@@ -8,9 +8,6 @@ const Cont = styled.div`
     text-align: center;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: ${(props) => props.colors.offWhite2};
-    border-left: 1px solid ${(props) => props.colors.grey};
-    border-right: 1px solid ${(props) => props.colors.grey};
   }
 `;
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import Select from "../google/Select";
@@ -9,6 +10,10 @@ import {
   faPrint,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
+const DownloadNutrients = dynamic(
+  () => import("../buttons/DownloadNutrients"),
+  { ssr: false }
+);
 const Cont = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,7 +47,14 @@ const Cont = styled.div`
     }
   }
 `;
-const NutrientTopSection = ({ name, allFish, fish, quantity, setQuantity }) => {
+const NutrientTopSection = ({
+  name,
+  allFish,
+  fish,
+  quantity,
+  setQuantity,
+  nutrientObject,
+}) => {
   const [quantities, setQuantities] = useState([`${quantity} `, ...QUANTITIES]);
   const [fishNames, setFishNames] = useState(
     allFish.map((fish) => {
@@ -56,7 +68,7 @@ const NutrientTopSection = ({ name, allFish, fish, quantity, setQuantity }) => {
   );
 
   const [value, setValue] = useState(name);
-  
+
   return (
     <Cont colors={COLORS} className="mar-bottom-32">
       <div className="flex flex-wrap">
@@ -77,10 +89,11 @@ const NutrientTopSection = ({ name, allFish, fish, quantity, setQuantity }) => {
           </div>
         </div>
         <div className="flex mar-bottom-16">
-          <div className="icon-button">
-            <p className="bold">Download</p>
-            <FontAwesomeIcon icon={faDownload} className="icon-ssm" />
-          </div>
+          <DownloadNutrients
+            fish={fish}
+            nutrientObject={nutrientObject}
+            quantity={quantity}
+          />
         </div>
       </div>
       <div className="flex flex-wrap">

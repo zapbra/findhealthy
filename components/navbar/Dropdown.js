@@ -20,7 +20,7 @@ const Cont = styled.div`
   position: fixed;
   top: 0;
   transform: translateY(-100%);
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, visibility 0.5s ease;
   z-index: 6;
   padding: 8px 16px;
   .line {
@@ -70,6 +70,7 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
       colors={COLORS}
       style={{
         transform: mobileActive ? "translateY(0)" : "translateY(-100%)",
+        visibility: mobileActive ? "visible" : "hidden",
       }}
     >
       <div

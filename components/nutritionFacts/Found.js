@@ -34,7 +34,7 @@ const Found = ({ oceans, seas }) => {
     );
   });
   return (
-    <Cont colors={COLORS} className="box-shadow-2">
+    <Cont colors={COLORS} className="box-shadow-2 gradient-light-blue">
       <div className="center-inline mar-bottom-16">
         <h4 className="blue underline">This Fish Can Be Found</h4>
       </div>
@@ -43,9 +43,6 @@ const Found = ({ oceans, seas }) => {
       <div className="grey-line mar-bottom-8"></div>
       <p className="bold blue mar-bottom-16">Seas</p>
       <div className="flex flex-wrap">{seaElems} </div>
-     
-
-      
     </Cont>
   );
 };
