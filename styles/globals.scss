@@ -39,7 +39,16 @@ $light-orange: #fd7d27;
     text-decoration-color: inherit !important;
   }
 }
-
+.green-circle{
+  border: 1px solid $green;
+  display:inline-flex;
+  width:32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 .parallax-one {
   min-height: 800px;
   width: 100%;

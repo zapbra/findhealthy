@@ -17,6 +17,7 @@ const PostPreview = ({ title, locations }) => {
       return (
         <Location
           key={index}
+          index={index}
           name={location.name}
           address={location.address[0].full_address}
           tags={location.tags}
@@ -32,6 +33,7 @@ const PostPreview = ({ title, locations }) => {
         return (
           <Location
             key={index}
+            index={index}
             name={location.name}
             address={location.address[0].full_address}
             tags={location.tags}
@@ -46,16 +48,31 @@ const PostPreview = ({ title, locations }) => {
   const [renderElems, setRenderElems] = useState([]);
   useEffect(() => {
     const elems = [];
-    for (let i = 0; i < iteration; i++) {
+    for (let i = 0; i < renderCount; i++) {
       elems.push(locationElems[i]);
     }
     setRenderElems(elems);
-  }, [locationElems]);
-  console.log(locations);
+  }, [locationElems, renderCount]);
+  const increaseIteration = () => {
+    setRenderCount((prev) => {
+      if (prev + iteration > locations.length) {
+        return locations.length;
+      } else {
+        return prev + iteration;
+      }
+    });
+  };
   return (
-    <Cont colors={COLORS}>
+    <Cont colors={COLORS} className="mar-bottom-64">
       <h4 className="blue mar-bottom-16">{title}</h4>
       {renderElems}
+      {renderElems.length < locations.length && (
+        <div className="center-inline">
+          <div onClick={increaseIteration} className="blue-btn-one">
+            <h5>Show More</h5>
+          </div>
+        </div>
+      )}
     </Cont>
   );
 };
