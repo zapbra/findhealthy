@@ -11,7 +11,7 @@ const PollutionHolder = ({ pollutionEvents }) => {
   return (
     <Cont colors={COLORS}>
       <div className="flex justify-center">
-        <div className="header-2 box-shadow-2 mar-bottom-32 center-inline">
+        <div className="header-2 box-shadow-2 mar-bottom-48 center-inline">
           <h3 className="white">How Polluted Is It?</h3>
         </div>
       </div>

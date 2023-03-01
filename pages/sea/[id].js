@@ -5,6 +5,7 @@ import COLORS from "../../data/colors";
 import CaughtHere from "../../components/sea/CaughtHere";
 import ImageSection from "../../components/sea/ImageSection";
 import PollutionHolder from "../../components/sea/PollutionHolder";
+import Description from "../../components/sea/Description";
 const Cont = styled.div`
   .title-spec {
     padding: 32px;
@@ -51,6 +52,8 @@ const Sea = ({ seaFetch }) => {
       <ImageSection />
       <div className="sm-spacer-bot-res"></div>
       <PollutionHolder pollutionEvents={sea.pollution} />
+      <div className="sm-spacer-bot-res"></div>
+      <Description name={sea.name} description={sea.description} />
     </Cont>
   );
 };

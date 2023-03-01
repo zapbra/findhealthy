@@ -30,8 +30,8 @@ const Pollution = ({ pollution }) => {
       className="box-shadow"
       style={{ maxWidth: visible ? "1000px" : "400px" }}
     >
-      <h4 className="black mar-bottom-16">{pollution.name}</h4>
-
+      <h4 className="black mar-bottom-8">{pollution.name}</h4>
+      <h5 className="mar-bottom-8 light contrast">Severity</h5>
       <div className="star-holder mar-bottom-16">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index, realIndex) => {
           return (

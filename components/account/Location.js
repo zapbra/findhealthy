@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
 const Cont = styled.div`
   border: 1px solid ${(props) => props.colors.grey};
   background-color: #fff;
@@ -17,6 +18,13 @@ const Cont = styled.div`
     h5 {
       text-decoration: underline;
     }
+  }
+  .markdown {
+    max-height: 320px;
+    overflow: hidden;
+  }
+  .tag-five {
+    background-color: ${(props) => props.colors.lightBeige};
   }
 `;
 const Location = ({ name, address, created_at, url, tags, description }) => {
@@ -56,7 +64,9 @@ const Location = ({ name, address, created_at, url, tags, description }) => {
               alt={name}
             />
           )}
-          <p className="mar-bottom-16 text">{description}</p>
+          <ReactMarkdown className="markdown mar-bottom-16">
+            {description}
+          </ReactMarkdown>
           <div className="right-content">
             <div className="flex-inline  tags align-start flex-wrap">
               {tagElems}

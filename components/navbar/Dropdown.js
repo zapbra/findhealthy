@@ -106,10 +106,10 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
       </section>
 
       <div className="white-line"></div>
-      {/*
+
       <section>
         <h3 className="white">FISH FINDER </h3>
-        <Link href="/" onClick={hideMobileActive}>
+        <Link href="/fishmap" onClick={hideMobileActive}>
           <div className="line flex space-between align-center">
             <h4 className="white text-shadow-white light">MAP</h4>
             <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
@@ -130,7 +130,6 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
           </div>
         </Link>
       </section>
-    */}
     </Cont>
   );
 };
