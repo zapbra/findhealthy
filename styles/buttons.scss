@@ -33,6 +33,9 @@ $light-orange: #fd7d27;
   margin: 0 auto;
   cursor:pointer;
   transition: background-color .25s ease;
+  .white{
+    transition: transform .25s ease, color .25s ease;
+  }
   &:hover{
     background-color: $offWhite;
     border: 2px solid $green;

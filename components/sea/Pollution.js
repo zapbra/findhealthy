@@ -10,8 +10,9 @@ const Cont = styled.div`
   border-radius: 8px;
   padding: 8px;
   text-align: center;
-
-  margin: 0 auto;
+  transition: max-width 0.25s ease;
+  margin: 0 auto 48px;
+  background-color: ${(props) => props.colors.offWhite2};
   .text-content {
     overflow: hidden;
     padding: 16px;
@@ -26,10 +27,11 @@ const Pollution = ({ pollution }) => {
   return (
     <Cont
       colors={COLORS}
-      className="mar-bottom-32"
-      style={{ maxWidth: visible ? "1200px" : "400px" }}
+      className="box-shadow"
+      style={{ maxWidth: visible ? "1000px" : "400px" }}
     >
       <h4 className="black mar-bottom-16">{pollution.name}</h4>
+
       <div className="star-holder mar-bottom-16">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index, realIndex) => {
           return (
@@ -47,14 +49,18 @@ const Pollution = ({ pollution }) => {
       </div>
       <div
         className="text-content"
-        style={{ maxHeight: visible ? "none" : "320px" }}
+        style={{ maxHeight: visible ? "100%" : "320px" }}
       >
-        <ReactMarkdown classname="markdown">
+        <ReactMarkdown className="markdown">
           {pollution.description}
         </ReactMarkdown>
       </div>
       <div className="green-icon box-shadow-2" onClick={toggleVisible}>
-        <FontAwesomeIcon icon={faChevronDown} className="white icon-ssm" />
+        <FontAwesomeIcon
+          icon={faChevronDown}
+          className="white icon-ssm"
+          style={{ transform: visible ? "rotate(180deg)" : "rotate(0deg)" }}
+        />
       </div>
     </Cont>
   );
