@@ -22,6 +22,7 @@ $yellow: #cce729;
 $orange: #df5f28;
 $green: #3bac46;
 $offWhite: #e7eff8;
+$offWhite2:#f8fcff;
 $darkGrey: #533f45;
 $light-blue: #278ffd;
 $light-blue-2: #88c1ff;
@@ -49,7 +50,7 @@ $light-orange: #fd7d27;
   z-index: -5;
 }
 .header{
-  border-top: 2px solid $darkBlue;
+  border-bottom: 2px solid $darkBlue;
   background-color: $offWhite;
   padding: 32px;
   width: 100%;

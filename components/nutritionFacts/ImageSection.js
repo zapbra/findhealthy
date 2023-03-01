@@ -9,6 +9,7 @@ const Cont = styled.div`
   .parallax-one {
     background-image: url("/images/salmon.jpg");
   }
+  margin-bottom: 200px;
 `;
 const ImageSection = ({ name }) => {
   return (

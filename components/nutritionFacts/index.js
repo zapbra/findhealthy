@@ -868,8 +868,7 @@ const index = ({ fish, allFish }) => {
       <div className="sm-spacer-bot-res"></div>
 
       <ImageSection name={fish.name} />
-      <div className="sm-spacer-bot-res"></div>
-      <div className="sm-spacer-bot-res"></div>
+
       <AboutSection
         appearance={fish.appearance}
         description={fish.description}
