@@ -33,15 +33,15 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = "Brain";
-const grams = 113;
-const protein = 12.3;
+const fishName = "Grass-Fed, Ground";
+const grams = 100;
+const protein = 19.4;
 const food_category_id = 1;
-const obj = "Vitamin A166IU3% Vitamin C12.1mg20% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)1.1mg6% Vitamin K0.0mcg0% Thiamin0.1mg7% Riboflavin0.2mg13% Niacin4.0mg20% Vitamin B60.3mg13% Folate3.4mcg1% Vitamin B1210.7mcg179% Pantothenic Acid2.3mg23% Choline~ Calcium48.6mg5% Iron2.9mg16% Magnesium14.7mg4% Phosphorus409mg41% Potassium310mg9% Sodium142mg6% Zinc1.2mg8% Copper0.3mg16% Manganese0.0mg1% Selenium24.1mcg34% Cholesterol3401mg1134% Total Omega-3 fatty acids1384mg Total Omega-6 fatty acids46.3mg";
+const obj = "Vitamin A0.0IU0% Vitamin C0.0mg0% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.4mg2% Vitamin K1.1mcg1% Thiamin0.0mg3% Riboflavin0.2mg9% Niacin4.8mg24% Vitamin B60.4mg18% Folate6.0mcg1% Vitamin B122.0mcg33% Pantothenic Acid0.6mg6% Choline67.4mg Calcium12.0mg1% Iron2.0mg11% Magnesium19.0mg5% Phosphorus175mg18% Potassium289mg8% Sodium68.0mg3% Zinc4.5mg30% Copper0.1mg3% Manganese0.0mg1% Selenium14.2mcg20% Cholesterol62.0mg21% Total Omega-3 fatty acids88.0mg Total Omega-6 fatty acids427mg";
 
 const fats =
-  "Total Fat11.6g18% Saturated Fat2.6g13% Monounsaturated Fat2.1g Polyunsaturated Fat1.8g Total trans fatty acids0.7g";
-const carbs = 1.2;
+  "Total Fat12.7g20% Saturated Fat5.3g27% Monounsaturated Fat4.8g Polyunsaturated Fat0.5g";
+const carbs = 0;
 
 const testing = () => {
   const splitAndInsert = async () => {

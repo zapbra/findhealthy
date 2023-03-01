@@ -37,10 +37,10 @@ const NutrientLine = ({ name, units, dv }) => {
       ></div>
       <p>{name}</p>
       <div className="flex line-content">
-        <p className="bold mar-right-16"> {units}</p>
+        <p className=" mar-right-16"> {units}</p>
         <div className="flex">
           <p className="bold">{dv} </p>
-          <p className="mar-left-4">%DV</p>
+          <p className="mar-left-2 bold">%DV</p>
         </div>
       </div>
     </Cont>

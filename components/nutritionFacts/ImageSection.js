@@ -6,16 +6,14 @@ const Cont = styled.div`
   position: relative;
   width: 100%;
   height: 600px;
+  .parallax-one {
+    background-image: url("/images/salmon.jpg");
+  }
 `;
 const ImageSection = ({ name }) => {
   return (
     <Cont colors={COLORS}>
-      <Image
-        src="/images/salmon.jpg"
-        fill
-        alt={name}
-        style={{ objectFit: "cover" }}
-      />
+      <div className="parallax-one"></div>
     </Cont>
   );
 };

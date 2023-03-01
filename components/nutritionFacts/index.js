@@ -19,7 +19,7 @@ const Cont = styled.div`
     border: 1px solid ${(props) => props.colors.grey};
     border-radius: 8px;
     padding: 8px;
-    max-width: 400px;
+    max-width: 280px;
     margin: 0 16px 32px;
     flex: 1;
   }
@@ -848,7 +848,7 @@ const index = ({ fish, allFish }) => {
             grams={true}
           />
           <MacroLine
-            name="Polyunsaturated_fat Fat"
+            name="Polyunsaturated Fat"
             units={nutrientObject.macros["Polyunsaturated Fat"].value}
             grams={true}
           />
@@ -868,6 +868,7 @@ const index = ({ fish, allFish }) => {
       <div className="sm-spacer-bot-res"></div>
 
       <ImageSection name={fish.name} />
+      <div className="sm-spacer-bot-res"></div>
       <div className="sm-spacer-bot-res"></div>
       <AboutSection
         appearance={fish.appearance}

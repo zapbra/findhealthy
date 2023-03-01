@@ -95,6 +95,7 @@ const Bottombar = ({
   addTag,
   fetchNewLocation,
   user,
+  updateCoords
  
 }) => {
   const {
@@ -352,6 +353,7 @@ const Bottombar = ({
     const navbar = document.getElementById("navbar");
     navbar.scrollIntoView({ behavior: "smooth", block: "center" });
     setLoading({ state: false, msg: "" });
+    updateCoords({coords: {latitude: address.lat, longitude: address.lng}});
   };
 
   const createLocationFunc = async (formData) => {

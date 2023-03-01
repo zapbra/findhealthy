@@ -320,6 +320,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         addTag={addTag}
         fetchNewLocation={fetchNewLocation}
         user={user}
+        updateCoords = {updateCoords}
       />
       <div className="lg-spacer"></div>
       <Suppliers />
