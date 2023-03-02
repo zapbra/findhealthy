@@ -16,13 +16,29 @@ const Topics = () => {
   ]);
 
   const topicLines = topics.map((topic) => {
-    return <Link href={`/article${topic}`}> </Link>;
+    return (
+      <Link href={`/article${topic}`}>
+        <h5 className="bold blue underline-hover mar-bottom-8">{topic}</h5>{" "}
+      </Link>
+    );
   });
   return (
     <Cont colors={COLORS}>
       <h3 className="black">TOPICS</h3>
-
-      <div className="grey-line"></div>
+      <div className="grey-line mar-bottom-16"></div>
+      <div className="flex">
+        <div className="flex-one">
+          {topicLines[0]}
+          {topicLines[1]}
+          {topicLines[2]}
+        </div>
+        <div className="flex-one">
+          {topicLines[3]}
+          {topicLines[4]}
+          {topicLines[5]}
+        </div>
+        <div className="flex-one">{topicLines[6]}</div>
+      </div>
     </Cont>
   );
 };
