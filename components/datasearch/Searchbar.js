@@ -8,7 +8,7 @@ const Cont = styled.div`
 
 `;
 
-const Searchbar = ({text, setText}) => {
+const Searchbar = ({text, updateText}) => {
     
   return (
     <Cont colors = {COLORS}>
@@ -18,7 +18,7 @@ const Searchbar = ({text, setText}) => {
           <input
             type="text"
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={updateText}
             placeholder="milk... eggs..."
             name="products"
           />

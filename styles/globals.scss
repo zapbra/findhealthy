@@ -456,8 +456,20 @@ li {
   border-radius: 8px;
 }
 .result-group{
-  max-height:600px;
+  max-height:320px;
   overflow: auto;
+  
+}
+.scroll-blue{
+  ::-webkit-scrollbar {
+    background: $offWhite;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $darkBlue;
+    &:hover {
+      background: $light-blue;
+    }
+  }
 }
 .result-title{
   text-align: center;

@@ -145,7 +145,7 @@ const Navbar = () => {
             </Link>
             <h5 className="blue mar-right-16">ARTICLES</h5>
             <Link href="/datasearch" className="text-shadow-blue">
-            <h5 className="blue mar-right-16">DATA SEARCH</h5>
+            <h5 className="blue mar-right-16 underline-hover">DATA SEARCH</h5>
             </Link>
           </div>
         </div>
