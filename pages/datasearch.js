@@ -106,19 +106,39 @@ const Datasearch = ({ fishFetch, oceansFetch, seasFetch }) => {
       return filteredOceans;
     });
   };
-  console.log(oceans);
+
+  const updateSeas = (val) => {
+    setSeas((sea) => {
+      let seaFishFiltered = baseSeas.map((sea) => {
+        let innerSea = sea.fish.filter((fish) =>
+          fish.toLowerCase().includes(val.toLowerCase())
+        );
+        return { name: sea.name, fish: innerSea };
+      });
+      let filteredSeas = seaFishFiltered.filter((sea) => {
+        if (sea.fish.length > 0) {
+          return true;
+        } else if (sea.name.toLowerCase().includes(val.toLowerCase())) {
+          return true;
+        }
+      });
+      return filteredSeas;
+    });
+  };
+
   const updateText = (e) => {
     const val = e.target.value;
     console.log(val);
     setText(val);
     updateFish(val);
     updateOceans(val);
+    updateSeas(val);
   };
   return (
     <Cont colors={COLORS}>
       <Searchbar text={text} updateText={updateText} />
       <div className="ssm-spacer-bot-res"></div>
-      <SearchResults fish={fish} oceans={oceans} />
+      <SearchResults fish={fish} oceans={oceans} seas={seas} />
     </Cont>
   );
 };

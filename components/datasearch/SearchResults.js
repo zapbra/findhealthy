@@ -27,6 +27,9 @@ const SearchResults = ({ fish, oceans, seas }) => {
   const oceanLines = oceans.map((ocean, index) => {
     return <OceanLine key={index} name={ocean.name} fish={ocean.fish} />;
   });
+  const seaLines = seas.map((sea, index) => {
+    return <OceanLine key={index} name={sea.name} fish={sea.fish} />;
+  });
   return (
     <Cont colors={COLORS} className="results-box">
       <div className="result-title">
@@ -36,6 +39,7 @@ const SearchResults = ({ fish, oceans, seas }) => {
       <div className="result-title">
         <h4 className="blue">Seas</h4>
       </div>
+      <div className="result-group scroll-blue">{seaLines}</div>
       <div className="result-group scroll-blue"></div>
       <div className="result-title">
         <h4 className="blue">Oceans</h4>
