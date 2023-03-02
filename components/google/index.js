@@ -36,6 +36,7 @@ const options = {
 function createKey(location) {
   return location.lat + location.lng;
 }
+
 const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
   const [location, setLocation] = useState("");
   const [locationsFilter, setLocationsFilter] = useState(locations);
@@ -212,7 +213,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           const dataFetch = await fetch(
             "https://api.db-ip.com/v2/free/self"
           ).then((res) => res.json());
-         
+
           const country = latCountryCodes.ref_country_codes.find(
             (code) => code.country == "hel"
           );
@@ -268,9 +269,11 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
     radius: 50000,
     zIndex: 1,
   });
+  const mapRef = useRef(null);
 
   //const isLoaded = true;
   const [locationDistances, setLocationDistances] = useState([]);
+
   return isLoaded ? (
     <Cont>
       <Toaster />
@@ -296,6 +299,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           locationDistances={locationDistances}
         />{" "}
         <GoogleMap
+          ref={mapRef}
           mapContainerStyle={containerStyle}
           center={center}
           zoom={10}
@@ -304,7 +308,12 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
           onClick={(e) => adding && addMarker(e)}
           options={{ gestureHandling: "greedy" }}
         >
-          <Circle visible = {false} center={center} options={options} ref={circleRef} />
+          <Circle
+            visible={false}
+            center={center}
+            options={options}
+            ref={circleRef}
+          />
 
           {markers}
         </GoogleMap>
@@ -320,7 +329,7 @@ const Index = ({ locations, tagsFetch, addTag, fetchNewLocation, user }) => {
         addTag={addTag}
         fetchNewLocation={fetchNewLocation}
         user={user}
-        updateCoords = {updateCoords}
+        updateCoords={updateCoords}
       />
       <div className="lg-spacer"></div>
       <Suppliers />
