@@ -454,16 +454,20 @@ li {
   max-width: 400px;
   border: 1px solid $darkBlue;
   border-radius: 8px;
-  .result-title{
-    text-align: center;
-    border: 1px solid $darkBlue;
-    background-color: $offWhite;
-    &:nth-of-type(1){
-      border-radius: 8px 8px 0 0;
-    }
-    
-    
+ 
+}
+.result-title{
+  text-align: center;
+  border: 1px solid $darkBlue;
+  background-color: $offWhite;
+  padding: 4px;
+  &:nth-of-type(1){
+    border-radius: 8px 8px 0 0;
+    border:none;
+    border-bottom: 1px solid $darkBlue;
   }
+  
+  
 }
 .search-bar{
   border: 1px solid $grey;
