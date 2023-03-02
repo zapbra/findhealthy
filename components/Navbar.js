@@ -143,7 +143,9 @@ const Navbar = () => {
             <Link href="/fishmap" className="text-shadow-blue">
               <h5 className="blue mar-right-16 underline-hover">MAP</h5>
             </Link>
-            <h5 className="blue mar-right-16">ARTICLES</h5>
+            <Link href="/articles" className="text-shadow-blue">
+            <h5 className="blue mar-right-16 underline-hover">ARTICLES</h5>
+            </Link>
             <Link href="/datasearch" className="text-shadow-blue">
             <h5 className="blue mar-right-16 underline-hover">DATA SEARCH</h5>
             </Link>
