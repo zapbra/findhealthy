@@ -4,7 +4,8 @@ import styled from "styled-components";
 import COLORS from "../../data/colors";
 const Cont = styled.div``;
 
-const ArticlesPreview = ({ field }) => {
+const ArticlesPreview = ({ field, articles }) => {
+  const [articleElems, setArticleElems] = useState([]);
   return (
     <Cont colors={COLORS}>
       <h3 className="black">{field}</h3>
