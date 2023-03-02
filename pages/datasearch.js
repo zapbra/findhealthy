@@ -30,8 +30,10 @@ const Datasearch = ({ fishFetch, oceansFetch, seasFetch }) => {
   const [fish, setFish] = useState(fishFetch.map((fish) => fish.name));
   const [baseOceans, setBaseOceans] = useState([]);
   const [oceans, setOceans] = useState([]);
-  console.log(seasFetch);
+  const [baseSeas, setBaseSeas] = useState([]);
+  const [seas, setSeas] = useState([]);
   useEffect(() => {
+    // set default values for oceans
     let oceanObjects = [];
     let oceanObj = {};
     let fish = [];
@@ -48,9 +50,31 @@ const Datasearch = ({ fishFetch, oceansFetch, seasFetch }) => {
     }
     setBaseOceans(oceanObjects);
     setOceans(oceanObjects);
+
+    // set default values for seas
+
+    let seaObjects = [];
+    let seaObj = {};
+    let seaFish = [];
+
+    for (let i = 0; i < seasFetch.length; i++) {
+      seaFish = [];
+      seaObj = { name: seasFetch[i].name };
+      console.log(seasFetch[i].name);
+      seasFetch[i].oceanFish.forEach((oceanFish) => {
+        if (!seaFish.includes(oceanFish.fish_id.name)) {
+          seaFish.push(oceanFish.fish_id.name);
+        }
+      });
+      seaObj.fish = seaFish;
+      seaObjects.push(seaObj);
+    }
+    setBaseSeas(seaObjects);
+    setSeas(seaObjects);
   }, []);
   const [text, setText] = useState("");
-
+  console.log("seas");
+  console.log(seas);
   //console.log(baseOceans)
   const updateFish = (val) => {
     if (val == "") {

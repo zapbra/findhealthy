@@ -23,7 +23,7 @@ const OceanLine = ({ name, fish }) => {
 
   for (let i = 0; i < length; i++) {
     fishLines.push(
-      <div className="flex-inline align-center mar-right-8">
+      <div key={i} className="flex-inline align-center mar-right-8">
         <FontAwesomeIcon icon={faFish} className="grey icon-ssm mar-right-4" />
         <p className="grey"> {fish[i]}, </p>
       </div>

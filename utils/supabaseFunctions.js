@@ -638,7 +638,9 @@ export const fetchOceans = async () => {
 
 export const fetchOceansData = async () => {
   try {
-    const { data, error } = await supabase.from("oceans").select('name, oceanFish(fish_id(name))');
+    const { data, error } = await supabase
+      .from("oceans")
+      .select("name, oceanFish(fish_id(name))");
 
     if (error) throw error;
     return data;
@@ -647,7 +649,6 @@ export const fetchOceansData = async () => {
     return error;
   }
 };
-
 
 export const fetchSeas = async () => {
   try {
@@ -677,8 +678,24 @@ export const fetchSeaByName = async (name) => {
   try {
     const { data, error } = await supabase
       .from("seas")
-      .select("*, oceanFish(fish_id(name)), pollution(name, date, severity, description))")
+      .select(
+        "*, oceanFish(fish_id(name)), pollution(name, date, severity, description))"
+      )
       .eq("name", name);
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const fetchSeasData = async () => {
+  try {
+    const { data, error } = await supabase
+      .from("seas")
+      .select("name, oceanFish(fish_id(name))");
 
     if (error) throw error;
     return data;
