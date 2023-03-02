@@ -19,7 +19,7 @@ const Searchbar = ({text, updateText}) => {
             type="text"
             value={text}
             onChange={updateText}
-            placeholder="milk... eggs..."
+            placeholder="fish... sea... ocean..."
             name="products"
           />
         </form>

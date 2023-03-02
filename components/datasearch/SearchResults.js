@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
@@ -21,14 +22,14 @@ const Cont = styled.div`
 
 const SearchResults = ({ fish, oceans, seas }) => {
   const fishLines = fish.map((innerFish, index) => {
-    return <ResultLine key={index} text={innerFish} />;
+    return <Link href = {`/fish/${innerFish}`}><ResultLine key={index} text={innerFish} /></Link>;
   });
 
   const oceanLines = oceans.map((ocean, index) => {
-    return <OceanLine key={index} name={ocean.name} fish={ocean.fish} />;
+    return <Link href = {`/ocean/${ocean.name}`}><OceanLine key={index} name={ocean.name} fish={ocean.fish} /></Link>;
   });
   const seaLines = seas.map((sea, index) => {
-    return <OceanLine key={index} name={sea.name} fish={sea.fish} />;
+    return <Link href = {`/sea/${sea.name}`}><OceanLine key={index} name={sea.name} fish={sea.fish} /></Link>;
   });
   return (
     <Cont colors={COLORS} className="results-box">

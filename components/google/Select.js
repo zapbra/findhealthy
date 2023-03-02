@@ -24,6 +24,9 @@ const Select = ({
     value !== "" ? regions.indexOf(value) : null
   );
 
+  useEffect(()=> {
+    setSelectedValue(value)
+  },[value])
   const [search, setSearch] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownEl = useRef();

@@ -43,14 +43,32 @@ export async function getStaticProps({ params }) {
 const Fish = ({ fishFetch, allFishFetch }) => {
   const [fish, setFish] = useState(fishFetch[0]);
   const [allFish, setAllFish] = useState(allFishFetch);
+  const [loading, setLoading] = useState(false);
+  const reFetchFish = async (name) => {
+    setLoading(true);
+    const fetchFish = await fetchFishByName(name);
+    setFish(fetchFish[0]);
+    setLoading(false);
+  }
   return (
     <Cont colors={COLORS}>
+      
       <div className="center-inline title-spec flex align-center justify-center mar-bottom-32 box-shadow-2">
-        <h3 className="blue mar-right-16">{fish.name}</h3>
-        <img src="/icons/fish2.png" />
+        {loading ? (
+          <div class="lds-ring-green">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+        ) : (
+          <> <h3 className="blue mar-right-16">{fish.name}</h3>
+          <img src="/icons/fish2.png" /></>
+        )}
+       
       </div>
 
-      <NutrientFacts fish={fish} allFish={allFish} />
+      <NutrientFacts fish={fish} allFish={allFish} reFetchFish = {reFetchFish} />
     </Cont>
   );
 };

@@ -9,7 +9,7 @@ import {
   fetchSeasData,
 } from "../utils/supabaseFunctions";
 const Cont = styled.div`
-  margin-top: 80px;
+  margin-top: 48px;
 `;
 
 export async function getStaticProps() {
@@ -136,6 +136,9 @@ const Datasearch = ({ fishFetch, oceansFetch, seasFetch }) => {
   };
   return (
     <Cont colors={COLORS}>
+      <div className="center-inline mar-bottom-32">
+      <h3 className="blue text-shadow-blue">Data Search</h3>
+      </div>
       <Searchbar text={text} updateText={updateText} />
       <div className="ssm-spacer-bot-res"></div>
       <SearchResults fish={fish} oceans={oceans} seas={seas} />

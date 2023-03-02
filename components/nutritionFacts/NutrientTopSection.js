@@ -54,6 +54,7 @@ const NutrientTopSection = ({
   quantity,
   setQuantity,
   nutrientObject,
+  reFetchFish
 }) => {
   const [quantities, setQuantities] = useState([`${quantity} `, ...QUANTITIES]);
   const [fishNames, setFishNames] = useState(
@@ -69,6 +70,10 @@ const NutrientTopSection = ({
 
   const [value, setValue] = useState(name);
 
+  const updateValue = (val) => {
+    setValue(val);
+    reFetchFish(val);
+  }
   return (
     <Cont colors={COLORS} className="mar-bottom-32">
       <div className="flex flex-wrap">
@@ -104,7 +109,7 @@ const NutrientTopSection = ({
             regions={fishNames}
             name="fish"
             value={value}
-            updateValue={setValue}
+            updateValue={updateValue}
             options={fishNamesCopy}
             setOptions={setFishNamesCopy}
           />
