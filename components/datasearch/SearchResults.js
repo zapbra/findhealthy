@@ -23,9 +23,9 @@ const SearchResults = ({fish, oceans, seas}) => {
     const fishLines= fish.map(innerFish => {
         return <ResultLine text = {innerFish} />
     });
-
+    
     const oceanLines = oceans.map(ocean => {
-        return <OceanLine text = {ocean.name} fish = {ocean.fish} />
+        return <OceanLine name = {ocean.name} fish = {ocean.fish} />
     })
   return (
     <Cont colors = {COLORS} className = 'results-box'>
@@ -39,13 +39,13 @@ const SearchResults = ({fish, oceans, seas}) => {
             <h4 className="blue">Seas</h4>
         </div>
         <div className="result-group scroll-blue">
-            {fishLines}
+            
         </div>
         <div className="result-title">
             <h4 className="blue">Oceans</h4>
         </div>
         <div className="result-group scroll-blue">
-            {fishLines}
+            {oceanLines}
         </div>
     </Cont>
   )
