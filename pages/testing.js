@@ -33,14 +33,14 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = "Grass-Fed, Ground";
-const grams = 100;
-const protein = 19.4;
+const fishName = 'Round, full cut, separable lean and fat, trimmed to 1/8" fat, choice';
+const grams = 454;
+const protein = 93.2;
 const food_category_id = 1;
-const obj = "Vitamin A0.0IU0% Vitamin C0.0mg0% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.4mg2% Vitamin K1.1mcg1% Thiamin0.0mg3% Riboflavin0.2mg9% Niacin4.8mg24% Vitamin B60.4mg18% Folate6.0mcg1% Vitamin B122.0mcg33% Pantothenic Acid0.6mg6% Choline67.4mg Calcium12.0mg1% Iron2.0mg11% Magnesium19.0mg5% Phosphorus175mg18% Potassium289mg8% Sodium68.0mg3% Zinc4.5mg30% Copper0.1mg3% Manganese0.0mg1% Selenium14.2mcg20% Cholesterol62.0mg21% Total Omega-3 fatty acids88.0mg Total Omega-6 fatty acids427mg";
+const obj = 'Vitamin A0.0IU0% Vitamin C0.0mg0% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.8mg4% Vitamin K6.8mcg9% Thiamin0.5mg30% Riboflavin0.8mg45% Niacin17.0mg85% Vitamin B62.1mg107% Folate36.3mcg9% Vitamin B1212.8mcg213% Pantothenic Acid1.6mg16% Choline390mg Calcium18.1mg2% Iron9.0mg50% Magnesium99.8mg25% Phosphorus902mg90% Potassium1551mg44% Sodium245mg10% Zinc14.7mg98% Copper0.3mg17% Manganese0.1mg3% Selenium88.9mcg127% Cholesterol281mg94% Total Omega-3 fatty acids544mg Total Omega-6 fatty acids1406mg';
 
 const fats =
-  "Total Fat12.7g20% Saturated Fat5.3g27% Monounsaturated Fat4.8g Polyunsaturated Fat0.5g";
+  "Total Fat54.1g83% Saturated Fat21.0g105% Monounsaturated Fat23.3g Polyunsaturated Fat2.1g";
 const carbs = 0;
 
 const testing = () => {

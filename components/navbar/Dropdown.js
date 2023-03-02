@@ -123,7 +123,7 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
           </div>
         </Link>
 
-        <Link href="/" onClick={hideMobileActive}>
+        <Link href="/datasearch" onClick={hideMobileActive}>
           <div className="line flex space-between align-center">
             <h4 className="white text-shadow-white light">DATA SEARCH</h4>
             <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
