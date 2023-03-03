@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import COLORS from "../data/colors";
 import supabase from "../utils/supabaseClient";
-import { createFish, createNutrients, createFood } from "../utils/supabaseFunctions";
+import {
+  createFish,
+  createNutrients,
+  createFood,
+} from "../utils/supabaseFunctions";
 const Cont = styled.div``;
 
 const fields = {
@@ -33,15 +37,16 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = 'Round, full cut, separable lean and fat, trimmed to 1/8" fat, choice';
-const grams = 454;
-const protein = 93.2;
-const food_category_id = 1;
-const obj = 'Vitamin A0.0IU0% Vitamin C0.0mg0% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.8mg4% Vitamin K6.8mcg9% Thiamin0.5mg30% Riboflavin0.8mg45% Niacin17.0mg85% Vitamin B62.1mg107% Folate36.3mcg9% Vitamin B1212.8mcg213% Pantothenic Acid1.6mg16% Choline390mg Calcium18.1mg2% Iron9.0mg50% Magnesium99.8mg25% Phosphorus902mg90% Potassium1551mg44% Sodium245mg10% Zinc14.7mg98% Copper0.3mg17% Manganese0.1mg3% Selenium88.9mcg127% Cholesterol281mg94% Total Omega-3 fatty acids544mg Total Omega-6 fatty acids1406mg';
+const fishName = "Yogurt, plain, skim milk";
+const grams = 245;
+const protein = 14;
+const food_category_id = 2;
+const obj =
+  "Vitamin A17.2IU0% Vitamin C2.2mg4% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.0mg0% Vitamin K0.5mcg1% Thiamin0.1mg8% Riboflavin0.6mg34% Niacin0.3mg2% Vitamin B60.1mg6% Folate29.4mcg7% Vitamin B121.5mcg25% Pantothenic Acid1.6mg16% Choline37.2mg Calcium488mg49% Iron0.2mg1% Magnesium46.5mg12% Phosphorus385mg38% Potassium625mg18% Sodium189mg8% Zinc2.4mg16% Copper0.0mg2% Manganese0.0mg1% Selenium8.8mcg13% Cholesterol4.9mg2% Total Omega-3 fatty acids2.5mg Total Omega-6 fatty acids9.8mg";
 
 const fats =
-  "Total Fat54.1g83% Saturated Fat21.0g105% Monounsaturated Fat23.3g Polyunsaturated Fat2.1g";
-const carbs = 0;
+  "Total Fat0.4g1% Saturated Fat0.3g1% Monounsaturated Fat0.1g Polyunsaturated Fat0.0g";
+const carbs = 18.8;
 
 const testing = () => {
   const splitAndInsert = async () => {
@@ -77,7 +82,7 @@ const testing = () => {
     items.splice(12, 0, ...spliceCalcium);
     console.log(items);
     // for every field because it's the same length as the array we just made
-    
+
     const objects = Object.entries(fields).map(([key, val], index) => {
       const field = val;
 
@@ -87,7 +92,7 @@ const testing = () => {
 
       let mg, dv;
       // if the nutrient field is empty, set the values to null
-      if (values == " " || values == '') {
+      if (values == " " || values == "") {
         mg = null;
         dv = null;
       } else {
@@ -155,9 +160,9 @@ const testing = () => {
       objectHolder.selenium.units,
       objectHolder.cholesterol.daily_value,
       objectHolder.cholesterol.units,
-     
+
       objectHolder.omega3.units,
-      
+
       objectHolder.omega6.units,
       protein,
       carbs,
@@ -170,10 +175,9 @@ const testing = () => {
     console.log(nutrients);
     //const fish = await createFish(fishName, nutrients[0].id);
     const food = await createFood(fishName, nutrients[0].id, food_category_id);
-    console.log(food); 
+    console.log(food);
   };
 
-  
   return (
     <Cont colors={COLORS}>
       <div onClick={splitAndInsert} style={{ border: "1px solid black" }}>
