@@ -2,7 +2,13 @@ import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
-const Cont = styled.div``;
+import TopicLine from "./TopicLine";
+const Cont = styled.div`
+  .topic-holder {
+    display: flex;
+    flex-wrap: wrap;
+  }
+`;
 
 const Topics = () => {
   const [topics, setTopics] = useState([
@@ -25,19 +31,13 @@ const Topics = () => {
   return (
     <Cont colors={COLORS}>
       <h3 className="black">TOPICS</h3>
-      <div className="grey-line mar-bottom-16"></div>
-      <div className="flex">
-        <div className="flex-one">
-          {topicLines[0]}
-          {topicLines[1]}
-          {topicLines[2]}
-        </div>
-        <div className="flex-one">
-          {topicLines[3]}
-          {topicLines[4]}
-          {topicLines[5]}
-        </div>
-        <div className="flex-one">{topicLines[6]}</div>
+      <div className="grey-line mar-bottom-32"></div>
+      <div className="topic-holder space-around">
+        <TopicLine title="Nutrition" />
+        <TopicLine title="Food Sourcing" />
+        <TopicLine title="Lifestyle" />
+        <TopicLine title="Environment" />
+        <TopicLine title="EMFS" />
       </div>
     </Cont>
   );
