@@ -15,12 +15,9 @@ const Cont = styled.div`
     }
   }
   .dropdown__selected {
-    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
-      rgba(0, 0, 0, 0.015) 0px -36px 30px 0px inset,
-      rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
-      rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
-      rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
-      rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    background: #fff;
     border: 1px solid ${(props) => props.colors.grey};
     border-radius: 8px;
     &:hover {
@@ -79,7 +76,7 @@ const Searchbar = ({ text, updateText }) => {
             type="text"
             value={text}
             onChange={updateText}
-            placeholder="fish... sea... ocean..."
+            placeholder="steak... eggs"
             name="products"
           />
         </form>
