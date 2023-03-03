@@ -97,9 +97,9 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
             <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
           </div>
         </Link>
-        <Link onClick={hideMobileActive} href="/">
+        <Link onClick={hideMobileActive} href="/nutritionsearch">
           <div className="line flex space-between align-center">
-            <h4 className="white text-shadow-white light">FORUM</h4>
+            <h4 className="white text-shadow-white light">NUTRITION SEARCH</h4>
             <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
           </div>
         </Link>
