@@ -70,11 +70,7 @@ const MarkerComponent = ({
           <InfoWindow onCloseClick={() => setOpen(false)}>
             <Cont colors={COLORS} className="info-box">
               <div className="tags-holder ">
-                <p
-                  ref={paraRef}
-                  style={{ backgroundColor: "#CCE729" }}
-                  className="tag-four"
-                >
+                <p style={{ backgroundColor: "#CCE729" }} className="tag-four">
                   {tags[0]}
                 </p>
                 <p
