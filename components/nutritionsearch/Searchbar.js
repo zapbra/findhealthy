@@ -37,7 +37,7 @@ const Cont = styled.div`
   }
 `;
 
-const Searchbar = ({ text, updateText }) => {
+const Searchbar = ({ text, updateText, value, setValue, updateValue }) => {
   const [categories, setCategories] = useState([
     "All Food Categories",
     "Beef",
@@ -60,10 +60,7 @@ const Searchbar = ({ text, updateText }) => {
     "Fruits and Fruit Juices",
     "Grains and Starches",
   ]);
-  const [value, setValue] = useState("All Food Categories");
-  const updateValue = (val) => {
-    setValue(val);
-  };
+
   return (
     <Cont colors={COLORS}>
       <div className="search-bar mar-bottom-8 box-shadow-2 flex align-center">

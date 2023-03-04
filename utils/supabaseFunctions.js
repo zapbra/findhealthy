@@ -769,3 +769,17 @@ export const fetchPollution = async () => {
     return error;
   }
 };
+
+export const fetchAllFoods = async () => {
+  try {
+    const { data, error } = await supabase
+      .from("foods")
+      .select("name, food_category_id(name)");
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
