@@ -37,16 +37,16 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = "Yogurt, plain, skim milk";
-const grams = 245;
-const protein = 14;
-const food_category_id = 2;
+const fishName = "Goat";
+const grams = 454;
+const protein = 93.4;
+const food_category_id = 5;
 const obj =
-  "Vitamin A17.2IU0% Vitamin C2.2mg4% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.0mg0% Vitamin K0.5mcg1% Thiamin0.1mg8% Riboflavin0.6mg34% Niacin0.3mg2% Vitamin B60.1mg6% Folate29.4mcg7% Vitamin B121.5mcg25% Pantothenic Acid1.6mg16% Choline37.2mg Calcium488mg49% Iron0.2mg1% Magnesium46.5mg12% Phosphorus385mg38% Potassium625mg18% Sodium189mg8% Zinc2.4mg16% Copper0.0mg2% Manganese0.0mg1% Selenium8.8mcg13% Cholesterol4.9mg2% Total Omega-3 fatty acids2.5mg Total Omega-6 fatty acids9.8mg";
+  "Vitamin A0.0IU0% Vitamin C0.0mg0% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)~ ~ Vitamin K~ ~ Thiamin0.5mg33% Riboflavin2.2mg131% Niacin17.0mg85% Vitamin B6~ ~ Folate22.7mcg6% Vitamin B125.1mcg85% Pantothenic Acid~ ~ Choline~ Calcium59.0mg6% Iron12.8mg71% Magnesium~ ~ Phosphorus816mg82% Potassium1746mg50% Sodium372mg15% Zinc18.1mg121% Copper1.2mg58% Manganese0.2mg9% Selenium39.9mcg57% Cholesterol259mg86% Total Omega-3 fatty acids90.7mg Total Omega-6 fatty acids454mg";
 
 const fats =
-  "Total Fat0.4g1% Saturated Fat0.3g1% Monounsaturated Fat0.1g Polyunsaturated Fat0.0g";
-const carbs = 18.8;
+  "Total Fat10.5g16% Saturated Fat3.2g16% Monounsaturated Fat4.7g Polyunsaturated Fat0.8g";
+const carbs = 0;
 
 const testing = () => {
   const splitAndInsert = async () => {

@@ -54,8 +54,11 @@ const Results = () => {
   };
 
   const [nutrients, setNutrients] = useState(nutrientList);
-
+  const [nutrientsCopy, setNutrientsCopy] = useState(nutrientList);
   const [nutrientValue, setNutrientValue] = useState("Vitamin a");
+  const updateNutrientValue = (val) => {
+    setNutrientValue(val);
+  };
   return (
     <Cont colors={COLORS}>
       <div className="flex-inline align-center">
@@ -67,7 +70,7 @@ const Results = () => {
         </h4>
         <FontAwesomeIcon icon={faFilter} className="icon-ssm black" />
       </div>
-      <div className="flex">
+      <div className="flex mar-bottom-32">
         <div className="mar-right-16">
           <Select
             regions={filters}
@@ -79,12 +82,12 @@ const Results = () => {
           />
         </div>
         <Select
-          regions={filters}
+          regions={nutrients}
           name=""
-          value={filterValue}
-          updateValue={updateFilterValue}
-          options={filtersCopy}
-          setOptions={setFiltersCopy}
+          value={nutrientValue}
+          updateValue={updateNutrientValue}
+          options={nutrientsCopy}
+          setOptions={setNutrientsCopy}
         />
       </div>
       <div className="result-holder box-shadow-2"></div>
