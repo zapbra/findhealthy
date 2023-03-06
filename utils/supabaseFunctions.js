@@ -788,7 +788,19 @@ export const fetchAllFoods = async () => {
   try {
     const { data, error } = await supabase
       .from("foods")
-      .select("name, food_category_id(name)");
+      .select("name, id, food_category_id(name)");
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const fetchAllFoodIds = async () => {
+  try {
+    const { data, error } = await supabase.from("foods").select("id");
 
     if (error) throw error;
     return data;
@@ -802,8 +814,24 @@ export const fetchFoodCategoryByName = async (name) => {
   try {
     const { data, error } = await supabase
       .from("foodCategory")
-      .select("name, foods(name, nutrients_id(*), food_category_id(name))")
+      .select("name, foods(name, id, nutrients_id(*), food_category_id(name))")
       .eq("name", name)
+      .maybeSingle();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const fetchFoodById = async (id) => {
+  try {
+    const { data, error } = await supabase
+      .from("foods")
+      .select("name, nutrients_id(*), food_category_id(name)")
+      .eq("id", id)
       .maybeSingle();
 
     if (error) throw error;

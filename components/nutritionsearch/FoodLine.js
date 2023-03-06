@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
@@ -29,7 +30,7 @@ const Cont = styled.div`
   }
 `;
 
-const FoodLine = ({ name, category }) => {
+const FoodLine = ({ name, category, id }) => {
   const [iconObj, setIconObj] = useState({
     Beef: faCow,
     "Dairy and Eggs": faGlassWater,
@@ -42,15 +43,21 @@ const FoodLine = ({ name, category }) => {
   });
 
   return (
-    <Cont colors={COLORS} className="flex space-between align-center">
-      <div className="flex-inline align-center">
-        <p className="mar-right-32">{name}</p>
+    <Link
+      href={{
+        pathname: `/food/${name}`,
+      }}
+    >
+      <Cont colors={COLORS} className="flex space-between align-center">
+        <div className="flex-inline align-center">
+          <p className="mar-right-32">{name}</p>
 
-        <FontAwesomeIcon icon={iconObj[category]} className="grey icon-ssm" />
-      </div>
+          <FontAwesomeIcon icon={iconObj[category]} className="grey icon-ssm" />
+        </div>
 
-      <FontAwesomeIcon icon={faArrowRight} className="grey icon-ssm" />
-    </Cont>
+        <FontAwesomeIcon icon={faArrowRight} className="grey icon-ssm" />
+      </Cont>
+    </Link>
   );
 };
 

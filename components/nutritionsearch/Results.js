@@ -78,7 +78,13 @@ const Results = ({ foods, foodsObject }) => {
   };
 
   const foodLines = foods.map((food) => {
-    return <FoodLine name={food.name} category={food.food_category_id.name} />;
+    return (
+      <FoodLine
+        name={food.name}
+        category={food.food_category_id.name}
+        id={food.id}
+      />
+    );
   });
   return (
     <Cont colors={COLORS}>
