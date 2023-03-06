@@ -7,7 +7,7 @@ import {
   fetchAllFishNames,
 } from "../../utils/supabaseFunctions";
 import NutrientFacts from "../../components/nutritionFacts/index";
-import NutrientTopSection from "../../components/nutritionFacts/NutrientTopSection";
+
 const Cont = styled.div`
   .title-spec {
     padding: 32px;
@@ -49,26 +49,27 @@ const Fish = ({ fishFetch, allFishFetch }) => {
     const fetchFish = await fetchFishByName(name);
     setFish(fetchFish[0]);
     setLoading(false);
-  }
+  };
   return (
     <Cont colors={COLORS}>
-      
       <div className="center-inline title-spec flex align-center justify-center mar-bottom-32 box-shadow-2">
         {loading ? (
           <div class="lds-ring-green">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         ) : (
-          <> <h3 className="blue mar-right-16">{fish.name}</h3>
-          <img src="/icons/fish2.png" /></>
+          <>
+            {" "}
+            <h3 className="blue mar-right-16">{fish.name}</h3>
+            <img src="/icons/fish2.png" />
+          </>
         )}
-       
       </div>
 
-      <NutrientFacts fish={fish} allFish={allFish} reFetchFish = {reFetchFish} />
+      <NutrientFacts fish={fish} allFish={allFish} reFetchFish={reFetchFish} />
     </Cont>
   );
 };
