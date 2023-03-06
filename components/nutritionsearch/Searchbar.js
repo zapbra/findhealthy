@@ -37,7 +37,13 @@ const Cont = styled.div`
   }
 `;
 
-const Searchbar = ({ text, updateText, value, setValue, updateValue }) => {
+const Searchbar = ({
+  searchText,
+  updateSearchText,
+  value,
+  setValue,
+  updateValue,
+}) => {
   const [categories, setCategories] = useState([
     "All Food Categories",
     "Beef",
@@ -71,8 +77,8 @@ const Searchbar = ({ text, updateText, value, setValue, updateValue }) => {
         <form className="inline-block mar-right-8 flex flex-one">
           <input
             type="text"
-            value={text}
-            onChange={updateText}
+            value={searchText}
+            onChange={updateSearchText}
             placeholder="steak... eggs"
             name="products"
           />

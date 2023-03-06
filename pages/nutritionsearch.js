@@ -121,16 +121,36 @@ const Nutritionsearch = ({
   const [selectedFoods, setSelectedFoods] = useState(
     foodsObject["All Food Categories"]
   );
+  const [selectedFoodsCopy, setSelectedFoodsCopy] = useState(
+    foodsObject["All Food Categories"]
+  );
   const [value, setValue] = useState("All Food Categories");
   const updateValue = (val) => {
     setSelectedFoods(foodsObject[val]);
+    setSelectedFoodsCopy(foodsObject[val]);
     console.log(foodsObject[val]);
     setValue(val);
   };
 
+  const [searchText, setSearchText] = useState("");
+  const updateSearchText = (e) => {
+    const val = e.target.value;
+    setSelectedFoods(
+      selectedFoodsCopy.filter((food) => {
+        return food.name.toLowerCase().includes(val.toLowerCase());
+      })
+    );
+    setSearchText(val);
+  };
   return (
     <Cont colors={COLORS}>
-      <Searchbar value={value} setValue={setValue} updateValue={updateValue} />
+      <Searchbar
+        searchText={searchText}
+        updateSearchText={updateSearchText}
+        value={value}
+        setValue={setValue}
+        updateValue={updateValue}
+      />
       <div className="ssm-spacer-bot-res"></div>
       <Results foods={selectedFoods} />
     </Cont>
