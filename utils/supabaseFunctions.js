@@ -762,7 +762,7 @@ export const fetchAllFish = async () => {
   try {
     const { data, error } = await supabase
       .from("fish")
-      .select("name, nutrients_id(*)");
+      .select("name, nutrients_id(*), food_category_id(name)");
 
     if (error) throw error;
     return data;

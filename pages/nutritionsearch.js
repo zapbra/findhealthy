@@ -113,6 +113,11 @@ const Nutritionsearch = ({
     "Grains and Starches": grains,
     Beef: beef,
   });
+
+  console.log("fish");
+  console.log(fish);
+  console.log("beef");
+  console.log(beef);
   const [selectedFoods, setSelectedFoods] = useState(
     foodsObject["All Food Categories"]
   );

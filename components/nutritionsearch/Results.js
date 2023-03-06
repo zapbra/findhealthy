@@ -67,9 +67,12 @@ const Results = ({ foods, foodsObject }) => {
     setFilterValue(val);
   };
 
-  const [nutrients, setNutrients] = useState(nutrientList);
-  const [nutrientsCopy, setNutrientsCopy] = useState(nutrientList);
-  const [nutrientValue, setNutrientValue] = useState("Vitamin a");
+  const [nutrients, setNutrients] = useState(["Unselected", ...nutrientList]);
+  const [nutrientsCopy, setNutrientsCopy] = useState([
+    "Unselected",
+    ...nutrientList,
+  ]);
+  const [nutrientValue, setNutrientValue] = useState("Unselected");
   const updateNutrientValue = (val) => {
     setNutrientValue(val);
   };
