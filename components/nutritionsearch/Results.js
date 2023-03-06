@@ -59,7 +59,7 @@ const Cont = styled.div`
   }
 `;
 
-const Results = ({ foods }) => {
+const Results = ({ foods, foodsObject }) => {
   const [filters, setFilters] = useState(["Highest in", "Lowest in"]);
   const [filtersCopy, setFiltersCopy] = useState(["Highest in", "Lowest in"]);
   const [filterValue, setFilterValue] = useState("Highest in");

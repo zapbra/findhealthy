@@ -40,7 +40,7 @@ const FoodLine = ({ name, category }) => {
     "Fruits and Fruit Juices": faAppleWhole,
     "Grains and Starches": faWheatAwn,
   });
-  console.log(category);
+
   return (
     <Cont colors={COLORS} className="flex space-between align-center">
       <div className="flex-inline align-center">

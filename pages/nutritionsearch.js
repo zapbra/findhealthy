@@ -7,6 +7,7 @@ import supabase from "../utils/supabaseClient";
 import {
   fetchAllFoods,
   fetchFoodCategoryByName,
+  fetchAllFish,
 } from "../utils/supabaseFunctions";
 const Cont = styled.div`
   margin-top: 40px;
@@ -16,12 +17,13 @@ export async function getServerSideProps() {
   const allFoodCategories = await fetchAllFoods();
   const beefFetch = await fetchFoodCategoryByName("Beef");
   const dairyAndEggsFetch = await fetchFoodCategoryByName("Dairy and Eggs");
-  const fishFetch = await fetchFoodCategoryByName("fish");
+  const fishFetch = await fetchAllFish();
   const poultryFetch = await fetchFoodCategoryByName("Poultry");
   const lambVealAndGameFetch = await fetchFoodCategoryByName(
     "Lamb, Veal and Game"
   );
-  const fruitsFetch = await fetchFoodCategoryByName("Fruit and Fruit Juices");
+  const porkFetch = await fetchFoodCategoryByName("Pork");
+  const fruitsFetch = await fetchFoodCategoryByName("Fruits and Fruit Juices");
   const grainsFetch = await fetchFoodCategoryByName("Grains and Starches");
   return {
     props: {
@@ -33,6 +35,7 @@ export async function getServerSideProps() {
       lambVealAndGameFetch,
       fruitsFetch,
       grainsFetch,
+      porkFetch,
     },
   };
 }
@@ -46,6 +49,7 @@ const Nutritionsearch = ({
   lambVealAndGameFetch,
   fruitsFetch,
   grainsFetch,
+  porkFetch,
 }) => {
   const [allFoods, setAllFoods] = useState(
     allFoodCategories.sort((a, b) =>
@@ -59,9 +63,7 @@ const Nutritionsearch = ({
   );
 
   const [fish, setFish] = useState(
-    fishFetch.foods.sort((a, b) =>
-      a.name > b.name ? 1 : a.name < b.name ? -1 : 0
-    )
+    fishFetch.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0))
   );
 
   const [poultry, setPoultry] = useState(
@@ -82,8 +84,8 @@ const Nutritionsearch = ({
     )
   );
 
-  const [beef, setBeef] = useState(
-    beefFetch.foods.sort((a, b) =>
+  const [grains, setGrains] = useState(
+    grainsFetch.foods.sort((a, b) =>
       a.name > b.name ? 1 : a.name < b.name ? -1 : 0
     )
   );
@@ -94,16 +96,38 @@ const Nutritionsearch = ({
     )
   );
 
-  //console.log(foods);
+  const [pork, setPork] = useState(
+    porkFetch.foods.sort((a, b) =>
+      a.name > b.name ? 1 : a.name < b.name ? -1 : 0
+    )
+  );
+
+  const [foodsObject, setFoodsObject] = useState({
+    "All Food Categories": allFoods,
+    "Dairy and Eggs": dairy,
+    Fish: fish,
+    Poultry: poultry,
+    "Lamb, Veal and Game": lambVealAndGame,
+    Pork: pork,
+    "Fruits and Fruit Juices": fruit,
+    "Grains and Starches": grains,
+    Beef: beef,
+  });
+  const [selectedFoods, setSelectedFoods] = useState(
+    foodsObject["All Food Categories"]
+  );
   const [value, setValue] = useState("All Food Categories");
   const updateValue = (val) => {
+    setSelectedFoods(foodsObject[val]);
+    console.log(foodsObject[val]);
     setValue(val);
   };
+
   return (
     <Cont colors={COLORS}>
       <Searchbar value={value} setValue={setValue} updateValue={updateValue} />
       <div className="ssm-spacer-bot-res"></div>
-      <Results foods={allFoods} />
+      <Results foods={selectedFoods} />
     </Cont>
   );
 };
