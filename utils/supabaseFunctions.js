@@ -557,7 +557,9 @@ export const createNutrients = async (
   saturated_fat,
   monounsaturated_fat,
   quantity,
-  fiber
+  fiber,
+  starch,
+  sugars
 ) => {
   try {
     const { data, error } = await supabase
@@ -619,6 +621,8 @@ export const createNutrients = async (
         monounsaturated_fat,
         quantity,
         fiber,
+        starch,
+        sugars,
       })
       .select();
     if (error) throw error;

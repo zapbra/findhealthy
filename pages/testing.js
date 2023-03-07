@@ -37,20 +37,27 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = "Turkey, heart, all classes";
-const grams = 27;
-const measurement = "1 heart";
-const protein = 4.6;
-const food_category_id = 4;
-const obj =
-  "Vitamin A28.9IU1% Vitamin C0.8mg1% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.0mg0% Vitamin K0.0mcg0% Thiamin0.1mg4% Riboflavin0.3mg15% Niacin1.3mg6% Vitamin B60.1mg6% Folate1.6mcg0% Vitamin B124.2mcg69% Pantothenic Acid0.8mg8% Choline34.2mg Calcium1.6mg0% Iron1.1mg6% Magnesium5.9mg1% Phosphorus59.9mg6% Potassium79.6mg2% Sodium25.4mg1% Zinc0.9mg6% Copper0.1mg5% Manganese0.0mg1% Selenium9.7mcg14% Cholesterol39.7mg13% Total Omega-3 fatty acids9.4mg Total Omega-6 fatty acids255mg";
+const fishName = "Lemon juice";
+const grams = 47;
+const measurement = "1 lemon";
+const protein = 0.2;
 
+const food_category_id = 7;
+const obj =
+  "Vitamin A9.4IU0% Vitamin C21.6mg36% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.1mg0% Vitamin K0.0mcg0% Thiamin0.0mg1% Riboflavin0.0mg0% Niacin0.0mg0% Vitamin B60.0mg1% Folate6.1mcg2% Vitamin B120.0mcg0% Pantothenic Acid0.0mg0% Choline2.4mg Calcium3.3mg0% Iron0.0mg0% Magnesium2.8mg1% Phosphorus2.8mg0% Potassium58.3mg2% Sodium0.5mg0% Zinc0.0mg0% Copper0.0mg1% Manganese0.0mg0% Selenium0.0mcg0% Cholesterol0.0mg0% Total Omega-3 fatty acids0.0mg Total Omega-6 fatty acids0.0mg";
+let sugarsX = "Total Carbohydrate4.1g1% Dietary Fiber0.2g1% Starch~ Sugars1.1g";
+sugarsX = sugarsX.replace("~", "0.0g");
 const fats =
-  "Total Fat1.3g2% Saturated Fat0.4g2% Monounsaturated Fat0.4g Polyunsaturated Fat0.3g";
-const carbs = 0;
+  "Total Fat0.0g0% Saturated Fat0.0g0% Monounsaturated Fat0.0g Polyunsaturated Fat0.0g";
 
 const testing = () => {
   const splitAndInsert = async () => {
+    let sugarSplit = sugarsX.split(/g[\d+%]?/);
+    let carbs = sugarSplit[0].match(/\d+?\.?\d+?/)[0];
+    let fiber = sugarSplit[1].match(/\d+?\.?\d+?/)[0];
+    let starch = sugarSplit[2].match(/\d+?\.?\d+?/)[0];
+    let sugars = sugarSplit[4].match(/\d+?\.?\d+?/)[0];
+    sugarSplit = sugarSplit.map((item) => item.replace("%", ""));
     let split = fats.split(/g[\d+%]?/);
     split = split.map((item) => item.replace("%", ""));
 
@@ -161,9 +168,7 @@ const testing = () => {
       objectHolder.selenium.units,
       objectHolder.cholesterol.daily_value,
       objectHolder.cholesterol.units,
-
       objectHolder.omega3.units,
-
       objectHolder.omega6.units,
       protein,
       carbs,
@@ -171,7 +176,10 @@ const testing = () => {
       polyunsaturatedFat,
       saturatedFat,
       monounsaturatedFat,
-      grams
+      grams,
+      fiber,
+      starch,
+      sugars
     );
     console.log(nutrients);
     //const fish = await createFish(fishName, nutrients[0].id);
