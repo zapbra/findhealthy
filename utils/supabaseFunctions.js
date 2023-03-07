@@ -483,11 +483,16 @@ export const createFish = async (name, nutrients_id) => {
   }
 };
 
-export const createFood = async (name, nutrients_id, food_category_id) => {
+export const createFood = async (
+  name,
+  nutrients_id,
+  food_category_id,
+  measurement
+) => {
   try {
     const { data, error } = await supabase
       .from("foods")
-      .insert({ name, nutrients_id, food_category_id })
+      .insert({ name, nutrients_id, food_category_id, measurement })
       .select();
     if (error) throw error;
     return data;

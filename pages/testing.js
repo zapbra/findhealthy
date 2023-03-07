@@ -37,15 +37,16 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = "Goat";
-const grams = 454;
-const protein = 93.4;
-const food_category_id = 5;
+const fishName = "Turkey, all classes, meat and skin and giblets and neck";
+const grams = 5554;
+const measurement = "1 turkey";
+const protein = 1131;
+const food_category_id = 4;
 const obj =
-  "Vitamin A0.0IU0% Vitamin C0.0mg0% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)~ ~ Vitamin K~ ~ Thiamin0.5mg33% Riboflavin2.2mg131% Niacin17.0mg85% Vitamin B6~ ~ Folate22.7mcg6% Vitamin B125.1mcg85% Pantothenic Acid~ ~ Choline~ Calcium59.0mg6% Iron12.8mg71% Magnesium~ ~ Phosphorus816mg82% Potassium1746mg50% Sodium372mg15% Zinc18.1mg121% Copper1.2mg58% Manganese0.2mg9% Selenium39.9mcg57% Cholesterol259mg86% Total Omega-3 fatty acids90.7mg Total Omega-6 fatty acids454mg";
+  "Vitamin A18942IU379% Vitamin C11.1mg19% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)~ ~ Vitamin K~ ~ Thiamin3.6mg241% Riboflavin11.3mg663% Niacin230mg1152% Vitamin B622.8mg1139% Folate1278mcg319% Vitamin B1290.0mcg1500% Pantothenic Acid52.9mg529% Choline~ Calcium833mg83% Iron93.9mg521% Magnesium1222mg305% Phosphorus9999mg1000% Potassium14939mg427% Sodium3721mg155% Zinc128mg855% Copper6.3mg317% Manganese1.4mg72% Selenium1294mcg1849% Cholesterol4332mg1444% Total Omega-3 fatty acids7775mg Total Omega-6 fatty acids91095mg";
 
 const fats =
-  "Total Fat10.5g16% Saturated Fat3.2g16% Monounsaturated Fat4.7g Polyunsaturated Fat0.8g";
+  "Total Fat432g664% Saturated Fat122g611% Monounsaturated Fat153g Polyunsaturated Fat107g";
 const carbs = 0;
 
 const testing = () => {
@@ -174,7 +175,12 @@ const testing = () => {
     );
     console.log(nutrients);
     //const fish = await createFish(fishName, nutrients[0].id);
-    const food = await createFood(fishName, nutrients[0].id, food_category_id);
+    const food = await createFood(
+      fishName,
+      nutrients[0].id,
+      food_category_id,
+      measurement
+    );
     console.log(food);
   };
 
