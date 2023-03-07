@@ -37,16 +37,16 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = "Turkey, all classes, meat and skin and giblets and neck";
-const grams = 5554;
-const measurement = "1 turkey";
+const fishName = "Turkey, all classes, meat only";
+const grams = 2174;
+const measurement = "1/2 turkey,  bone and skin removed";
 const protein = 1131;
 const food_category_id = 4;
 const obj =
-  "Vitamin A18942IU379% Vitamin C11.1mg19% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)~ ~ Vitamin K~ ~ Thiamin3.6mg241% Riboflavin11.3mg663% Niacin230mg1152% Vitamin B622.8mg1139% Folate1278mcg319% Vitamin B1290.0mcg1500% Pantothenic Acid52.9mg529% Choline~ Calcium833mg83% Iron93.9mg521% Magnesium1222mg305% Phosphorus9999mg1000% Potassium14939mg427% Sodium3721mg155% Zinc128mg855% Copper6.3mg317% Manganese1.4mg72% Selenium1294mcg1849% Cholesterol4332mg1444% Total Omega-3 fatty acids7775mg Total Omega-6 fatty acids91095mg";
+  "Vitamin A0.0IU0% Vitamin C0.0mg0% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)7.6mg38% Vitamin K58.7mcg73% Thiamin1.6mg104% Riboflavin3.7mg215% Niacin98.8mg494% Vitamin B610.2mg511% Folate196mcg49% Vitamin B129.3mcg156% Pantothenic Acid19.7mg197% Choline1528mg Calcium304mg30% Iron31.5mg175% Magnesium543mg136% Phosphorus4240mg424% Potassium6435mg184% Sodium1522mg63% Zinc51.5mg343% Copper2.4mg118% Manganese0.5mg23% Selenium576mcg823% Cholesterol1413mg471% Total Omega-3 fatty acids1305mg Total Omega-6 fatty acids13912mg";
 
 const fats =
-  "Total Fat432g664% Saturated Fat122g611% Monounsaturated Fat153g Polyunsaturated Fat107g";
+  "Total Fat62.2g96% Saturated Fat20.7g103% Monounsaturated Fat13.3g Polyunsaturated Fat18.0g";
 const carbs = 0;
 
 const testing = () => {
