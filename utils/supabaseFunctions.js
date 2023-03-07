@@ -548,9 +548,7 @@ export const createNutrients = async (
   selenium_units,
   cholesterol_daily_value,
   cholesterol_units,
-
   omega3_units,
-
   omega6_units,
   protein,
   carbs,
@@ -558,7 +556,8 @@ export const createNutrients = async (
   polyunsaturated_fat,
   saturated_fat,
   monounsaturated_fat,
-  quantity
+  quantity,
+  fiber
 ) => {
   try {
     const { data, error } = await supabase
@@ -611,7 +610,6 @@ export const createNutrients = async (
         cholesterol_daily_value,
         cholesterol_units,
         omega3_units,
-
         omega6_units,
         protein,
         carbs,
@@ -620,6 +618,7 @@ export const createNutrients = async (
         saturated_fat,
         monounsaturated_fat,
         quantity,
+        fiber,
       })
       .select();
     if (error) throw error;
