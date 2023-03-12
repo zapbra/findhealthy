@@ -8,63 +8,88 @@ $black: #192430;
 $desatLightBlue: #c6cacf;
 $desatDarkBlue: #404a55;
 $yellow: #9fac3b;
-$purple: #7028E4;
-$blue: #2521E5;
-$red: #E52323;
-$yellow: #CCE729;
-$orange: #DF5F28;
-$green: #3BAC46;
-$offWhite: #E7EFF8;
+$purple: #7028e4;
+$blue: #2521e5;
+$red: #e52323;
+$yellow: #cce729;
+$orange: #df5f28;
+$green: #3bac46;
+$offWhite: #e7eff8;
 $light-blue: #278ffd;
-$light-red:rgb(253, 39, 39);
+$light-red: rgb(253, 39, 39);
 $light-blue: #278ffd;
 $light-blue-2: #88c1ff;
 $light-green: #27fd55;
 $light-orange: #fd7d27;
 
-.green-icon{
-  width:40px;
-  height:40px;
-  display:flex;
+.black-gradient-btn {
+  border: 1px solid $darkBlue;
+  border-radius: 16px;
+  padding: 4px 8px;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: $darkBlue;
+  }
+  background: rgb(186, 178, 181);
+  background: linear-gradient(
+    0deg,
+    rgba(186, 178, 181, 1) 0%,
+    rgba(230, 227, 228, 1) 12%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(214, 209, 211, 1) 94%,
+    rgba(186, 178, 181, 1) 100%
+  );
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.green-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
   border-radius: 50%;
   background-color: $green;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  cursor:pointer;
-  transition: background-color .25s ease;
-  .white{
-    transition: transform .25s ease, color .25s ease;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  .white {
+    transition: transform 0.25s ease, color 0.25s ease;
   }
-  &:hover{
+  &:hover {
     background-color: $offWhite;
     border: 2px solid $green;
-    .white{
+    .white {
       color: $green !important;
     }
   }
-  &:active{
-    box-shadow:none;
+  &:active {
+    box-shadow: none;
   }
 }
-.icon-button{
+.icon-button {
   border: 1px solid $grey;
   border-radius: 8px;
   background-color: #fff;
   padding: 8px 16px;
   display: inline-flex;
   align-items: center;
-  cursor:pointer;
-  &:hover{
+  cursor: pointer;
+  &:hover {
     border: 1px solid $black;
   }
-  &:active{
+  &:active {
     background-color: $offWhite;
   }
-  .icon-ssm{
+  .icon-ssm {
     color: $green;
   }
-  p{
+  p {
     color: $green;
     margin-right: 8px;
   }
@@ -75,9 +100,10 @@ $light-orange: #fd7d27;
   padding: 8px 16px;
   cursor: pointer;
   display: inline-block;
-  border:none;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  transition: box-shadow .25s ease;
+  border: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: box-shadow 0.25s ease;
   border-radius: 8px;
   h1,
   h2,
@@ -86,11 +112,10 @@ $light-orange: #fd7d27;
   h5,
   h6,
   p {
-    color: #fff; 
+    color: #fff;
   }
   &:hover {
-    
-    box-shadow:none;
+    box-shadow: none;
   }
   &:active {
     h1,
@@ -103,7 +128,7 @@ $light-orange: #fd7d27;
       color: #fff;
     }
     background-color: $blue;
-   
+
     .blue {
       color: #fff;
     }
@@ -123,56 +148,65 @@ $light-orange: #fd7d27;
   }
 }
 
-.blue-btn-two{
+.blue-btn-two {
   background: $darkBlue;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
   padding: 8px 16px;
-  border:4px solid $offWhite;
-  border-style:outset;
-  transition: background-color .25s ease;
-  h5{
-    transition: color .25s ease;
+  border: 4px solid $offWhite;
+  border-style: outset;
+  transition: background-color 0.25s ease;
+  h5 {
+    transition: color 0.25s ease;
   }
-  &:hover{
+  &:hover {
     background-color: $offWhite;
-    h5{
+    h5 {
       color: $darkBlue;
     }
   }
-  h5{
+  h5 {
     color: $offWhite;
     text-decoration: none !important;
   }
 }
 
-.black-btn{
-  background: rgb(51,78,104);
-  background: linear-gradient(90deg, rgba(51,78,104,1) 0%, rgba(25,36,48,1) 51%, rgba(51,78,104,1) 100%);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+.black-btn {
+  background: rgb(51, 78, 104);
+  background: linear-gradient(
+    90deg,
+    rgba(51, 78, 104, 1) 0%,
+    rgba(25, 36, 48, 1) 51%,
+    rgba(51, 78, 104, 1) 100%
+  );
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: 8px 16px;
-  transition: box-shadow .25s ease;
-  cursor:pointer;
+  transition: box-shadow 0.25s ease;
+  cursor: pointer;
   border-radius: 8px;
-  h3,h4,h5{
+  h3,
+  h4,
+  h5 {
     color: $offWhite;
   }
-  &:hover{
+  &:hover {
     box-shadow: none;
-   
   }
-  &:active{
-    background: rgba(25,36,48,1);
+  &:active {
+    background: rgba(25, 36, 48, 1);
   }
 }
 
 .red-btn-one {
   border-radius: 8px;
   background-color: $light-red;
-  border:none;
+  border: none;
   padding: 8px 16px;
   cursor: pointer;
   display: inline-block;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   h1,
   h2,
   h3,
@@ -182,11 +216,11 @@ $light-orange: #fd7d27;
   p {
     color: #fff;
   }
-  &:active{
+  &:active {
     background-color: $red;
   }
   &:hover {
-    box-shadow:none;
+    box-shadow: none;
   }
 }
 
@@ -213,16 +247,16 @@ $light-orange: #fd7d27;
   border: 1px solid black;
   cursor: pointer;
   align-items: center;
-  transition: background-color .25s ease;
+  transition: background-color 0.25s ease;
   p {
     margin-right: 4px;
   }
   &:hover {
     background-color: $darkBlue;
-    .black{
+    .black {
       color: $offWhite;
     }
-    p{
+    p {
       color: $offWhite;
     }
   }

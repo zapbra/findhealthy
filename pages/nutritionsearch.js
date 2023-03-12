@@ -142,6 +142,8 @@ const Nutritionsearch = ({
     );
     setSearchText(val);
   };
+  console.log("-");
+  console.log(selectedFoods);
   return (
     <Cont colors={COLORS}>
       <Searchbar

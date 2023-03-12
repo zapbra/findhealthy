@@ -106,17 +106,22 @@ const Navbar = () => {
           </Link>
           {user !== null ? (
             <Link href="/account">
-              <div className="inline-block black-btn">
+              <div className="inline-block black-btn mar-right-16">
                 <h5>{user.user_metadata.username}</h5>
               </div>
             </Link>
           ) : (
             <Link href="/login">
-              <div className="inline-block black-btn">
+              <div className="inline-block black-btn mar-right-16">
                 <h5>Login</h5>
               </div>
             </Link>
           )}
+          <Link href="/nutritionsearch">
+            <div className="black-gradient-btn box-shadow">
+              <h5 className="blue">NUTRIENT SEARCH</h5>
+            </div>
+          </Link>
         </div>
 
         <div className="grid-cont">
@@ -144,10 +149,10 @@ const Navbar = () => {
               <h5 className="blue mar-right-16 underline-hover">MAP</h5>
             </Link>
             <Link href="/articles" className="text-shadow-blue">
-            <h5 className="blue mar-right-16 underline-hover">ARTICLES</h5>
+              <h5 className="blue mar-right-16 underline-hover">ARTICLES</h5>
             </Link>
             <Link href="/datasearch" className="text-shadow-blue">
-            <h5 className="blue mar-right-16 underline-hover">DATA SEARCH</h5>
+              <h5 className="blue mar-right-16 underline-hover">DATA SEARCH</h5>
             </Link>
           </div>
         </div>

@@ -45,7 +45,7 @@ const FoodLine = ({ name, category, id }) => {
   return (
     <Link
       href={{
-        pathname: `/food/${name}`,
+        pathname: `/food/${id}`,
       }}
     >
       <Cont colors={COLORS} className="flex space-between align-center">

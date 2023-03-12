@@ -6,7 +6,7 @@ import {
   fetchFoodById,
   fetchAllFoods,
 } from "../../utils/supabaseFunctions";
-import NutrientFacts from "../../components/nutritionFacts/index";
+import NutrientFacts from "../../components/food/Index";
 
 const Cont = styled.div``;
 
@@ -30,15 +30,18 @@ export async function getStaticProps({ params }) {
     props: {
       foodFetch,
       allFoodsFetch,
+      xd: params.id,
     },
   };
 }
 
-const Food = ({ foodFetch, allFoodsFetch }) => {
+const Food = ({ foodFetch, allFoodsFetch, xd }) => {
   const [food, setFood] = useState(foodFetch);
   const [allFoods, setAllFoods] = useState(allFoodsFetch);
 
   const reFetchFoods = async (name) => {};
+
+  console.log(food);
   return (
     <Cont colors={COLORS}>
       <NutrientFacts
