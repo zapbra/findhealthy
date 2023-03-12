@@ -155,6 +155,7 @@ const Nutritionsearch = ({
       />
       <div className="ssm-spacer-bot-res"></div>
       <Results foods={selectedFoods} />
+      <div className="sm-spacer-bot-res"></div>
     </Cont>
   );
 };

@@ -9,7 +9,9 @@ import FoodLine from "./FoodLine";
 const Cont = styled.div`
   max-width: 400px;
   margin: 0 auto;
-
+  @media only screen and (max-width: 440px) {
+    padding-right: 16px;
+  }
   .result-holder {
     border: 1px solid ${(props) => props.colors.grey};
     border-radius: 8px;
@@ -97,8 +99,8 @@ const Results = ({ foods, foodsObject }) => {
         </h4>
         <FontAwesomeIcon icon={faFilter} className="icon-ssm black" />
       </div>
-      <div className="flex mar-bottom-32 align-center">
-        <div className="mar-right-16">
+      <div className="flex mar-bottom-32 align-center flex-wrap">
+        <div className="mar-right-16 mar-bottom-8">
           <Select
             regions={filters}
             name=""
@@ -108,7 +110,7 @@ const Results = ({ foods, foodsObject }) => {
             setOptions={setFiltersCopy}
           />
         </div>
-        <div className="mar-right-16">
+        <div className=" mar-bottom-8">
           <Select
             regions={nutrients}
             name=""
@@ -118,7 +120,10 @@ const Results = ({ foods, foodsObject }) => {
             setOptions={setNutrientsCopy}
           />
         </div>
-        <FontAwesomeIcon icon={faPlus} className="icon-ssm grey plus cursor" />
+        <FontAwesomeIcon
+          icon={faPlus}
+          className="mar-left-16 icon-ssm grey plus cursor mar-bottom-8"
+        />
       </div>
       <div className="mar-bottom-8 flex-inline">
         <p className="bold mar-right-8">Results</p>

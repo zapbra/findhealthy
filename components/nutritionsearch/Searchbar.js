@@ -35,6 +35,15 @@ const Cont = styled.div`
       }
     }
   }
+  .wrapper {
+    align-items: center;
+    gap: 20px;
+  }
+  .icon-ssm {
+    @media only screen and (max-width: 230px) {
+      display: none;
+    }
+  }
 `;
 
 const Searchbar = ({
@@ -72,25 +81,31 @@ const Searchbar = ({
       <div className="search-bar mar-bottom-8 box-shadow-2 flex align-center">
         <FontAwesomeIcon
           icon={faSearch}
-          className="icon-ssm blue mar-right-16"
+          className="icon-ssm blue mar-right-16 mar-bottom-8"
         />
-        <form className="inline-block mar-right-8 flex flex-one">
-          <input
-            type="text"
-            value={searchText}
-            onChange={updateSearchText}
-            placeholder="steak... eggs"
-            name="products"
-          />
-        </form>
-        <Select
-          regions={categories}
-          name="category"
-          value={value}
-          updateValue={updateValue}
-          options={categoriesCopy}
-          setOptions={setCategoriesCopy}
-        />
+        <div className="flex flex-wrap align-center">
+          <form className="inline-block mar-right-8 flex flex-one wrapper">
+            <input
+              type="text"
+              value={searchText}
+              onChange={updateSearchText}
+              placeholder="steak... eggs"
+              name="products"
+              style={{ minWidth: "160px" }}
+              className="mar-bottom-8"
+            />
+          </form>
+          <div className="mar-bottom-8">
+            <Select
+              regions={categories}
+              name="category"
+              value={value}
+              updateValue={updateValue}
+              options={categoriesCopy}
+              setOptions={setCategoriesCopy}
+            />
+          </div>
+        </div>
       </div>
     </Cont>
   );

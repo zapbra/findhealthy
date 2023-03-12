@@ -27,7 +27,7 @@ const Cont = styled.div`
     border-bottom: 1px solid ${(props) => props.colors.black};
   }
 `;
-const index = ({ fish, allFish, reFetchFish }) => {
+const index = ({ fish, allFish, reFetchFood }) => {
   const [quantity, setQuantity] = useState(
     `${fish.nutrients_id.quantity} grams`
   );
@@ -808,7 +808,7 @@ const index = ({ fish, allFish, reFetchFish }) => {
         quantity={quantity}
         setQuantity={toggleQuantity}
         nutrientObject={nutrientObject}
-        reFetchFish={reFetchFish}
+        reFetchFish={reFetchFood}
       />
       <div className="nutrient-sections-holder">
         <div className="nutrient-holder box-shadow-2">

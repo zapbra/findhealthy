@@ -5,6 +5,7 @@ import {
   fetchAllFoodIds,
   fetchFoodById,
   fetchAllFoods,
+  fetchFoodByName,
 } from "../../utils/supabaseFunctions";
 import NutrientFacts from "../../components/food/Index";
 
@@ -30,25 +31,26 @@ export async function getStaticProps({ params }) {
     props: {
       foodFetch,
       allFoodsFetch,
-      xd: params.id,
     },
   };
 }
 
-const Food = ({ foodFetch, allFoodsFetch, xd }) => {
+const Food = ({ foodFetch, allFoodsFetch }) => {
+  const [loading, setLoading] = useState(false);
   const [food, setFood] = useState(foodFetch);
   const [allFoods, setAllFoods] = useState(allFoodsFetch);
 
-  const reFetchFoods = async (name) => {};
+  const reFetchFood = async (name) => {
+    setLoading(true);
+    const fetchFood = await fetchFoodByName(name);
+    setFood(fetchFood);
+    setLoading(false);
+  };
 
   console.log(food);
   return (
     <Cont colors={COLORS}>
-      <NutrientFacts
-        fish={food}
-        allFish={allFoods}
-        reFetchFish={reFetchFoods}
-      />
+      <NutrientFacts fish={food} allFish={allFoods} reFetchFood={reFetchFood} />
     </Cont>
   );
 };

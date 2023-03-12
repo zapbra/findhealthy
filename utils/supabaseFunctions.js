@@ -849,3 +849,19 @@ export const fetchFoodById = async (id) => {
     return error;
   }
 };
+
+export const fetchFoodByName = async (name) => {
+  try {
+    const { data, error } = await supabase
+      .from("foods")
+      .select("name, nutrients_id(*), food_category_id(name)")
+      .eq("name", name)
+      .maybeSingle();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
