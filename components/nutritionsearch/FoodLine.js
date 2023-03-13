@@ -52,7 +52,10 @@ const FoodLine = ({ name, category, id }) => {
         <div className="flex-inline align-center">
           <p className="mar-right-32">{name}</p>
 
-          <FontAwesomeIcon icon={iconObj[category]} className="grey icon-ssm" />
+          <FontAwesomeIcon
+            icon={iconObj[category]}
+            className="grey icon-ssm mar-right-16"
+          />
         </div>
 
         <FontAwesomeIcon icon={faArrowRight} className="grey icon-ssm" />

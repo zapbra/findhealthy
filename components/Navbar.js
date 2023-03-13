@@ -30,6 +30,9 @@ const Cont = styled.div`
     position: relative;
     top: 40px;
     transform: rotate(30deg);
+    @media only screen and (max-width: 985px) {
+      display: none;
+    }
   }
   .splitter-blue {
     width: 24px;
@@ -39,6 +42,9 @@ const Cont = styled.div`
     position: relative;
     top: 40px;
     transform: rotate(30deg);
+    @media only screen and (max-width: 985px) {
+      display: none;
+    }
   }
   .nav-section {
     display: flex;

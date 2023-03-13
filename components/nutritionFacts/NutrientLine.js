@@ -13,9 +13,23 @@ const Cont = styled.div`
   p {
     z-index: 1;
   }
+  @media only screen and (max-width: 300px) {
+    p {
+      font-size: 12.73px;
+    }
+  }
+  .units {
+    margin-right: 16px;
+    @media only screen and (max-width: 240px) {
+      margin-right: 8px;
+    }
+  }
   .line-content {
     min-width: 128px;
     justify-content: space-between;
+    @media only screen and (max-width: 260px) {
+      min-width: 5px;
+    }
   }
   .green-bg {
     position: absolute;
@@ -37,7 +51,7 @@ const NutrientLine = ({ name, units, dv }) => {
       ></div>
       <p>{name}</p>
       <div className="flex line-content">
-        <p className=" mar-right-16"> {units}</p>
+        <p className="units"> {units}</p>
         <div className="flex">
           <p className="bold">{dv} </p>
           <p className="mar-left-2 bold">%DV</p>

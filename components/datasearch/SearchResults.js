@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
@@ -6,6 +6,9 @@ import ResultLine from "./ResultLine";
 import OceanLine from "./OceanLine";
 const Cont = styled.div`
   margin: 0 auto;
+  @media only screen and (max-width: 440px) {
+    margin: 0px 16px 0 0;
+  }
   .result-group {
     ::-webkit-scrollbar {
       width: 0.5rem;
@@ -22,14 +25,26 @@ const Cont = styled.div`
 
 const SearchResults = ({ fish, oceans, seas }) => {
   const fishLines = fish.map((innerFish, index) => {
-    return <Link href = {`/fish/${innerFish}`}><ResultLine key={index} text={innerFish} /></Link>;
+    return (
+      <Link href={`/fish/${innerFish}`}>
+        <ResultLine key={index} text={innerFish} />
+      </Link>
+    );
   });
 
   const oceanLines = oceans.map((ocean, index) => {
-    return <Link href = {`/ocean/${ocean.name}`}><OceanLine key={index} name={ocean.name} fish={ocean.fish} /></Link>;
+    return (
+      <Link href={`/ocean/${ocean.name}`}>
+        <OceanLine key={index} name={ocean.name} fish={ocean.fish} />
+      </Link>
+    );
   });
   const seaLines = seas.map((sea, index) => {
-    return <Link href = {`/sea/${sea.name}`}><OceanLine key={index} name={sea.name} fish={sea.fish} /></Link>;
+    return (
+      <Link href={`/sea/${sea.name}`}>
+        <OceanLine key={index} name={sea.name} fish={sea.fish} />
+      </Link>
+    );
   });
   return (
     <Cont colors={COLORS} className="results-box">

@@ -20,6 +20,9 @@ const Cont = styled.div`
     max-width: 280px;
     margin: 0 16px 32px;
     flex: 1;
+    @media only screen and (max-width: 350px) {
+      margin: 0 0 32px;
+    }
   }
   .nutrient-title {
     background-color: ${(props) => props.colors.offWhite};
