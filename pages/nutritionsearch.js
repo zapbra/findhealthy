@@ -165,7 +165,8 @@ const Nutritionsearch = ({
   console.log(selectedFoods);
   const sortFoods = (val) => {
     console.log(selectedFoods[0]);
-    if (!macros.includes(val)) {
+
+    const sortHighest = () => {
       setSelectedFoods((foods) => {
         return foods.sort((a, b) => {
           let aVal =
@@ -179,6 +180,32 @@ const Nutritionsearch = ({
           return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
         });
       });
+    };
+
+    const sortLowest = () => {
+      setSelectedFoods((foods) => {
+        return foods.sort((a, b) => {
+          let aVal =
+            a.nutrients_id[`${val.replaceAll(" ", "_")}_daily_value`] /
+            (a.nutrients_id.quantity / 100);
+
+          let bVal =
+            b.nutrients_id[`${val.replaceAll(" ", "_")}_daily_value`] /
+            (b.nutrients_id.quantity / 100);
+
+          return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
+        });
+      });
+    };
+    if (!macros.includes(val)) {
+      switch (filterValue) {
+        case "Highest in":
+          sortHighest();
+          break;
+        case "Lowest in":
+          sortLowest();
+          break;
+      }
     }
   };
   console.log("xxx");
