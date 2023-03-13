@@ -61,23 +61,22 @@ const Cont = styled.div`
   }
 `;
 
-const Results = ({ foods, foodsObject }) => {
+const Results = ({
+  foods,
+  foodsObject,
+  nutrientValue,
+  updateNutrientValue,
+  filterValue,
+  updateFilterValue,
+}) => {
   const [filters, setFilters] = useState(["Highest in", "Lowest in"]);
   const [filtersCopy, setFiltersCopy] = useState(["Highest in", "Lowest in"]);
-  const [filterValue, setFilterValue] = useState("Highest in");
-  const updateFilterValue = (val) => {
-    setFilterValue(val);
-  };
 
   const [nutrients, setNutrients] = useState(["Unselected", ...nutrientList]);
   const [nutrientsCopy, setNutrientsCopy] = useState([
     "Unselected",
     ...nutrientList,
   ]);
-  const [nutrientValue, setNutrientValue] = useState("Unselected");
-  const updateNutrientValue = (val) => {
-    setNutrientValue(val);
-  };
 
   const foodLines = foods.map((food) => {
     return (
@@ -88,6 +87,7 @@ const Results = ({ foods, foodsObject }) => {
       />
     );
   });
+  console.log(nutrientValue);
   return (
     <Cont colors={COLORS}>
       <div className="flex-inline align-center mar-bottom-16">

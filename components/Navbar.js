@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import COLORS from "../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "./navbar/Dropdown.js";
 import supabase from "../utils/supabaseClient";
+
 const Cont = styled.div`
   .nav-desktop {
     background-color: ${(props) => props.colors.tan};
@@ -124,7 +125,11 @@ const Navbar = () => {
             </Link>
           )}
           <Link href="/nutritionsearch">
-            <div className="black-gradient-btn box-shadow">
+            <div className="black-gradient-btn box-shadow flex-inline align-center">
+              <FontAwesomeIcon
+                icon={faSearch}
+                className="icon-ssm blue mar-right-4"
+              />
               <h5 className="blue">NUTRIENT SEARCH</h5>
             </div>
           </Link>

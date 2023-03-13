@@ -9,6 +9,7 @@ import {
   fetchFoodCategoryByName,
   fetchAllFish,
 } from "../utils/supabaseFunctions";
+import { macros } from "../data/Quantities";
 const Cont = styled.div`
   margin-top: 40px;
 `;
@@ -133,16 +134,54 @@ const Nutritionsearch = ({
   };
 
   const [searchText, setSearchText] = useState("");
-  const updateSearchText = (e) => {
-    const val = e.target.value;
+
+  const filterFoods = (val) => {
     setSelectedFoods(
       selectedFoodsCopy.filter((food) => {
         return food.name.toLowerCase().includes(val.toLowerCase());
       })
     );
-    setSearchText(val);
   };
-  console.log("-");
+  const updateSearchText = (e) => {
+    const val = e.target.value;
+
+    setSearchText(val);
+    const delayType = setTimeout(() => {
+      filterFoods(val);
+    }, 500);
+    return () => clearTimeout(delayType);
+  };
+
+  const [nutrientValue, setNutrientValue] = useState("Unselected");
+  const updateNutrientValue = (val) => {
+    setNutrientValue(val);
+    sortFoods(val);
+  };
+  const [filterValue, setFilterValue] = useState("Highest in");
+  const updateFilterValue = (val) => {
+    setFilterValue(val);
+  };
+  console.log("??");
+  console.log(selectedFoods);
+  const sortFoods = (val) => {
+    console.log(selectedFoods[0]);
+    if (!macros.includes(val)) {
+      setSelectedFoods((foods) => {
+        return foods.sort((a, b) => {
+          let aVal =
+            a.nutrients_id[`${val.replaceAll(" ", "_")}_daily_value`] /
+            (a.nutrients_id.quantity / 100);
+
+          let bVal =
+            b.nutrients_id[`${val.replaceAll(" ", "_")}_daily_value`] /
+            (b.nutrients_id.quantity / 100);
+
+          return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
+        });
+      });
+    }
+  };
+  console.log("xxx");
   console.log(selectedFoods);
   return (
     <Cont colors={COLORS}>
@@ -154,7 +193,13 @@ const Nutritionsearch = ({
         updateValue={updateValue}
       />
       <div className="ssm-spacer-bot-res"></div>
-      <Results foods={selectedFoods} />
+      <Results
+        foods={selectedFoods}
+        nutrientValue={nutrientValue}
+        updateNutrientValue={updateNutrientValue}
+        filterValue={filterValue}
+        updateFilterValue={updateFilterValue}
+      />
       <div className="sm-spacer-bot-res"></div>
     </Cont>
   );

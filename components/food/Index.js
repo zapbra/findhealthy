@@ -212,7 +212,7 @@ const index = ({ fish, allFish, reFetchFood }) => {
       },
     },
   });
-
+  console.log(nutrientObject);
   useEffect(() => {
     setQuantity(`${fish.nutrients_id.quantity} grams`);
     setNutrientObject({

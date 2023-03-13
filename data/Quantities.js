@@ -40,3 +40,16 @@ export const nutrientList = [
   "saturated fat",
   "monounsaturated fat",
 ];
+
+export const macros = [
+  "fat",
+  "protein",
+  "carbs",
+  "cholesterol",
+  "omega 3",
+  "omega 6",
+  "saturated fat",
+  "polyunsaturated fat",
+  "monounsaturated fat",
+  "choline",
+];
