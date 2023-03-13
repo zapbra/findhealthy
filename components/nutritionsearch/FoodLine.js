@@ -14,6 +14,16 @@ import {
   faCow,
   faDragon,
 } from "@fortawesome/free-solid-svg-icons";
+const [iconObj, setIconObj] = useState({
+  Beef: faCow,
+  "Dairy and Eggs": faGlassWater,
+  Fish: faFish,
+  Poultry: faDrumstickBite,
+  "Lamb, Veal and Game": faDragon,
+  Pork: faBacon,
+  "Fruits and Fruit Juices": faAppleWhole,
+  "Grains and Starches": faWheatAwn,
+});
 const Cont = styled.div`
   padding: 4px 8px;
   border-bottom: 1px solid ${(props) => props.colors.grey};
