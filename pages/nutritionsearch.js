@@ -28,7 +28,7 @@ export async function getServerSideProps() {
   const grainsFetch = await fetchFoodCategoryByName("Grains and Starches");
   return {
     props: {
-      allFoodCategories,
+      allFoodCategories: [...allFoodCategories, ...fishFetch],
       beefFetch,
       dairyAndEggsFetch,
       fishFetch,

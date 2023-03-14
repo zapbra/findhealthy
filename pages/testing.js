@@ -37,19 +37,19 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = "Nectarines";
-const grams = 142;
-const measurement = "1 medium";
-const protein = 1.5;
+const fishName = "Strawberries";
+const grams = 152;
+const measurement = "1 cup";
+const protein = 1;
 
 const food_category_id = 7;
 const obj =
-  "Vitamin A471IU9% Vitamin C7.7mg13% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)1.1mg5% Vitamin K3.1mcg4% Thiamin0.0mg3% Riboflavin0.0mg2% Niacin1.6mg8% Vitamin B60.0mg2% Folate7.1mcg2% Vitamin B120.0mcg0% Pantothenic Acid0.3mg3% Choline8.8mg Calcium8.5mg1% Iron0.4mg2% Magnesium12.8mg3% Phosphorus36.9mg4% Potassium285mg8% Sodium0.0mg0% Zinc0.2mg2% Copper0.1mg6% Manganese0.1mg4% Selenium0.0mcg0% Cholesterol0.0mg0% Total Omega-3 fatty acids2.8mg Total Omega-6 fatty acids158mg";
+  "Vitamin A18.2IU0% Vitamin C89.4mg149% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.4mg2% Vitamin K3.3mcg4% Thiamin0.0mg2% Riboflavin0.0mg2% Niacin0.6mg3% Vitamin B60.1mg4% Folate36.5mcg9% Vitamin B120.0mcg0% Pantothenic Acid0.2mg2% Choline8.7mg Calcium24.3mg2% Iron0.6mg3% Magnesium19.8mg5% Phosphorus36.5mg4% Potassium233mg7% Sodium1.5mg0% Zinc0.2mg1% Copper0.1mg4% Manganese0.6mg29% Selenium0.6mcg1% Cholesterol0.0mg0% Total Omega-3 fatty acids98.8mg Total Omega-6 fatty acids137mg";
 let sugarsX =
-  "Total Carbohydrate15.0g5% Dietary Fiber2.4g10% Starch0.1g Sugars11.2g";
+  "Total Carbohydrate11.7g4% Dietary Fiber3.0g12% Starch0.1g Sugars7.4g";
 sugarsX = sugarsX.replace(/(~ ~|~)/g, "0.0g");
 const fats =
-  "Total Fat0.5g1% Saturated Fat0.0g0% Monounsaturated Fat0.1g Polyunsaturated Fat0.2g";
+  "Total Fat0.5g1% Saturated Fat0.0g0% Monounsaturated Fat0.1g Polyunsaturated Fat0.2g ";
 
 const testing = () => {
   const splitAndInsert = async () => {
