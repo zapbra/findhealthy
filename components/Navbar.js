@@ -144,7 +144,10 @@ const Navbar = () => {
               <h5 className="mar-right-16 underline-hover">MAP</h5>
             </Link>
             <Link href="/" className="no-color-link text-shadow-red">
-              <h5>FORUM</h5>
+              <h5 className="mar-right-16 underline-hover">FORUM</h5>
+            </Link>
+            <Link href="/farmmap" className="no-color-link text-shadow-red">
+              <h5 className="mar-right-16 underline-hover">2ND MAP</h5>
             </Link>
           </div>
           <div className="nav-section">

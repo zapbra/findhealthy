@@ -37,19 +37,19 @@ const fields = {
   "Total Omega-3 fatty acids": "omega3",
   "Total Omega-6 fatty acids": "omega6",
 };
-const fishName = "Strawberries";
-const grams = 152;
-const measurement = "1 cup";
-const protein = 1;
+const fishName = "Lamb, variety meats and by-products, lungs";
+const grams = 113;
+const measurement = "4 oz";
+const protein = 23;
 
-const food_category_id = 7;
+const food_category_id = 5;
 const obj =
-  "Vitamin A18.2IU0% Vitamin C89.4mg149% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)0.4mg2% Vitamin K3.3mcg4% Thiamin0.0mg2% Riboflavin0.0mg2% Niacin0.6mg3% Vitamin B60.1mg4% Folate36.5mcg9% Vitamin B120.0mcg0% Pantothenic Acid0.2mg2% Choline8.7mg Calcium24.3mg2% Iron0.6mg3% Magnesium19.8mg5% Phosphorus36.5mg4% Potassium233mg7% Sodium1.5mg0% Zinc0.2mg1% Copper0.1mg4% Manganese0.6mg29% Selenium0.6mcg1% Cholesterol0.0mg0% Total Omega-3 fatty acids98.8mg Total Omega-6 fatty acids137mg";
+  "Vitamin A101IU2% Vitamin C35.0mg58% Vitamin D~ ~ Vitamin E (Alpha Tocopherol)~ ~ Vitamin K~ ~ Thiamin0.1mg4% Riboflavin0.3mg16% Niacin4.7mg23% Vitamin B60.1mg6% Folate13.6mcg3% Vitamin B124.4mcg74% Pantothenic Acid~ ~ Choline~ Calcium11.3mg1% Iron7.2mg40% Magnesium15.8mg4% Phosphorus247mg25% Potassium269mg8% Sodium177mg7% Zinc2.0mg14% Copper0.3mg14% Manganese0.0mg1% Selenium20.0mcg29% Cholesterol~ ~ Total Omega-3 fatty acids~ Total Omega-6 fatty acids~";
 let sugarsX =
-  "Total Carbohydrate11.7g4% Dietary Fiber3.0g12% Starch0.1g Sugars7.4g";
+  "Total Carbohydrate0.0g0% Dietary Fiber0.0g0% Starch0.0g Sugars0.0g";
 sugarsX = sugarsX.replace(/(~ ~|~)/g, "0.0g");
 const fats =
-  "Total Fat0.5g1% Saturated Fat0.0g0% Monounsaturated Fat0.1g Polyunsaturated Fat0.2g ";
+  "Total Fat2.9g5% Saturated Fat1.0g5% Monounsaturated Fat0.8g Polyunsaturated Fat0.4g";
 
 const testing = () => {
   const splitAndInsert = async () => {
