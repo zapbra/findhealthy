@@ -11,6 +11,7 @@ const Cont = styled.div`
   margin: 0 auto;
   @media only screen and (max-width: 440px) {
     padding-right: 16px;
+    padding-left: 16px;
   }
   .result-holder {
     border: 1px solid ${(props) => props.colors.grey};
