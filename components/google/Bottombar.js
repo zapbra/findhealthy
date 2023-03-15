@@ -1279,7 +1279,9 @@ export const PlacesAutocomplete = ({
     console.log(addressSplit);
     const street = addressSplit[0].trim();
     const country = addressSplit[addressSplit.length - 1].trim();
-    const state = addressSplit[addressSplit.length - 2].trim();
+    const state = addressSplit[addressSplit.length - 2]
+      .trim()
+      .match(/^[a-zA-Z]+/);
     const city = addressSplit[addressSplit.length - 3].trim();
 
     setAddress((prev) => {

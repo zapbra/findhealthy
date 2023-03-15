@@ -16,6 +16,12 @@ const Cont = styled.div`
   .content-container {
     max-width: 1360px;
     margin: 0 auto;
+    justify-content: space-between;
+  }
+  .interface {
+    @media only screen and (max-width: 1340px) {
+      justify-content: center;
+    }
   }
 `;
 
@@ -128,7 +134,7 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
     setStates((prevStates) => {
       return states;
     });
-    setState("?");
+    setState("");
     setCity("");
   }
 
@@ -166,7 +172,7 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
         </div>
       </div>
       <div className="content-container">
-        <div className="flex-inline flex-wrap space-around content-container">
+        <div className="flex flex-wrap space-between interface">
           <Location
             countries={regions}
             country={country}
@@ -189,7 +195,7 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
         </div>
         <div className="mar-bottom-32"></div>
 
-        <Results locations={locationsFetch} />
+        <Results locations={locations} />
       </div>
     </Cont>
   );
