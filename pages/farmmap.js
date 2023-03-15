@@ -4,17 +4,29 @@ import axios from "axios";
 import COLORS from "../data/colors";
 import Location from "../components/farmmap/Location";
 import Products from "../components/farmmap/Products";
-
-
+import { fetchLocations, fetchTags } from "../utils/supabaseFunctions";
+import Results from "../components/farmmap/Results";
 const Cont = styled.div`
   margin-top: 48px;
+  .content-container {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
 `;
 
-
-export async function getServerSideProps = () => {
-
+export async function getServerSideProps() {
+  const tagsFetch = await fetchTags();
+  const locationsFetch = await fetchLocations();
+  return {
+    props: {
+      tagsFetch,
+      locationsFetch,
+    },
+  };
 }
-const Farmmap = () => {
+const Farmmap = ({ tagsFetch, locationsFetch }) => {
+  const [searchTags, setSearchTags] = useState([]);
+  const [farmLocations, setFarmLocations] = useState(locationsFetch);
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
@@ -137,26 +149,35 @@ const Farmmap = () => {
 
   return (
     <Cont colors={COLORS}>
-      <div className="center-inline">
+      <div className="center-inline mar-bottom-48">
         <div className="header-3">
           <h4>FIND FARMS NEAR YOU</h4>
         </div>
       </div>
-      <div>
-        <Location
-          countries={regions}
-          country={country}
-          updateRegion={updateRegion}
-          options={options}
-          setOptions={setOptions}
-          states={states}
-          state={state}
-          setStates={setStates}
-          cities={cities}
-          city={city}
-          setCities={setCities}
-        />
-        <Products />
+      <div className="content-container">
+        <div className="flex-inline flex-wrap space-around content-container">
+          <Location
+            countries={regions}
+            country={country}
+            updateRegion={updateRegion}
+            options={options}
+            setOptions={setOptions}
+            states={states}
+            state={state}
+            setStates={setStates}
+            cities={cities}
+            city={city}
+            setCities={setCities}
+          />
+
+          <Products
+            tagsFetch={tagsFetch}
+            searchTags={searchTags}
+            setSearchTags={setSearchTags}
+          />
+        </div>
+        <div className="mar-bottom-32"></div>
+        <Results />
       </div>
     </Cont>
   );

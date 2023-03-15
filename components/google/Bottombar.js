@@ -95,8 +95,7 @@ const Bottombar = ({
   addTag,
   fetchNewLocation,
   user,
-  updateCoords
- 
+  updateCoords,
 }) => {
   const {
     handleSubmit,
@@ -105,14 +104,14 @@ const Bottombar = ({
     setValue,
     formState: { errors },
   } = useForm();
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState("");
   const updateDescription = (value) => {
     setDescription(value);
-  }
-  const [howToOrder, setHowToOrder] = useState('');
+  };
+  const [howToOrder, setHowToOrder] = useState("");
   const updateHowToOrder = (value) => {
     setHowToOrder(value);
-  }
+  };
   const [selectedIcon, setSelectedIcon] = useState("/icons/meat.png");
   const [loading, setLoading] = useState({ state: false, msg: "" });
   const [images, setImages] = useState([]);
@@ -132,6 +131,7 @@ const Bottombar = ({
     street: "",
     state: "",
     country: "",
+    city: "",
     lat: "",
     lng: "",
   });
@@ -314,8 +314,8 @@ const Bottombar = ({
   const createButtonRef = useRef(null);
   const clearForm = () => {
     setValue("name", "");
-    setDescription('')
-    setHowToOrder('')
+    setDescription("");
+    setHowToOrder("");
     setValue("hoursFrom", "");
     setValue("hoursTo", "");
     setValue("pickup", "unspecified");
@@ -353,7 +353,7 @@ const Bottombar = ({
     const navbar = document.getElementById("navbar");
     navbar.scrollIntoView({ behavior: "smooth", block: "center" });
     setLoading({ state: false, msg: "" });
-    updateCoords({coords: {latitude: address.lat, longitude: address.lng}});
+    updateCoords({ coords: { latitude: address.lat, longitude: address.lng } });
   };
 
   const createLocationFunc = async (formData) => {
@@ -501,7 +501,8 @@ const Bottombar = ({
         address.lat,
         address.lng,
         address.country,
-        address.state
+        address.state,
+        address.city
       ).then((res) => finalizeLocation(locationId));
     } else {
       // if address isn't valid, remove loading screen
@@ -803,7 +804,7 @@ const Bottombar = ({
       {showPhotoDisplay && (
         <PhotoDisplay selectedImage={selectedImage} hidePhoto={hidePhoto} />
       )}
-      
+
       <button
         disabled={adding}
         onClick={startAddingFunctional}
@@ -871,11 +872,11 @@ const Bottombar = ({
               <div className="red-line mar-bottom-8"></div>
               <p className="italic">How are their prices?</p>
               <p className="italic mar-bottom-4">What was your experience?</p>
-              <Editor id = 'description'
-              section = {description}
-              updateSection = {updateDescription}
+              <Editor
+                id="description"
+                section={description}
+                updateSection={updateDescription}
               />
-              
             </div>
 
             <div className="input-line">
@@ -885,11 +886,11 @@ const Bottombar = ({
               <p className="italic mar-bottom-4">
                 Is it pickup only on certain days?
               </p>
-              <Editor id = 'howToOrder'
-              section = {howToOrder}
-              updateSection = {updateHowToOrder}
+              <Editor
+                id="howToOrder"
+                section={howToOrder}
+                updateSection={updateHowToOrder}
               />
-              
             </div>
 
             <form onSubmit={addProduct} className="input-line">
@@ -1271,13 +1272,16 @@ export const PlacesAutocomplete = ({
     setValue(address.description);
     setLocation(address.description);
     const results = await getGeocode({ address: address.description });
-   
+
     const { lat, lng } = await getLatLng(results[0]);
 
     const addressSplit = address.description.split(",");
+    console.log(addressSplit);
     const street = addressSplit[0];
     const country = addressSplit[addressSplit.length - 1];
     const state = addressSplit[addressSplit.length - 2];
+    const city = addressSplit[addressSplit.length - 3];
+
     setAddress((prev) => {
       return {
         ...prev,
@@ -1287,6 +1291,7 @@ export const PlacesAutocomplete = ({
         street,
         state,
         country,
+        city,
       };
     });
     setTimeout(() => {

@@ -4,6 +4,7 @@ import COLORS from "../../data/colors";
 import Select from "../google/Select";
 const Cont = styled.div`
   display: inline-block;
+  margin-bottom: 32px;
   .dropdown {
     border: none;
     &__menu {
