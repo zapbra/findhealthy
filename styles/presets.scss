@@ -122,6 +122,13 @@ h6 {
 }
 // spacers
 
+.mar-bottom-32-res{
+  margin-bottom: 32px;
+  @media only screen and (max-width:600px){
+    margin-bottom: 16px;
+  }
+}
+
 .mar-bottom-32 {
   margin-bottom: 32px;
 }
