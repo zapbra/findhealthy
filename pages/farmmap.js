@@ -42,7 +42,7 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
   const [locations, setLocations] = useState([]);
   const [options, setOptions] = useState([]);
   const [regions, setRegions] = useState([]);
-  const [foodLocations, setFoodLocaitons] = useState([]);
+  const [foodLocations, setFoodLocaitons] = useState(locationsFetch);
   console.log(farmLocations);
 
   const changeHandler = (value, name) => {
@@ -79,12 +79,12 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
         });
       })
       .catch((err) => console.log(err));
-
+    /*
     setLocations((prevLocations) => {
       let newLocations = foodLocations.sort((a, b) => {
         return a.title.localeCompare(b.title);
       });
-    });
+    }); */
   }, []);
 
   useEffect(() => {

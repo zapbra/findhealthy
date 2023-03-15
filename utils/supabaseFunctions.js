@@ -233,12 +233,13 @@ export const updateAddress = async (
   lat,
   lng,
   country,
-  state
+  state,
+  city
 ) => {
   try {
     const country_id = await fetchCountryByName(country);
     const state_id = await fetchStateByName(state);
-
+    const city_id = await fetchCityByName(city);
     const { data, error } = await supabase
       .from("address")
       .update({
@@ -281,6 +282,29 @@ export const fetchCountryByName = async (name) => {
   }
 };
 
+export const fetchCityByName = async (name) => {
+  try {
+    const { data, error } = await supabase
+      .from("cities")
+      .select()
+      .eq("name", name);
+
+    if (data.length === 0) {
+      const { data, error2 } = await supabase
+        .from("cities")
+        .insert({ name })
+        .select();
+
+      return data[0].id;
+    }
+
+    if (error) throw error;
+    return data[0].id;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const fetchStateByName = async (name) => {
   try {
     const { data, error } = await supabase
@@ -308,7 +332,9 @@ export const fetchLocations = async () => {
   try {
     const { data, error } = await supabase
       .from("locations")
-      .select("*,address(*), products(*), images(*)");
+      .select(
+        "*,address(*, country_id(name), state_id(name)), products(*), images(*)"
+      );
     if (error) throw error;
     return data;
   } catch (error) {
