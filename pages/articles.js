@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import Aos from "aos";
+import "aos/dist/aos.css";
 import COLORS from "../data/colors";
 import Topics from "../components/articles/Topics";
 import ArticlesPreview from "../components/articles/ArticlesPreview";
@@ -10,6 +12,9 @@ const Cont = styled.div`
 `;
 
 const Articles = () => {
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
   return (
     <Cont colors={COLORS}>
       <Topics />

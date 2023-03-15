@@ -3,6 +3,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import TopicLine from "./TopicLine";
+import Aos from "aos";
+import "aos/dist/aos.css";
 const Cont = styled.div`
   .topic-holder {
     display: flex;
@@ -29,7 +31,7 @@ const Topics = () => {
     );
   });
   return (
-    <Cont colors={COLORS}>
+    <Cont colors={COLORS} data-aos="fade-up" data-aos-once="true">
       <h3 className="black">TOPICS</h3>
       <div className="grey-line mar-bottom-32"></div>
       <div className="topic-holder space-around">

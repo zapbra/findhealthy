@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
 import ArticleLine from "./ArticleLine";
+import "aos/dist/aos.css";
 const Cont = styled.div`
   .container {
     display: grid;
@@ -16,7 +17,7 @@ const Cont = styled.div`
 const ArticlesPreview = ({ title, articles }) => {
   const [articleElems, setArticleElems] = useState([]);
   return (
-    <Cont colors={COLORS}>
+    <Cont colors={COLORS} data-aos="fade-up" data-aos-once="true">
       <h3 className="black">{title}</h3>
       <div className="grey-line mar-bottom-32"></div>
       <div className="container">
