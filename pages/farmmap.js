@@ -43,7 +43,6 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
   const [options, setOptions] = useState([]);
   const [regions, setRegions] = useState([]);
   const [foodLocations, setFoodLocaitons] = useState(locationsFetch);
-  console.log(farmLocations);
 
   const changeHandler = (value, name) => {
     setFormData((prev) => ({
@@ -89,30 +88,35 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
 
   useEffect(() => {
     setLocations((prevLocations) => {
-      return foodLocations.filter((location) => {
-        return location.country.title === country;
+      return farmLocations.filter((location) => {
+        console.log(location.address[0].country_id.name === country);
+        return location.address[0].country_id.name === country;
       });
     });
   }, [country]);
+  console.log(": }");
+  console.log(farmLocations);
+  console.log(": x");
+  console.log(locations);
+  console.log(": x");
 
   useEffect(() => {
     setLocations((prevLocations) => {
-      return foodLocations.filter((location) => {
-        return location.state.title === state;
+      return farmLocations.filter((location) => {
+        return location.address[0].state_id.name === state;
       });
     });
   }, [state]);
-
+  /*
   useEffect(() => {
     setLocations((prevLocations) => {
-      return foodLocations.filter((location) => {
-        return location.city.title === city;
+      return farmLocations.filter((location) => {
+        return location.city_id?.name === city;
       });
     });
-  }, [city]);
+  }, [city]);*/
 
   function updateCountry(value) {
-    console.log(value);
     setCountry((prevCountry) => {
       return value;
     });

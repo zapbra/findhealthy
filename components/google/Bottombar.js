@@ -1277,10 +1277,10 @@ export const PlacesAutocomplete = ({
 
     const addressSplit = address.description.split(",");
     console.log(addressSplit);
-    const street = addressSplit[0];
-    const country = addressSplit[addressSplit.length - 1];
-    const state = addressSplit[addressSplit.length - 2];
-    const city = addressSplit[addressSplit.length - 3];
+    const street = addressSplit[0].trim();
+    const country = addressSplit[addressSplit.length - 1].trim();
+    const state = addressSplit[addressSplit.length - 2].trim();
+    const city = addressSplit[addressSplit.length - 3].trim();
 
     setAddress((prev) => {
       return {
