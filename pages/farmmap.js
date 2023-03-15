@@ -6,6 +6,7 @@ import Location from "../components/farmmap/Location";
 import Products from "../components/farmmap/Products";
 import { fetchLocations, fetchTags } from "../utils/supabaseFunctions";
 import Results from "../components/farmmap/Results";
+import Farm from "../components/farmmap/Farm";
 const Cont = styled.div`
   margin-top: 48px;
   .content-container {
@@ -38,6 +39,21 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
   const [options, setOptions] = useState([]);
   const [regions, setRegions] = useState([]);
   const [foodLocations, setFoodLocaitons] = useState([]);
+  console.log(farmLocations);
+  const locElem = (
+    <Farm
+      name={farmLocations[2].name}
+      address={farmLocations[2].address[0].full_address}
+      created_at={farmLocations[2].created_at}
+      icon={farmLocations[2].icon}
+      tags={farmLocations[2].tags}
+      pickup={farmLocations[2].pickup}
+      pricing={farmLocations[2].pricing}
+      quality={farmLocations[2].quality}
+      image={farmLocations[2].images[0].url}
+    />
+  );
+
   const changeHandler = (value, name) => {
     setFormData((prev) => ({
       ...prev,
@@ -177,7 +193,8 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
           />
         </div>
         <div className="mar-bottom-32"></div>
-        <Results />
+
+        <Results locElem={locElem} />
       </div>
     </Cont>
   );
