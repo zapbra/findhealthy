@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import COLORS from "../data/colors";
 import Location from "../components/farmmap/Location";
-import axios from "axios";
+import Products from "../components/farmmap/Products";
+
+
 const Cont = styled.div`
   margin-top: 48px;
 `;
 
+
+export async function getServerSideProps = () => {
+
+}
 const Farmmap = () => {
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
@@ -149,6 +156,7 @@ const Farmmap = () => {
           city={city}
           setCities={setCities}
         />
+        <Products />
       </div>
     </Cont>
   );
