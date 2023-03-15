@@ -3,11 +3,11 @@ import styled from "styled-components";
 import COLORS from "../../data/colors";
 
 const Cont = styled.div``;
-const Results = ({ locElem }) => {
-  console.log(locElem);
+const Results = ({ locationElems }) => {
+  console.log(locationElems);
   return (
     <Cont colors={COLORS} className="tan-container">
-      {locElem}
+      {locationElems}
     </Cont>
   );
 };
