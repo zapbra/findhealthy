@@ -41,25 +41,6 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
   const [foodLocations, setFoodLocaitons] = useState([]);
   console.log(farmLocations);
 
-  const [locationElems, setLocationElems] = useState(
-    locationsFetch.map((location, index) => {
-      return (
-        <Farm
-          key={index}
-          name={location.name}
-          address={location.address[0].full_address}
-          created_at={location.created_at}
-          icon={location.icon}
-          tags={location.tags}
-          pickup={location.pickup}
-          pricing={location.pricing}
-          quality={location.quality}
-          image={location.images[0]?.url}
-        />
-      );
-    })
-  );
-
   const changeHandler = (value, name) => {
     setFormData((prev) => ({
       ...prev,
@@ -176,7 +157,7 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
           <h4>FIND FARMS NEAR YOU</h4>
         </div>
       </div>
-      <div className="content-container">
+      <div className="content-container padding-16">
         <div className="flex-inline flex-wrap space-around content-container">
           <Location
             countries={regions}
@@ -200,7 +181,7 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
         </div>
         <div className="mar-bottom-32"></div>
 
-        <Results locationElems={locationElems} />
+        <Results locations={locationsFetch} />
       </div>
     </Cont>
   );

@@ -5,6 +5,15 @@ import Select from "../google/Select";
 const Cont = styled.div`
   display: inline-block;
   margin-bottom: 32px;
+  @media only screen and (max-width: 300px) {
+    input {
+      width: 100% !important;
+      min-width: 0;
+    }
+  }
+  input {
+    min-width: 0px !important;
+  }
   .dropdown {
     border: none;
     &__menu {

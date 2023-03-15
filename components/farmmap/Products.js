@@ -16,7 +16,7 @@ const Cont = styled.div`
     //border: 1px solid ${(props) => props.colors.grey};
     padding: 8px 16px;
     display: flex;
-    width: 100%;
+
     align-items: center;
     transition: background-color 0.25s ease;
     &:hover {
@@ -28,6 +28,7 @@ const Cont = styled.div`
   }
   .tag-holder-spec {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     border-radius: 32px;
     background: ${(props) => props.colors.lightBlue};
@@ -39,7 +40,7 @@ const Cont = styled.div`
       rgba(0, 0, 0, 0.09) 0px 32px 16px;
     .tag-inner-holder {
       display: flex;
-
+      flex-wrap: wrap;
       justify-content: space-between;
       &:nth-of-type(1) {
         .tag-spec {

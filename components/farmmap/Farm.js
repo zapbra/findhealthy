@@ -14,6 +14,10 @@ const Cont = styled.div`
   margin-bottom: 16px;
   transition: box-shadow 0.25s ease;
   max-width: 240px;
+  @media only screen and (max-width: 550px) {
+    max-width: 100%;
+    width: 100%;
+  }
   &:hover {
     border: 1px solid ${(props) => props.colors.black};
   }
@@ -119,7 +123,6 @@ const Listing = ({
         </div>
         <div className="flex align-center space-between">
           <div>
-            <p className="contrast">{new Date(created_at).toDateString()} </p>
             <h5 className="black">{name}</h5>
           </div>
           <Image src={icon} width={32} height={32} quality="100" />
