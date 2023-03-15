@@ -9,8 +9,12 @@ import Results from "../components/farmmap/Results";
 import Farm from "../components/farmmap/Farm";
 const Cont = styled.div`
   margin-top: 48px;
+  padding: 16px;
+  @media only screen and (max-width: 500px) {
+    padding: 4px;
+  }
   .content-container {
-    max-width: 1300px;
+    max-width: 1360px;
     margin: 0 auto;
   }
 `;
@@ -157,7 +161,7 @@ const Farmmap = ({ tagsFetch, locationsFetch }) => {
           <h4>FIND FARMS NEAR YOU</h4>
         </div>
       </div>
-      <div className="content-container padding-16">
+      <div className="content-container">
         <div className="flex-inline flex-wrap space-around content-container">
           <Location
             countries={regions}

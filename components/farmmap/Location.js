@@ -6,7 +6,8 @@ const Cont = styled.div`
   display: inline-block;
   margin-bottom: 32px;
   @media only screen and (max-width: 300px) {
-    input {
+    .dropdown__selected,
+    .dropdown__menu {
       width: 100% !important;
       min-width: 0;
     }
