@@ -9,6 +9,9 @@ const Cont = styled.div`
     padding: 4px 8px;
     background-color: ${(props) => props.colors.tan};
   }
+  @media only screen and (max-width: 600px) {
+    border-radius: 0px;
+  }
 `;
 const ForumContent = ({ states, provinces, euroCountries }) => {
   const [showStates, setShowStates] = useState(states.slice(0, 6));

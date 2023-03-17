@@ -9,6 +9,9 @@ import euroCountriesFetch from "../../data/locations/EuroCountries.json";
 const Cont = styled.div`
   border: 1px solid ${(props) => props.colors.grey};
   border-radius: 8px;
+  @media only screen and (max-width: 600px) {
+    border-radius: 0px;
+  }
 `;
 const ForumContent = () => {
   const [states, setStates] = useState(statesFetch.map((state) => state.name));

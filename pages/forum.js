@@ -12,6 +12,11 @@ const Cont = styled.div`
     margin: auto;
     border-radius: 8px;
     padding: 16px;
+    @media only screen and (max-width: 600px) {
+      width: 100%;
+      border-radius: 0px;
+      padding: 0;
+    }
   }
 `;
 const Forum = () => {
