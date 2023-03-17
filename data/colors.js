@@ -17,4 +17,5 @@ export default {
   lightRed: "#fd2727",
   lightWhite: "#F9FCFF",
   offWhite2: "#eff1f3",
+  midBeige: "#E8D6CE",
 };

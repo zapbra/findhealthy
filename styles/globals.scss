@@ -6,6 +6,7 @@
 @import "icons.scss";
 @import "scrollbar.scss";
 $tan: #edc7b7;
+$x: #E8D6CE;
 $light-beige: #eee2dc;
 $grey: #bab2b5;
 $darkBlue: rgb(18, 60, 105);
@@ -29,6 +30,7 @@ $light-blue-2: #88c1ff;
 $light-green: #27fd55;
 $light-red: #fd2727;
 $light-orange: #fd7d27;
+
 
 .tan-container{
   border: 1px solid $darkPink;
@@ -355,6 +357,18 @@ input[type="password"] {
   &:focus {
     background: #fff;
     outline: 3px solid $darkPink;
+  }
+}
+input[type='text'].input-small{
+  max-width: 120px;
+  border-radius: 4px;
+  font-size:16px;
+  height:100%;
+  padding: 4px;
+  border: 1px solid $grey;
+  &:focus{
+    outline:none !important;
+    border: 1px solid $darkPink;
   }
 }
 .grey-line-vertical {

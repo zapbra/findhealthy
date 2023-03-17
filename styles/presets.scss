@@ -304,9 +304,16 @@ h6 {
 justify-end {
   justify-content: flex-end;
 }
+.justify-start{
+  justify-content: flex-start;
+}
 .align-center {
   align-items: center;
 }
+.align-end{
+  align-items:end;
+}
+
 .underline-hover {
   &:hover {
     text-decoration: underline;
