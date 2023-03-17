@@ -84,17 +84,12 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
         <FontAwesomeIcon icon={faArrowTurnUp} className="icon-sm white" />
       </div>
       <Link onClick={hideMobileActive} href="/account">
-        <div className="flex line align-center">
+        <div className="flex line align-center mar-bottom-32">
           <h4 className="white text-shadow-white light mar-right-8">ACCOUNT</h4>
           <FontAwesomeIcon icon={faUser} className="white icon-sm" />
         </div>
       </Link>
-      <Link onClick={hideMobileActive} href="/forum">
-        <div className="flex line align-center mar-bottom-32">
-          <h4 className="white text-shadow-white light mar-right-8">FORUM</h4>
-          <FontAwesomeIcon icon={faComment} className="white icon-sm" />
-        </div>
-      </Link>
+
       <section>
         <h3 className="white">FOOD MAP </h3>
         <Link onClick={hideMobileActive} href="/">
@@ -116,6 +111,18 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
                 NUTRITION SEARCH
               </h4>
               <FontAwesomeIcon icon={faSearch} className="white icon-ssm" />
+            </div>
+            <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
+          </div>
+        </Link>
+
+        <Link onClick={hideMobileActive} href="/forum">
+          <div className="line flex space-between align-center">
+            <div className="flex-inline align-center">
+              <h4 className="white text-shadow-white light mar-right-8">
+                FORUM
+              </h4>
+              <FontAwesomeIcon icon={faComment} className="white icon-sm" />
             </div>
             <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
           </div>
