@@ -1,10 +1,23 @@
 import { useEffect, useState } from "react";
-import Provinces from "../data/locations/Provinces.json";
+import euroCountries from "../data/locations/EuroCountries.json";
+import supabase from "../utils/supabaseClient";
 
 const Evenmoretesting = () => {
+  const insert = async (val) => {
+    try {
+      const { data, error } = await supabase
+        .from("forumCountry")
+        .insert({ name: val, continent_id: 2 })
+        .select();
+      if (error) throw error;
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const runFunction = async () => {
-    Object.entries(Provinces).map(([key, val]) => {
-      console.log(val);
+    euroCountries.forEach((state) => {
+      insert(state.name);
     });
   };
   return (

@@ -6,6 +6,10 @@ import {
   faArrowRight,
   faArrowTurnUp,
   faUser,
+  faSearch,
+  faLocationDot,
+  faNewspaper,
+  faComment,
 } from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
   background: rgb(18, 60, 105);
@@ -80,26 +84,39 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
         <FontAwesomeIcon icon={faArrowTurnUp} className="icon-sm white" />
       </div>
       <Link onClick={hideMobileActive} href="/account">
+        <div className="flex line align-center">
+          <h4 className="white text-shadow-white light mar-right-8">ACCOUNT</h4>
+          <FontAwesomeIcon icon={faUser} className="white icon-sm" />
+        </div>
+      </Link>
+      <Link onClick={hideMobileActive} href="/forum">
         <div className="flex line align-center mar-bottom-32">
-          <FontAwesomeIcon
-            icon={faUser}
-            className="white icon-sm mar-right-8"
-          />
-
-          <h4 className="white text-shadow-white light">ACCOUNT</h4>
+          <h4 className="white text-shadow-white light mar-right-8">FORUM</h4>
+          <FontAwesomeIcon icon={faComment} className="white icon-sm" />
         </div>
       </Link>
       <section>
         <h3 className="white">FOOD MAP </h3>
         <Link onClick={hideMobileActive} href="/">
           <div className="line flex space-between align-center">
-            <h4 className="white text-shadow-white light">MAP</h4>
+            <div className="flex-inline align-center">
+              <h4 className="white text-shadow-white light mar-right-8">MAP</h4>
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                className="white icon-ssm"
+              />
+            </div>
             <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
           </div>
         </Link>
         <Link onClick={hideMobileActive} href="/nutritionsearch">
           <div className="line flex space-between align-center">
-            <h4 className="white text-shadow-white light">NUTRITION SEARCH</h4>
+            <div className="flex-inline align-center">
+              <h4 className="white text-shadow-white light mar-right-8">
+                NUTRITION SEARCH
+              </h4>
+              <FontAwesomeIcon icon={faSearch} className="white icon-ssm" />
+            </div>
             <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
           </div>
         </Link>
@@ -111,21 +128,37 @@ const Dropdown = ({ hideMobileActive, mobileActive }) => {
         <h3 className="white">FISH FINDER </h3>
         <Link href="/fishmap" onClick={hideMobileActive}>
           <div className="line flex space-between align-center">
-            <h4 className="white text-shadow-white light">MAP</h4>
+            <div className="flex-inline align-center">
+              <h4 className="white text-shadow-white light mar-right-8">MAP</h4>
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                className="white icon-ssm"
+              />
+            </div>
             <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
           </div>
         </Link>
 
         <Link href="/articles" onClick={hideMobileActive}>
           <div className="line flex space-between align-center">
-            <h4 className="white text-shadow-white light">ARTICLES</h4>
+            <div className="flex-inline align-center">
+              <h4 className="white text-shadow-white light mar-right-8">
+                ARTICLES
+              </h4>
+              <FontAwesomeIcon icon={faNewspaper} className="white icon-ssm" />
+            </div>
             <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
           </div>
         </Link>
 
         <Link href="/datasearch" onClick={hideMobileActive}>
           <div className="line flex space-between align-center">
-            <h4 className="white text-shadow-white light">DATA SEARCH</h4>
+            <div className="flex-inline align-center">
+              <h4 className="white text-shadow-white light mar-right-8">
+                DATA SEARCH
+              </h4>
+              <FontAwesomeIcon icon={faSearch} className="white icon-ssm" />
+            </div>
             <FontAwesomeIcon icon={faArrowRight} className="white icon-ssm" />
           </div>
         </Link>
