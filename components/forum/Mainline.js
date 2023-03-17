@@ -4,13 +4,17 @@ import COLORS from "../../data/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTurnUp } from "@fortawesome/free-solid-svg-icons";
 const Cont = styled.div`
-  border: 1px solid ${(props) => props.colors.grey};
+  border-bottom: 1px solid ${(props) => props.colors.grey};
+  border-right: 1px solid ${(props) => props.colors.grey};
+  border-left: 1px solid ${(props) => props.colors.grey};
   padding: 4px 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   background-color: ${(props) => props.colors.lightBeige};
-
+  &:last-of-type {
+    border-radius: 0px;
+  }
   &:hover {
     background-color: ${(props) => props.colors.midBeige};
   }
@@ -45,7 +49,12 @@ const ForumContent = ({ title, subTitles, postsX, lastPostDetails }) => {
         <p style={{ width: "80px" }}>{postsX} posts</p>
         <div className="recent-post-status">
           <p className="inline-block bold mar-right-4 small">Last post</p>
-          <p className="inline-block small">by {lastPostDetails.username} </p>
+          <p className="inline-block small">
+            by{" "}
+            <span className="green underline-hover">
+              {lastPostDetails.username}
+            </span>
+          </p>
           <p className="small">{lastPostDetails.category}</p>
           <p className="small">{lastPostDetails.date.toDateString()}</p>
         </div>

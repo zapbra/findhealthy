@@ -1,17 +1,19 @@
-import {useEffect, useState} from 'react';
-import { fetchFish } from '../utils/supabaseFunctions';
+import { useEffect, useState } from "react";
+import Provinces from "../data/locations/Provinces.json";
 
 const Evenmoretesting = () => {
-    useEffect(()=> {
-        const getFish = async () => {
-            const fish = await fetchFish();
-            console.log(fish);
-        }
-        getFish();
-    },[]);
+  const runFunction = async () => {
+    Object.entries(Provinces).map(([key, val]) => {
+      console.log(val);
+    });
+  };
   return (
-    <div>evenmoretesting</div>
-  )
-}
+    <div>
+      <div onClick={runFunction} style={{ border: "1px solid black" }}>
+        <p>run me</p>
+      </div>
+    </div>
+  );
+};
 
-export default Evenmoretesting
+export default Evenmoretesting;

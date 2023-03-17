@@ -177,9 +177,14 @@ const Navbar = () => {
           <div className="flex align-center flex-wrap">
             <Link
               href="/"
-              className="mar-right-16 no-color-link text-shadow-red "
+              className="no-color-link text-shadow-red mar-right-16"
             >
-              <h4>FOODMAP</h4>
+              <Image
+                src="/icons/logo_sm.png"
+                width={50}
+                height={31.95}
+                quality="100"
+              />
             </Link>
             {user !== null ? (
               <Link href="/account">

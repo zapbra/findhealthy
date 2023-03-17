@@ -15,6 +15,7 @@ $green: #3bac46;
 $offWhite: #e7eff8;
 $light-red: #fd2727;
 $light-blue: #278ffd;
+$light-green: #27fd55;
 p {
   line-height: 1.5;
 }
@@ -54,6 +55,9 @@ h6 {
 }
 .green {
   color: $green;
+}
+.lt-green{
+  color: $light-green;
 }
 .black {
   color: $black !important;

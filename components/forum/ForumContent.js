@@ -5,9 +5,8 @@ import MainSection from "./MainSection";
 import statesFetch from "../../data/locations/States.json";
 import provincesFetch from "../../data/locations/Provinces.json";
 import euroCountriesFetch from "../../data/locations/EuroCountries.json";
-
+import PostsSection from "./PostsSection";
 const Cont = styled.div`
-  border: 1px solid ${(props) => props.colors.grey};
   border-radius: 8px;
   @media only screen and (max-width: 600px) {
     border-radius: 0px;
@@ -22,6 +21,45 @@ const ForumContent = () => {
     euroCountriesFetch.map((country) => country.name)
   );
 
+  const posts = [
+    {
+      title: "Where to find meat in germany",
+      forum: "Germany",
+      poster: "rawfatgod",
+      date: new Date(),
+    },
+    {
+      title: "Where to find meat in canada",
+      forum: "Canada",
+      poster: "rawfatgod",
+      date: new Date(),
+    },
+    {
+      title: "Where to find meat in canada",
+      forum: "Canada",
+      poster: "rawfatgod",
+      date: new Date(),
+    },
+    {
+      title: "Where to find meat in germany",
+      forum: "Germany",
+      poster: "rawfatgod",
+      date: new Date(),
+    },
+    {
+      title: "Where to find meat in germany",
+      forum: "Germany",
+      poster: "rawfatgod",
+      date: new Date(),
+    },
+    {
+      title: "Where to find meat in germany",
+      forum: "Germany",
+      poster: "rawfatgod",
+      date: new Date(),
+    },
+  ];
+
   return (
     <Cont colors={COLORS}>
       <MainSection
@@ -29,6 +67,7 @@ const ForumContent = () => {
         provinces={provinces}
         euroCountries={euroCountries}
       />
+      <PostsSection title="Recent Posts" posts={posts} />
     </Cont>
   );
 };
