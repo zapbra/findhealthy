@@ -26,6 +26,7 @@ $light-orange: #fd7d27;
   border: 1px solid $darkBlue;
   border-radius: 16px;
   padding: 4px 8px;
+  cursor: pointer;
   h1,
   h2,
   h3,
@@ -170,12 +171,12 @@ $light-orange: #fd7d27;
     text-decoration: none !important;
   }
 }
-.white-btn{
+.white-btn {
   border: 1px solid $black;
   background: #fff;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    padding: 8px 16px;
+  padding: 8px 16px;
   transition: box-shadow 0.25s ease;
   cursor: pointer;
   border-radius: 8px;

@@ -38,18 +38,21 @@ const ForumContent = ({ states, provinces, euroCountries }) => {
         subTitles={showStates}
         postsX={56}
         lastPostDetails={postObj}
+        link="country"
       />
       <Mainline
         title="Canada"
         subTitles={showProvinces}
         postsX={32}
         lastPostDetails={postObj}
+        link="country"
       />
       <Mainline
         title="Europe"
         subTitles={showEuroCountries}
         postsX={127}
         lastPostDetails={postObj}
+        link="country"
       />
     </Cont>
   );

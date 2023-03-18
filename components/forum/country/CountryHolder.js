@@ -9,7 +9,7 @@ const Cont = styled.div`
     border-radius: 0px;
   }
 `;
-const ForumContent = () => {
+const CountryHolder = ({ country, provinces }) => {
   const posts = [
     {
       title: "Where to find meat in germany",
@@ -51,16 +51,11 @@ const ForumContent = () => {
 
   return (
     <Cont colors={COLORS}>
-      {/*
-      <CountrySection
-        states={states}
-        provinces={provinces}
-        euroCountries={euroCountries}
-      />
+      <CountrySection country={country} provinces={provinces} />
+
       <PostsSection title="Recent Posts" posts={posts} />
-  */}
     </Cont>
   );
 };
 
-export default ForumContent;
+export default CountryHolder;

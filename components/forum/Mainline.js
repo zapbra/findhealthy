@@ -33,19 +33,31 @@ const Cont = styled.div`
     width: 33%;
   }
 `;
-const ForumContent = ({ title, subTitles, postsX, lastPostDetails }) => {
-  console.log(subTitles);
-  console.log(lastPostDetails.date);
+const ForumContent = ({
+  title,
+  subTitles,
+  postsX,
+  lastPostDetails,
+  link,
+  backLink,
+}) => {
   return (
-    <Link href={{ pathname: `/forum/country/${title}` }}>
+    <Link
+      href={{
+        pathname: `/forum/${link}/${title}`,
+        query: { backLink: backLink },
+      }}
+    >
       <Cont colors={COLORS}>
         <div className="flex-one x">
           <p className="blue bold">{title}</p>
-          <div className="subtitles">
-            {subTitles.map((title) => {
-              return <p className="inline-block mar-right-4">{title}, </p>;
-            })}
-          </div>
+          {subTitles !== null && (
+            <div className="subtitles">
+              {subTitles.map((title) => {
+                return <p className="inline-block mar-right-4">{title}, </p>;
+              })}
+            </div>
+          )}
         </div>
         <div className="flex flex-one align-center">
           <p style={{ width: "80px" }}>{postsX} posts</p>

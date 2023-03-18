@@ -907,3 +907,19 @@ export const fetchForumCountryByName = async (name) => {
     return error;
   }
 };
+
+export const fetchForumProvinceByName = async (name) => {
+  try {
+    const { data, error } = await supabase
+      .from("forumStates")
+      .select("*, forumCities(*)")
+      .eq("name", name)
+      .maybeSingle();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
