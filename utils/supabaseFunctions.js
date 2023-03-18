@@ -891,3 +891,19 @@ export const fetchFoodByName = async (name) => {
     return error;
   }
 };
+
+export const fetchForumCountryByName = async (name) => {
+  try {
+    const { data, error } = await supabase
+      .from("forumCountries")
+      .select("*, forumStates(*)")
+      .eq("name", name)
+      .maybeSingle();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import COLORS from "../../data/colors";
@@ -36,35 +37,37 @@ const ForumContent = ({ title, subTitles, postsX, lastPostDetails }) => {
   console.log(subTitles);
   console.log(lastPostDetails.date);
   return (
-    <Cont colors={COLORS}>
-      <div className="flex-one x">
-        <p className="blue bold">{title}</p>
-        <div className="subtitles">
-          {subTitles.map((title) => {
-            return <p className="inline-block mar-right-4">{title}, </p>;
-          })}
+    <Link href={{ pathname: `/forum/country/${title}` }}>
+      <Cont colors={COLORS}>
+        <div className="flex-one x">
+          <p className="blue bold">{title}</p>
+          <div className="subtitles">
+            {subTitles.map((title) => {
+              return <p className="inline-block mar-right-4">{title}, </p>;
+            })}
+          </div>
         </div>
-      </div>
-      <div className="flex flex-one align-center">
-        <p style={{ width: "80px" }}>{postsX} posts</p>
-        <div className="recent-post-status">
-          <p className="inline-block bold mar-right-4 small">Last post</p>
-          <p className="inline-block small">
-            by{" "}
-            <span className="green underline-hover">
-              {lastPostDetails.username}
-            </span>
-          </p>
-          <p className="small">{lastPostDetails.category}</p>
-          <p className="small">{lastPostDetails.date.toDateString()}</p>
+        <div className="flex flex-one align-center">
+          <p style={{ width: "80px" }}>{postsX} posts</p>
+          <div className="recent-post-status">
+            <p className="inline-block bold mar-right-4 small">Last post</p>
+            <p className="inline-block small">
+              by{" "}
+              <span className="green underline-hover">
+                {lastPostDetails.username}
+              </span>
+            </p>
+            <p className="small">{lastPostDetails.category}</p>
+            <p className="small">{lastPostDetails.date.toDateString()}</p>
+          </div>
         </div>
-      </div>
-      <FontAwesomeIcon
-        icon={faTurnUp}
-        style={{ transform: "rotate(90deg)" }}
-        className="icon-ssm blue mar-right-16 mar-left-16 hide-400"
-      />
-    </Cont>
+        <FontAwesomeIcon
+          icon={faTurnUp}
+          style={{ transform: "rotate(90deg)" }}
+          className="icon-ssm blue mar-right-16 mar-left-16 hide-400"
+        />
+      </Cont>
+    </Link>
   );
 };
 

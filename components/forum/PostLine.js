@@ -29,7 +29,7 @@ const PostLine = ({ title, forum, username, date }) => {
         </p>
       </div>
       <p className="mar-right-8">{forum}</p>
-      <p>{date.toDateString()}</p>
+      <p className="small">{date.toDateString()}</p>
     </Cont>
   );
 };
