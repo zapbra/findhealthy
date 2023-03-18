@@ -39,6 +39,7 @@ export async function getServerSideProps(params) {
 }
 
 const Province = ({ fetchProvince }) => {
+  const nothing = "deleteme";
   const posts = [
     {
       title: "Why does raw meat make me feel so good?",
